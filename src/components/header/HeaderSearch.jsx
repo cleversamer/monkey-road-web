@@ -42,6 +42,12 @@ const HeaderSearchFilter = styled.li`
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+  cursor: pointer;
+  transition-duration: 176ms;
+
+  :hover {
+    color: #fe7777;
+  }
 
   svg {
     margin-right: 5px;
@@ -81,6 +87,14 @@ const HeaderSearchIconContainer = styled.span`
 
 const HeaderSearchIcon = styled.img`
   width: 20px;
+
+  :hover {
+    transform: scale(0.97);
+  }
+
+  :active {
+    transform: scale(0.95);
+  }
 `;
 
 export default HeaderSearch;

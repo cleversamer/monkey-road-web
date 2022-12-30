@@ -63,6 +63,16 @@ const PopularBrandsList = styled.ul`
 const PopularBrandItem = styled.li`
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition-duration: 176ms;
+
+  :hover {
+    transform: scale(0.97);
+  }
+
+  :active {
+    transform: scale(0.95);
+  }
 `;
 
 const PopularBrandImage = styled.img`

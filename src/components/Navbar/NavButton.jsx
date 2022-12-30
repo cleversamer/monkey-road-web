@@ -20,6 +20,7 @@ const Container = styled.li`
 
   :hover {
     transform: scale(1.05);
+    color: #fe7777;
 
     img {
       transition-duration: 350ms;

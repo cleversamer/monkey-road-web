@@ -36,7 +36,6 @@ const Container = styled.li`
       color: #fe7777 !important;
 
       svg {
-        transition-duration: 176ms;
         transform: translateY(2px);
       }
     }
@@ -53,13 +52,14 @@ const Content = styled.div`
   align-items: center;
   gap: 5px;
   padding: 30px 15px;
-  color: ${({ active }) => (active === "true" ? "#fe7777" : "#000")};
+  color: ${({ active }) => (active === "true" ? "#fe7777" : "#303030")};
 `;
 
 const Link = styled(RouterLink)`
   text-transform: capitalize;
   border-bottom: ${({ active }) =>
     active === "true" ? "2px solid #fe7777" : "none"};
+  transition-duration: 176ms;
 `;
 
 const SubMenu = styled.ul`

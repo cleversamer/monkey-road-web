@@ -82,7 +82,7 @@ const NavButtons = styled.ul`
   list-style: none;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   gap: 20px;
 `;
 
