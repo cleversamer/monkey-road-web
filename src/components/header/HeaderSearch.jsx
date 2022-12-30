@@ -51,7 +51,8 @@ const HeaderSearchFilter = styled.li`
 
   svg {
     margin-right: 5px;
-    color: #fe7777;
+    fill: #fe7777;
+    font-size: 18px;
   }
 `;
 
