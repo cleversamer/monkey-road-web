@@ -25,6 +25,7 @@ const Navbar = () => {
             title="View Cars"
             activeItem={activeItem}
             onNavigate={handleNavigate}
+            menu="true"
           />
 
           <NavItem
@@ -74,7 +75,6 @@ const NavItems = styled.ul`
   justify-content: center;
   align-items: center;
   list-style: none;
-  gap: 35px;
 `;
 
 const NavButtons = styled.ul`
