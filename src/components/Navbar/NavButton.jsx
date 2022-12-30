@@ -20,11 +20,15 @@ const Container = styled.li`
 
   :hover {
     transform: scale(1.05);
-    color: #fe7777;
 
     img {
       transition-duration: 350ms;
       transform: rotate(360deg);
+    }
+
+    span {
+      transition-duration: 350ms;
+      color: #fe7777;
     }
   }
 

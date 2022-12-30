@@ -33,9 +33,12 @@ const Container = styled.li`
 
   :hover {
     > div {
-      color: #fe7777 !important;
+      transition-duration: 176ms;
+      color: #fe7777;
 
       svg {
+        transition-duration: 176ms;
+        fill: #fe7777;
         transform: translateY(2px);
       }
     }
@@ -53,20 +56,21 @@ const Content = styled.div`
   gap: 5px;
   padding: 30px 15px;
   color: ${({ active }) => (active === "true" ? "#fe7777" : "#303030")};
+  height: 30px;
 `;
 
 const Link = styled(RouterLink)`
   text-transform: capitalize;
   border-bottom: ${({ active }) =>
     active === "true" ? "2px solid #fe7777" : "none"};
-  transition-duration: 176ms;
+  line-height: 28px;
 `;
 
 const SubMenu = styled.ul`
   display: none;
   list-style: none;
   position: absolute;
-  bottom: -60px;
+  bottom: -70px;
   left: 10px;
   background-color: #fff;
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
@@ -80,6 +84,7 @@ const SubMenuItem = styled.li`
   box-sizing: content-box;
   font-size: 14px;
   transition-duration: 176ms;
+  border-bottom: 1px solid #eee;
 
   :hover {
     color: #fe7777;
