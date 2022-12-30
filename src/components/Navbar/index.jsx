@@ -58,11 +58,12 @@ const Container = styled.nav`
   position: sticky;
   top: 0;
   box-shadow: 0px 5px 4px rgba(254, 119, 119, 0.3);
+  z-index: 999999;
+  background-color: #fff;
 `;
 
 const Content = styled.div`
   max-width: 1280px;
-  background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
