@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Navbar from "components/Navbar";
+import Navbar from "components/navbar";
 
 const Home = () => {
   return (

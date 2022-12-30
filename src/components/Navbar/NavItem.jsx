@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 
-const NavItem = ({ title, active, ...props }) => {
+const NavItem = ({ title, activeItem, onNavigate }) => {
   return (
-    <Container {...props}>
-      <Link active={active}>{title}</Link>
+    <Container onClick={() => onNavigate(title)}>
+      <Link active={activeItem === title ? "true" : "false"}>{title}</Link>
     </Container>
   );
 };
@@ -16,11 +16,10 @@ const Container = styled.li`
 `;
 
 const Link = styled(RouterLink)`
+  text-transform: capitalize;
   color: ${({ active }) => (active === "true" ? "#fe7777" : "#000")};
   border-bottom: ${({ active }) =>
     active === "true" ? "2px solid #fe7777" : "none"};
-  transition-delay: 100ms;
-  transition-duration: 130ms;
 `;
 
 export default NavItem;

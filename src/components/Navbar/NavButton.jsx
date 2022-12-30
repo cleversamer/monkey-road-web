@@ -37,6 +37,7 @@ const NavButtonIcon = styled.img`
 `;
 
 const NavButtonTitle = styled.span`
+  text-transform: capitalize;
   font-size: 13px;
   font-weight: 500;
 `;

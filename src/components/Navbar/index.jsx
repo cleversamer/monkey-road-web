@@ -4,14 +4,10 @@ import NavLogo from "./NavLogo";
 import NavItem from "./NavItem";
 import NavButton from "./NavButton";
 
-const navItems = ["Home", "View Cars", "About Us", "Contact Us"];
-
 const Navbar = () => {
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState("Home");
 
-  const handleItemClick = (index) => () => {
-    setActiveItem(index);
-  };
+  const handleNavigate = (title) => setActiveItem(title);
 
   return (
     <Container>
@@ -19,14 +15,29 @@ const Navbar = () => {
         <NavLogo />
 
         <NavItems>
-          {navItems.map((title, index) => (
-            <NavItem
-              key={index}
-              title={title}
-              active={activeItem === index ? "true" : "false"}
-              onClick={handleItemClick(index)}
-            />
-          ))}
+          <NavItem
+            title="Home"
+            activeItem={activeItem}
+            onNavigate={handleNavigate}
+          />
+
+          <NavItem
+            title="View Cars"
+            activeItem={activeItem}
+            onNavigate={handleNavigate}
+          />
+
+          <NavItem
+            title="About Us"
+            activeItem={activeItem}
+            onNavigate={handleNavigate}
+          />
+
+          <NavItem
+            title="Contact Us"
+            activeItem={activeItem}
+            onNavigate={handleNavigate}
+          />
         </NavItems>
 
         <NavButtons>
