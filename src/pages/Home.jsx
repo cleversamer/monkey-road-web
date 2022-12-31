@@ -3,6 +3,7 @@ import Header from "components/header";
 import AboutUs from "components/about-us";
 import WhyUs from "components/why-us";
 import ContactUs from "components/contact-us";
+import Features from "components/features";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <AboutUs />
       <WhyUs />
       <ContactUs />
+      <Features />
     </Container>
   );
 };
