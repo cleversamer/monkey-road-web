@@ -15,7 +15,7 @@ const ContactUs = () => {
 };
 
 const Container = styled.section`
-  padding: 100px 40px;
+  padding: 100px 50px;
   padding-bottom: 250px;
 `;
 
