@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Header from "components/header";
+import AboutUs from "components/about-us";
 
 const Home = () => {
   return (
     <Container>
       <Content>
         <Header />
+        <AboutUs />
       </Content>
     </Container>
   );
