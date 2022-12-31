@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "components/header";
 import AboutUs from "components/about-us";
 import WhyUs from "components/why-us";
+import ContactUs from "components/contact-us";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <Header />
       <AboutUs />
       <WhyUs />
+      <ContactUs />
     </Container>
   );
 };
