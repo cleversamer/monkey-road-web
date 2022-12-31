@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Header from "components/header";
 import AboutUs from "components/about-us";
+import WhyUs from "components/why-us";
 
 const Home = () => {
   return (
     <Container>
-      <Content>
-        <Header />
-        <AboutUs />
-      </Content>
+      <Header />
+      <AboutUs />
+      <WhyUs />
     </Container>
   );
 };
@@ -16,11 +16,6 @@ const Home = () => {
 const Container = styled.div`
   overflow: hidden;
   background-color: #fafafa;
-`;
-
-const Content = styled.div`
-  max-width: 1280px;
-  margin: 0 auto;
 `;
 
 export default Home;

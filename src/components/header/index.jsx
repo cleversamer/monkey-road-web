@@ -1,18 +1,24 @@
 import styled from "styled-components";
+import ContentWrapper from "hoc/ContentWrapper";
 import HeaderLeft from "./HeaderLeft";
 import HeaderRight from "./HeaderRight";
 
 const Header = () => {
   return (
     <Container>
-      <HeaderLeft />
-      <HeaderRight />
+      <Content>
+        <HeaderLeft />
+        <HeaderRight />
+      </Content>
     </Container>
   );
 };
 
 const Container = styled.header`
   overflow: hidden;
+`;
+
+const Content = styled(ContentWrapper)`
   height: 100vh;
   padding: 70px;
   background-color: #fafafa;
