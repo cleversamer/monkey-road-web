@@ -3,6 +3,7 @@ import Home from "pages/Home";
 import NotFound from "pages/NotFound";
 import Navbar from "components/navbar";
 import { ROUTES } from "client";
+import Footer from "components/footer";
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
           element={<Navigate to={ROUTES.CLIENT.NOT_FOUND} replace />}
         />
       </Routes>
+
+      <Footer />
     </>
   );
 };
