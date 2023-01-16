@@ -15,7 +15,7 @@ const WhyUs = () => {
 };
 
 const Container = styled.section`
-  background-color: #333;
+  background-color: rgba(51, 51, 51, 0.8);
   padding: 80px 0;
 `;
 
