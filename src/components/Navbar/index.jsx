@@ -43,6 +43,7 @@ const Navbar = () => {
 
         <NavButtons>
           <NavButton title="Post" iconPath="/assets/icons/post.svg" />
+          <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
           <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
           <NavButton title="Favorites" iconPath="/assets/icons/favorite.svg" />
           <NavButton title="Login" iconPath="/assets/icons/user.svg" />

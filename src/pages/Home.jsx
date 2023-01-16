@@ -19,7 +19,7 @@ const Home = () => {
 
 const Container = styled.div`
   overflow: hidden;
-  background-color: #fafafa;
+  background-color: #fff;
 `;
 
 export default Home;

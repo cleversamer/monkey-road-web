@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import HeaderBrands from "./HeaderBrands";
 import HeaderSearch from "./HeaderSearch";
 
 const HeaderLeft = () => {
@@ -8,10 +7,7 @@ const HeaderLeft = () => {
       <HeaderTitle>
         High-quality cars, reasonable prices, and within everyone's reach
       </HeaderTitle>
-
       <HeaderSearch />
-
-      <HeaderBrands />
     </Container>
   );
 };
@@ -27,6 +23,7 @@ const HeaderTitle = styled.h1`
   text-transform: capitalize;
   font-size: 28px;
   font-weight: 600;
+  color: #fff;
 `;
 
 export default HeaderLeft;
