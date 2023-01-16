@@ -13,7 +13,7 @@ const HeaderLeft = () => {
 };
 
 const Container = styled.div`
-  width: 50%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   gap: 30px;
