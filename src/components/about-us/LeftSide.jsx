@@ -11,13 +11,10 @@ const LeftSide = () => {
   );
 };
 
-const Container = styled.div`
-  width: 40%;
-`;
+const Container = styled.div``;
 
 const Image = styled.img`
   width: 100%;
-  margin-top: -25px;
 `;
 
 export default LeftSide;

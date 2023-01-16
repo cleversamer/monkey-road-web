@@ -22,6 +22,7 @@ const Container = styled.span`
   text-align: center;
   transition-duration: 176ms;
   margin: 0 20px;
+  border-radius: 8px;
   cursor: pointer;
 
   :hover {

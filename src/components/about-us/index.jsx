@@ -5,35 +5,36 @@ import RightSide from "./RightSide";
 
 const AboutUs = () => {
   return (
-    <ContentWrapper>
-      <Container>
-        <Title>AboutUs</Title>
-        <Content>
-          <LeftSide />
-          <RightSide />
-        </Content>
-      </Container>
-    </ContentWrapper>
+    <Container>
+      <Title>About Us</Title>
+
+      <Content>
+        <LeftSide />
+        <RightSide />
+      </Content>
+    </Container>
   );
 };
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 40px;
+  gap: 60px;
   padding-top: 100px;
-  padding-bottom: 150px;
+  padding-bottom: 230px;
 `;
 
 const Title = styled.h3`
   font-size: 32px;
   font-weight: 600;
+  text-align: center;
 `;
 
-const Content = styled.div`
+const Content = styled(ContentWrapper)`
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 export default AboutUs;
