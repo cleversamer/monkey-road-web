@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Header from "components/header";
-import PopularBrands from "components/header/popular-brands";
-import AboutUs from "components/about-us";
-import WhyUs from "components/why-us";
-import Features from "components/features";
+import Header from "components/home/header";
+import PopularBrands from "components/home/popular-brands";
+import AboutUs from "components/home/about-us";
+import WhyUs from "components/home/why-us";
+import Features from "components/home/features";
 
 const Home = () => {
   return (

@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "pages/Home";
 import NotFound from "pages/NotFound";
-import Navbar from "components/navbar";
+import Navbar from "components/common/navbar";
 import { ROUTES } from "client";
-import Footer from "components/footer";
+import Footer from "components/common/footer";
 
 const App = () => {
   return (
