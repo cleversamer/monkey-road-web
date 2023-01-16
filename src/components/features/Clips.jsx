@@ -39,9 +39,10 @@ const ArrowLeft = styled.img`
 
 const Car = styled.img`
   position: absolute;
-  top: -15vw;
+  top: -200px;
   right: 0;
   width: 40vw;
+  max-width: 400px;
 `;
 
 export default Clips;

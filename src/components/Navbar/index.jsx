@@ -56,6 +56,8 @@ const Navbar = () => {
 
 const Container = styled.nav`
   width: 100vw;
+  max-width: 1366px;
+  margin: 0 auto;
   position: sticky;
   top: 0;
   z-index: 999999;

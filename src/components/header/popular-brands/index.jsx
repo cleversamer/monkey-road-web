@@ -20,7 +20,7 @@ const index = () => {
 };
 
 const Container = styled.section`
-  padding-bottom: 25vh;
+  padding-bottom: 130px;
 `;
 
 const Title = styled.h2`

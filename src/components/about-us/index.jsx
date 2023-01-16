@@ -22,7 +22,8 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  padding-bottom: 80px;
+  padding-top: 100px;
+  padding-bottom: 150px;
 `;
 
 const Title = styled.h3`

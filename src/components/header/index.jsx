@@ -64,7 +64,7 @@ const Container = styled.header`
 
 const Content = styled(ContentWrapper)`
   padding: 70px;
-  max-width: 1280px;
+  max-width: 1366px;
   display: flex;
   background-color: #333;
   position: relative;
@@ -72,7 +72,7 @@ const Content = styled(ContentWrapper)`
 
 const Clip = styled.img`
   display: block;
-  max-width: 1280px;
+  max-width: 1366px;
   margin: 0 auto;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;

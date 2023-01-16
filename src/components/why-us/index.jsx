@@ -17,6 +17,8 @@ const WhyUs = () => {
 const Container = styled.section`
   background-color: rgba(51, 51, 51, 0.8);
   padding: 80px 0;
+  max-width: 1366px;
+  margin: 0 auto;
 `;
 
 const Content = styled(ContentWrapper)`

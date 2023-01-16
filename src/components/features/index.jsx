@@ -24,6 +24,8 @@ const Container = styled.section`
   align-items: center;
   padding: 0 60px;
   position: relative;
+  max-width: 1366px;
+  margin: 0 auto;
 `;
 
 const Content = styled(ContentWrapper)`
