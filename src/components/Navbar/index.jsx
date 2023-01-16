@@ -29,13 +29,13 @@ const Navbar = () => {
           />
 
           <NavItem
-            title="About Us"
+            title="Why Us?"
             activeItem={activeItem}
             onNavigate={handleNavigate}
           />
 
           <NavItem
-            title="Contact Us"
+            title="About Us"
             activeItem={activeItem}
             onNavigate={handleNavigate}
           />
