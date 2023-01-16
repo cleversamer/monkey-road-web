@@ -58,9 +58,9 @@ const Container = styled.nav`
   width: 100vw;
   position: sticky;
   top: 0;
-  box-shadow: 0px 5px 4px rgba(254, 119, 119, 0.3);
   z-index: 999999;
   background-color: #fff;
+  box-shadow: 0px 5px 4px rgba(51, 51, 51, 0.3);
 `;
 
 const Content = styled.div`
