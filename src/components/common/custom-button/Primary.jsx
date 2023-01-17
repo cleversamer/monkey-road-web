@@ -14,7 +14,7 @@ const Container = styled.button`
   color: #fff;
   text-transform: capitalize;
   width: 100%;
-  height: 32px;
+  height: 40px;
   border: none;
   outline: none;
   transition-duration: 176ms;

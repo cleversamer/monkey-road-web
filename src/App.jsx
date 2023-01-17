@@ -4,6 +4,7 @@ import NotFound from "pages/NotFound";
 import Navbar from "components/common/navbar";
 import Footer from "components/common/footer";
 import Login from "pages/Login";
+import FastLogin from "pages/FastLogin";
 import Register from "pages/Register";
 import { ROUTES } from "client";
 
@@ -14,6 +15,7 @@ const App = () => {
 
       <Routes>
         <Route path={ROUTES.CLIENT.REGISTER} element={<Register />} />
+        <Route path={ROUTES.CLIENT.FAST_LOGIN} element={<FastLogin />} />
         <Route path={ROUTES.CLIENT.LOGIN} element={<Login />} />
         <Route path={ROUTES.CLIENT.NOT_FOUND} element={<NotFound />} />
         <Route path={ROUTES.CLIENT.HOME} element={<Home />} />

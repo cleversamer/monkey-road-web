@@ -3,6 +3,7 @@ export const ROUTES = {
     HOME: "/home",
     NOT_FOUND: "/not-found",
     LOGIN: "/login",
+    FAST_LOGIN: "/fast-login",
     REGISTER: "/register",
   },
 };

@@ -13,6 +13,10 @@ const CustomInput = ({
   id,
   title,
   placeholder,
+  icc,
+  nsn,
+  onICCChange,
+  onNSNChange,
   ...props
 }) => {
   type = type.trim();
@@ -28,9 +32,17 @@ const CustomInput = ({
       ) : type === "password" ? (
         <PasswordInput value={value} onChange={onChange} {...props} />
       ) : type === "name" ? (
-        <NameInput />
+        <NameInput {...props} />
       ) : type === "email" ? (
-        <EmailInput />
+        <EmailInput {...props} />
+      ) : type === "phone" ? (
+        <PhoneInput
+          icc={icc}
+          nsn={nsn}
+          onICCChange={onICCChange}
+          onNSNChange={onNSNChange}
+          {...props}
+        />
       ) : null}
     </Container>
   );
@@ -45,7 +57,7 @@ const Title = styled.h4`
   font-weight: 500;
   text-transform: capitalize;
   color: #333;
-  margin-bottom: 4px;
+  margin-bottom: 7px;
 `;
 
 export default CustomInput;

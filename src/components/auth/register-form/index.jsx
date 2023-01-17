@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
-import PhoneInput from "components/common/custom-input/PhoneInput";
 
 const RegisterForm = () => {
   const [context, setContext] = useState({
@@ -52,7 +51,9 @@ const RegisterForm = () => {
           onChange={handleKeyChange("email")}
         />
 
-        <PhoneInput
+        <CustomInput
+          type="phone"
+          title="Phone number"
           icc={context.phoneICC}
           onICCChange={handleKeyChange("phoneICC")}
           nsn={context.phoneNSN}
