@@ -1,15 +1,15 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "pages/Home";
-import NotFound from "pages/NotFound";
+import Home from "pages/user/Home";
+import NotFound from "pages/user/NotFound";
 import Navbar from "components/common/navbar";
 import Footer from "components/common/footer";
-import Login from "pages/Login";
-import FastLogin from "pages/FastLogin";
-import Register from "pages/Register";
-import Verify from "pages/Verify";
-import ForgotPassword from "pages/ForgotPassword";
-import ResetPassword from "pages/ResetPassword";
-import ResetPasswordSuccess from "pages/ResetPasswordSuccess";
+import Login from "pages/auth/Login";
+import FastLogin from "pages/auth/FastLogin";
+import Register from "pages/auth/Register";
+import Verify from "pages/auth/Verify";
+import ForgotPassword from "pages/auth/ForgotPassword";
+import ResetPassword from "pages/auth/ResetPassword";
+import ResetPasswordSuccess from "pages/auth/ResetPasswordSuccess";
 import { ROUTES } from "client";
 
 const App = () => {
