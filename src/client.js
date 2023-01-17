@@ -5,5 +5,6 @@ export const ROUTES = {
     LOGIN: "/login",
     FAST_LOGIN: "/fast-login",
     REGISTER: "/register",
+    VERIFY: "/verify/:subject",
   },
 };

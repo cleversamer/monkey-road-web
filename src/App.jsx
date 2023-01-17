@@ -6,6 +6,7 @@ import Footer from "components/common/footer";
 import Login from "pages/Login";
 import FastLogin from "pages/FastLogin";
 import Register from "pages/Register";
+import Verify from "pages/Verify";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route path={ROUTES.CLIENT.VERIFY} element={<Verify />} />
         <Route path={ROUTES.CLIENT.REGISTER} element={<Register />} />
         <Route path={ROUTES.CLIENT.FAST_LOGIN} element={<FastLogin />} />
         <Route path={ROUTES.CLIENT.LOGIN} element={<Login />} />

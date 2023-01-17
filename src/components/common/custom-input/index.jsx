@@ -5,6 +5,7 @@ import PasswordInput from "./PasswordInput";
 import NameInput from "./NameInput";
 import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
+import CodeInput from "./CodeInput";
 
 const CustomInput = ({
   value,
@@ -43,6 +44,8 @@ const CustomInput = ({
           onNSNChange={onNSNChange}
           {...props}
         />
+      ) : type === "code" ? (
+        <CodeInput {...props} />
       ) : null}
     </Container>
   );
