@@ -8,6 +8,7 @@ import FastLogin from "pages/FastLogin";
 import Register from "pages/Register";
 import Verify from "pages/Verify";
 import ForgotPassword from "pages/ForgotPassword";
+import ResetPassword from "pages/ResetPassword";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -16,6 +17,10 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route
+          path={ROUTES.CLIENT.RESET_PASSWORD}
+          element={<ResetPassword />}
+        />
         <Route
           path={ROUTES.CLIENT.FORGOT_PASSWORD}
           element={<ForgotPassword />}
