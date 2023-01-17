@@ -9,6 +9,7 @@ import Register from "pages/Register";
 import Verify from "pages/Verify";
 import ForgotPassword from "pages/ForgotPassword";
 import ResetPassword from "pages/ResetPassword";
+import ResetPasswordSuccess from "pages/ResetPasswordSuccess";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -17,6 +18,10 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route
+          path={ROUTES.CLIENT.RESET_PASSWORD_SUCCESS}
+          element={<ResetPasswordSuccess />}
+        />
         <Route
           path={ROUTES.CLIENT.RESET_PASSWORD}
           element={<ResetPassword />}
