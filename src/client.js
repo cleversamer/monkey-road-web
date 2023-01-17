@@ -6,5 +6,6 @@ export const ROUTES = {
     FAST_LOGIN: "/fast-login",
     REGISTER: "/register",
     VERIFY: "/verify/:subject",
+    FORGOT_PASSWORD: "/forgot-password",
   },
 };

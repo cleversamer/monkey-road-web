@@ -23,7 +23,7 @@ const PhoneForm = () => {
 
   return (
     <SharedForm
-      imageURL="/assets/images/form/fast-login.svg"
+      imageURL="/assets/images/form/verification.svg"
       title="Enter your phone number"
       subtitle="We will send you a verification code."
       onSubmit={handleSubmit}

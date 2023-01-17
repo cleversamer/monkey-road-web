@@ -34,6 +34,7 @@ const Content = styled.div`
 const Image = styled.img`
   width: 250px;
   margin: 0 auto;
+  padding: 15px;
 `;
 
 const Title = styled.h4`

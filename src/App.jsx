@@ -7,6 +7,7 @@ import Login from "pages/Login";
 import FastLogin from "pages/FastLogin";
 import Register from "pages/Register";
 import Verify from "pages/Verify";
+import ForgotPassword from "pages/ForgotPassword";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -15,6 +16,10 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route
+          path={ROUTES.CLIENT.FORGOT_PASSWORD}
+          element={<ForgotPassword />}
+        />
         <Route path={ROUTES.CLIENT.VERIFY} element={<Verify />} />
         <Route path={ROUTES.CLIENT.REGISTER} element={<Register />} />
         <Route path={ROUTES.CLIENT.FAST_LOGIN} element={<FastLogin />} />
