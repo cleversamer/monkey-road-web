@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CiMail } from "react-icons/ci";
 
-const EmailInput = (props) => {
+const EmailOrPhoneInput = (props) => {
   return (
     <Container>
       <LeftIcon>
@@ -37,4 +37,4 @@ const LeftIcon = styled.span`
   padding: 10px;
 `;
 
-export default EmailInput;
+export default EmailOrPhoneInput;

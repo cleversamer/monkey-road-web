@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import CheckBox from "./CheckBox";
-import EmailInput from "./EmailInput";
+import EmailOrPhoneInput from "./EmailOrPhoneInput";
 import PasswordInput from "./PasswordInput";
+import NameInput from "./NameInput";
+import EmailInput from "./EmailInput";
+import PhoneInput from "./PhoneInput";
 
 const CustomInput = ({
   value,
@@ -20,10 +23,14 @@ const CustomInput = ({
     <Container>
       {title && <Title>{title}</Title>}
 
-      {type === "email" ? (
-        <EmailInput value={value} onChange={onChange} {...props} />
+      {type === "emailorphone" ? (
+        <EmailOrPhoneInput value={value} onChange={onChange} {...props} />
       ) : type === "password" ? (
         <PasswordInput value={value} onChange={onChange} {...props} />
+      ) : type === "name" ? (
+        <NameInput />
+      ) : type === "email" ? (
+        <EmailInput />
       ) : null}
     </Container>
   );

@@ -3,26 +3,26 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import PhoneInput from "components/common/custom-input/PhoneInput";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [context, setContext] = useState({
     authType: "email",
-    emailOrPhone: "",
+    name: "",
+    email: "",
+    phoneICC: "+971",
+    phoneNSN: "",
     password: "",
-    rememberMe: true,
   });
 
   const handleKeyChange = (key) => (e) =>
     setContext({ ...context, [key]: e.target.value });
 
-  const handleToggleRememberMe = () =>
-    setContext({ ...context, rememberMe: !context.rememberMe });
+  const handleRegisterWithEmailAndPhone = () => {};
 
-  const handleLoginWithEmailOrPhone = () => {};
+  const handleRegisterWithGoogle = () => {};
 
-  const handleLoginWithGoogle = () => {};
-
-  const handleLoginWithFacebook = () => {};
+  const handleRegisterWithFacebook = () => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,14 +35,28 @@ const LoginForm = () => {
       <Content>
         <Heading>
           <Title>Welcome</Title>
-          <Subtitle>Sign in to continue</Subtitle>
+          <Subtitle>Sign up to continue</Subtitle>
         </Heading>
 
         <CustomInput
-          type="emailorphone"
-          title="Email or phone number"
-          value={context.emailOrPhone}
-          onChange={handleKeyChange("emailOrPhone")}
+          type="name"
+          title="Full name"
+          value={context.name}
+          onChange={handleKeyChange("name")}
+        />
+
+        <CustomInput
+          type="email"
+          title="Email"
+          value={context.email}
+          onChange={handleKeyChange("email")}
+        />
+
+        <PhoneInput
+          icc={context.phoneICC}
+          onICCChange={handleKeyChange("phoneICC")}
+          nsn={context.phoneNSN}
+          onNSNChange={handleKeyChange("phoneNSN")}
         />
 
         <CustomInput
@@ -52,22 +66,15 @@ const LoginForm = () => {
           onChange={handleKeyChange("password")}
         />
 
-        <LowerContainer>
-          <CustomInput
-            id="remember-me"
-            type="checkbox"
-            title="Remember me"
-            value={context.rememberMe}
-            onChange={handleToggleRememberMe}
-          />
-
-          <ForgotPasswordRoute to="">Forgot password?</ForgotPasswordRoute>
-        </LowerContainer>
+        <Terms>
+          By clicking “Register“, I agree to{" "}
+          <span>terms of condition &amp; privacy policy.</span>
+        </Terms>
 
         <CustomButton
           type="primary"
-          title="Login"
-          onClick={handleLoginWithEmailOrPhone}
+          title="Register"
+          onClick={handleRegisterWithEmailAndPhone}
         />
 
         <BreakLineContainer>
@@ -76,13 +83,13 @@ const LoginForm = () => {
           <BreakLine />
         </BreakLineContainer>
 
-        <CustomButton type="google" onClick={handleLoginWithGoogle} />
+        <CustomButton type="google" onClick={handleRegisterWithGoogle} />
 
-        <CustomButton type="facebook" onClick={handleLoginWithFacebook} />
+        <CustomButton type="facebook" onClick={handleRegisterWithFacebook} />
 
         <RegisterContainer>
-          <RegisterPhrase>Don't have an account?</RegisterPhrase>
-          <RegisterRoute to="">Register</RegisterRoute>
+          <RegisterPhrase>Already have an account?</RegisterPhrase>
+          <RegisterRoute to="">Login</RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>
@@ -94,7 +101,8 @@ const Container = styled.form`
   border-radius: 16px;
   max-width: 500px;
   margin: 0 auto;
-  height: 560px;
+  min-height: 560px;
+  padding: 30px 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,17 +135,16 @@ const Subtitle = styled.p`
   font-weight: 400;
 `;
 
-const LowerContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const ForgotPasswordRoute = styled(Link)`
+const Terms = styled(Link)`
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  line-height: 19.5px;
   text-transform: capitalize;
-  color: #fe7777;
-  font-size: 12px;
-  text-decoration: underline;
+
+  span {
+    color: #0500ff;
+  }
 `;
 
 const BreakLineContainer = styled.span`
@@ -177,4 +184,4 @@ const RegisterRoute = styled(Link)`
   text-decoration: underline;
 `;
 
-export default LoginForm;
+export default RegisterForm;

@@ -35,7 +35,7 @@ const Container = styled.div`
 
 const Input = styled.input`
   width: 100%;
-  height: 32px;
+  height: 35px;
   border: none;
   outline: none;
   border-radius: 6px;

@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { CiMail } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
 
-const EmailInput = (props) => {
+const NameInput = (props) => {
   return (
     <Container>
       <LeftIcon>
-        <CiMail />
+        <CiUser />
       </LeftIcon>
 
-      <Input type="email" placeholder="example@example.com" {...props} />
+      <Input type="text" placeholder="Fouad Habboub" {...props} />
     </Container>
   );
 };
@@ -37,4 +37,4 @@ const LeftIcon = styled.span`
   padding: 10px;
 `;
 
-export default EmailInput;
+export default NameInput;

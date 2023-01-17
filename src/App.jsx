@@ -4,6 +4,7 @@ import NotFound from "pages/NotFound";
 import Navbar from "components/common/navbar";
 import Footer from "components/common/footer";
 import Login from "pages/Login";
+import Register from "pages/Register";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route path={ROUTES.CLIENT.REGISTER} element={<Register />} />
         <Route path={ROUTES.CLIENT.LOGIN} element={<Login />} />
         <Route path={ROUTES.CLIENT.NOT_FOUND} element={<NotFound />} />
         <Route path={ROUTES.CLIENT.HOME} element={<Home />} />
