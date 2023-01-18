@@ -6,11 +6,25 @@ import { BsWhatsapp } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { FaInstagram } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({
+  search,
+  placeholder,
+  onSubmit,
+  onRentSelect,
+  onSaleSelect,
+  onSearchChange,
+}) => {
   return (
     <Container>
       <Content>
-        <HeaderContent />
+        <HeaderContent
+          onSubmit={onSubmit}
+          placeholder={placeholder}
+          search={search}
+          onRentSelect={onRentSelect}
+          onSaleSelect={onSaleSelect}
+          onSearchChange={onSearchChange}
+        />
 
         <SocialIcons>
           <SocialIcon>

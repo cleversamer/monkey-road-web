@@ -6,6 +6,7 @@ import NameInput from "./NameInput";
 import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
 import CodeInput from "./CodeInput";
+import RangeInput from "./RangeInput";
 
 const CustomInput = ({
   value,
@@ -18,6 +19,10 @@ const CustomInput = ({
   nsn,
   onICCChange,
   onNSNChange,
+  min,
+  minValue,
+  max,
+  maxValue,
   ...props
 }) => {
   type = type.trim();
@@ -46,6 +51,14 @@ const CustomInput = ({
         />
       ) : type === "code" ? (
         <CodeInput {...props} />
+      ) : type === "range" ? (
+        <RangeInput
+          min={min}
+          minValue={minValue}
+          max={max}
+          maxValue={maxValue}
+          onChange={onChange}
+        />
       ) : null}
     </Container>
   );

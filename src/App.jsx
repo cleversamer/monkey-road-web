@@ -10,6 +10,8 @@ import Verify from "pages/auth/Verify";
 import ForgotPassword from "pages/auth/ForgotPassword";
 import ResetPassword from "pages/auth/ResetPassword";
 import ResetPasswordSuccess from "pages/auth/ResetPasswordSuccess";
+import RentCars from "pages/car/rent/RentCars";
+import PurchaseCars from "pages/car/purchase/PurchaseCars";
 import { ROUTES } from "client";
 
 const App = () => {
@@ -18,6 +20,10 @@ const App = () => {
       <Navbar />
 
       <Routes>
+        <Route path={ROUTES.CLIENT.PURCHASE_CARS} element={<PurchaseCars />} />
+
+        <Route path={ROUTES.CLIENT.RENT_CARS} element={<RentCars />} />
+
         <Route
           path={ROUTES.CLIENT.RESET_PASSWORD_SUCCESS}
           element={<ResetPasswordSuccess />}

@@ -1,13 +1,39 @@
 import styled from "styled-components";
-import HeaderSearch from "./HeaderSearch";
+import SearchBox from "../../common/search-box";
+import { IoIosArrowForward } from "react-icons/io";
 
-const HeaderLeft = () => {
+const HeaderLeft = ({
+  search,
+  placeholder,
+  onSubmit,
+  onRentSelect,
+  onSaleSelect,
+  onSearchChange,
+}) => {
   return (
     <Container>
       <HeaderTitle>
         High-quality cars, reasonable prices, and within everyone's reach
       </HeaderTitle>
-      <HeaderSearch />
+
+      <SearchContainer>
+        <HeaderSearchFilters>
+          <HeaderSearchFilter onClick={onRentSelect}>
+            {search.type === "rent" && <IoIosArrowForward />} Cars For Rent
+          </HeaderSearchFilter>
+
+          <HeaderSearchFilter onClick={onSaleSelect}>
+            {search.type === "sale" && <IoIosArrowForward />} Cars For Sale
+          </HeaderSearchFilter>
+        </HeaderSearchFilters>
+
+        <SearchBox
+          onSearchChange={onSearchChange}
+          searchTerm={search.term}
+          placeholder={placeholder}
+          onSubmit={onSubmit}
+        />
+      </SearchContainer>
     </Container>
   );
 };
@@ -24,6 +50,38 @@ const HeaderTitle = styled.h1`
   font-size: 28px;
   font-weight: 600;
   color: #fff;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const HeaderSearchFilters = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+const HeaderSearchFilter = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition-duration: 176ms;
+  color: #fff;
+
+  :hover {
+    color: #fe7777;
+  }
+
+  svg {
+    margin-right: 5px;
+    fill: #fe7777;
+    font-size: 18px;
+  }
 `;
 
 export default HeaderLeft;

@@ -9,5 +9,7 @@ export const ROUTES = {
     FORGOT_PASSWORD: "/forgot-password",
     RESET_PASSWORD: "/reset-password",
     RESET_PASSWORD_SUCCESS: "/continue",
+    RENT_CARS: "/cars/rent",
+    PURCHASE_CARS: "/cars/purchase",
   },
 };

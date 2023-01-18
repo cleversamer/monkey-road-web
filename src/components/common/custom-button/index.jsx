@@ -1,6 +1,6 @@
 import Google from "./Google";
 import Facebook from "./Facebook";
-import Primary from "./Primary";
+import Button from "./Button";
 
 const CustomButton = ({ type, title, onClick, ...props }) => {
   type = type.trim();
@@ -10,7 +10,7 @@ const CustomButton = ({ type, title, onClick, ...props }) => {
   ) : type === "facebook" ? (
     <Facebook title={title} onClick={onClick} {...props} />
   ) : type === "primary" ? (
-    <Primary title={title} onClick={onClick} {...props} />
+    <Button title={title} onClick={onClick} {...props} />
   ) : null;
 };
 

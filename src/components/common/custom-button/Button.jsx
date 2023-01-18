@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-const Primary = ({ title = "", onClick, ...props }) => {
+const Button = ({ color, title = "", onClick, ...props }) => {
   return (
-    <Container onClick={onClick} {...props}>
+    <Container color={color} onClick={onClick} {...props}>
       {title}
     </Container>
   );
 };
 
 const Container = styled.button`
-  background-color: #fe7777;
+  background-color: ${({ color }) => (color ? color : "#fe7777")};
   border-radius: 8px;
   color: #fff;
   text-transform: capitalize;
@@ -27,4 +27,4 @@ const Container = styled.button`
   }
 `;
 
-export default Primary;
+export default Button;
