@@ -81,6 +81,7 @@ const Container = styled.header`
 
 const Content = styled(ContentWrapper)`
   padding: 70px;
+  padding-bottom: 100px;
   max-width: 1366px;
   display: flex;
   justify-content: space-between;

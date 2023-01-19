@@ -12,6 +12,9 @@ const HeaderRight = () => {
 };
 
 const Container = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 60px;
   color: #fff;
 
   @media screen and (max-width: 820px) {
@@ -21,7 +24,7 @@ const Container = styled.div`
 
 const Image = styled.img`
   width: 100vw;
-  max-width: 282px;
+  max-width: 350px;
 `;
 
 export default HeaderRight;
