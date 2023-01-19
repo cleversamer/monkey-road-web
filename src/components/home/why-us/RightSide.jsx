@@ -21,6 +21,12 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    max-width: 800px;
+    padding: 0 30px;
+  }
 `;
 
 const Title = styled.h3`
@@ -35,6 +41,11 @@ const Description = styled.p`
   font-weight: 500;
   line-height: 25px;
   color: #fff;
+
+  @media screen and (max-width: 1080px) {
+    font-size: 14px;
+    max-width: 500px;
+  }
 `;
 
 export default RightSide;

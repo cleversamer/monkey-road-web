@@ -29,6 +29,14 @@ const Content = styled(ContentWrapper)`
   font-size: 26px;
   font-weight: 600;
   padding: 0 40px;
+
+  @media screen and (max-width: 1080px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    gap: 30px;
+  }
 `;
 
 export default WhyUs;

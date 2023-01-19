@@ -38,6 +38,11 @@ const Container = styled.ul`
   grid-row-gap: 20px;
   grid-column-gap: 150px;
   margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-row-gap: 30px;
+  }
 `;
 
 export default FeaturesList;

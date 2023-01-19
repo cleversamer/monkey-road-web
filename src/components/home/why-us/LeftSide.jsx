@@ -10,10 +10,18 @@ const LeftSide = () => {
 
 const Container = styled.div`
   width: 25%;
+
+  @media screen and (max-width: 1080px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Image = styled.img`
-  width: 100%;
+  width: 100vw;
+  max-width: 270px;
 `;
 
 export default LeftSide;

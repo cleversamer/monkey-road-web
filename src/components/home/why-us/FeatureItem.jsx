@@ -41,6 +41,10 @@ const FeatureDescription = styled.p`
   font-weight: 500;
   color: #fff;
   text-transform: capitalize;
+
+  @media screen and (max-width: 768px) {
+    max-width: 400px;
+  }
 `;
 
 export default FeatureItem;
