@@ -10,8 +10,8 @@ import { ROUTES } from "client";
 const Navbar = ({ onOpenMenu }) => {
   const navigate = useNavigate();
 
-  const handleLogoClick = () => {
-    navigate(ROUTES.CLIENT.HOME);
+  const navigateAndScrollToTop = (route) => {
+    navigate(route);
     scroll.scrollToTop();
   };
 
@@ -19,7 +19,7 @@ const Navbar = ({ onOpenMenu }) => {
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo onClick={handleLogoClick} />
+          <NavLogo onClick={() => navigateAndScrollToTop(ROUTES.CLIENT.HOME)} />
 
           <MobileIcon onClick={onOpenMenu}>
             <FaBars />
@@ -29,7 +29,7 @@ const Navbar = ({ onOpenMenu }) => {
             <NavItem>
               <NavLink
                 to="#"
-                onClick={handleLogoClick}
+                onClick={() => navigateAndScrollToTop(ROUTES.CLIENT.HOME)}
                 smooth={true}
                 duration={500}
                 spy={true}
@@ -41,7 +41,7 @@ const Navbar = ({ onOpenMenu }) => {
             </NavItem>
 
             <NavItem>
-              <NavLink onClick={() => scroll.scrollToTop()}>
+              <NavLink>
                 <RxDoubleArrowDown /> View cars
               </NavLink>
 
@@ -74,6 +74,7 @@ const Navbar = ({ onOpenMenu }) => {
                 offset={-100}
                 spy={true}
                 exact="true"
+                onClick={() => navigate(ROUTES.CLIENT.HOME)}
               >
                 Why us?
               </NavLink>
@@ -86,6 +87,7 @@ const Navbar = ({ onOpenMenu }) => {
                 duration={500}
                 spy={true}
                 exact="true"
+                onClick={() => navigate(ROUTES.CLIENT.HOME)}
               >
                 About us
               </NavLink>
