@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "pages/user/Home";
 import NotFound from "pages/user/NotFound";
-import Navbar from "components/common/navbar";
+// import Navbar from "components/common/navbar";
+import Navigation from "components/common/navigation";
 import Footer from "components/common/footer";
 import Login from "pages/auth/Login";
 import FastLogin from "pages/auth/FastLogin";
@@ -17,7 +18,8 @@ import { ROUTES } from "client";
 const App = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Navigation />
 
       <Routes>
         <Route path={ROUTES.CLIENT.PURCHASE_CARS} element={<PurchaseCars />} />

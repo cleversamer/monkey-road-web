@@ -1,44 +1,22 @@
-import { useState } from "react";
 import styled from "styled-components";
 import NavLogo from "./NavLogo";
 import NavItem from "./NavItem";
 import NavButton from "./NavButton";
 
 const Navbar = () => {
-  const [activeItem, setActiveItem] = useState("Home");
-
-  const handleNavigate = (title) => setActiveItem(title);
-
   return (
     <Container>
       <Content>
         <NavLogo />
 
         <NavItems>
-          <NavItem
-            title="Home"
-            activeItem={activeItem}
-            onNavigate={handleNavigate}
-          />
+          <NavItem title="Home" />
 
-          <NavItem
-            title="View Cars"
-            activeItem={activeItem}
-            onNavigate={handleNavigate}
-            menu="true"
-          />
+          <NavItem title="View Cars" menu="true" />
 
-          <NavItem
-            title="Why Us?"
-            activeItem={activeItem}
-            onNavigate={handleNavigate}
-          />
+          <NavItem title="Why Us?" />
 
-          <NavItem
-            title="About Us"
-            activeItem={activeItem}
-            onNavigate={handleNavigate}
-          />
+          <NavItem title="About Us" />
         </NavItems>
 
         <NavButtons>

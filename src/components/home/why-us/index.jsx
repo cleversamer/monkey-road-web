@@ -5,7 +5,7 @@ import RightSide from "./RightSide";
 
 const WhyUs = () => {
   return (
-    <Container>
+    <Container id="why-us">
       <Content>
         <LeftSide />
         <RightSide />

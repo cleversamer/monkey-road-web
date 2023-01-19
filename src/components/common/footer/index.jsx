@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { animateScroll as scroll } from "react-scroll";
 import {
   FaFacebookF,
   FaPinterestP,
@@ -7,6 +8,7 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
+import { ROUTES } from "client";
 
 const Footer = () => {
   return (
@@ -14,10 +16,18 @@ const Footer = () => {
       <ColumnsList>
         <ColumnItem>
           <ColumnTitle>Website</ColumnTitle>
-          <ColumnRoute to="">Home</ColumnRoute>
-          <ColumnRoute to="">Cars for sale</ColumnRoute>
-          <ColumnRoute to="">Cars for rent</ColumnRoute>
-          <ColumnRoute to="">Contact us</ColumnRoute>
+          <ColumnRoute
+            to={ROUTES.CLIENT.HOME}
+            onClick={() => scroll.scrollToTop()}
+          >
+            Home
+          </ColumnRoute>
+
+          <ColumnRoute to={ROUTES.CLIENT.RENT_CARS}>Cars for rent</ColumnRoute>
+
+          <ColumnRoute to={ROUTES.CLIENT.PURCHASE_CARS}>
+            Cars for sale
+          </ColumnRoute>
         </ColumnItem>
 
         <ColumnItem>
@@ -97,6 +107,7 @@ const Footer = () => {
 const Container = styled.footer`
   background-color: #222;
   height: 230px;
+  width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
   display: flex;

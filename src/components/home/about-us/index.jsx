@@ -5,7 +5,7 @@ import RightSide from "./RightSide";
 
 const AboutUs = () => {
   return (
-    <Container>
+    <Container id="about-us">
       <Title>About Us</Title>
 
       <Content>

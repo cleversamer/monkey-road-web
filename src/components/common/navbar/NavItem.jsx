@@ -2,23 +2,35 @@ import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 
-const NavItem = ({ title, activeItem, onNavigate, menu }) => {
-  const isActive = activeItem === title && !menu ? "true" : "false";
-  const isMenu = menu === "true";
-
-  const handleClick = () => onNavigate(title);
+const NavItem = ({ title, activeItem, menu, onClick }) => {
+  const handleClick = (title) => {
+    if (!menu) {
+      onClick(title);
+    }
+  };
 
   return (
-    <Container active={isActive} onClick={handleClick}>
-      <Content>
-        <Link active={isActive}>{title}</Link>
-        {isMenu ? <IoIosArrowDown size={20} /> : null}
+    <Container active={activeItem === title} onClick={() => handleClick(title)}>
+      <Content active={activeItem === title}>
+        <Link active={activeItem === title ? "true" : "false"}>{title}</Link>
+        {menu ? <IoIosArrowDown size={20} /> : null}
       </Content>
 
-      {isMenu && (
+      {menu && (
         <SubMenu>
-          <SubMenuItem>Cars For Rent</SubMenuItem>
-          <SubMenuItem>Cars For Sale</SubMenuItem>
+          <SubMenuItem
+            active={activeItem === "rent"}
+            onClick={() => handleClick("rent")}
+          >
+            Cars For Rent
+          </SubMenuItem>
+
+          <SubMenuItem
+            active={activeItem === "sale"}
+            onClick={() => handleClick("sale")}
+          >
+            Cars For Sale
+          </SubMenuItem>
         </SubMenu>
       )}
     </Container>
@@ -30,6 +42,7 @@ const Container = styled.li`
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
+  color: ${({ active }) => (active ? "#fe7777" : "#000")};
 
   :hover {
     > div {

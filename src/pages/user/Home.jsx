@@ -1,13 +1,31 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/home/header";
 import PopularBrands from "components/home/popular-brands";
 import AboutUs from "components/home/about-us";
 import WhyUs from "components/home/why-us";
 import Features from "components/home/features";
+import { ROUTES } from "client";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [search, setSearch] = useState({ term: "", type: "rent" });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { term } = search;
+    if (!term) return;
+
+    let nextPage =
+      search.type === "rent"
+        ? ROUTES.CLIENT.RENT_CARS
+        : ROUTES.CLIENT.PURCHASE_CARS;
+
+    nextPage += `?term=${search.term}`;
+    navigate(nextPage);
+  };
 
   const handleSearchChange = (event) => {
     setSearch({
@@ -24,18 +42,6 @@ const Home = () => {
   const onSaleSelect = () => {
     if (search.type === "sale") return;
     setSearch({ ...search, type: "sale" });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const { term } = search;
-
-    if (!term) return;
-
-    setSearch({ ...search, term: "" });
-
-    // TODO: navigate to search results
   };
 
   return (
