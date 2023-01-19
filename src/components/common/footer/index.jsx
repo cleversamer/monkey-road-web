@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
-import { animateScroll as scroll } from "react-scroll";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import {
   FaFacebookF,
   FaPinterestP,
@@ -32,10 +32,21 @@ const Footer = () => {
 
         <ColumnItem>
           <ColumnTitle>About</ColumnTitle>
-          <ColumnRoute to="">About us</ColumnRoute>
-          <ColumnRoute to="">FAQ</ColumnRoute>
-          <ColumnRoute to="">Privacy policy</ColumnRoute>
-          <ColumnRoute to="">Terms of condition</ColumnRoute>
+          <ColumnScrollLink
+            to="about-us"
+            smooth={true}
+            duration={500}
+            spy={true}
+            exact="true"
+          >
+            About us
+          </ColumnScrollLink>
+
+          <ColumnRoute to={ROUTES.CLIENT.HOME}>FAQ</ColumnRoute>
+
+          <ColumnRoute to={ROUTES.CLIENT.HOME}>Privacy policy</ColumnRoute>
+
+          <ColumnRoute to={ROUTES.CLIENT.HOME}>Terms of condition</ColumnRoute>
         </ColumnItem>
 
         <ColumnItem>
@@ -162,7 +173,18 @@ const ColumnTitle = styled.h6`
   font-weight: 600;
 `;
 
-const ColumnRoute = styled(Link)`
+const ColumnRoute = styled(RouterLink)`
+  font-size: 15px;
+  width: fit-content;
+  text-transform: capitalize;
+  transition-duration: 176ms;
+
+  :hover {
+    color: #fe7777;
+  }
+`;
+
+const ColumnScrollLink = styled(ScrollLink)`
   font-size: 15px;
   width: fit-content;
   text-transform: capitalize;

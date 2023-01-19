@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
 
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to="#" onClick={closeAndScrollToTop}>
+          <SidebarLink to="app" onClick={closeAndScrollToTop}>
             Home
           </SidebarLink>
 

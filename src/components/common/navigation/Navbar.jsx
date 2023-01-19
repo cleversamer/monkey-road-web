@@ -28,7 +28,7 @@ const Navbar = ({ onOpenMenu }) => {
           <NavMenu>
             <NavItem>
               <NavLink
-                to="#"
+                to="app"
                 onClick={() => navigateAndScrollToTop(ROUTES.CLIENT.HOME)}
                 smooth={true}
                 duration={500}
@@ -41,7 +41,7 @@ const Navbar = ({ onOpenMenu }) => {
             </NavItem>
 
             <NavItem>
-              <NavLink>
+              <NavLink to="app">
                 <RxDoubleArrowDown /> View cars
               </NavLink>
 
