@@ -136,12 +136,8 @@ const ColumnsList = styled.ul`
   }
 
   @media screen and (max-width: 540px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     grid-row-gap: 30px;
-  }
-
-  @media screen and (max-width: 420px) {
-    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -218,7 +214,12 @@ const Subtitle = styled.p`
 
 const InputContainer = styled.div`
   display: flex;
-  max-width: 100vw;
+  width: 100vw;
+  max-width: 350px;
+
+  @media screen and (max-width: 480px) {
+    max-width: 320px;
+  }
 `;
 
 const Input = styled.input`
