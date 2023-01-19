@@ -13,7 +13,9 @@ const Container = styled.span`
   background-color: rgba(254, 119, 119, 0.2);
   box-shadow: 0px 1px 3px 3px rgba(254, 119, 119, 0.35);
   width: 120px;
+  width: 100%;
   height: 120px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
