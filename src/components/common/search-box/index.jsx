@@ -22,7 +22,8 @@ const HeaderSearch = ({
 };
 
 const Container = styled.form`
-  width: 400px;
+  width: 120%;
+  max-width: 400px;
   position: relative;
   height: 40px;
 `;

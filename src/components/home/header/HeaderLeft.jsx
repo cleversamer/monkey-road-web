@@ -43,6 +43,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @media screen and (max-width: 820px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const HeaderTitle = styled.h1`
@@ -50,6 +55,10 @@ const HeaderTitle = styled.h1`
   font-size: 28px;
   font-weight: 600;
   color: #fff;
+
+  @media screen and (max-width: 480px) {
+    font-size: 21px;
+  }
 `;
 
 const SearchContainer = styled.div`
@@ -81,6 +90,14 @@ const HeaderSearchFilter = styled.li`
     margin-right: 5px;
     fill: #fe7777;
     font-size: 18px;
+
+    @media screen and (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 14px;
   }
 `;
 

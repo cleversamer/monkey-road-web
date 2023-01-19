@@ -139,7 +139,10 @@ const NavbarContainer = styled.div`
 
 const MobileIcon = styled.div`
   display: none;
-  color: #243262;
+
+  svg {
+    fill: #fe7777;
+  }
 
   @media screen and (max-width: 768px) {
     display: block;
@@ -244,7 +247,7 @@ const NavButtons = styled.ul`
     -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
     padding: 10px 20px;
     width: 100vw;
-    overflow-x: scroll;
+    overflow-x: auto;
   }
 `;
 

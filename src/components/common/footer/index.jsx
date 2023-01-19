@@ -106,20 +106,43 @@ const Footer = () => {
 
 const Container = styled.footer`
   background-color: #222;
-  height: 230px;
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 70px;
+  padding: 40px 70px;
+
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  @media screen and (max-width: 1080px) {
+    margin-bottom: 55px;
+  }
 `;
 
 const ColumnsList = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 1280px) {
+    order: 1;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  @media screen and (max-width: 540px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 30px;
+  }
+
+  @media screen and (max-width: 420px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const ColumnItem = styled.li`
@@ -128,6 +151,12 @@ const ColumnItem = styled.li`
   gap: 10px;
   color: #fff;
   width: 250px;
+
+  @media screen and (max-width: 1280px) {
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
 `;
 
 const ColumnTitle = styled.h6`
@@ -166,6 +195,11 @@ const Newsletter = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+    padding: 40px 0;
+  }
 `;
 
 const Title = styled.h6`
@@ -184,6 +218,7 @@ const Subtitle = styled.p`
 
 const InputContainer = styled.div`
   display: flex;
+  max-width: 100vw;
 `;
 
 const Input = styled.input`

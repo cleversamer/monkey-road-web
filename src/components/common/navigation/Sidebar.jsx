@@ -98,7 +98,7 @@ const Container = styled.aside`
 `;
 
 const CloseIcon = styled(FaTimes)`
-  color: #fff;
+  fill: #fe7777;
 `;
 
 const Icon = styled.div`

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ContentWrapper from "hoc/ContentWrapper";
-import HeaderContent from "./HeaderContent";
+import HeaderLeft from "./HeaderLeft";
+import HeaderRight from "./HeaderRight";
 import { FiMail } from "react-icons/fi";
 import { BsWhatsapp } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
@@ -17,7 +18,7 @@ const Header = ({
   return (
     <Container>
       <Content>
-        <HeaderContent
+        <HeaderLeft
           onSubmit={onSubmit}
           placeholder={placeholder}
           search={search}
@@ -25,6 +26,8 @@ const Header = ({
           onSaleSelect={onSaleSelect}
           onSearchChange={onSearchChange}
         />
+
+        <HeaderRight />
 
         <SocialIcons>
           <SocialIcon>
@@ -80,8 +83,17 @@ const Content = styled(ContentWrapper)`
   padding: 70px;
   max-width: 1366px;
   display: flex;
+  justify-content: space-between;
   background-color: #333;
   position: relative;
+
+  @media screen and (max-width: 820px) {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding-bottom: 0;
+  }
 `;
 
 const Clip = styled.img`
@@ -90,6 +102,10 @@ const Clip = styled.img`
   margin: 0 auto;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
+
+  @media screen and (max-width: 480px) {
+    margin-top: -45px;
+  }
 `;
 
 const Car = styled.img`
@@ -100,8 +116,12 @@ const Car = styled.img`
   display: block;
   margin: 0 auto;
   margin-top: -300px;
-  width: 550px;
-  max-width: 100vh;
+  width: 90vw;
+  max-width: 550px;
+
+  @media screen and (max-width: 480px) {
+    bottom: -100px;
+  }
 `;
 
 const SocialIcons = styled.ul`
