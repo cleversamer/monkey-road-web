@@ -11,10 +11,15 @@ const LeftSide = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
 
 const Image = styled.img`
   width: 100%;
+  max-width: 550px;
 `;
 
 export default LeftSide;
