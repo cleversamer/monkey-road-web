@@ -135,6 +135,11 @@ const NavbarContainer = styled.div`
   width: 100vw;
   max-width: 1366px;
   padding: 0 40px;
+  padding-left: 15px;
+
+  @media screen and (max-width: 480px) {
+    padding-left: 0;
+  }
 `;
 
 const MobileIcon = styled.div`

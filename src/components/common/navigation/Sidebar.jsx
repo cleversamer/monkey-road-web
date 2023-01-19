@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { Link as ScrollLink } from "react-scroll";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
-import { FaTimes, FaWhatsapp } from "react-icons/fa";
-import { RxDoubleArrowDown } from "react-icons/rx";
+import { FaTimes } from "react-icons/fa";
+import { ROUTES } from "client";
 
 const Sidebar = ({ isOpen, onCloseMenu }) => {
-  const onNavItemClick = () => {
-    setTimeout(onCloseMenu, 350);
+  const closeAndScrollToTop = () => {
+    onCloseMenu();
+    scroll.scrollToTop();
   };
 
   return (
@@ -17,67 +18,36 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
 
       <SidebarWrapper>
         <SidebarMenu>
+          <SidebarLink to="#" onClick={closeAndScrollToTop}>
+            Home
+          </SidebarLink>
+
+          <SidebarRoute
+            to={ROUTES.CLIENT.RENT_CARS}
+            onClick={closeAndScrollToTop}
+          >
+            Cars for rent
+          </SidebarRoute>
+
+          <SidebarRoute
+            to={ROUTES.CLIENT.PURCHASE_CARS}
+            onClick={closeAndScrollToTop}
+          >
+            Cars for sale
+          </SidebarRoute>
+
+          <SidebarLink to="why-us" onClick={onCloseMenu}>
+            Why us?
+          </SidebarLink>
+
           <SidebarLink to="about-us" onClick={onCloseMenu}>
-            من نحن
-          </SidebarLink>
-
-          <SidebarLink to="gifts" onClick={onCloseMenu}>
-            جوائز المؤتمرات
-          </SidebarLink>
-
-          <SidebarLink>
-            <RxDoubleArrowDown /> خدماتنا
-            <SubMenu>
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور جوائز التميز</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور الأبحاث والكتب والترجمة</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور خدمات منسوبي التعليم</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور المبادرات</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور الحقائب التدريبية</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">محور التصميم</NavRoute>
-              </NavItem>
-
-              <NavItem onClick={onNavItemClick}>
-                <NavRoute to="/">
-                  محور الخدمات البرمجية وتطبيقات الجوال
-                </NavRoute>
-              </NavItem>
-            </SubMenu>
-          </SidebarLink>
-
-          <SidebarLink to="ads" onClick={onCloseMenu}>
-            جديد الإعلانات
-          </SidebarLink>
-
-          <SidebarLink to="partners" onClick={onCloseMenu}>
-            آراء الشركاء
+            About us
           </SidebarLink>
         </SidebarMenu>
 
-        <SideBtnWrap>
-          <SidebarOuterLink
-            href="https://wa.me/970599563638"
-            target="__blank"
-            aria-label="Whatsapp"
-          >
-            <FaWhatsapp /> أطلب خدمتك
-          </SidebarOuterLink>
-        </SideBtnWrap>
+        <SidebarButton to={ROUTES.CLIENT.LOGIN} onClick={closeAndScrollToTop}>
+          Login
+        </SidebarButton>
       </SidebarWrapper>
     </Container>
   );
@@ -113,6 +83,9 @@ const Icon = styled.div`
 
 const SidebarWrapper = styled.div`
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SidebarMenu = styled.ul`
@@ -130,21 +103,18 @@ const SidebarLink = styled(ScrollLink)`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 20px;
+  font-weight: 500;
   text-decoration: none;
   list-style: none;
   transition: 0.2s ease-in-out;
-  color: #243262;
+  color: #333;
   cursor: pointer;
   position: relative;
-
-  svg {
-    margin-right: 7px;
-    font-size: 20px;
-  }
+  text-transform: capitalize;
 
   &:hover {
-    color: #e8591d;
+    color: #fe7777;
     transition: 0.2s ease-in-out;
   }
 
@@ -153,83 +123,46 @@ const SidebarLink = styled(ScrollLink)`
   }
 `;
 
-const SideBtnWrap = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const SidebarOuterLink = styled.a`
-  border-radius: 50px;
-  background-color: #e8591d;
-  white-space: nowrap;
-  padding: 16px 64px;
-  color: #010606;
-  font-size: 16px;
-  font-weight: 700;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
+const SidebarRoute = styled(RouterLink)`
   display: flex;
   align-items: center;
-  gap: 7px;
-
-  svg {
-    font-size: 20px;
-  }
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  list-style: none;
+  transition: 0.2s ease-in-out;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  text-transform: capitalize;
 
   &:hover {
-    transition: all 0.2s ease-in-out;
-    background-color: #243262;
-    color: #fff;
+    color: #fe7777;
+    transition: 0.2s ease-in-out;
   }
-`;
-
-const NavItem = styled.li`
-  height: 80px;
-  position: relative;
 
   &:hover ul {
     display: block;
   }
 `;
 
-const SubMenu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
+const SidebarButton = styled(RouterLink)`
+  background-color: #fe7777;
   text-align: center;
-  margin-right: -22px;
-  position: absolute;
-  top: 50px;
-  color: #010606;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  display: none;
-  z-index: 99999;
-
-  ${NavItem} {
-    height: fit-content;
-  }
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const NavRoute = styled(RouterLink)`
   display: inline-block;
-  width: 230px;
-  font-size: 14px;
-  padding: 7px 4px;
-  border-bottom: 1px solid #eee;
-  transition-duration: 200ms;
+  height: 35px;
+  width: 40vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition-duration: 176ms;
 
-  &:hover {
-    transition: 0.2s ease-out;
-    color: #e8591d;
+  :active {
+    transform: scale(0.97);
   }
 `;
 
