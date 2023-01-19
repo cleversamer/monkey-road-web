@@ -96,13 +96,20 @@ const Navbar = ({ onOpenMenu }) => {
 
           <NavButtons>
             <NavButton title="Post" iconPath="/assets/icons/post.svg" />
+
             <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+
             <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+
             <NavButton
               title="Favorites"
               iconPath="/assets/icons/favorite.svg"
             />
-            <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+
+            <RouterLink to={ROUTES.CLIENT.LOGIN}>
+              <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+            </RouterLink>
+
             <NavButton title="EN" iconPath="/assets/icons/language.svg" />
           </NavButtons>
         </NavbarContainer>
