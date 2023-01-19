@@ -2,7 +2,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { FaBars } from "react-icons/fa";
-import { RxDoubleArrowDown } from "react-icons/rx";
+import { IoIosArrowDown } from "react-icons/io";
 import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
 import { ROUTES } from "client";
@@ -42,7 +42,7 @@ const Navbar = ({ onOpenMenu }) => {
 
             <NavItem>
               <NavLink to="app">
-                <RxDoubleArrowDown /> View cars
+                <IoIosArrowDown /> View cars
               </NavLink>
 
               <SubMenu>
@@ -122,7 +122,6 @@ const Nav = styled.nav`
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
   }
@@ -138,7 +137,6 @@ const NavbarContainer = styled.div`
   max-width: 1366px;
   padding: 0 40px;
   padding-left: 15px;
-
   @media screen and (max-width: 480px) {
     padding-left: 0;
   }
@@ -146,7 +144,6 @@ const NavbarContainer = styled.div`
 
 const MobileIcon = styled.div`
   display: none;
-
   svg {
     fill: #fe7777;
   }
@@ -164,7 +161,6 @@ const NavMenu = styled.ul`
   list-style: none;
   text-align: center;
   margin-right: -22px;
-
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -173,7 +169,6 @@ const NavMenu = styled.ul`
 const NavItem = styled.li`
   height: 80px;
   position: relative;
-
   &:hover ul {
     display: block;
   }
@@ -190,10 +185,8 @@ const SubMenu = styled(NavMenu)`
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-
   ${NavItem} {
     height: fit-content;
-
     > * {
       font-size: 15px;
       font-weight: 500;
@@ -207,7 +200,7 @@ const NavLink = styled(ScrollLink)`
   color: inherit;
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
@@ -215,9 +208,20 @@ const NavLink = styled(ScrollLink)`
   color: #010606;
   text-transform: capitalize;
 
-  &:hover {
+  svg {
+    font-size: 20px;
+  }
+
+  :hover {
     transition: 0.2s ease-out;
-    color: #e8591d;
+    color: #fe7777;
+
+    svg {
+      color: #fe7777 !important;
+      fill: #fe7777 !important;
+      transition-duration: 176ms;
+      transform: translateY(4px);
+    }
   }
 `;
 
@@ -232,7 +236,7 @@ const NavRoute = styled(RouterLink)`
 
   &:hover {
     transition: 0.2s ease-out;
-    color: #e8591d;
+    color: #fe7777;
   }
 `;
 
@@ -242,7 +246,6 @@ const NavButtons = styled.ul`
   justify-content: center;
   align-items: flex-end;
   gap: 20px;
-
   @media screen and (max-width: 1080px) {
     position: fixed;
     bottom: 0;
