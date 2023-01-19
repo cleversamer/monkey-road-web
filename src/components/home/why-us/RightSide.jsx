@@ -41,10 +41,10 @@ const Description = styled.p`
   font-weight: 500;
   line-height: 25px;
   color: #fff;
+  max-width: 500px;
 
   @media screen and (max-width: 1080px) {
     font-size: 14px;
-    max-width: 500px;
   }
 `;
 
