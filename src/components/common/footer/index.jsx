@@ -117,6 +117,7 @@ const Container = styled.footer`
   @media screen and (max-width: 1280px) {
     flex-direction: column;
     padding: 40px 20px;
+    gap: 20px;
   }
 
   @media screen and (max-width: 1080px) {

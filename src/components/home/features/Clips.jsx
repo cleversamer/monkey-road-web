@@ -21,28 +21,57 @@ const Clips = () => {
   );
 };
 
-const ArrowRight = styled.img`
+const Arrow = styled.img`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
   height: 100%;
+
+  @media screen and (max-width: 480px) {
+    object-fit: cover;
+    width: 50%;
+  }
 `;
 
-const ArrowLeft = styled.img`
-  position: absolute;
-  top: 0;
-  bottom: 0;
+const ArrowRight = styled(Arrow)`
+  left: 0;
+`;
+
+const ArrowLeft = styled(Arrow)`
   right: 0;
-  height: 100%;
 `;
 
 const Car = styled.img`
   position: absolute;
-  top: -200px;
-  right: 0;
-  width: 40vw;
+  /* top: -200px; */
+  top: -14vw;
+  right: 20px;
+  width: 100vw;
   max-width: 400px;
+
+  @media screen and (max-width: 1000px) {
+    max-width: 300px;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 350px;
+    top: -18vw;
+  }
+
+  @media screen and (max-width: 640px) {
+    max-width: 280px;
+    top: -22vw;
+  }
+
+  @media screen and (max-width: 420px) {
+    max-width: 230px;
+    top: -22vw;
+  }
+
+  @media screen and (max-width: 360px) {
+    max-width: 200px;
+    top: -24vw;
+  }
 `;
 
 export default Clips;

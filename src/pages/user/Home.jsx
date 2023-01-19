@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Header from "components/home/header";
 import PopularBrands from "components/home/popular-brands";
 import AboutUs from "components/home/about-us";
@@ -45,7 +44,7 @@ const Home = () => {
   };
 
   return (
-    <Container>
+    <>
       <Header
         onSubmit={handleSubmit}
         search={search}
@@ -57,13 +56,8 @@ const Home = () => {
       <WhyUs />
       <AboutUs />
       <Features />
-    </Container>
+    </>
   );
 };
-
-const Container = styled.div`
-  overflow: hidden;
-  background-color: #fff;
-`;
 
 export default Home;

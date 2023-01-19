@@ -18,12 +18,12 @@ const Features = () => {
 
 const Container = styled.section`
   background-color: #333;
-  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 60px;
+  padding: 100px 60px;
   position: relative;
+  width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
 `;
@@ -33,6 +33,7 @@ const Content = styled(ContentWrapper)`
   flex-direction: column;
   gap: 40px;
   margin: 0;
+  z-index: 99999;
 `;
 
 const Title = styled.h3`
@@ -40,6 +41,23 @@ const Title = styled.h3`
   text-indent: 10px;
   font-size: 32px;
   font-weight: 700;
+
+  @media screen and (max-width: 768px) {
+    text-align: center;
+    font-size: 30px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 28px;
+  }
+
+  @media screen and (max-width: 420px) {
+    font-size: 26px;
+  }
+
+  @media screen and (max-width: 360px) {
+    font-size: 22px;
+  }
 `;
 
 export default Features;

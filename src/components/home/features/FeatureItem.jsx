@@ -17,7 +17,12 @@ const Container = styled.li`
   display: flex;
   align-items: flex-start;
   gap: 15px;
-  min-width: 400px;
+  width: 100vw;
+  max-width: 400px;
+
+  @media screen and (max-width: 480px) {
+    justify-content: center;
+  }
 `;
 
 const FeatureIcon = styled.img`
@@ -35,6 +40,14 @@ const FeatureTitle = styled.h4`
   font-size: 22px;
   font-weight: 600;
   color: #fff;
+
+  @media screen and (max-width: 960px) {
+    font-size: 18px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 16px;
+  }
 `;
 
 const FeatureDescription = styled.p`
@@ -42,6 +55,15 @@ const FeatureDescription = styled.p`
   font-weight: 500;
   color: #fff;
   width: 350px;
+
+  @media screen and (max-width: 960px) {
+    font-size: 15px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 14px;
+    max-width: 250px;
+  }
 `;
 
 export default FeatureItem;
