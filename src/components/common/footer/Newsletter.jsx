@@ -14,6 +14,8 @@ const Newsletter = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!context.email) return;
+
     setContext({ email: "", submitted: true });
 
     setTimeout(() => {

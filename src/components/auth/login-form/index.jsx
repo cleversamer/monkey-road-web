@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Routes, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import { ROUTES } from "client";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [context, setContext] = useState({
     authType: "email",
     emailOrPhone: "",
@@ -61,7 +63,9 @@ const LoginForm = () => {
             onChange={handleToggleRememberMe}
           />
 
-          <ForgotPasswordRoute to="">Forgot password?</ForgotPasswordRoute>
+          <ForgotPasswordRoute to={ROUTES.CLIENT.FORGOT_PASSWORD}>
+            Forgot password?
+          </ForgotPasswordRoute>
         </LowerContainer>
 
         <CustomButton
@@ -82,7 +86,7 @@ const LoginForm = () => {
 
         <RegisterContainer>
           <RegisterPhrase>Don't have an account?</RegisterPhrase>
-          <RegisterRoute to="">Register</RegisterRoute>
+          <RegisterRoute to={ROUTES.CLIENT.REGISTER}>Register</RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>
@@ -134,7 +138,6 @@ const LowerContainer = styled.div`
 `;
 
 const ForgotPasswordRoute = styled(Link)`
-  text-transform: capitalize;
   color: #fe7777;
   font-size: 12px;
   text-decoration: underline;
@@ -169,7 +172,7 @@ const RegisterContainer = styled.div`
 
 const RegisterPhrase = styled.p`
   text-align: center;
-  text-transform: capitalize;
+  text-transform: none;
 `;
 
 const RegisterRoute = styled(Link)`

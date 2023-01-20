@@ -19,7 +19,7 @@ const AboutUs = () => {
 const Container = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 40px;
   padding-top: 100px;
   padding-bottom: 230px;
 `;

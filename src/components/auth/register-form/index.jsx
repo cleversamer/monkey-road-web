@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import { ROUTES } from "client";
 
 const RegisterForm = () => {
   const [context, setContext] = useState({
@@ -67,7 +68,7 @@ const RegisterForm = () => {
           onChange={handleKeyChange("password")}
         />
 
-        <Terms>
+        <Terms to={ROUTES.CLIENT.HOME}>
           By clicking “Register“, I agree to{" "}
           <span>terms of condition &amp; privacy policy.</span>
         </Terms>
@@ -84,13 +85,17 @@ const RegisterForm = () => {
           <BreakLine />
         </BreakLineContainer>
 
-        <CustomButton type="google" onClick={handleRegisterWithGoogle} />
+        <RouterLink to={ROUTES.CLIENT.FAST_LOGIN + "?joinBy=google"}>
+          <CustomButton type="google" onClick={handleRegisterWithGoogle} />
+        </RouterLink>
 
-        <CustomButton type="facebook" onClick={handleRegisterWithFacebook} />
+        <RouterLink to={ROUTES.CLIENT.FAST_LOGIN + "?joinBy=facebook"}>
+          <CustomButton type="facebook" onClick={handleRegisterWithFacebook} />
+        </RouterLink>
 
         <RegisterContainer>
           <RegisterPhrase>Already have an account?</RegisterPhrase>
-          <RegisterRoute to="">Login</RegisterRoute>
+          <RegisterRoute to={ROUTES.CLIENT.LOGIN}>Login</RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>
@@ -136,7 +141,7 @@ const Subtitle = styled.p`
   font-weight: 400;
 `;
 
-const Terms = styled(Link)`
+const Terms = styled(RouterLink)`
   font-size: 13px;
   font-weight: 500;
   color: #333;
@@ -177,10 +182,9 @@ const RegisterContainer = styled.div`
 
 const RegisterPhrase = styled.p`
   text-align: center;
-  text-transform: capitalize;
 `;
 
-const RegisterRoute = styled(Link)`
+const RegisterRoute = styled(RouterLink)`
   color: #fe7777;
   text-decoration: underline;
 `;
