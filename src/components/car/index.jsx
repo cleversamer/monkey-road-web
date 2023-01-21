@@ -26,6 +26,7 @@ const ReusableCar = ({ data, children }) => {
 };
 
 const Container = styled.div`
+  position: relative;
   background: #fff;
   box-shadow: 0px 5px 7px rgba(254, 119, 119, 0.25);
   border-bottom-left-radius: 16px;
@@ -51,6 +52,10 @@ const Image = styled.div`
 
   :hover {
     transform: scale(1.01);
+  }
+
+  :active {
+    transform: scale(1);
   }
 `;
 

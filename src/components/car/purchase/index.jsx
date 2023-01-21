@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
+import LikeBtn from "./LikeBtn";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 
@@ -31,6 +32,8 @@ const PurchaseCar = ({ data }) => {
           onClick={handleRent}
         />
       </CTAContainer>
+
+      <LikeBtn />
     </ReusableCar>
   );
 };
