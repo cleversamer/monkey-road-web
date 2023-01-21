@@ -41,7 +41,11 @@ const Newsletter = () => {
           onChange={handleEmailChange}
         />
 
-        <Button type="submit" onClick={handleSubmit}>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          disabled={context.submitted}
+        >
           Subscribe
         </Button>
       </InputContainer>
