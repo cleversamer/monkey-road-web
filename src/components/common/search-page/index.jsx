@@ -46,7 +46,7 @@ const SearchPage = ({
             />
           </SearchBoxContainer>
 
-          {!filtersOpen && <SearchResults>{children}</SearchResults>}
+          <SearchResults visible={!filtersOpen}>{children}</SearchResults>
         </SearchContainer>
       </Content>
     </Container>
@@ -161,6 +161,10 @@ const SearchResults = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
+
+  @media screen and (max-width: 680px) {
+    display: ${({ visible }) => (visible ? "grid" : "none")};
+  }
 `;
 
 export default SearchPage;
