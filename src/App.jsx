@@ -13,6 +13,7 @@ import ResetPasswordSuccess from "pages/auth/ResetPasswordSuccess";
 import RentCars from "pages/car/rent/RentCars";
 import RentCarDetails from "pages/car/rent/RentCarDetails";
 import PurchaseCars from "pages/car/purchase/PurchaseCars";
+import RecentlyArrivedPurchaseCars from "pages/car/purchase/RecentlyArrivedPurchaseCars";
 import { routes } from "client";
 
 const App = () => {
@@ -21,14 +22,19 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.purchaseCars.route} element={<PurchaseCars />} />
+
+        <Route
+          path={routes.recentlyArrivedPurchaseCars.route}
+          element={<RecentlyArrivedPurchaseCars />}
+        />
+
+        <Route path={routes.rentCars.route} element={<RentCars />} />
+
         <Route
           path={routes.rentCarDetails.route}
           element={<RentCarDetails />}
         />
-
-        <Route path={routes.purchaseCars.route} element={<PurchaseCars />} />
-
-        <Route path={routes.rentCars.route} element={<RentCars />} />
 
         <Route
           path={routes.resetPasswordSuccess.route}

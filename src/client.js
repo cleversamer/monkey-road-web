@@ -47,4 +47,20 @@ export const routes = {
     route: "/cars/purchase",
     navigate: () => "/cars/purchase",
   },
+  recentlyArrivedPurchaseCars: {
+    route: "/cars/purchase/recent",
+    navigate: () => "/cars/purchase/recent",
+  },
+  latestPurchaseCarModels: {
+    route: "/cars/purchase/latest",
+    navigate: () => "/cars/purchase/latest",
+  },
+  bestPurchaseCarSellers: {
+    route: "/cars/purchase/best",
+    navigate: () => "/cars/purchase/best",
+  },
+  popularBrands: {
+    route: "/brands/popular",
+    navigate: () => "/brands/popular",
+  },
 };
