@@ -31,6 +31,7 @@ const Container = styled.div`
   box-shadow: 0px 5px 7px rgba(254, 119, 119, 0.25);
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
+  width: 100%;
   max-width: 350px;
 `;
 

@@ -43,7 +43,7 @@ const testCars = [
   {
     _id: 4,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 4",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -52,7 +52,7 @@ const testCars = [
   {
     _id: 5,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 5",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -61,7 +61,7 @@ const testCars = [
   {
     _id: 6,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 6",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -70,7 +70,7 @@ const testCars = [
   {
     _id: 7,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 7",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -79,7 +79,7 @@ const testCars = [
   {
     _id: 8,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 8",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -88,7 +88,7 @@ const testCars = [
   {
     _id: 9,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 9",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -97,7 +97,7 @@ const testCars = [
   {
     _id: 10,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 10",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -106,7 +106,7 @@ const testCars = [
   {
     _id: 11,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 11",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -115,7 +115,7 @@ const testCars = [
   {
     _id: 12,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 12",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -124,7 +124,7 @@ const testCars = [
   {
     _id: 13,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 13",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -133,7 +133,7 @@ const testCars = [
   {
     _id: 14,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 14",
     price: 100000,
     model: "EX",
     year: "2022",
@@ -142,7 +142,7 @@ const testCars = [
   {
     _id: 15,
     imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
+    name: "Car 15",
     price: 100000,
     model: "EX",
     year: "2022",
