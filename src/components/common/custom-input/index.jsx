@@ -7,6 +7,7 @@ import EmailInput from "./EmailInput";
 import PhoneInput from "./PhoneInput";
 import CodeInput from "./CodeInput";
 import RangeInput from "./RangeInput";
+import RadioButton from "./RadioButton";
 
 const CustomInput = ({
   value,
@@ -59,6 +60,8 @@ const CustomInput = ({
           maxValue={maxValue}
           onChange={onChange}
         />
+      ) : type === "radio" ? (
+        <RadioButton title={title} />
       ) : null}
     </Container>
   );

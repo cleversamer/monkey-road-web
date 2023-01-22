@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const Sidebar = ({ isOpen, onCloseMenu }) => {
   const closeAndScrollToTop = () => {
@@ -23,14 +23,14 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
           </SidebarLink>
 
           <SidebarRoute
-            to={ROUTES.CLIENT.RENT_CARS}
+            to={routes.rentCars.navigate()}
             onClick={closeAndScrollToTop}
           >
             Cars for rent
           </SidebarRoute>
 
           <SidebarRoute
-            to={ROUTES.CLIENT.PURCHASE_CARS}
+            to={routes.purchaseCars.navigate()}
             onClick={closeAndScrollToTop}
           >
             Cars for sale
@@ -45,7 +45,10 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
           </SidebarLink>
         </SidebarMenu>
 
-        <SidebarButton to={ROUTES.CLIENT.LOGIN} onClick={closeAndScrollToTop}>
+        <SidebarButton
+          to={routes.login.navigate()}
+          onClick={closeAndScrollToTop}
+        >
           Login
         </SidebarButton>
       </SidebarWrapper>

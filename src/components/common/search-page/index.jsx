@@ -37,7 +37,11 @@ const SearchPage = ({
 
         <SearchContainer>
           <SearchBoxContainer>
-            <SearchBox onSearchChange={onSearchChange} onSubmit={onSubmit} />
+            <SearchBox
+              searchTerm={searchContext.term}
+              onSearchChange={onSearchChange}
+              onSubmit={onSubmit}
+            />
 
             <FilterIcon
               src="/assets/icons/filters.svg"
@@ -60,6 +64,7 @@ const Container = styled.main`
   max-width: 1366px;
   margin: 0 auto;
   padding: 40px 20px;
+  padding-bottom: 100px;
   background: #fafafa;
 `;
 

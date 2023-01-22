@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import SharedForm from "components/common/shared-form";
 import Success from "components/common/success";
 import CustomButton from "components/common/custom-button";
+import { routes } from "client";
 
 const ResetPasswordSuccess = () => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const ResetPasswordSuccess = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    navigate("/");
+    navigate(routes.home.route);
   };
 
   return (

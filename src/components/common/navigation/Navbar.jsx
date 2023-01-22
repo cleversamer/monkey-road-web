@@ -5,7 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const Navbar = ({ onOpenMenu }) => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Navbar = ({ onOpenMenu }) => {
     <>
       <Nav>
         <NavbarContainer>
-          <NavLogo onClick={() => navigateAndScrollToTop(ROUTES.CLIENT.HOME)} />
+          <NavLogo onClick={() => navigateAndScrollToTop(routes.home.route)} />
 
           <MobileIcon onClick={onOpenMenu}>
             <FaBars />
@@ -29,7 +29,7 @@ const Navbar = ({ onOpenMenu }) => {
             <NavItem>
               <NavLink
                 to="app"
-                onClick={() => navigateAndScrollToTop(ROUTES.CLIENT.HOME)}
+                onClick={() => navigateAndScrollToTop(routes.home.route)}
                 smooth={true}
                 duration={500}
                 spy={true}
@@ -49,7 +49,7 @@ const Navbar = ({ onOpenMenu }) => {
                 <NavItem>
                   <NavRoute
                     onClick={() => scroll.scrollToTop()}
-                    to={ROUTES.CLIENT.RENT_CARS}
+                    to={routes.rentCars.navigate()}
                   >
                     Cars for rent
                   </NavRoute>
@@ -58,7 +58,7 @@ const Navbar = ({ onOpenMenu }) => {
                 <NavItem>
                   <NavRoute
                     onClick={() => scroll.scrollToTop()}
-                    to={ROUTES.CLIENT.PURCHASE_CARS}
+                    to={routes.purchaseCars.navigate()}
                   >
                     Cars for sale
                   </NavRoute>
@@ -74,7 +74,7 @@ const Navbar = ({ onOpenMenu }) => {
                 offset={-100}
                 spy={true}
                 exact="true"
-                onClick={() => navigate(ROUTES.CLIENT.HOME)}
+                onClick={() => navigate(routes.home.route)}
               >
                 Why us?
               </NavLink>
@@ -87,7 +87,7 @@ const Navbar = ({ onOpenMenu }) => {
                 duration={500}
                 spy={true}
                 exact="true"
-                onClick={() => navigate(ROUTES.CLIENT.HOME)}
+                onClick={() => navigate(routes.home.route)}
               >
                 About us
               </NavLink>
@@ -106,7 +106,7 @@ const Navbar = ({ onOpenMenu }) => {
               iconPath="/assets/icons/favorite.svg"
             />
 
-            <RouterLink to={ROUTES.CLIENT.LOGIN}>
+            <RouterLink to={routes.login.navigate()}>
               <NavButton title="Login" iconPath="/assets/icons/user.svg" />
             </RouterLink>
 

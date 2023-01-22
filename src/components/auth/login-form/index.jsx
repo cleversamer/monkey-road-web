@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link, Routes, useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ const LoginForm = () => {
             onChange={handleToggleRememberMe}
           />
 
-          <ForgotPasswordRoute to={ROUTES.CLIENT.FORGOT_PASSWORD}>
+          <ForgotPasswordRoute to={routes.forgotPassword.navigate()}>
             Forgot password?
           </ForgotPasswordRoute>
         </LowerContainer>
@@ -86,7 +86,9 @@ const LoginForm = () => {
 
         <RegisterContainer>
           <RegisterPhrase>Don't have an account?</RegisterPhrase>
-          <RegisterRoute to={ROUTES.CLIENT.REGISTER}>Register</RegisterRoute>
+          <RegisterRoute to={routes.register.navigate()}>
+            Register
+          </RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>

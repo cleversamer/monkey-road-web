@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const RegisterForm = () => {
   const [context, setContext] = useState({
@@ -19,10 +19,6 @@ const RegisterForm = () => {
     setContext({ ...context, [key]: e.target.value });
 
   const handleRegisterWithEmailAndPhone = () => {};
-
-  const handleRegisterWithGoogle = () => {};
-
-  const handleRegisterWithFacebook = () => {};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,7 +64,7 @@ const RegisterForm = () => {
           onChange={handleKeyChange("password")}
         />
 
-        <Terms to={ROUTES.CLIENT.HOME}>
+        <Terms to={routes.home.navigate()}>
           By clicking “Register“, I agree to{" "}
           <span>terms of condition &amp; privacy policy.</span>
         </Terms>
@@ -85,17 +81,17 @@ const RegisterForm = () => {
           <BreakLine />
         </BreakLineContainer>
 
-        <RouterLink to={ROUTES.CLIENT.FAST_LOGIN + "?joinBy=google"}>
-          <CustomButton type="google" onClick={handleRegisterWithGoogle} />
+        <RouterLink to={routes.fastRegister.navigate("google")}>
+          <CustomButton type="google" />
         </RouterLink>
 
-        <RouterLink to={ROUTES.CLIENT.FAST_LOGIN + "?joinBy=facebook"}>
-          <CustomButton type="facebook" onClick={handleRegisterWithFacebook} />
+        <RouterLink to={routes.fastRegister.navigate("facebook")}>
+          <CustomButton type="facebook" />
         </RouterLink>
 
         <RegisterContainer>
           <RegisterPhrase>Already have an account?</RegisterPhrase>
-          <RegisterRoute to={ROUTES.CLIENT.LOGIN}>Login</RegisterRoute>
+          <RegisterRoute to={routes.login.navigate()}>Login</RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>

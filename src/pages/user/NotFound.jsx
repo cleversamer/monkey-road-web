@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const NotFound = () => {
   return (
@@ -9,7 +9,7 @@ const NotFound = () => {
         The requested URL was not found on this server.
       </Heading>
 
-      <Link to={ROUTES.CLIENT.HOME} className="link">
+      <Link to={routes.home.navigate()} className="link">
         Back to the home page
       </Link>
     </Container>

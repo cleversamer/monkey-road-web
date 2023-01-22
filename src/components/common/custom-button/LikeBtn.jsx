@@ -12,10 +12,7 @@ const LikeBtn = ({ value = false }) => {
   );
 };
 
-const Container = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
+const Container = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;

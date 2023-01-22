@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const ReusableCar = ({ data, children }) => {
+const ReusableCar = ({ data, onClick, children }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Image url={data.imageURL} />
 
       <InfoContaier>
@@ -32,10 +32,6 @@ const Container = styled.div`
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   max-width: 350px;
-
-  > * {
-    background-color: #fff;
-  }
 `;
 
 const Image = styled.div`

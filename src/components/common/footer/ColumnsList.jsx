@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const ColumnsList = () => {
   return (
@@ -10,21 +10,22 @@ const ColumnsList = () => {
         <ColumnTitle>Website</ColumnTitle>
 
         <ColumnRoute
-          to={ROUTES.CLIENT.HOME}
+          to={routes.home.navigate()}
           onClick={() => scroll.scrollToTop()}
         >
           Home
         </ColumnRoute>
 
-        <ColumnRoute to={ROUTES.CLIENT.RENT_CARS}>Cars for rent</ColumnRoute>
+        <ColumnRoute to={routes.rentCars.navigate()}>Cars for rent</ColumnRoute>
 
-        <ColumnRoute to={ROUTES.CLIENT.PURCHASE_CARS}>
+        <ColumnRoute to={routes.purchaseCars.navigate()}>
           Cars for sale
         </ColumnRoute>
       </ColumnItem>
 
       <ColumnItem>
         <ColumnTitle>About</ColumnTitle>
+
         <ColumnScrollLink
           to="about-us"
           smooth={true}
@@ -35,11 +36,13 @@ const ColumnsList = () => {
           About us
         </ColumnScrollLink>
 
-        <ColumnRoute to={ROUTES.CLIENT.HOME}>FAQ</ColumnRoute>
+        <ColumnRoute to={routes.home.navigate()}>FAQ</ColumnRoute>
 
-        <ColumnRoute to={ROUTES.CLIENT.HOME}>Privacy policy</ColumnRoute>
+        <ColumnRoute to={routes.home.navigate()}>Privacy policy</ColumnRoute>
 
-        <ColumnRoute to={ROUTES.CLIENT.HOME}>Terms of condition</ColumnRoute>
+        <ColumnRoute to={routes.home.navigate()}>
+          Terms of condition
+        </ColumnRoute>
       </ColumnItem>
 
       <ColumnItem>

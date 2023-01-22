@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { useState } from "react";
 import SharedForm from "components/common/shared-form";
 import CustomInput from "components/common/custom-input";
@@ -28,13 +29,30 @@ const ForgotPasswordForm = () => {
         onChange={handleChange}
       />
 
-      <CustomButton
-        type="primary"
-        title="Send verification code"
-        onClick={handleSubmit}
-      />
+      <ReceiverTypes>
+        <ReceiverTitle>Send to:</ReceiverTitle>
+        <CustomInput type="radio" title="Email" />
+        <CustomInput type="radio" title="Phone" />
+      </ReceiverTypes>
+
+      <CustomButton type="primary" title="Send code" onClick={handleSubmit} />
     </SharedForm>
   );
 };
+
+const ReceiverTitle = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+const ReceiverTypes = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  label {
+    font-size: 13px;
+  }
+`;
 
 export default ForgotPasswordForm;

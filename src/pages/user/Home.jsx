@@ -5,7 +5,7 @@ import PopularBrands from "components/home/popular-brands";
 import AboutUs from "components/home/about-us";
 import WhyUs from "components/home/why-us";
 import Features from "components/home/features";
-import { ROUTES } from "client";
+import { routes } from "client";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,10 +19,9 @@ const Home = () => {
 
     let nextPage =
       search.type === "rent"
-        ? ROUTES.CLIENT.RENT_CARS
-        : ROUTES.CLIENT.PURCHASE_CARS;
+        ? routes.rentCars.navigate(search.term)
+        : routes.purchaseCars.route;
 
-    nextPage += `?term=${search.term}`;
     navigate(nextPage);
   };
 

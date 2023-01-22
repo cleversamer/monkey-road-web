@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchPage from "components/common/search-page";
 import RentCar from "components/car/rent";
+import useQueryParams from "hooks/useQueryParams";
+import { routes } from "client";
 
 const priceConfig = {
   price: {
@@ -148,9 +151,11 @@ const testCars = [
 ];
 
 const RentCars = () => {
+  const navigate = useNavigate();
+  const params = useQueryParams();
   const [rentCars, setRentCars] = useState(testCars);
   const [searchContext, setSearchContext] = useState({
-    term: "",
+    term: params.term,
     type: "",
     price: {
       min: priceConfig.price.minValue,
@@ -198,8 +203,7 @@ const RentCars = () => {
     const { term } = searchContext;
     if (!term) return;
 
-    console.log(searchContext.term);
-    // Search cars///
+    navigate(routes.rentCars.navigate(term));
   };
 
   return (

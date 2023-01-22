@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
-import LikeBtn from "./LikeBtn";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 
@@ -33,7 +32,9 @@ const PurchaseCar = ({ data }) => {
         />
       </CTAContainer>
 
-      <LikeBtn />
+      <LikeBtnContainer>
+        <CustomButton type="like" />
+      </LikeBtnContainer>
     </ReusableCar>
   );
 };
@@ -63,6 +64,12 @@ const CallContainer = styled.span`
     fill: #fff;
     font-size: 20px;
   }
+`;
+
+const LikeBtnContainer = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `;
 
 export default PurchaseCar;

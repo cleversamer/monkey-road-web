@@ -1,9 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
+import { routes } from "client";
 
 const RentCar = ({ data }) => {
-  const handleRent = () => {};
+  const navigate = useNavigate();
+
+  const handleRent = () => navigate(routes.rentCarDetails.navigate(data._id));
 
   return (
     <ReusableCar data={data}>
