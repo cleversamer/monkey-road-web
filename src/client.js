@@ -59,6 +59,10 @@ export const routes = {
     route: "/cars/purchase/best",
     navigate: () => "/cars/purchase/best",
   },
+  purchaseCarDetails: {
+    route: "/cars/purchase/:carId/details",
+    navigate: (carId = "some-id") => `/cars/purchase/${carId}/details`,
+  },
   popularBrands: {
     route: "/brands/popular",
     navigate: () => "/brands/popular",

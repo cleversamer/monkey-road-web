@@ -1,18 +1,27 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
+import { routes } from "client";
 
 const PurchaseCar = ({ data }) => {
-  const handleRent = () => {};
+  const navigate = useNavigate();
+
+  const handleMakeCall = () => {};
+
+  const handleWhatsAppCall = () => {};
+
+  const navigateToDetails = () =>
+    navigate(routes.purchaseCarDetails.navigate(data._id));
 
   return (
-    <ReusableCar data={data}>
+    <ReusableCar onClick={navigateToDetails} data={data}>
       <CTAContainer>
         <CustomButton
           type="primary"
-          onClick={handleRent}
+          onClick={handleMakeCall}
           title={
             <CallContainer>
               <BiPhone /> Call Seller
@@ -28,7 +37,7 @@ const PurchaseCar = ({ data }) => {
               <AiOutlineWhatsApp /> WhatsApp
             </CallContainer>
           }
-          onClick={handleRent}
+          onClick={handleWhatsAppCall}
         />
       </CTAContainer>
 
