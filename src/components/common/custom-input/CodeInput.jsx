@@ -3,7 +3,7 @@ import styled from "styled-components";
 const CodeInput = (props) => {
   return (
     <Container>
-      <Input type="text" placeholder="0000" {...props} />
+      <Input type="text" placeholder="0000" autoComplete="true" {...props} />
     </Container>
   );
 };

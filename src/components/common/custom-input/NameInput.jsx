@@ -8,7 +8,12 @@ const NameInput = (props) => {
         <CiUser />
       </LeftIcon>
 
-      <Input type="text" placeholder="Fouad Habboub" {...props} />
+      <Input
+        type="text"
+        placeholder="Fouad Habboub"
+        autoComplete="true"
+        {...props}
+      />
     </Container>
   );
 };

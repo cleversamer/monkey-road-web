@@ -17,6 +17,7 @@ const PasswordInput = (props) => {
       <Input
         type={visible ? "text" : "password"}
         placeholder="********"
+        autoComplete="true"
         {...props}
       />
 

@@ -8,7 +8,12 @@ const EmailOrPhoneInput = (props) => {
         <CiMail />
       </LeftIcon>
 
-      <Input type="email" placeholder="example@example.com" {...props} />
+      <Input
+        type="email"
+        placeholder="example@example.com"
+        autoComplete="true"
+        {...props}
+      />
     </Container>
   );
 };

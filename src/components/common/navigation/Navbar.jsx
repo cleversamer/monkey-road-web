@@ -15,6 +15,8 @@ const Navbar = ({ onOpenMenu }) => {
     scroll.scrollToTop();
   };
 
+  const handleSwitchLanguage = () => {};
+
   return (
     <>
       <Nav>
@@ -95,9 +97,25 @@ const Navbar = ({ onOpenMenu }) => {
           </NavMenu>
 
           <NavButtons>
-            <NavButton title="Post" iconPath="/assets/icons/post.svg" />
+            <NavButton title="Post" iconPath="/assets/icons/post.svg">
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addRentCar.navigate()}
+                >
+                  for rent
+                </NavRoute>
+              </NavItem>
 
-            <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addPurchaseCar.navigate()}
+                >
+                  for sale
+                </NavRoute>
+              </NavItem>
+            </NavButton>
 
             <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
 
@@ -106,11 +124,19 @@ const Navbar = ({ onOpenMenu }) => {
               iconPath="/assets/icons/favorite.svg"
             />
 
+            <NavButtonContainer>
+              <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+
+              <NotificationsBadge>
+                <NotificationsCount>9</NotificationsCount>
+              </NotificationsBadge>
+            </NavButtonContainer>
+
             <RouterLink to={routes.login.navigate()}>
               <NavButton title="Login" iconPath="/assets/icons/user.svg" />
             </RouterLink>
 
-            <NavButton title="EN" iconPath="/assets/icons/language.svg" />
+            <NavButton title="EN" o iconPath="/assets/icons/language.svg" />
           </NavButtons>
         </NavbarContainer>
       </Nav>
@@ -129,6 +155,7 @@ const Nav = styled.nav`
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
   }
@@ -144,6 +171,7 @@ const NavbarContainer = styled.div`
   max-width: 1366px;
   padding: 0 40px;
   padding-left: 15px;
+
   @media screen and (max-width: 480px) {
     padding-left: 0;
   }
@@ -176,13 +204,13 @@ const NavMenu = styled.ul`
 const NavItem = styled.li`
   height: 80px;
   position: relative;
+
   &:hover ul {
     display: block;
   }
 `;
 
 const SubMenu = styled(NavMenu)`
-  flex-direction: column;
   position: absolute;
   top: 80px;
   left: -50%;
@@ -192,8 +220,10 @@ const SubMenu = styled(NavMenu)`
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+
   ${NavItem} {
     height: fit-content;
+
     > * {
       font-size: 15px;
       font-weight: 500;
@@ -247,13 +277,20 @@ const NavRoute = styled(RouterLink)`
   }
 `;
 
+const NavButtonContainer = styled.div`
+  position: relative;
+`;
+
 const NavButtons = styled.ul`
   list-style: none;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   gap: 20px;
+  height: 100%;
+
   @media screen and (max-width: 1080px) {
+    height: fit-content;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -266,6 +303,25 @@ const NavButtons = styled.ul`
     width: 100vw;
     overflow-x: auto;
   }
+`;
+
+const NotificationsBadge = styled.div`
+  position: absolute;
+  top: -10px;
+  right: -7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #f00;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NotificationsCount = styled.span`
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
 `;
 
 export default Navbar;

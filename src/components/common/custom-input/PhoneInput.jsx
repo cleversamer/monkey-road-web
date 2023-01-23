@@ -25,6 +25,7 @@ const PhoneInput = ({ icc, nsn, onICCChange, onNSNChange }) => {
         type="tel"
         placeholder="58 564 1444"
         value={nsn}
+        autoComplete="true"
         onChange={onNSNChange}
       />
     </Container>

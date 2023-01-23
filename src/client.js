@@ -67,4 +67,12 @@ export const routes = {
     route: "/brands/popular",
     navigate: () => "/brands/popular",
   },
+  addRentCar: {
+    route: "/cars/rent/add",
+    navigate: () => "/cars/rent/add",
+  },
+  addPurchaseCar: {
+    route: "/cars/purchase/add",
+    navigate: () => "/cars/purchase/add",
+  },
 };

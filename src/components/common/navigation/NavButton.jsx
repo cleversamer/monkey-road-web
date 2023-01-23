@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-const NavButton = ({ iconPath, title }) => {
+const NavButton = ({ iconPath, title, children }) => {
   return (
     <Container>
-      <NavButtonIcon src={iconPath} />
-      <NavButtonTitle>{title}</NavButtonTitle>
+      <Content>
+        <NavButtonIcon src={iconPath} />
+        <NavButtonTitle>{title}</NavButtonTitle>
+      </Content>
+
+      {children && <SubMenu>{children}</SubMenu>}
     </Container>
   );
 };
@@ -12,14 +16,18 @@ const NavButton = ({ iconPath, title }) => {
 const Container = styled.li`
   cursor: pointer;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
   transition-duration: 176ms;
+  position: relative;
+  height: 100%;
 
   :hover {
     transform: scale(1.05);
+
+    ul {
+      display: block;
+    }
 
     img {
       transition-duration: 350ms;
@@ -37,6 +45,15 @@ const Container = styled.li`
   }
 `;
 
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  transition-duration: 176ms;
+`;
+
 const NavButtonIcon = styled.img`
   width: 16px;
 `;
@@ -45,6 +62,35 @@ const NavButtonTitle = styled.span`
   text-transform: capitalize;
   font-size: 13px;
   font-weight: 500;
+`;
+
+const SubMenu = styled.ul`
+  position: absolute;
+  list-style: none;
+  top: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #010606;
+  background-color: #fff;
+  display: none;
+  box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  padding: 0;
+  width: 130px;
+  z-index: 500;
+
+  li {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 1080px) {
+    top: -70px;
+  }
 `;
 
 export default NavButton;
