@@ -37,11 +37,11 @@ export const routes = {
   },
   rentCars: {
     route: "/cars/rent",
-    navigate: (searchTerm = "rent car") => `/cars/rent?term=${searchTerm}`,
+    navigate: (searchTerm = "car") => `/cars/rent?term=${searchTerm}`,
   },
   rentCarDetails: {
     route: "/cars/rent/:carId/details",
-    navigate: (carId = "some-id") => `/cars/rent/${carId}/details`,
+    navigate: (carId = "invalid-id") => `/cars/rent/${carId}/details`,
   },
   purchaseCars: {
     route: "/cars/purchase",
@@ -49,19 +49,21 @@ export const routes = {
   },
   recentlyArrivedPurchaseCars: {
     route: "/cars/purchase/recent",
-    navigate: () => "/cars/purchase/recent",
+    navigate: (searchTerm = "car") =>
+      `/cars/purchase/recent?term=${searchTerm}`,
   },
   latestPurchaseCarModels: {
     route: "/cars/purchase/latest",
-    navigate: () => "/cars/purchase/latest",
+    navigate: (searchTerm = "car") =>
+      `/cars/purchase/latest?term=${searchTerm}`,
   },
   bestPurchaseCarSellers: {
     route: "/cars/purchase/best",
-    navigate: () => "/cars/purchase/best",
+    navigate: (searchTerm = "car") => `/cars/purchase/best?term=${searchTerm}`,
   },
   purchaseCarDetails: {
     route: "/cars/purchase/:carId/details",
-    navigate: (carId = "some-id") => `/cars/purchase/${carId}/details`,
+    navigate: (carId = "invalid-id") => `/cars/purchase/${carId}/details`,
   },
   popularBrands: {
     route: "/brands/popular",

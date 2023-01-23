@@ -20,7 +20,7 @@ const Home = () => {
     let nextPage =
       search.type === "rent"
         ? routes.rentCars.navigate(search.term)
-        : routes.purchaseCars.route;
+        : routes.recentlyArrivedPurchaseCars.navigate(search.term);
 
     navigate(nextPage);
   };

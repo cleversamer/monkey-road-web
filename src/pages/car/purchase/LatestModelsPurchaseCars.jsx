@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchPage from "components/common/search-page";
 import PurchaseCar from "components/car/purchase";
+import useQueryParams from "hooks/useQueryParams";
 
 const priceConfig = {
   price: {
@@ -163,9 +164,10 @@ const testCars = [
 ];
 
 const LatestModelsPurchaseCars = () => {
+  const params = useQueryParams();
   const [purchaseCars, setPurchaseCars] = useState(testCars);
   const [searchContext, setSearchContext] = useState({
-    term: "",
+    term: params.term,
     type: "",
     price: {
       min: priceConfig.price.minValue,
