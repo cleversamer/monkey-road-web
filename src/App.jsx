@@ -16,6 +16,7 @@ import PurchaseCars from "pages/car/purchase/PurchaseCars";
 import RecentlyArrivedPurchaseCars from "pages/car/purchase/RecentlyArrivedPurchaseCars";
 import LatestModelsPurchaseCars from "pages/car/purchase/LatestModelsPurchaseCars";
 import BestSellerPurchaseCars from "pages/car/purchase/BestSellerPurchaseCars";
+import Brands from "pages/brand/Brands";
 import { routes } from "client";
 
 const App = () => {
@@ -24,6 +25,8 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.popularBrands.route} element={<Brands />} />
+
         <Route path={routes.purchaseCars.route} element={<PurchaseCars />} />
 
         <Route
