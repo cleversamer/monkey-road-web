@@ -28,6 +28,7 @@ const AddRentCar = () => {
         onNext={handleNext}
         onPrev={handlePrev}
         activeLevel={levels.active}
+        noOfLevels={levels.count}
       />
     </AddCar>
   );

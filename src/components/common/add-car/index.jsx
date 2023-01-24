@@ -24,6 +24,11 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
+
+  @media screen and (max-width: 768px) {
+    padding: 30px;
+    align-items: center;
+  }
 `;
 
 const FormContainer = styled.div`
@@ -36,6 +41,10 @@ const CarClip = styled.img`
   right: -60px;
   width: 35vw;
   max-width: 478px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export default AddCar;

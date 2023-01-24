@@ -44,6 +44,11 @@ const Level = styled.div`
   text-align: center;
   font-size: 20px;
   font-weight: 500;
+
+  @media screen and (max-width: 480px) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 const BreakLine = styled.span`
@@ -51,6 +56,10 @@ const BreakLine = styled.span`
   width: 80px;
   height: 0px;
   border: 1px solid #aaa;
+
+  @media screen and (max-width: 480px) {
+    width: 60px;
+  }
 `;
 
 export default LevelsTracker;

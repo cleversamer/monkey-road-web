@@ -70,6 +70,11 @@ const FormTitle = styled.h3`
   font-size: 28px;
   font-weight: 600;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 480px) {
+    font-size: 24px;
+    text-align: center;
+  }
 `;
 
 export default Form1;

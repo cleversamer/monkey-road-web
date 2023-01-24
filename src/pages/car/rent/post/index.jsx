@@ -12,7 +12,7 @@ const testBrands = [
   { name: { en: "Brand 3", ar: "براند 3" } },
 ];
 
-const PostRentCarForm = ({ activeLevel, onNext, onPrev }) => {
+const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
   const [entries, setEntries] = useState({
     colors: carsData.colors,
     brands: testBrands,
@@ -36,10 +36,6 @@ const PostRentCarForm = ({ activeLevel, onNext, onPrev }) => {
   useEffect(() => {
     // fetch brands
   }, []);
-
-  useEffect(() => {
-    console.log("context", context);
-  }, [context]);
 
   const handleKeyChange = (key) => (e) => {
     try {
@@ -117,7 +113,11 @@ const PostRentCarForm = ({ activeLevel, onNext, onPrev }) => {
 
       <ButtonsContainer>
         <CustomButton type="primary" title="prev" onClick={onPrev} />
-        <CustomButton type="primary" title="next" onClick={onNext} />
+        <CustomButton
+          type="primary"
+          title={activeLevel === noOfLevels ? "Complete" : "next"}
+          onClick={onNext}
+        />
       </ButtonsContainer>
     </Container>
   );
@@ -134,6 +134,10 @@ const Container = styled.form`
     width: 300px;
     margin: 0 auto;
     margin-top: 10px;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 300px;
   }
 `;
 
