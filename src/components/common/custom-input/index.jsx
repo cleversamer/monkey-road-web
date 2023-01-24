@@ -8,6 +8,10 @@ import PhoneInput from "./PhoneInput";
 import CodeInput from "./CodeInput";
 import RangeInput from "./RangeInput";
 import RadioButton from "./RadioButton";
+import TextInput from "./TextInput";
+import SelectInput from "./SelectInput";
+import DescriptionInput from "./DescriptionInput";
+import ImageInput from "./ImageInput";
 
 const CustomInput = ({
   value,
@@ -15,6 +19,7 @@ const CustomInput = ({
   type,
   id,
   title,
+  subtitle,
   placeholder,
   icc,
   nsn,
@@ -24,6 +29,9 @@ const CustomInput = ({
   minValue,
   max,
   maxValue,
+  values,
+  selectedIndex,
+  valueParser,
   ...props
 }) => {
   type = type.trim();
@@ -32,7 +40,12 @@ const CustomInput = ({
     <CheckBox id={id} title={title} value={value} onChange={onChange} />
   ) : (
     <Container>
-      {title && <Title>{title}</Title>}
+      {title && (
+        <TitleContainer>
+          <Title>{title}</Title>
+          {subtitle && <Subtitle>({subtitle})</Subtitle>}
+        </TitleContainer>
+      )}
 
       {type === "emailorphone" ? (
         <EmailOrPhoneInput value={value} onChange={onChange} {...props} />
@@ -62,6 +75,31 @@ const CustomInput = ({
         />
       ) : type === "radio" ? (
         <RadioButton title={title} />
+      ) : type === "text" ? (
+        <TextInput
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          {...props}
+        />
+      ) : type === "select" ? (
+        <SelectInput
+          onChange={onChange}
+          placeholder={placeholder}
+          values={values}
+          selectedIndex={selectedIndex}
+          valueParser={valueParser}
+          {...props}
+        />
+      ) : type === "description" ? (
+        <DescriptionInput
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          {...props}
+        />
+      ) : type === "image" ? (
+        <ImageInput onChange={onChange} {...props} />
       ) : null}
     </Container>
   );
@@ -71,12 +109,24 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Title = styled.h4`
+const TitleContainer = styled.h4`
+  margin-bottom: 7px;
+  text-transform: capitalize;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+`;
+
+const Title = styled.span`
   font-size: 14px;
   font-weight: 500;
-  text-transform: capitalize;
   color: #333;
-  margin-bottom: 7px;
+`;
+
+const Subtitle = styled.span`
+  font-size: 13px;
+  font-weight: 500;
+  color: gray;
 `;
 
 export default CustomInput;
