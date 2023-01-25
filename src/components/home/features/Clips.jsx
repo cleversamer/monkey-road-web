@@ -43,8 +43,7 @@ const ArrowLeft = styled(Arrow)`
 
 const Car = styled.img`
   position: absolute;
-  /* top: -200px; */
-  top: -14vw;
+  top: -186px;
   right: 20px;
   width: 100vw;
   max-width: 400px;
