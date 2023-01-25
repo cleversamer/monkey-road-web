@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import countries from "../../../static/countries.json";
 
-const PhoneInput = ({ icc, nsn, onICCChange, onNSNChange }) => {
+const PhoneInput = ({ primary, icc, nsn, onICCChange, onNSNChange }) => {
   return (
     <Container>
-      <SelectMenu defaultValue={icc} onChange={onICCChange}>
+      <SelectMenu primary={primary} defaultValue={icc} onChange={onICCChange}>
         {countries.map((country) => {
           const selected = icc === country.icc;
 
@@ -26,6 +26,7 @@ const PhoneInput = ({ icc, nsn, onICCChange, onNSNChange }) => {
         placeholder="58 564 1444"
         value={nsn}
         autoComplete="true"
+        primary={primary}
         onChange={onNSNChange}
       />
     </Container>
@@ -41,9 +42,9 @@ const Container = styled.div`
 const SelectMenu = styled.select`
   flex: 0.22;
   width: 22%;
-  background-color: #f4f4f4;
+  background-color: ${({ primary }) => (primary ? "#fafafa" : "#f4f4f4")};
   height: 35px;
-  border: none;
+  border: ${({ primary }) => (primary ? "1px solid #fe7777" : "none")};
   outline: none;
   border-radius: 6px;
   cursor: pointer;
@@ -57,11 +58,11 @@ const Input = styled.input`
   flex: 0.78;
   width: 78%;
   height: 35px;
-  border: none;
+  border: ${({ primary }) => (primary ? "1px solid #fe7777" : "none")};
   outline: none;
   border-radius: 6px;
   padding: 0 10px;
-  background-color: #f4f4f4;
+  background-color: ${({ primary }) => (primary ? "#fafafa" : "#f4f4f4")};
 `;
 
 export default PhoneInput;

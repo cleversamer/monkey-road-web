@@ -5,6 +5,7 @@ import CustomButton from "components/common/custom-button";
 import Form1 from "./Form1";
 import Form2 from "./Form2";
 import Form3 from "./Form3";
+import Form4 from "./Form4";
 
 const testBrands = [
   { name: { en: "Brand 1", ar: "براند 1" } },
@@ -17,20 +18,36 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
     colors: carsData.colors,
     brands: testBrands,
     years: carsData.years,
+    trimLevels: carsData.trimLevels,
+    vehicleTypes: carsData.vehicleTypes,
+    fuelTypes: carsData.fuelTypes,
+    seatsNumbers: carsData.seatsNumbers,
   });
 
   const [context, setContext] = useState({
     carName: "",
+    vinNumber: "",
     model: "",
-    colorIndex: 0,
     brandIndex: 0,
     yearIndex: 0,
-    dailyPrice: 0,
-    weeklyPrice: 0,
-    monthlyPrice: 0,
-    deposit: 0,
+    colorIndex: 0,
+    trimLevelIndex: 0,
+    vehicleTypeIndex: 0,
+    fuelTypeIndex: 0,
+    noOfSeatsIndex: 0,
+    kiloPerHour: 95,
+    price: 0,
+    phoneICC: "",
+    phoneNSN: 0,
     description: "",
     images: [],
+    paymentMethod: "debit",
+    nameOnCard: "",
+    cardNumber: "",
+    cvv: "",
+    postalCode: "",
+    month: "",
+    year: "",
   });
 
   useEffect(() => {
@@ -84,6 +101,14 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
 
   const yearParser = (year) => year;
 
+  const trimLevelParser = (trimLevel) => trimLevel;
+
+  const vehicleTypeParser = (vehicleType) => vehicleType.en;
+
+  const fuelTypeParser = (fuelType) => fuelType.en;
+
+  const seatsNumberPaeser = (seatNumber) => seatNumber;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -100,6 +125,10 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
           colorParser={colorParser}
           brandParser={brandParser}
           yearParser={yearParser}
+          trimLevelParser={trimLevelParser}
+          vehicleTypeParser={vehicleTypeParser}
+          fuelTypeParser={fuelTypeParser}
+          seatsNumberPaeser={seatsNumberPaeser}
         />
       ) : activeLevel == "2" ? (
         <Form2 context={context} onKeyChange={handleKeyChange} />
@@ -109,6 +138,8 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
           onImagesChange={handleImagesChange}
           onDeleteImage={handleDeleteImage}
         />
+      ) : activeLevel == "4" ? (
+        <Form4 context={context} onKeyChange={handleKeyChange} />
       ) : null}
 
       <ButtonsContainer>

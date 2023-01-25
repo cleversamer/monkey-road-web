@@ -12,12 +12,14 @@ import TextInput from "./TextInput";
 import SelectInput from "./SelectInput";
 import DescriptionInput from "./DescriptionInput";
 import ImageInput from "./ImageInput";
+import CardExpiryInput from "./CardExpiryInput";
 
 const CustomInput = ({
   value,
   onChange,
   type,
   id,
+  primary,
   title,
   subtitle,
   placeholder,
@@ -32,6 +34,10 @@ const CustomInput = ({
   values,
   selectedIndex,
   valueParser,
+  month,
+  year,
+  onMonthChange,
+  onYearChage,
   ...props
 }) => {
   type = type.trim();
@@ -61,6 +67,7 @@ const CustomInput = ({
           nsn={nsn}
           onICCChange={onICCChange}
           onNSNChange={onNSNChange}
+          primary={primary}
           {...props}
         />
       ) : type === "code" ? (
@@ -100,6 +107,14 @@ const CustomInput = ({
         />
       ) : type === "image" ? (
         <ImageInput onChange={onChange} {...props} />
+      ) : type === "expiry" ? (
+        <CardExpiryInput
+          month={month}
+          year={year}
+          onMonthChange={onMonthChange}
+          onYearChange={onYearChage}
+          {...props}
+        />
       ) : null}
     </Container>
   );

@@ -29,11 +29,11 @@ const ForgotPasswordForm = () => {
         onChange={handleChange}
       />
 
-      <ReceiverTypes>
+      {/* <ReceiverTypes>
         <ReceiverTitle>Send to:</ReceiverTitle>
         <CustomInput type="radio" title="Email" />
         <CustomInput type="radio" title="Phone" />
-      </ReceiverTypes>
+      </ReceiverTypes> */}
 
       <CustomButton type="primary" title="Send code" onClick={handleSubmit} />
     </SharedForm>

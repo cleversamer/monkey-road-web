@@ -26,14 +26,14 @@ module.exports = Object.freeze({
     "SX",
     "SXT",
   ],
-  vehicleTypes: {
-    en: ["Automatic", "Half-Automatic"],
-    ar: ["اوتوماتيك", "نصف اوتوماتيك"],
-  },
-  fuelTypes: {
-    en: ["solar", "benzin"],
-    ar: ["سولار", "بنزين"],
-  },
+  vehicleTypes: [
+    { en: "Automatic", ar: "اوتوماتيك" },
+    { en: "Half-Automatic", ar: "نصف اوتوماتيك" },
+  ],
+  fuelTypes: [
+    { en: "solar", ar: "سولار" },
+    { en: "benzin", ar: "بنزين" },
+  ],
   seatsNumbers: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
   years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022"],
 });
