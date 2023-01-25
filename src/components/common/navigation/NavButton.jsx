@@ -68,6 +68,7 @@ const NavButtonTitle = styled.span`
   text-transform: capitalize;
   font-size: 13px;
   font-weight: 500;
+  width: max-content;
 `;
 
 const SubMenu = styled.ul`
