@@ -49,6 +49,11 @@ const Level = styled.div`
     width: 40px;
     height: 40px;
   }
+
+  @media screen and (max-width: 420px) {
+    width: 35px;
+    height: 35px;
+  }
 `;
 
 const BreakLine = styled.span`
@@ -58,7 +63,11 @@ const BreakLine = styled.span`
   border: 1px solid #aaa;
 
   @media screen and (max-width: 480px) {
-    width: 60px;
+    width: 40px;
+  }
+
+  @media screen and (max-width: 420px) {
+    width: 30px;
   }
 `;
 
