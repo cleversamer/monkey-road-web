@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const NavButton = ({ iconPath, title, children }) => {
+const NavButton = ({ iconPath, title, laptop, children }) => {
   return (
-    <Container>
+    <Container laptop={laptop}>
       <Content>
         <NavButtonIcon src={iconPath} />
         <NavButtonTitle>{title}</NavButtonTitle>
@@ -22,11 +22,17 @@ const Container = styled.li`
   position: relative;
   height: 100%;
 
+  @media screen and (max-width: 1080px) {
+    display: ${({ laptop }) => (laptop ? "none" : "block")};
+  }
+
   :hover {
     transform: scale(1.05);
 
     ul {
-      display: block;
+      @media screen and (min-width: 1081px) {
+        display: block;
+      }
     }
 
     img {

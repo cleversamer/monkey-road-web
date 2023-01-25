@@ -97,7 +97,7 @@ const Navbar = ({ onOpenMenu }) => {
           </NavMenu>
 
           <NavButtons>
-            <NavButton title="Post" iconPath="/assets/icons/post.svg">
+            <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
@@ -117,6 +117,20 @@ const Navbar = ({ onOpenMenu }) => {
               </NavItem>
             </NavButton>
 
+            <ButtonRouteContainer
+              to={routes.addRentCar.navigate()}
+              mobile="true"
+            >
+              <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
+            </ButtonRouteContainer>
+
+            <ButtonRouteContainer
+              to={routes.addPurchaseCar.navigate()}
+              mobile="true"
+            >
+              <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
+            </ButtonRouteContainer>
+
             <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
 
             <NavButton
@@ -132,9 +146,9 @@ const Navbar = ({ onOpenMenu }) => {
               </NotificationsBadge>
             </NavButtonContainer>
 
-            <RouterLink to={routes.login.navigate()}>
+            <ButtonRouteContainer to={routes.login.navigate()}>
               <NavButton title="Login" iconPath="/assets/icons/user.svg" />
-            </RouterLink>
+            </ButtonRouteContainer>
 
             <NavButton title="EN" o iconPath="/assets/icons/language.svg" />
           </NavButtons>
@@ -322,6 +336,14 @@ const NotificationsCount = styled.span`
   font-size: 13px;
   font-weight: 500;
   color: #fff;
+`;
+
+const ButtonRouteContainer = styled(RouterLink)`
+  display: ${({ mobile }) => (mobile ? "none" : "block")};
+
+  @media screen and (max-width: 1080px) {
+    display: ${({ mobile }) => (mobile ? "block" : "none")};
+  }
 `;
 
 export default Navbar;
