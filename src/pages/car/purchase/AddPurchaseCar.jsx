@@ -20,7 +20,7 @@ const AddPurchaseCar = () => {
 
   return (
     <AddCar
-      pageTitles={["home", ">", "post car for rent"]}
+      pageTitles={["home", ">", "post car for sale"]}
       noOfLevels={levels.count}
       activeLevel={levels.active}
     >
