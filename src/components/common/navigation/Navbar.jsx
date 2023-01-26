@@ -131,9 +131,11 @@ const Navbar = ({ onOpenMenu }) => {
               <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
             </ButtonRouteContainer>
 
-            <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+            <ButtonRouteContainer to={routes.myOrders.navigate()}>
+              <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+            </ButtonRouteContainer>
 
-            <ButtonRouteContainer to={routes.favorites.navigate()}>
+            <ButtonRouteContainer to={routes.myFavorites.navigate()}>
               <NavButton
                 title="Favorites"
                 iconPath="/assets/icons/favorite.svg"

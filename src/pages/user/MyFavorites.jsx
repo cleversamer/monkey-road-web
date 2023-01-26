@@ -146,7 +146,7 @@ const testCars = [
   },
 ];
 
-const Favorites = () => {
+const MyFavorites = () => {
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState(testCars);
   const [latestCars, setLatestCars] = useState({
@@ -234,4 +234,4 @@ const LatestCarsContainer = styled.div`
   gap: 80px;
 `;
 
-export default Favorites;
+export default MyFavorites;

@@ -77,8 +77,12 @@ export const routes = {
     route: "/cars/purchase/add",
     navigate: () => "/cars/purchase/add",
   },
-  favorites: {
+  myFavorites: {
     route: "/favorites/my",
     navigate: () => "/favorites/my",
+  },
+  myOrders: {
+    route: "/orders/my",
+    navigate: () => "/orders/my",
   },
 };
