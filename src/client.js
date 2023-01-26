@@ -77,4 +77,8 @@ export const routes = {
     route: "/cars/purchase/add",
     navigate: () => "/cars/purchase/add",
   },
+  favorites: {
+    route: "/favorites/my",
+    navigate: () => "/favorites/my",
+  },
 };

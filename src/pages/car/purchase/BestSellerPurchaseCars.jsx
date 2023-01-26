@@ -13,7 +13,7 @@ const priceConfig = {
 const testCars = [
   {
     _id: 1,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 1",
     price: 100000,
     model: "EX",
@@ -23,7 +23,7 @@ const testCars = [
   },
   {
     _id: 2,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 2",
     price: 100000,
     model: "EX",
@@ -33,7 +33,7 @@ const testCars = [
   },
   {
     _id: 3,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -43,7 +43,7 @@ const testCars = [
   },
   {
     _id: 4,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -53,7 +53,7 @@ const testCars = [
   },
   {
     _id: 5,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -63,7 +63,7 @@ const testCars = [
   },
   {
     _id: 6,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -73,7 +73,7 @@ const testCars = [
   },
   {
     _id: 7,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -83,7 +83,7 @@ const testCars = [
   },
   {
     _id: 8,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -93,7 +93,7 @@ const testCars = [
   },
   {
     _id: 9,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -103,7 +103,7 @@ const testCars = [
   },
   {
     _id: 10,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -113,7 +113,7 @@ const testCars = [
   },
   {
     _id: 11,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -123,7 +123,7 @@ const testCars = [
   },
   {
     _id: 12,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -133,7 +133,7 @@ const testCars = [
   },
   {
     _id: 13,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -143,7 +143,7 @@ const testCars = [
   },
   {
     _id: 14,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -153,7 +153,7 @@ const testCars = [
   },
   {
     _id: 15,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",

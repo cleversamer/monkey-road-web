@@ -10,7 +10,7 @@ import { routes } from "client";
 const testCars = [
   {
     _id: 1,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 1",
     price: 100000,
     model: "EX",
@@ -20,7 +20,7 @@ const testCars = [
   },
   {
     _id: 2,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 2",
     price: 100000,
     model: "EX",
@@ -30,7 +30,7 @@ const testCars = [
   },
   {
     _id: 3,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 3",
     price: 100000,
     model: "EX",
@@ -40,7 +40,7 @@ const testCars = [
   },
   {
     _id: 4,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
+    imageURL: "/assets/images/car.jpg",
     name: "Car 4",
     price: 100000,
     model: "EX",
