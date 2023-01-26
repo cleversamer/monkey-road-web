@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Order from "./Order";
+import Order from "../order";
 
 const headings = [
   "products",
@@ -11,6 +11,12 @@ const headings = [
 ];
 
 const OrdersTable = ({ orders = [] }) => {
+  const handleCompleteOrder = () => {};
+
+  const handleCancelOrder = () => {};
+
+  const handleDeleteOrder = () => {};
+
   return (
     <Container>
       <Headings>
@@ -23,10 +29,13 @@ const OrdersTable = ({ orders = [] }) => {
 
       <TableBody>
         {orders.map((order) => (
-          <>
-            <Order key={order._id} data={order} />
-            <BreakLine />
-          </>
+          <Order
+            key={order._id}
+            order={order}
+            onCancel={handleCancelOrder}
+            onComplete={handleCompleteOrder}
+            onDelete={handleDeleteOrder}
+          />
         ))}
       </TableBody>
     </Container>
@@ -43,6 +52,10 @@ const Headings = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+
+  @media screen and (max-width: 620px) {
+    display: none;
+  }
 `;
 
 const TableHeading = styled.li`
@@ -57,6 +70,10 @@ const TableBody = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
+  @media screen and (max-width: 620px) {
+    gap: 15px;
+  }
 `;
 
 const BreakLine = styled.span`
@@ -65,6 +82,10 @@ const BreakLine = styled.span`
   height: 0px;
   border: 1px solid #ccc;
   margin: 0 auto;
+
+  @media screen and (max-width: 620px) {
+    display: none;
+  }
 `;
 
 export default OrdersTable;
