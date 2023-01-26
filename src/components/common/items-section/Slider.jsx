@@ -29,7 +29,7 @@ const Slider = ({ children }) => {
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1100px;
+  max-width: 1366x;
   overflow-x: auto;
 `;
 

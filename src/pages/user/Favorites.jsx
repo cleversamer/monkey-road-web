@@ -205,6 +205,11 @@ const Container = styled.main`
   margin: 0 auto;
   background-color: #fafafa;
   padding: 60px;
+
+  @media screen and (max-width: 768px) {
+    padding: 30px;
+    padding-bottom: 50px;
+  }
 `;
 
 const FavoritesContainer = styled.div`
@@ -214,8 +219,13 @@ const FavoritesContainer = styled.div`
 
 const FavoritesList = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  align-content: center;
   grid-gap: 20px;
+
+  > * {
+    margin: 0 auto;
+  }
 `;
 
 const LatestCarsContainer = styled.div`
