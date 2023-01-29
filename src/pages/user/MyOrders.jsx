@@ -8,6 +8,7 @@ import PurchaseCar from "components/car/purchase";
 import EmptyList from "components/common/empty-list";
 import { routes } from "client";
 import OrdersTable from "components/orders-table";
+import carsData from "static/carsData";
 
 const testCars = [
   {
@@ -151,9 +152,25 @@ const testOrders = [
   {
     _id: 1,
     totalPrice: 1000,
-    purpose: "request",
     status: "pending",
-    date: new Date().toString(),
+    date: "Fri Jan 27 2023 12:28:46 GMT+0200 (Eastern European Standard Time)",
+    rentCar: [
+      {
+        _id: 1,
+        imageURL: "/assets/images/car.jpg",
+        name: "Car 1",
+        price: 100000,
+        model: "EX",
+        year: "2022",
+        brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
+      },
+    ],
+  },
+  {
+    _id: 1.5,
+    totalPrice: 1000,
+    status: "pending",
+    date: "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
     rentCar: [
       {
         _id: 1,
@@ -169,9 +186,25 @@ const testOrders = [
   {
     _id: 2,
     totalPrice: 1000,
-    purpose: "post",
     status: "approved",
-    date: new Date().toString(),
+    date: "Fri Jan 26 2023 9:28:46 GMT+0200 (Eastern European Standard Time)",
+    rentCar: [
+      {
+        _id: 1,
+        imageURL: "/assets/images/car.jpg",
+        name: "Car 1",
+        price: 100000,
+        model: "EX",
+        year: "2022",
+        brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
+      },
+    ],
+  },
+  {
+    _id: 2.5,
+    totalPrice: 1000,
+    status: "approved",
+    date: "Fri Jan 26 2023 3:28:46 GMT+0200 (Eastern European Standard Time)",
     rentCar: [
       {
         _id: 1,
@@ -187,9 +220,25 @@ const testOrders = [
   {
     _id: 3,
     totalPrice: 1000,
-    purpose: "request",
     status: "rejected",
-    date: new Date().toString(),
+    date: "Fri Jan 26 2023 17:28:46 GMT+0200 (Eastern European Standard Time)",
+    rentCar: [
+      {
+        _id: 1,
+        imageURL: "/assets/images/car.jpg",
+        name: "Car 1",
+        price: 100000,
+        model: "EX",
+        year: "2022",
+        brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
+      },
+    ],
+  },
+  {
+    _id: 3.5,
+    totalPrice: 1000,
+    status: "rejected",
+    date: "Fri Jan 26 2023 21:28:46 GMT+0200 (Eastern European Standard Time)",
     rentCar: [
       {
         _id: 1,
@@ -205,9 +254,25 @@ const testOrders = [
   {
     _id: 4,
     totalPrice: 1000,
-    purpose: "post",
     status: "closed",
-    date: new Date().toString(),
+    date: "Fri Jan 23 2023 19:28:46 GMT+0200 (Eastern European Standard Time)",
+    rentCar: [
+      {
+        _id: 1,
+        imageURL: "/assets/images/car.jpg",
+        name: "Car 1",
+        price: 100000,
+        model: "EX",
+        year: "2022",
+        brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
+      },
+    ],
+  },
+  {
+    _id: 4.5,
+    totalPrice: 1000,
+    status: "closed",
+    date: "Fri Jan 21 2023 14:39:46 GMT+0200 (Eastern European Standard Time)",
     rentCar: [
       {
         _id: 1,
@@ -224,7 +289,13 @@ const testOrders = [
 
 const MyOrders = () => {
   const navigate = useNavigate();
-  const [orders, setOrders] = useState(testOrders);
+  const [orders, setOrders] = useState({
+    all: testOrders,
+    view: testOrders,
+    statuses: carsData.orderStatuses,
+    purposes: carsData.orderPurposes,
+    selectedStatus: "all",
+  });
   const [latestCars, setLatestCars] = useState({
     forRent: testCars,
     forSale: testCars,
@@ -236,13 +307,40 @@ const MyOrders = () => {
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
 
+  const handleSelectItem = (title) => {
+    const viewList =
+      title === "all"
+        ? [...orders.all]
+        : orders.all.filter((order) => order.status === title);
+
+    setOrders({ ...orders, selectedStatus: title, view: viewList });
+  };
+
+  const handleCompleteOrder = (orderId) => {
+    console.log("orderId", orderId);
+  };
+
+  const handleCancelOrder = (orderId) => {
+    console.log("orderId", orderId);
+  };
+
+  const handleDeleteOrder = (orderId) => {
+    console.log("orderId", orderId);
+  };
+
   return (
     <Container>
       <Location pageTitles={["home", ">", "my orders"]} />
 
       <OrdersContainer>
-        {orders.length ? (
-          <OrdersTable orders={orders} />
+        {orders.all.length ? (
+          <OrdersTable
+            orders={orders}
+            onComplete={handleCompleteOrder}
+            onCancel={handleCancelOrder}
+            onDelete={handleDeleteOrder}
+            onSelectItem={handleSelectItem}
+          />
         ) : (
           <EmptyList
             title="It's empty here..."

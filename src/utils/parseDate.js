@@ -17,22 +17,34 @@ module.exports = (strDate) => {
     // Calc days difference
     const diffInDays = Math.floor(diffInMs / dayInMs);
     diffInMs = diffInMs - diffInDays * dayInMs;
-    times.push({ type: "days", diff: diffInDays });
+    times.push({
+      type: diffInDays > 1 ? "days" : "day",
+      diff: diffInDays,
+    });
 
     // Calc hours difference
     const diffInHours = Math.floor(diffInMs / hourInMs);
     diffInMs = diffInMs - diffInHours * hourInMs;
-    times.push({ type: "hours", diff: diffInHours });
+    times.push({
+      type: diffInHours > 1 ? "hours" : "hour",
+      diff: diffInHours,
+    });
 
     // Calc minutes difference
     const diffInMins = Math.floor(diffInMs / minInMs);
     diffInMs = diffInMs - diffInMins * minInMs;
-    times.push({ type: "mins", diff: diffInMins });
+    times.push({
+      type: diffInMins > 1 ? "mins" : "min",
+      diff: diffInMins,
+    });
 
     // Calc minutes difference
     const diffInSecs = Math.floor(diffInMs / secInMs);
     diffInMs = diffInMs - diffInSecs * secInMs;
-    times.push({ type: "secs", diff: diffInSecs });
+    times.push({
+      type: diffInSecs > 1 ? "secs" : "sec",
+      diff: diffInSecs,
+    });
 
     const result = [];
     for (let time of times) {

@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import Order from "../order";
+import FiltersSection from "./FiltersSection";
+import TableBody from "./TableBody";
+import TableHeadings from "./TableHeadings";
 
 const headings = [
   "products",
@@ -10,34 +12,24 @@ const headings = [
   "operations",
 ];
 
-const OrdersTable = ({ orders = [] }) => {
-  const handleCompleteOrder = () => {};
-
-  const handleCancelOrder = () => {};
-
-  const handleDeleteOrder = () => {};
-
+const OrdersTable = ({
+  orders,
+  onComplete,
+  onCancel,
+  onDelete,
+  onSelectItem,
+}) => {
   return (
     <Container>
-      <Headings>
-        {headings.map((heading, index) => (
-          <TableHeading key={index}>{heading}</TableHeading>
-        ))}
-      </Headings>
-
+      <FiltersSection orders={orders} onSelectItem={onSelectItem} />
       <BreakLine />
-
-      <TableBody>
-        {orders.map((order) => (
-          <Order
-            key={order._id}
-            order={order}
-            onCancel={handleCancelOrder}
-            onComplete={handleCompleteOrder}
-            onDelete={handleDeleteOrder}
-          />
-        ))}
-      </TableBody>
+      <TableHeadings headings={headings} />
+      <TableBody
+        orders={orders.view}
+        onCancel={onCancel}
+        onComplete={onComplete}
+        onDelete={onDelete}
+      />
     </Container>
   );
 };
@@ -46,34 +38,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`;
-
-const Headings = styled.ul`
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-
-  @media screen and (max-width: 620px) {
-    display: none;
-  }
-`;
-
-const TableHeading = styled.li`
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: capitalize;
-  text-align: center;
-`;
-
-const TableBody = styled.ul`
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-
-  @media screen and (max-width: 620px) {
-    gap: 15px;
-  }
 `;
 
 const BreakLine = styled.span`
