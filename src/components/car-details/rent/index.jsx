@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 
-const RentCarDetails = ({ onRent }) => {
+const RentCarDetails = ({ onNext }) => {
   return (
     <Container>
       <TitleContainer>
@@ -97,7 +97,7 @@ const RentCarDetails = ({ onRent }) => {
       </DetailsList>
 
       <RentButtonContainer>
-        <CustomButton type="primary" title="Rent now" onClick={onRent} />
+        <CustomButton type="primary" title="Rent now" onClick={onNext} />
       </RentButtonContainer>
     </Container>
   );

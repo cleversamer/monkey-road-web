@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { animateScroll as scroll } from "react-scroll";
 import styled from "styled-components";
 import Gallery from "components/car-details/Gallery";
-import Details from "components/car-details/rent";
 import ItemsSection from "components/common/items-section";
 import RentCar from "components/car/rent";
+import Details1 from "./details/Details1";
+import Details2 from "./details/Details2";
 
 const testCars = [
   {
@@ -146,6 +148,7 @@ const testCars = [
 
 const RentCarDetails = () => {
   const { carId } = useParams();
+  const [pages, setPages] = useState({ count: 3, current: 1 });
   const [similarCars, setSimilarCars] = useState(testCars);
 
   useEffect(() => {
@@ -155,11 +158,27 @@ const RentCarDetails = () => {
 
   const handleRentCar = () => {};
 
+  const handleNext = () => {
+    if (pages.current === pages.count) return;
+    setPages({ ...pages, current: pages.current + 1 });
+    scroll.scrollToTop();
+  };
+
+  const handlePrev = () => {
+    if (pages.current === 1) return;
+    setPages({ ...pages, current: pages.current - 1 });
+    scroll.scrollToTop();
+  };
+
   return (
     <Container>
       <Content>
         <Gallery />
-        <Details onRent={handleRentCar} />
+        {pages.current == "1" ? (
+          <Details1 onNext={handleNext} />
+        ) : pages.current == "2" ? (
+          <Details2 onNext={handleNext} onPrev={handlePrev} />
+        ) : null}
       </Content>
 
       <ItemsSection type="slider" title="Similar products">
@@ -189,6 +208,7 @@ const Container = styled.main`
 `;
 
 const Content = styled.div`
+  width: 100%;
   display: flex;
   gap: 40px;
 

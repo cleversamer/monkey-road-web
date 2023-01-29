@@ -13,6 +13,8 @@ import SelectInput from "./SelectInput";
 import DescriptionInput from "./DescriptionInput";
 import ImageInput from "./ImageInput";
 import CardExpiryInput from "./CardExpiryInput";
+import DateInput from "./DateInput";
+import TimeInput from "./TimeInput";
 
 const CustomInput = ({
   value,
@@ -115,6 +117,10 @@ const CustomInput = ({
           onYearChange={onYearChage}
           {...props}
         />
+      ) : type === "date" ? (
+        <DateInput onChange={onChange} />
+      ) : type === "time" ? (
+        <TimeInput />
       ) : null}
     </Container>
   );
