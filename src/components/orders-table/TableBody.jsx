@@ -1,16 +1,23 @@
 import styled from "styled-components";
 import Order from "components/order";
 
-const TableBody = ({ orders, onComplete, onCancel, onDelete }) => {
+const TableBody = ({
+  orders,
+  onComplete,
+  onCancel,
+  onDelete,
+  onViewDetails,
+}) => {
   return (
     <Container>
       {orders.map((order) => (
         <Order
           key={order._id}
           order={order}
-          onCancel={() => onCancel(order._id)}
-          onComplete={() => onComplete(order._id)}
-          onDelete={() => onDelete(order._id)}
+          onCancel={onCancel}
+          onComplete={onComplete}
+          onDelete={onDelete}
+          onViewDetails={onViewDetails}
         />
       ))}
     </Container>

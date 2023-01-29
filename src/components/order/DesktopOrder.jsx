@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import parseDate from "utils/parseDate";
 
-const DesktopOrder = ({ order, onComplete, onCancel, onDelete }) => {
+const DesktopOrder = ({
+  order,
+  onComplete,
+  onCancel,
+  onDelete,
+  onViewDetails,
+}) => {
   const [time, setTime] = useState(parseDate(order.date));
 
   useEffect(() => {
@@ -20,17 +25,19 @@ const DesktopOrder = ({ order, onComplete, onCancel, onDelete }) => {
     <Container>
       <Desktop>
         <ItemContainer>
-          <Image src={order.rentCar[0].imageURL} alt={order.rentCar[0].name} />
+          <Image src={order.rentCar.photos[0]} alt={order.rentCar.name} />
         </ItemContainer>
 
         <ItemContainer bold primary>
           {order.totalPrice} AED
         </ItemContainer>
 
-        <ItemContainer>{order.status}</ItemContainer>
-
         <ItemContainer>
-          <RouterLink to="">details</RouterLink>
+          <OrderStatus status={order.status}>{order.status}</OrderStatus>
+        </ItemContainer>
+
+        <ItemContainer link onClick={() => onViewDetails(order)}>
+          details
         </ItemContainer>
 
         <ItemContainer lowercase>{time} ago</ItemContainer>
@@ -74,23 +81,33 @@ const ItemContainer = styled.span`
   gap: 10px;
   font-size: 14px;
   font-weight: ${({ bold }) => (bold ? "700" : "500")};
-  color: ${({ primary }) => (primary ? "#fe7777" : "#000")};
+  color: ${({ primary, link }) =>
+    primary ? "#fe7777" : link ? "#001aff" : "#000"};
   text-transform: ${({ lowercase }) =>
     lowercase ? "lowercase" : "capitalize"};
+  text-decoration: ${({ link }) => (link ? "underline" : "none")};
+  transition-duration: 176ms;
+  cursor: ${({ link }) => (link ? "pointer" : "")};
 
-  a {
-    color: #001aff;
-    text-decoration: underline;
-    transition-duration: 176ms;
-
-    :hover {
-      color: #fe7777;
-    }
+  :hover {
+    color: ${({ link, primary }) =>
+      link ? "#fe7777" : primary ? "#fe7777" : "#000"};
   }
 
   @media screen and (max-width: 960px) {
     flex-direction: column;
   }
+`;
+
+const OrderStatus = styled.span`
+  color: ${({ status }) =>
+    status === "pending"
+      ? "#fe7777"
+      : ["rejected", "closed"].includes(status)
+      ? "red"
+      : status === "approved"
+      ? "green"
+      : "#000"};
 `;
 
 const Image = styled.img`

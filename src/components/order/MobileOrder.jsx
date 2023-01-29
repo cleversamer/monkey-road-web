@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "utils/parseDate";
 
-const MobileOrder = ({ order, onComplete, onCancel, onDelete }) => {
+const MobileOrder = ({
+  order,
+  onComplete,
+  onCancel,
+  onDelete,
+  onViewDetails,
+}) => {
   const [time, setTime] = useState(parseDate(order.date));
 
   useEffect(() => {
@@ -18,11 +24,15 @@ const MobileOrder = ({ order, onComplete, onCancel, onDelete }) => {
   return (
     <Container>
       <Row1>
-        <Status>{order.status}</Status>
+        <Status status={order.status}>{order.status}</Status>
       </Row1>
 
       <Row2>
-        <Image src={order.rentCar[0].imageURL} alt={order.rentCar[0].name} />
+        <Image
+          src={order.rentCar.photos[0]}
+          alt={order.rentCar.name}
+          onClick={() => onViewDetails(order)}
+        />
 
         <Row2Left>
           <Price>Total: {order.totalPrice} AED</Price>
@@ -86,6 +96,14 @@ const Row3 = styled(Row)``;
 const Status = styled.h4`
   font-size: 16px;
   text-transform: capitalize;
+  color: ${({ status }) =>
+    status === "pending"
+      ? "#fe7777"
+      : ["rejected", "closed"].includes(status)
+      ? "red"
+      : status === "approved"
+      ? "green"
+      : "#000"};
 `;
 
 const Image = styled.img`

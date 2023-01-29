@@ -18,6 +18,7 @@ const OrdersTable = ({
   onCancel,
   onDelete,
   onSelectItem,
+  onViewDetails,
 }) => {
   return (
     <Container>
@@ -29,6 +30,7 @@ const OrdersTable = ({
         onCancel={onCancel}
         onComplete={onComplete}
         onDelete={onDelete}
+        onViewDetails={onViewDetails}
       />
     </Container>
   );

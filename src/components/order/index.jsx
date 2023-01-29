@@ -1,7 +1,7 @@
 import DesktopOrder from "./DesktopOrder";
 import MobileOrder from "./MobileOrder";
 
-const Order = ({ order, onCancel, onComplete, onDelete }) => {
+const Order = ({ order, onCancel, onComplete, onDelete, onViewDetails }) => {
   return (
     <>
       <DesktopOrder
@@ -9,6 +9,7 @@ const Order = ({ order, onCancel, onComplete, onDelete }) => {
         onCancel={onCancel}
         onComplete={onComplete}
         onDelete={onDelete}
+        onViewDetails={onViewDetails}
       />
 
       <MobileOrder
@@ -16,6 +17,7 @@ const Order = ({ order, onCancel, onComplete, onDelete }) => {
         onCancel={onCancel}
         onComplete={onComplete}
         onDelete={onDelete}
+        onViewDetails={onViewDetails}
       />
     </>
   );
