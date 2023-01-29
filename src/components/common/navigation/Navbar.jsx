@@ -120,6 +120,7 @@ const Navbar = ({ onOpenMenu }) => {
             <ButtonRouteContainer
               to={routes.addRentCar.navigate()}
               mobile="true"
+              desktop="false"
             >
               <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
             </ButtonRouteContainer>
@@ -127,34 +128,47 @@ const Navbar = ({ onOpenMenu }) => {
             <ButtonRouteContainer
               to={routes.addPurchaseCar.navigate()}
               mobile="true"
+              desktop="false"
             >
               <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
             </ButtonRouteContainer>
 
-            <ButtonRouteContainer to={routes.myOrders.navigate()}>
+            <ButtonRouteContainer
+              to={routes.myOrders.navigate()}
+              mobile="true"
+              desktop="true"
+            >
               <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
             </ButtonRouteContainer>
 
-            <ButtonRouteContainer to={routes.myFavorites.navigate()}>
+            <ButtonRouteContainer
+              to={routes.myFavorites.navigate()}
+              desktop="true"
+              mobile="true"
+            >
               <NavButton
                 title="Favorites"
                 iconPath="/assets/icons/favorite.svg"
               />
             </ButtonRouteContainer>
 
-            <NavButtonContainer>
+            <ButtonRouteContainer to="" desktop="true" mobile="true">
               <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
 
               <NotificationsBadge>
                 <NotificationsCount>9</NotificationsCount>
               </NotificationsBadge>
-            </NavButtonContainer>
+            </ButtonRouteContainer>
 
-            <ButtonRouteContainer to={routes.login.navigate()}>
+            <ButtonRouteContainer
+              to={routes.login.navigate()}
+              desktop="true"
+              mobile="true"
+            >
               <NavButton title="Login" iconPath="/assets/icons/user.svg" />
             </ButtonRouteContainer>
 
-            <NavButton title="EN" o iconPath="/assets/icons/language.svg" />
+            <NavButton title="EN" iconPath="/assets/icons/language.svg" />
           </NavButtons>
         </NavbarContainer>
       </Nav>
@@ -295,10 +309,6 @@ const NavRoute = styled(RouterLink)`
   }
 `;
 
-const NavButtonContainer = styled.div`
-  position: relative;
-`;
-
 const NavButtons = styled.ul`
   list-style: none;
   display: flex;
@@ -343,11 +353,13 @@ const NotificationsCount = styled.span`
 `;
 
 const ButtonRouteContainer = styled(RouterLink)`
-  display: ${({ mobile }) => (mobile ? "none" : "block")};
+  position: relative;
+  display: ${({ desktop, mobile }) =>
+    desktop === "true" ? "block" : mobile === "true" ? "none" : "block"};
 
   @media screen and (max-width: 1080px) {
-    display: ${({ mobile }) => (mobile ? "block" : "none")};
-  }
+    display: ${({ mobile, desktop }) =>
+      mobile === "true" ? "block" : desktop === "true" ? "none" : "block"};
 `;
 
 export default Navbar;
