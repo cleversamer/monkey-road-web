@@ -96,7 +96,7 @@ const Navbar = ({ onOpenMenu }) => {
             </NavItem>
           </NavMenu>
 
-          <NavButtons>
+          <DesktopNavButtons>
             <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
               <NavItem>
                 <NavRoute
@@ -169,9 +169,81 @@ const Navbar = ({ onOpenMenu }) => {
             </ButtonRouteContainer>
 
             <NavButton title="EN" iconPath="/assets/icons/language.svg" />
-          </NavButtons>
+          </DesktopNavButtons>
         </NavbarContainer>
       </Nav>
+
+      <MobileNavButtons>
+        <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+          <NavItem>
+            <NavRoute
+              onClick={() => scroll.scrollToTop()}
+              to={routes.addRentCar.navigate()}
+            >
+              for rent
+            </NavRoute>
+          </NavItem>
+
+          <NavItem>
+            <NavRoute
+              onClick={() => scroll.scrollToTop()}
+              to={routes.addPurchaseCar.navigate()}
+            >
+              for sale
+            </NavRoute>
+          </NavItem>
+        </NavButton>
+
+        <ButtonRouteContainer
+          to={routes.addRentCar.navigate()}
+          mobile="true"
+          desktop="false"
+        >
+          <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
+        </ButtonRouteContainer>
+
+        <ButtonRouteContainer
+          to={routes.addPurchaseCar.navigate()}
+          mobile="true"
+          desktop="false"
+        >
+          <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
+        </ButtonRouteContainer>
+
+        <ButtonRouteContainer
+          to={routes.myOrders.navigate()}
+          mobile="true"
+          desktop="true"
+        >
+          <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+        </ButtonRouteContainer>
+
+        <ButtonRouteContainer
+          to={routes.myFavorites.navigate()}
+          desktop="true"
+          mobile="true"
+        >
+          <NavButton title="Favorites" iconPath="/assets/icons/favorite.svg" />
+        </ButtonRouteContainer>
+
+        <ButtonRouteContainer to="" desktop="true" mobile="true">
+          <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+
+          <NotificationsBadge>
+            <NotificationsCount>9</NotificationsCount>
+          </NotificationsBadge>
+        </ButtonRouteContainer>
+
+        <ButtonRouteContainer
+          to={routes.login.navigate()}
+          desktop="true"
+          mobile="true"
+        >
+          <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+        </ButtonRouteContainer>
+
+        <NavButton title="EN" iconPath="/assets/icons/language.svg" />
+      </MobileNavButtons>
     </>
   );
 };
@@ -309,7 +381,7 @@ const NavRoute = styled(RouterLink)`
   }
 `;
 
-const NavButtons = styled.ul`
+const DesktopNavButtons = styled.ul`
   list-style: none;
   display: flex;
   justify-content: center;
@@ -318,7 +390,9 @@ const NavButtons = styled.ul`
   height: 100%;
 
   @media screen and (max-width: 1080px) {
-    height: fit-content;
+    display: none;
+
+    /* height: fit-content;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -329,7 +403,48 @@ const NavButtons = styled.ul`
     -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
     padding: 10px 20px;
     width: 100vw;
-    overflow-x: auto;
+    overflow-x: auto; */
+  }
+`;
+
+const MobileNavButtons = styled.ul`
+  display: none;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  width: 100vw;
+  z-index: 999999;
+  background: #fafafa;
+  box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  overflow-x: auto;
+
+  @media screen and (max-width: 1080px) {
+    display: flex;
+  }
+
+  @media screen and (max-width: 460px) {
+    padding-left: 70px;
+  }
+
+  @media screen and (max-width: 380px) {
+    padding-left: 100px;
+  }
+
+  @media screen and (max-width: 360px) {
+    padding-left: 130px;
+  }
+
+  @media screen and (max-width: 340px) {
+    padding-left: 150px;
   }
 `;
 
@@ -353,6 +468,7 @@ const NotificationsCount = styled.span`
 `;
 
 const ButtonRouteContainer = styled(RouterLink)`
+  min-width: max-content;
   position: relative;
   display: ${({ desktop, mobile }) =>
     desktop === "true" ? "block" : mobile === "true" ? "none" : "block"};
@@ -360,6 +476,7 @@ const ButtonRouteContainer = styled(RouterLink)`
   @media screen and (max-width: 1080px) {
     display: ${({ mobile, desktop }) =>
       mobile === "true" ? "block" : desktop === "true" ? "none" : "block"};
+  }
 `;
 
 export default Navbar;
