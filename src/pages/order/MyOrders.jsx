@@ -454,8 +454,8 @@ const MyOrders = () => {
     setOrders({ ...orders, selectedOrder: null });
   };
 
-  const handleCompleteOrder = (orderId) => {
-    console.log("complete", orderId);
+  const handleCompleteOrder = (order) => {
+    navigate(routes.completeOrder.navigate(order._id));
   };
 
   const handleCancelOrder = (orderId) => {

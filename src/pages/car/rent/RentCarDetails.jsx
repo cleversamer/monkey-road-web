@@ -7,6 +7,7 @@ import ItemsSection from "components/common/items-section";
 import RentCar from "components/car/rent";
 import Details1 from "./details/Details1";
 import Details2 from "./details/Details2";
+import Details3 from "./details/Details3";
 
 const testCars = [
   {
@@ -178,6 +179,8 @@ const RentCarDetails = () => {
           <Details1 onNext={handleNext} />
         ) : pages.current == "2" ? (
           <Details2 onNext={handleNext} onPrev={handlePrev} />
+        ) : pages.current == "3" ? (
+          <Details3 onPrev={handlePrev} />
         ) : null}
       </Content>
 

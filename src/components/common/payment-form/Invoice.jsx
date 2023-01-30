@@ -71,7 +71,9 @@ const Item = styled.li`
   font-weight: 500;
 `;
 
-const ItemTitle = styled.span``;
+const ItemTitle = styled.span`
+  text-transform: capitalize;
+`;
 
 const ItemCost = styled.span``;
 

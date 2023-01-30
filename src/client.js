@@ -85,4 +85,8 @@ export const routes = {
     route: "/orders/my",
     navigate: () => "/orders/my",
   },
+  completeOrder: {
+    route: "/orders/:orderId/complete",
+    navigate: (orderId = "1") => `/orders/${orderId}/complete`,
+  },
 };

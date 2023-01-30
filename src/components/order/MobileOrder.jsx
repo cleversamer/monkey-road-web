@@ -39,7 +39,9 @@ const MobileOrder = ({
 
           <ButtonsContainer>
             {order.status === "approved" && (
-              <FilledButton onClick={onComplete}>complete</FilledButton>
+              <FilledButton onClick={() => onComplete(order)}>
+                complete
+              </FilledButton>
             )}
 
             {["pending", "approved"].includes(order.status) && (

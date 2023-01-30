@@ -44,7 +44,9 @@ const DesktopOrder = ({
 
         <ItemContainer>
           {order.status === "approved" && (
-            <CompleteButton onClick={onComplete}>complete</CompleteButton>
+            <CompleteButton onClick={() => onComplete(order)}>
+              complete
+            </CompleteButton>
           )}
 
           {["pending", "approved"].includes(order.status) && (

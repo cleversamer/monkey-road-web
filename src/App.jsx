@@ -21,7 +21,8 @@ import AddPurchaseCar from "pages/car/purchase/AddPurchaseCar";
 import Brands from "pages/brand/Brands";
 import AddRentCar from "pages/car/rent/AddRentCar";
 import MyFavorites from "pages/user/MyFavorites";
-import MyOrders from "pages/user/MyOrders";
+import MyOrders from "pages/order/MyOrders";
+import CompleteOrder from "pages/order/CompleteOrder";
 import { routes } from "client";
 
 const App = () => {
@@ -30,6 +31,8 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.completeOrder.route} element={<CompleteOrder />} />
+
         <Route path={routes.myOrders.route} element={<MyOrders />} />
 
         <Route path={routes.myFavorites.route} element={<MyFavorites />} />
