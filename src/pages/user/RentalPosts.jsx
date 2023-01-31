@@ -193,6 +193,7 @@ const RentalPosts = () => {
         <PostsContainer>
           {salesPosts.map((postCar) => (
             <PostCar
+              key={postCar._id}
               data={postCar}
               onDelete={() => handleDeletePost(postCar._id)}
               onViewDetails={() => handleViewDetails(postCar._id)}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "components/common/search-page/Location";
 import ProfileNavigation from "components/user/ProfileNavigation";
-import PostCar from "components/post-car";
+import PurchaseCar from "components/car/purchase";
 import { routes } from "client";
 
 const testCars = [
@@ -192,11 +192,7 @@ const SalesPosts = () => {
 
         <PostsContainer>
           {salesPosts.map((postCar) => (
-            <PostCar
-              data={postCar}
-              onDelete={() => handleDeletePost(postCar._id)}
-              onViewDetails={() => handleViewDetails(postCar._id)}
-            />
+            <PurchaseCar key={postCar._id} data={postCar} />
           ))}
         </PostsContainer>
       </Content>

@@ -2,6 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import { FaRegUser, FaCarAlt } from "react-icons/fa";
 import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
+import { MdCallReceived } from "react-icons/md";
 import { routes } from "client";
 
 const ProfileNavigation = ({ activeItem }) => {
@@ -30,6 +31,13 @@ const ProfileNavigation = ({ activeItem }) => {
           <RouterLink to={routes.rentalPosts.navigate()}>
             <FaCarAlt />
             <NavItemTitle>rental posts</NavItemTitle>
+          </RouterLink>
+        </NavItem>
+
+        <NavItem active={activeItem === "received orders"}>
+          <RouterLink to={routes.rentalPosts.navigate()}>
+            <MdCallReceived />
+            <NavItemTitle>received orders</NavItemTitle>
           </RouterLink>
         </NavItem>
 
