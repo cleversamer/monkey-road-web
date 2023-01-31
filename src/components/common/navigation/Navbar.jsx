@@ -192,7 +192,7 @@ const Navbar = ({ onOpenMenu }) => {
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
-                  to={routes.addPurchaseCar.navigate()}
+                  to={routes.rentalPosts.navigate()}
                 >
                   <FaCarAlt /> rental posts
                 </NavRoute>

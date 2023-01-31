@@ -97,4 +97,8 @@ export const routes = {
     route: "/posts/sales",
     navigate: () => `/posts/sales`,
   },
+  rentalPosts: {
+    route: "/posts/rental",
+    navigate: () => `/posts/rental`,
+  },
 };

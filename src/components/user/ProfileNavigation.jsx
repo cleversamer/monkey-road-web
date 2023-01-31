@@ -27,7 +27,7 @@ const ProfileNavigation = ({ activeItem }) => {
         </NavItem>
 
         <NavItem active={activeItem === "rental posts"}>
-          <RouterLink to={routes.personalInfo.navigate()}>
+          <RouterLink to={routes.rentalPosts.navigate()}>
             <FaCarAlt />
             <NavItemTitle>rental posts</NavItemTitle>
           </RouterLink>
