@@ -24,6 +24,7 @@ import MyFavorites from "pages/user/MyFavorites";
 import MyOrders from "pages/order/MyOrders";
 import CompleteOrder from "pages/order/CompleteOrder";
 import PersonalInfo from "pages/user/PersonalInfo";
+import SalesPosts from "pages/user/SalesPosts";
 import { routes } from "client";
 
 const App = () => {
@@ -32,6 +33,8 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.salesPosts.route} element={<SalesPosts />} />
+
         <Route path={routes.personalInfo.route} element={<PersonalInfo />} />
 
         <Route path={routes.completeOrder.route} element={<CompleteOrder />} />

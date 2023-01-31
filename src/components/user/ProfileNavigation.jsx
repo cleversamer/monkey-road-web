@@ -20,7 +20,7 @@ const ProfileNavigation = ({ activeItem }) => {
         </NavItem>
 
         <NavItem active={activeItem === "sales posts"}>
-          <RouterLink to={routes.personalInfo.navigate()}>
+          <RouterLink to={routes.salesPosts.navigate()}>
             <FaCarAlt />
             <NavItemTitle>sales posts</NavItemTitle>
           </RouterLink>

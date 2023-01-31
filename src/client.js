@@ -93,4 +93,8 @@ export const routes = {
     route: "/profile/info",
     navigate: () => `/profile/info`,
   },
+  salesPosts: {
+    route: "/posts/sales",
+    navigate: () => `/posts/sales`,
+  },
 };
