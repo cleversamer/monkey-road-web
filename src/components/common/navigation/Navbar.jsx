@@ -233,7 +233,7 @@ const Navbar = ({ onOpenMenu }) => {
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
-                  to={routes.rentalPosts.navigate()}
+                  to={routes.myReceivedOrders.navigate()}
                 >
                   <MdCallReceived /> received orders
                 </NavRoute>

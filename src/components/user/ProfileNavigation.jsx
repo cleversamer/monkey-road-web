@@ -68,7 +68,7 @@ const ProfileNavigation = ({ activeItem }) => {
           </NavItem>
 
           <NavItem active={activeItem === "received orders"}>
-            <RouterLink to={routes.rentalPosts.navigate()}>
+            <RouterLink to={routes.myReceivedOrders.navigate()}>
               <MdCallReceived />
               <NavItemTitle>received orders</NavItemTitle>
             </RouterLink>

@@ -105,4 +105,8 @@ export const routes = {
     route: "/password/change",
     navigate: () => `/password/change`,
   },
+  myReceivedOrders: {
+    route: "/orders/received",
+    navigate: () => "/orders/received",
+  },
 };
