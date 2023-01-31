@@ -186,7 +186,11 @@ const Navbar = ({ onOpenMenu }) => {
               />
             </ButtonRouteContainer>
 
-            <ButtonRouteContainer to="" desktop="true" mobile="true">
+            <ButtonRouteContainer
+              to={routes.alerts.navigate()}
+              desktop="true"
+              mobile="true"
+            >
               <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
 
               <NotificationsBadge>

@@ -28,6 +28,7 @@ import SalesPosts from "pages/user/SalesPosts";
 import RentalPosts from "pages/user/RentalPosts";
 import ChangePassword from "pages/user/ChangePassword";
 import MyReceivedOrders from "pages/user/MyReceivedOrders";
+import Alerts from "pages/user/Alerts";
 import { routes } from "client";
 
 const App = () => {
@@ -36,6 +37,8 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.alerts.route} element={<Alerts />} />
+
         <Route
           path={routes.myReceivedOrders.route}
           element={<MyReceivedOrders />}

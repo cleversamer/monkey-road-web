@@ -109,4 +109,8 @@ export const routes = {
     route: "/orders/received",
     navigate: () => "/orders/received",
   },
+  alerts: {
+    route: "/alerts/my",
+    navigate: () => "/alerts/my",
+  },
 };

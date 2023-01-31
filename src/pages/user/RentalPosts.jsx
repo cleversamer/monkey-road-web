@@ -190,16 +190,18 @@ const RentalPosts = () => {
           </EmptyPosts>
         )}
 
-        <PostsContainer>
-          {salesPosts.map((postCar) => (
-            <PostCar
-              key={postCar._id}
-              data={postCar}
-              onDelete={() => handleDeletePost(postCar._id)}
-              onViewDetails={() => handleViewDetails(postCar._id)}
-            />
-          ))}
-        </PostsContainer>
+        {!!salesPosts.length && (
+          <PostsContainer>
+            {salesPosts.map((postCar) => (
+              <PostCar
+                key={postCar._id}
+                data={postCar}
+                onDelete={() => handleDeletePost(postCar._id)}
+                onViewDetails={() => handleViewDetails(postCar._id)}
+              />
+            ))}
+          </PostsContainer>
+        )}
       </Content>
     </Container>
   );

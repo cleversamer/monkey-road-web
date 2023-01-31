@@ -190,11 +190,13 @@ const SalesPosts = () => {
           </EmptyPosts>
         )}
 
-        <PostsContainer>
-          {salesPosts.map((postCar) => (
-            <PurchaseCar key={postCar._id} data={postCar} />
-          ))}
-        </PostsContainer>
+        {!!salesPosts.length && (
+          <PostsContainer>
+            {salesPosts.map((postCar) => (
+              <PurchaseCar key={postCar._id} data={postCar} />
+            ))}
+          </PostsContainer>
+        )}
       </Content>
     </Container>
   );
