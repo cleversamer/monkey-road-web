@@ -41,10 +41,10 @@ const ProfileNavigation = ({ activeItem }) => {
           </RouterLink>
         </NavItem>
 
-        <NavItem active={activeItem === "reset password"}>
-          <RouterLink to={routes.personalInfo.navigate()}>
+        <NavItem active={activeItem === "change password"}>
+          <RouterLink to={routes.changePassword.navigate()}>
             <HiOutlineKey />
-            <NavItemTitle>reset password</NavItemTitle>
+            <NavItemTitle>change password</NavItemTitle>
           </RouterLink>
         </NavItem>
 

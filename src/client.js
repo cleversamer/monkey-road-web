@@ -24,12 +24,12 @@ export const routes = {
     navigate: (subject = "email") => `/verify/${subject}`,
   },
   forgotPassword: {
-    route: "/forgot-password",
-    navigate: () => "/forgot-password",
+    route: "/password/forgot",
+    navigate: () => "/password/forgot",
   },
-  resetPassword: {
-    route: "/reset-password",
-    navigate: () => "/reset-password",
+  changePassword: {
+    route: "/password/reset",
+    navigate: () => "/password/reset",
   },
   resetPasswordSuccess: {
     route: "/continue",
@@ -100,5 +100,9 @@ export const routes = {
   rentalPosts: {
     route: "/posts/rental",
     navigate: () => `/posts/rental`,
+  },
+  changePassword: {
+    route: "/password/change",
+    navigate: () => `/password/change`,
   },
 };

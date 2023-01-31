@@ -26,6 +26,7 @@ import CompleteOrder from "pages/order/CompleteOrder";
 import PersonalInfo from "pages/user/PersonalInfo";
 import SalesPosts from "pages/user/SalesPosts";
 import RentalPosts from "pages/user/RentalPosts";
+import ChangePassword from "pages/user/ChangePassword";
 import { routes } from "client";
 
 const App = () => {
@@ -34,6 +35,11 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route
+          path={routes.changePassword.route}
+          element={<ChangePassword />}
+        />
+
         <Route path={routes.rentalPosts.route} element={<RentalPosts />} />
 
         <Route path={routes.salesPosts.route} element={<SalesPosts />} />
@@ -89,7 +95,7 @@ const App = () => {
           element={<ResetPasswordSuccess />}
         />
 
-        <Route path={routes.resetPassword.route} element={<ResetPassword />} />
+        <Route path={routes.changePassword.route} element={<ResetPassword />} />
 
         <Route
           path={routes.forgotPassword.route}

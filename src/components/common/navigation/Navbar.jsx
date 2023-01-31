@@ -5,6 +5,7 @@ import { FaBars } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaRegUser, FaCarAlt } from "react-icons/fa";
 import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
+import { MdCallReceived } from "react-icons/md";
 import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
 import { routes } from "client";
@@ -201,9 +202,18 @@ const Navbar = ({ onOpenMenu }) => {
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
-                  to={routes.addPurchaseCar.navigate()}
+                  to={routes.rentalPosts.navigate()}
                 >
-                  <HiOutlineKey /> reset password
+                  <MdCallReceived /> received orders
+                </NavRoute>
+              </NavItem>
+
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.changePassword.navigate()}
+                >
+                  <HiOutlineKey /> change password
                 </NavRoute>
               </NavItem>
 
