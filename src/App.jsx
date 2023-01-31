@@ -23,6 +23,7 @@ import AddRentCar from "pages/car/rent/AddRentCar";
 import MyFavorites from "pages/user/MyFavorites";
 import MyOrders from "pages/order/MyOrders";
 import CompleteOrder from "pages/order/CompleteOrder";
+import PersonalInfo from "pages/user/PersonalInfo";
 import { routes } from "client";
 
 const App = () => {
@@ -31,6 +32,8 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        <Route path={routes.personalInfo.route} element={<PersonalInfo />} />
+
         <Route path={routes.completeOrder.route} element={<CompleteOrder />} />
 
         <Route path={routes.myOrders.route} element={<MyOrders />} />

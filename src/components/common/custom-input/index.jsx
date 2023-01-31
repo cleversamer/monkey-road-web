@@ -40,6 +40,9 @@ const CustomInput = ({
   year,
   onMonthChange,
   onYearChage,
+  verified,
+  onVerify,
+  profile,
   ...props
 }) => {
   type = type.trim();
@@ -51,7 +54,20 @@ const CustomInput = ({
       {title && (
         <TitleContainer>
           <Title>{title}</Title>
+
           {subtitle && <Subtitle>({subtitle})</Subtitle>}
+
+          {!!["email", "phone"].includes(type) && profile && (
+            <>
+              <VerificationStatus verified={verified}>
+                {verified ? "verified" : "not verified"}
+              </VerificationStatus>
+
+              {!verified && (
+                <VerifyButton onClick={onVerify}>verify</VerifyButton>
+              )}
+            </>
+          )}
         </TitleContainer>
       )}
 
@@ -60,7 +76,7 @@ const CustomInput = ({
       ) : type === "password" ? (
         <PasswordInput value={value} onChange={onChange} {...props} />
       ) : type === "name" ? (
-        <NameInput {...props} />
+        <NameInput value={value} onChange={onChange} {...props} />
       ) : type === "email" ? (
         <EmailInput {...props} />
       ) : type === "phone" ? (
@@ -148,6 +164,28 @@ const Subtitle = styled.span`
   font-size: 13px;
   font-weight: 500;
   color: gray;
+`;
+
+const VerificationStatus = styled.span`
+  font-size: 10px;
+  font-weight: 600;
+  color: ${({ verified }) => (verified ? "#0DD215" : "#f00")};
+  text-transform: capitalize;
+`;
+
+const VerifyButton = styled.span`
+  margin-left: auto;
+  margin-right: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #00f;
+  text-decoration: underline;
+  transition-duration: 176ms;
+  cursor: pointer;
+
+  :hover {
+    color: #fe7777;
+  }
 `;
 
 export default CustomInput;

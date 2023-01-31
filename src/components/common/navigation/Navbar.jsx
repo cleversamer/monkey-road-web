@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { FaBars } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
+import { FaRegUser, FaCarAlt } from "react-icons/fa";
+import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
 import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
 import { routes } from "client";
@@ -167,6 +169,53 @@ const Navbar = ({ onOpenMenu }) => {
             >
               <NavButton title="Login" iconPath="/assets/icons/user.svg" />
             </ButtonRouteContainer>
+
+            <NavButton title="Profile" iconPath="/assets/icons/user.svg">
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.personalInfo.navigate()}
+                >
+                  <FaRegUser /> personal info
+                </NavRoute>
+              </NavItem>
+
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addPurchaseCar.navigate()}
+                >
+                  <FaCarAlt /> sales posts
+                </NavRoute>
+              </NavItem>
+
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addPurchaseCar.navigate()}
+                >
+                  <FaCarAlt /> rental posts
+                </NavRoute>
+              </NavItem>
+
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addPurchaseCar.navigate()}
+                >
+                  <HiOutlineKey /> reset password
+                </NavRoute>
+              </NavItem>
+
+              <NavItem>
+                <NavRoute
+                  onClick={() => scroll.scrollToTop()}
+                  to={routes.addPurchaseCar.navigate()}
+                >
+                  <HiOutlineLogout /> logout
+                </NavRoute>
+              </NavItem>
+            </NavButton>
 
             <NavButton title="EN" iconPath="/assets/icons/language.svg" />
           </DesktopNavButtons>
@@ -367,17 +416,31 @@ const NavLink = styled(ScrollLink)`
 `;
 
 const NavRoute = styled(RouterLink)`
-  display: inline-block;
-  width: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-width: max-content;
   font-size: 14px;
-  padding: 7px 4px;
+  font-weight: 500;
+  padding: 7px 10px;
   border-bottom: 1px solid #eee;
   transition-duration: 200ms;
   text-transform: capitalize;
 
+  svg {
+    font-size: 16px;
+  }
+
   &:hover {
     transition: 0.2s ease-out;
     color: #fe7777;
+
+    svg {
+      transition: 0.2s ease-out;
+      fill: #fe7777;
+    }
   }
 `;
 
@@ -391,19 +454,6 @@ const DesktopNavButtons = styled.ul`
 
   @media screen and (max-width: 1080px) {
     display: none;
-
-    /* height: fit-content;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fafafa;
-    box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-    -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-    -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-    padding: 10px 20px;
-    width: 100vw;
-    overflow-x: auto; */
   }
 `;
 

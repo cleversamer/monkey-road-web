@@ -84,6 +84,7 @@ const SubMenu = styled.ul`
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   padding: 0;
+  min-width: max-content;
   width: 130px;
   z-index: 500;
 

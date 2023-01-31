@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CiUser } from "react-icons/ci";
 
-const NameInput = (props) => {
+const NameInput = ({ value, onChange, ...props }) => {
   return (
     <Container>
       <LeftIcon>
@@ -12,6 +12,8 @@ const NameInput = (props) => {
         type="text"
         placeholder="Fouad Habboub"
         autoComplete="true"
+        value={value}
+        onChange={onChange}
         {...props}
       />
     </Container>
@@ -32,7 +34,7 @@ const Input = styled.input`
   border-radius: 6px;
   padding-left: 40px;
   padding-right: 10px;
-  background-color: #f4f4f4;
+  background-color: ${({ disabled }) => (disabled ? "lightgrey" : "#f4f4f4")};
 `;
 
 const LeftIcon = styled.span`

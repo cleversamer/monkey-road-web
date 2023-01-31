@@ -24,8 +24,8 @@ const PhoneForm = () => {
   return (
     <SharedForm
       imageURL="/assets/images/form/verification.svg"
-      title="Enter your phone number"
-      subtitle="We will send you a verification code."
+      title={`Verify your ${subject}`}
+      subtitle="We have just sent you a verification code."
       onSubmit={handleSubmit}
     >
       <CustomInput
