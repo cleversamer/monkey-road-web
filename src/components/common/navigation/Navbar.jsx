@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
@@ -9,9 +10,14 @@ import { MdCallReceived } from "react-icons/md";
 import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
 import { routes } from "client";
+import PopupConfirm from "hoc/PopupConfirm";
 
 const Navbar = ({ onOpenMenu }) => {
   const navigate = useNavigate();
+  const [popupWindow, setPopupWindow] = useState({
+    visible: false,
+    handler: null,
+  });
 
   const navigateAndScrollToTop = (route) => {
     navigate(route);
@@ -20,8 +26,33 @@ const Navbar = ({ onOpenMenu }) => {
 
   const handleSwitchLanguage = () => {};
 
+  const handleLogout = () => {
+    if (popupWindow.visible) return;
+
+    const logoutHander = () => {
+      // Logout code...
+
+      setPopupWindow({
+        visible: false,
+        handler: null,
+      });
+    };
+
+    setPopupWindow({ visible: true, handler: logoutHander });
+  };
+
   return (
     <>
+      {popupWindow.visible && (
+        <PopupConfirm
+          title="logout"
+          subtitle="Do you really want to logout?"
+          hint="If you log out, you will have to retype your email and password again."
+          onHide={() => setPopupWindow(false)}
+          onConfirm={popupWindow.handler}
+        />
+      )}
+
       <Nav>
         <NavbarContainer>
           <NavLogo onClick={() => navigateAndScrollToTop(routes.home.route)} />
@@ -218,10 +249,7 @@ const Navbar = ({ onOpenMenu }) => {
               </NavItem>
 
               <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.addPurchaseCar.navigate()}
-                >
+                <NavRoute onClick={handleLogout} to="#">
                   <HiOutlineLogout /> logout
                 </NavRoute>
               </NavItem>

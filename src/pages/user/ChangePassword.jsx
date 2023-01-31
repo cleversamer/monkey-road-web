@@ -86,7 +86,8 @@ const Content = styled.div`
 `;
 
 const FormContainer = styled.div`
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   background-color: #fff;
   padding: 20px 40px;
   border-radius: 12px;
