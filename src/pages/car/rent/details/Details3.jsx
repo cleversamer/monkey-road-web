@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import GoogleMap from "components/google-map";
 
 const Details3 = ({ order, onPrev }) => {
   return (
@@ -9,6 +10,8 @@ const Details3 = ({ order, onPrev }) => {
       </TitleContainer>
 
       <BreakLine />
+
+      <GoogleMap />
     </Container>
   );
 };

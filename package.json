@@ -7,7 +7,7 @@
   "version": "1.0",
   "private": true,
   "dependencies": {
-    "@googlemaps/react-wrapper": "^1.1.35",
+    "@react-google-maps/api": "^2.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-elastic-carousel": "^0.11.5",
