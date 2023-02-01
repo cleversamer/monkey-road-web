@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import AddCar from "components/common/add-car";
 import PaymentMethods from "components/common/payment-form/PaymentMethods";
 import StripeForm from "components/common/payment-form/StripeForm";
 import PaypalForm from "components/common/payment-form/PaypalForm";
 import CustomButton from "components/common/custom-button";
+import PopupMessage from "hoc/PopupMessage";
+import { routes } from "client";
 
 const testOrder = {
   _id: 1,
@@ -46,7 +48,9 @@ const testOrder = {
 };
 
 const CompleteOrder = () => {
+  const navigate = useNavigate();
   const { orderId } = useParams();
+  const [showPopup, setShowPopup] = useState(false);
   const [context, setContext] = useState({
     order: testOrder,
     paymentMethod: "debit",
@@ -82,43 +86,68 @@ const CompleteOrder = () => {
     } catch (err) {}
   };
 
-  const handleComplete = () => {};
+  const handleComplete = () => {
+    setShowPopup(true);
+  };
+
+  const handleBackToHome = () => {
+    navigate(routes.home.navigate());
+  };
 
   return (
-    <AddCar pageTitles={["home", ">", "orders", ">", "complete order"]}>
-      <Container>
-        <ShippingAddress>
-          <ShippingTitle>shipping address</ShippingTitle>
-
-          <ShippingItems>
-            <ShippingItem>{context.order.fullName}</ShippingItem>
-            <ShippingItem>{context.order.phoneNumber.full}</ShippingItem>
-            <ShippingItem>{context.order.receptionLocation.title}</ShippingItem>
-          </ShippingItems>
-        </ShippingAddress>
-
-        <PaymentMethods
-          paymentMethod={context.paymentMethod}
-          onChange={handleKeyChange("paymentMethod")}
-        />
-
-        {context.paymentMethod === "debit" ? (
-          <StripeForm
-            items={invoiceItems}
-            onKeyChange={handleKeyChange}
-            context={context}
+    <>
+      {showPopup && (
+        <PopupMessage
+          imageURL="/assets/images/arrow-right.svg"
+          title="Send order"
+          subtitle="operation accomplished successfully"
+          onHide={() => setShowPopup(false)}
+        >
+          <CustomButton
+            type="primary"
+            title="Back to home"
+            onClick={handleBackToHome}
           />
-        ) : (
-          <PaypalForm items={invoiceItems} />
-        )}
+        </PopupMessage>
+      )}
 
-        <CustomButton
-          type="primary"
-          title="check out"
-          onClick={handleComplete}
-        />
-      </Container>
-    </AddCar>
+      <AddCar pageTitles={["home", ">", "orders", ">", "complete order"]}>
+        <Container>
+          <ShippingAddress>
+            <ShippingTitle>shipping address</ShippingTitle>
+
+            <ShippingItems>
+              <ShippingItem>{context.order.fullName}</ShippingItem>
+              <ShippingItem>{context.order.phoneNumber.full}</ShippingItem>
+              <ShippingItem>
+                {context.order.receptionLocation.title}
+              </ShippingItem>
+            </ShippingItems>
+          </ShippingAddress>
+
+          <PaymentMethods
+            paymentMethod={context.paymentMethod}
+            onChange={handleKeyChange("paymentMethod")}
+          />
+
+          {context.paymentMethod === "debit" ? (
+            <StripeForm
+              items={invoiceItems}
+              onKeyChange={handleKeyChange}
+              context={context}
+            />
+          ) : (
+            <PaypalForm items={invoiceItems} />
+          )}
+
+          <CustomButton
+            type="primary"
+            title="check out"
+            onClick={handleComplete}
+          />
+        </Container>
+      </AddCar>
+    </>
   );
 };
 

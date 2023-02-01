@@ -88,10 +88,11 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
     e.preventDefault();
 
     // Send post request
+    console.log("a");
   };
 
   return (
-    <Container onSubmit={handleSubmit}>
+    <Container onSubmit={(e) => e.preventDefault()}>
       {activeLevel == "1" ? (
         <Form1
           entries={entries}
