@@ -10,7 +10,7 @@ const ReusableCar = ({
   onClick,
   children,
 }) => {
-  const mapImage = (url) => `http://191.101.229.249${url}`;
+  const mapImage = (url) => `https://191.101.229.249${url}`;
 
   return (
     <Container>

@@ -177,7 +177,6 @@ const PostRentCarForm = ({
       onViewPopup();
     } catch (err) {
       error = err?.response?.data?.message?.en || "Network error";
-      console.log("Error", error);
     } finally {
       setContext({ ...context, submitting: false, error });
     }
