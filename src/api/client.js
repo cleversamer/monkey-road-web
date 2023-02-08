@@ -2,7 +2,7 @@ import axios from "axios";
 import cache from "utils/cache";
 
 const api = axios.create({
-  baseURL: "http://191.101.229.249/api",
+  baseURL: "https://191.101.229.249/api",
   // baseURL: "http://localhost:4000/api",
   headers: {
     "Content-Type": "application/json",
