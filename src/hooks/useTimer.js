@@ -15,7 +15,11 @@ const useTimer = (timeInSeconds) => {
     };
   }, [seconds]);
 
-  return seconds;
+  const reset = () => {
+    setSeconds(parseInt(timeInSeconds));
+  };
+
+  return { seconds, reset };
 };
 
 export default useTimer;

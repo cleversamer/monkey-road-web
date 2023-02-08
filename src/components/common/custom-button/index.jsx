@@ -4,7 +4,7 @@ import Button from "./Button";
 import LikeBtn from "./LikeBtn";
 import ShareBtn from "./ShareBtn";
 
-const CustomButton = ({ type, title, onClick, ...props }) => {
+const CustomButton = ({ type, title, liked, onClick, ...props }) => {
   type = type.trim();
 
   return type === "google" ? (
@@ -14,7 +14,7 @@ const CustomButton = ({ type, title, onClick, ...props }) => {
   ) : type === "primary" ? (
     <Button title={title} onClick={onClick} {...props} />
   ) : type === "like" ? (
-    <LikeBtn />
+    <LikeBtn liked={liked} onClick={onClick} />
   ) : type === "share" ? (
     <ShareBtn />
   ) : null;

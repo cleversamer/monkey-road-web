@@ -16,6 +16,7 @@ const Form1 = ({
       <CustomInput
         type="text"
         title="Car name"
+        subtitle="3-64 letters"
         placeholder="Car name"
         value={context.carName}
         onChange={onKeyChange("carName")}
@@ -24,6 +25,7 @@ const Form1 = ({
       <CustomInput
         type="text"
         title="Model"
+        subtitle="3-64 letters"
         placeholder="Model"
         value={context.model}
         onChange={onKeyChange("model")}

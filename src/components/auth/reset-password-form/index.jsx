@@ -1,27 +1,88 @@
+import styled from "styled-components";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SharedForm from "components/common/shared-form";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import Loader from "components/loader";
+import usersApi from "api/user/users";
+import useAuth from "auth/useAuth";
+import useQueryParams from "hooks/useQueryParams";
+import { routes } from "client";
 
 const ResetPasswordForm = () => {
-  const [context, setContext] = useState({ password: "", confirmPassowrd: "" });
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const { emailOrPhone } = useQueryParams();
+  const [context, setContext] = useState({
+    code: "",
+    password: "",
+    confirmPassowrd: "",
+    error: "",
+    submitting: false,
+  });
 
-  const handleKeyChange = (key) => (e) =>
-    setContext({ ...context, [key]: e.target.value });
+  const handleKeyChange = (key) => (e) => {
+    const { value } = e.target;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    if (key === "code") {
+      if (value.length === 5) return;
 
-    // TODO: register by Google or Facebook
+      for (let i = 0; i < value.length; i++) {
+        const ascii = value.charCodeAt(i);
+        if (ascii < 48 || ascii > 57) {
+          return;
+        }
+      }
+    }
+
+    setContext({ ...context, [key]: value, error: "" });
+  };
+
+  const handleSubmit = async (e) => {
+    let error = "";
+
+    try {
+      e.preventDefault();
+
+      if (context.submitting) return;
+      if (context.password !== context.confirmPassowrd) return;
+
+      setContext({ ...context, submitting: true });
+
+      const { code, password } = context;
+      const res = await usersApi.common.resetPassword(
+        emailOrPhone,
+        code,
+        password
+      );
+
+      const { user, token } = res.data;
+      login(user, token);
+
+      navigate(routes.home.navigate());
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
   };
 
   return (
     <SharedForm
       imageURL="/assets/images/form/forgot-password.svg"
-      title="Forgot Your Password?"
-      subtitle="We will send you a verification code."
+      title="Reset Your Password"
+      subtitle="We have just sent you a password reset code."
       onSubmit={handleSubmit}
     >
+      <CustomInput
+        type="code"
+        title="code"
+        subtitle="4 digits"
+        value={context.code}
+        onChange={handleKeyChange("code")}
+      />
+
       <CustomInput
         type="password"
         title="Password"
@@ -36,13 +97,26 @@ const ResetPasswordForm = () => {
         onChange={handleKeyChange("confirmPassowrd")}
       />
 
-      <CustomButton
-        type="primary"
-        title="Reset password"
-        onClick={handleSubmit}
-      />
+      {!!context.error && <ErrorText>{context.error}</ErrorText>}
+
+      {context.submitting ? (
+        <Loader />
+      ) : (
+        <CustomButton
+          type="primary"
+          title="Reset password"
+          onClick={handleSubmit}
+        />
+      )}
     </SharedForm>
   );
 };
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: -7px;
+`;
 
 export default ResetPasswordForm;

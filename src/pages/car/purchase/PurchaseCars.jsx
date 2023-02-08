@@ -6,74 +6,52 @@ import ItemsSection from "components/common/items-section";
 import PurchaseCar from "components/car/purchase";
 import Brand from "components/home/popular-brands/Brand";
 import { routes } from "client";
+import Loader from "components/loader";
+import purchaseApi from "api/car/purchase";
+import brandsApi from "api/car/brands";
 
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
-
-const testBrands = [
-  { _id: 1, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 2, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 3, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 4, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 5, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 6, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 7, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-];
+const initialState = {
+  loading: true,
+  list: [],
+};
 
 const PurchaseCars = () => {
   const navigate = useNavigate();
-  const [context, setContext] = useState({
-    recentlyArrivedCars: testCars,
-    popularBrands: testBrands,
-    latestModelsCars: testCars,
-    bestSellerCars: testCars,
-  });
+  const [recentlyArrivedCars, setRecentlyArrivedCars] = useState(initialState);
+  const [popularBrands, setPopularBrands] = useState(initialState);
+  const [latestModelsCars, setLatestModelsCars] = useState(initialState);
+  const [bestSellerCars, setBestSellerCars] = useState(initialState);
 
   useEffect(() => {
     // fetch recentlyArrivedCars
+    purchaseApi.common
+      .getRecentlyArrivedPurchaseCars(0)
+      .then((res) =>
+        setRecentlyArrivedCars({ list: res.data.cars, loading: false })
+      )
+      .catch((err) => setRecentlyArrivedCars({ list: [], loading: false }));
+
     // fetch popularBrands
+    brandsApi.common
+      .getPopularBrands(0)
+      .then((res) => {
+        setPopularBrands({ list: res.data.brands, loading: false });
+      })
+      .catch((err) => setPopularBrands({ list: [], loading: false }));
+
     // fetch latestModelsCars
+    purchaseApi.common
+      .getLatestModelsPurchaseCars(0)
+      .then((res) =>
+        setLatestModelsCars({ list: res.data.cars, loading: false })
+      )
+      .catch((err) => setLatestModelsCars({ list: [], loading: false }));
+
     // fetch bestSellerCars
+    purchaseApi.common
+      .getBestSellerPurchaseCars(0)
+      .then((res) => setBestSellerCars({ list: res.data.cars, loading: false }))
+      .catch((err) => setBestSellerCars({ list: [], loading: false }));
   }, []);
 
   return (
@@ -88,9 +66,13 @@ const PurchaseCars = () => {
             navigate(routes.recentlyArrivedPurchaseCars.navigate())
           }
         >
-          {context.recentlyArrivedCars.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
+          {recentlyArrivedCars.loading ? (
+            <Loader />
+          ) : (
+            recentlyArrivedCars.list.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))
+          )}
         </ItemsSection>
 
         <ItemsSection
@@ -99,13 +81,17 @@ const PurchaseCars = () => {
           title="Popular brands"
           onSeeMore={() => navigate(routes.popularBrands.navigate())}
         >
-          {context.popularBrands.map((brand) => (
-            <Brand
-              key={brand._id}
-              title={brand.title}
-              imageURL={brand.imageURL}
-            />
-          ))}
+          {popularBrands.loading ? (
+            <Loader />
+          ) : (
+            popularBrands.list.map((brand) => (
+              <Brand
+                key={brand._id}
+                title={brand.name.en}
+                imageURL={brand.photoURL}
+              />
+            ))
+          )}
         </ItemsSection>
 
         <ItemsSection
@@ -113,9 +99,13 @@ const PurchaseCars = () => {
           title="Latest models"
           onSeeMore={() => navigate(routes.latestPurchaseCarModels.navigate())}
         >
-          {context.latestModelsCars.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
+          {latestModelsCars.loading ? (
+            <Loader />
+          ) : (
+            latestModelsCars.list.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))
+          )}
         </ItemsSection>
 
         <ItemsSection
@@ -123,9 +113,13 @@ const PurchaseCars = () => {
           title="Best seller"
           onSeeMore={() => navigate(routes.bestPurchaseCarSellers.navigate())}
         >
-          {context.bestSellerCars.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
+          {bestSellerCars.loading ? (
+            <Loader />
+          ) : (
+            bestSellerCars.list.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))
+          )}
         </ItemsSection>
       </SectionsContainer>
     </Container>

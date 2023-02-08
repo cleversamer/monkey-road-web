@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import Timer from "./Timer";
 
-const ResendCode = ({ onSend, seconds }) => {
+const ResendCode = ({ onResend, seconds }) => {
   return (
     <Container>
       <Title>Didn't receive a code?</Title>
-      <Timer onClick={onSend} seconds={seconds} />
+      <Timer onClick={onResend} seconds={seconds} />
     </Container>
   );
 };

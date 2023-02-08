@@ -4,18 +4,24 @@ import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
 import { routes } from "client";
+import useAuth from "auth/useAuth";
+import authApi from "api/user/auth";
+import Loader from "components/loader";
 
 const LoginForm = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
     authType: "email",
     emailOrPhone: "",
     password: "",
     rememberMe: true,
+    submitting: false,
+    error: "",
   });
 
   const handleKeyChange = (key) => (e) =>
-    setContext({ ...context, [key]: e.target.value });
+    setContext({ ...context, error: "", [key]: e.target.value });
 
   const handleToggleRememberMe = () =>
     setContext({ ...context, rememberMe: !context.rememberMe });
@@ -26,10 +32,27 @@ const LoginForm = () => {
 
   const handleLoginWithFacebook = () => {};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    let error = "";
 
-    // TODO: submit login credentials
+    try {
+      e.preventDefault();
+
+      if (context.submitting) return;
+
+      setContext({ ...context, submitting: true });
+
+      const { emailOrPhone, password } = context;
+      const res = await authApi.loginWithEmail(emailOrPhone, password);
+
+      navigate(routes.home.navigate());
+      const { user, token } = res.data;
+      login(user, token);
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
   };
 
   return (
@@ -47,12 +70,16 @@ const LoginForm = () => {
           onChange={handleKeyChange("emailOrPhone")}
         />
 
-        <CustomInput
-          type="password"
-          title="Password"
-          value={context.password}
-          onChange={handleKeyChange("password")}
-        />
+        <ErrorWrapper>
+          <CustomInput
+            type="password"
+            title="Password"
+            value={context.password}
+            onChange={handleKeyChange("password")}
+          />
+
+          {!!context.error && <ErrorText>{context.error}</ErrorText>}
+        </ErrorWrapper>
 
         <LowerContainer>
           <CustomInput
@@ -68,11 +95,15 @@ const LoginForm = () => {
           </ForgotPasswordRoute>
         </LowerContainer>
 
-        <CustomButton
-          type="primary"
-          title="Login"
-          onClick={handleLoginWithEmailOrPhone}
-        />
+        {context.submitting ? (
+          <Loader />
+        ) : (
+          <CustomButton
+            type="primary"
+            title="Login"
+            onClick={handleLoginWithEmailOrPhone}
+          />
+        )}
 
         <BreakLineContainer>
           <BreakLine />
@@ -100,7 +131,7 @@ const Container = styled.form`
   border-radius: 16px;
   max-width: 500px;
   margin: 0 auto;
-  height: 560px;
+  height: 580px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,6 +211,18 @@ const RegisterPhrase = styled.p`
 const RegisterRoute = styled(Link)`
   color: #fe7777;
   text-decoration: underline;
+`;
+
+const ErrorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 7px;
 `;
 
 export default LoginForm;

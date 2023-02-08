@@ -9,50 +9,12 @@ import CustomButton from "components/common/custom-button";
 import PopupMessage from "hoc/PopupMessage";
 import { routes } from "client";
 
-const testOrder = {
-  _id: 1,
-  totalPrice: 1000,
-  status: "approved",
-  rentCar: {
-    _id: 1,
-    photos: ["/assets/images/car.jpg"],
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    description:
-      "this is a random text just to show up on the description area.",
-    brand: {
-      _id: 1,
-      name: {
-        en: "Toyota",
-        ar: "تويوتا",
-      },
-    },
-  },
-  fullName: "Samer Al-Sa'dawi",
-  phoneNumber: {
-    full: "+972597367603",
-    icc: "+972",
-    nsn: "597367603",
-  },
-  receptionLocation: {
-    title: "United states, california, AS89 St.",
-    longitude: -180,
-    latitude: -90,
-  },
-  date: "Fri Jan 26 2023 9:28:46 GMT+0200 (Eastern European Standard Time)",
-  startDate:
-    "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-  endDate: "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-};
-
 const CompleteOrder = () => {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showPopup, setShowPopup] = useState(false);
   const [context, setContext] = useState({
-    order: testOrder,
+    order: null,
     paymentMethod: "debit",
     nameOnCard: "",
     cardNumber: "",

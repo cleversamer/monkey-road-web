@@ -1,9 +1,16 @@
 import styled from "styled-components";
 
-const CodeInput = (props) => {
+const CodeInput = ({ value, onChange, ...props }) => {
   return (
     <Container>
-      <Input type="text" placeholder="0000" autoComplete="true" {...props} />
+      <Input
+        type="text"
+        placeholder="0000"
+        autoComplete="true"
+        value={value}
+        onChange={onChange}
+        {...props}
+      />
     </Container>
   );
 };

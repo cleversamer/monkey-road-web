@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchPage from "components/common/search-page";
 import PurchaseCar from "components/car/purchase";
 import useQueryParams from "hooks/useQueryParams";
+import purchaseApi from "api/car/purchase";
+import { routes } from "client";
+import Loader from "components/loader";
 
 const priceConfig = {
   price: {
@@ -10,165 +14,13 @@ const priceConfig = {
   },
 };
 
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    phoneNumber: "+972597367603",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
-
 const RecentlyArrivedPurchaseCars = () => {
-  const params = useQueryParams();
-  const [purchaseCars, setPurchaseCars] = useState(testCars);
+  const navigate = useNavigate();
+  const searchTerm = useQueryParams()?.term?.trim() || "Latest cars";
+
+  const [purchaseCars, setPurchaseCars] = useState({ loading: true, list: [] });
   const [searchContext, setSearchContext] = useState({
-    term: params.term,
-    type: "",
+    term: searchTerm,
     price: {
       min: priceConfig.price.minValue,
       max: priceConfig.price.maxValue,
@@ -179,8 +31,13 @@ const RecentlyArrivedPurchaseCars = () => {
   });
 
   useEffect(() => {
-    // Fetch data
-  }, []);
+    setPurchaseCars({ list: [], loading: true });
+
+    purchaseApi.common
+      .searchPurchaseCars(searchTerm, 0)
+      .then((res) => setPurchaseCars({ list: res.data.cars, loading: false }))
+      .catch((err) => {});
+  }, [searchTerm]);
 
   const handlePriceChange = (key) => (e) => {
     const isCollision =
@@ -215,8 +72,7 @@ const RecentlyArrivedPurchaseCars = () => {
     const { term } = searchContext;
     if (!term) return;
 
-    console.log(searchContext.term);
-    // Search cars///
+    navigate(routes.bestPurchaseCarSellers.navigate(term));
   };
 
   return (
@@ -230,9 +86,13 @@ const RecentlyArrivedPurchaseCars = () => {
       onSubmit={handleSubmit}
       pageTitles={["home", ">", "cars for sale", ">", "Recently arrived"]}
     >
-      {purchaseCars.map((rentCar) => (
-        <PurchaseCar key={rentCar._id} data={rentCar} />
-      ))}
+      {purchaseCars.loading ? (
+        <Loader />
+      ) : (
+        purchaseCars.list.map((rentCar) => (
+          <PurchaseCar key={rentCar._id} data={rentCar} />
+        ))
+      )}
     </SearchPage>
   );
 };

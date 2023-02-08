@@ -6,8 +6,10 @@ import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
 import { MdCallReceived } from "react-icons/md";
 import PopupConfirm from "hoc/PopupConfirm";
 import { routes } from "client";
+import useAuth from "auth/useAuth";
 
 const ProfileNavigation = ({ activeItem }) => {
+  const { logout } = useAuth();
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
@@ -17,7 +19,7 @@ const ProfileNavigation = ({ activeItem }) => {
     if (popupWindow.visible) return;
 
     const logoutHander = () => {
-      // Logout code...
+      logout();
 
       setPopupWindow({
         visible: false,
@@ -102,6 +104,10 @@ const Container = styled.div`
   background-color: #fff;
   padding: 20px;
   border-radius: 12px;
+
+  @media screen and (max-width: 540px) {
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.h3`

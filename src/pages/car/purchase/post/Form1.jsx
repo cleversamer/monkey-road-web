@@ -20,6 +20,7 @@ const Form1 = ({
       <CustomInput
         type="text"
         title="Car name"
+        subtitle="3-64 letters"
         placeholder="Car name"
         value={context.carName}
         onChange={onKeyChange("carName")}
@@ -29,13 +30,15 @@ const Form1 = ({
         type="text"
         title="VIN Number"
         placeholder="VIN Number"
-        value={context.vinNumber}
-        onChange={onKeyChange("vinNumber")}
+        subtitle="17 letters"
+        value={context.vin}
+        onChange={onKeyChange("vin")}
       />
 
       <CustomInput
         type="text"
         title="Model"
+        subtitle="3-64 letters"
         placeholder="Model"
         value={context.model}
         onChange={onKeyChange("model")}
@@ -121,7 +124,7 @@ const Form1 = ({
       <CustomInput
         type="text"
         title="Kilo per hour"
-        subtitle="km/h"
+        subtitle="95-105 km/h"
         placeholder="Kilo per hour"
         value={context.kiloPerHour}
         onChange={onKeyChange("kiloPerHour")}

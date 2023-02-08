@@ -9,7 +9,7 @@ module.exports = (strDate) => {
     let diffInMs = new Date() - new Date(strDate);
 
     if (diffInMs < 0) {
-      return "time ended";
+      return "";
     }
 
     const times = [];

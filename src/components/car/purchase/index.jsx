@@ -5,8 +5,10 @@ import ReusableCar from "..";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { routes } from "client";
+import useAuth from "auth/useAuth";
 
 const PurchaseCar = ({ data }) => {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleMakeCall = () => {};
@@ -16,8 +18,32 @@ const PurchaseCar = ({ data }) => {
   const navigateToDetails = () =>
     navigate(routes.purchaseCarDetails.navigate(data._id));
 
+  const handleLikeClick = async () => {
+    const isLiked = checkIsLiked();
+
+    if (isLiked) {
+      // remove
+      return;
+    }
+
+    if (!isLiked) {
+      // add
+      return;
+    }
+  };
+
+  const checkIsLiked = () => user.favorites.includes(data._id);
+
   return (
-    <ReusableCar onClick={navigateToDetails} data={data}>
+    <ReusableCar
+      onClick={navigateToDetails}
+      brandName={data.brand.name.en}
+      imageURL={data.photos[0]}
+      model={data.model}
+      name={data.name}
+      price={data.price}
+      year={data.year}
+    >
       <CTAContainer>
         <CustomButton
           type="primary"
@@ -42,7 +68,11 @@ const PurchaseCar = ({ data }) => {
       </CTAContainer>
 
       <LikeBtnContainer>
-        <CustomButton type="like" />
+        <CustomButton
+          type="like"
+          liked={checkIsLiked()}
+          onClick={handleLikeClick}
+        />
       </LikeBtnContainer>
     </ReusableCar>
   );

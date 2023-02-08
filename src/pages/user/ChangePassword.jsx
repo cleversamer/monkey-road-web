@@ -4,14 +4,58 @@ import Location from "components/common/search-page/Location";
 import ProfileNavigation from "components/user/ProfileNavigation";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import Loader from "components/loader";
+import usersApi from "api/user/users";
+import useAuth from "auth/useAuth";
 
 const ChangePassword = () => {
-  const [context, setContext] = useState({ old: "", new: "", confirm: "" });
-
-  const handleChangePassword = () => {};
+  const { login } = useAuth();
+  const [context, setContext] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+    error: "",
+    submitting: false,
+  });
 
   const handleKeyChange = (key) => (e) =>
-    setContext({ ...context, [key]: e.target.value });
+    setContext({ ...context, [key]: e.target.value, error: "" });
+
+  const handleChangePassword = async () => {
+    let error = "";
+
+    try {
+      const isValid = checkInputValid();
+      if (!isValid) return;
+
+      setContext({ ...context, submitting: true });
+
+      const { oldPassword, newPassword, confirmPassword } = context;
+      const res = await usersApi.common.changePassword(
+        oldPassword,
+        newPassword,
+        confirmPassword
+      );
+
+      const { user, token } = res.data;
+      login(user, token);
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
+  };
+
+  const checkInputValid = () => {
+    const isInRange = (p) => p.length >= 8 && p.length <= 32;
+    const { oldPassword, newPassword, confirmPassword } = context;
+    return (
+      isInRange(oldPassword) &&
+      isInRange(newPassword) &&
+      isInRange(confirmPassword) &&
+      newPassword === confirmPassword
+    );
+  };
 
   return (
     <Container>
@@ -22,36 +66,46 @@ const ChangePassword = () => {
 
         <FormContainer>
           <Title>change password</Title>
+
           <BreakLine />
 
           <InputsContainer>
             <CustomInput
               type="password"
               title="old password"
-              value={context.old}
-              onChange={handleKeyChange("old")}
+              subtitle="8-32 letters"
+              value={context.oldPassword}
+              onChange={handleKeyChange("oldPassword")}
             />
 
             <CustomInput
               type="password"
               title="new password"
-              value={context.new}
-              onChange={handleKeyChange("new")}
+              subtitle="8-32 letters"
+              value={context.newPassword}
+              onChange={handleKeyChange("newPassword")}
             />
 
             <CustomInput
               type="password"
               title="confirm password"
-              value={context.confirm}
-              onChange={handleKeyChange("confirm")}
+              subtitle="8-32 letters"
+              value={context.confirmPassword}
+              onChange={handleKeyChange("confirmPassword")}
             />
+
+            {!!context.error && <ErrorText>{context.error}</ErrorText>}
           </InputsContainer>
 
-          <CustomButton
-            type="primary"
-            title="change"
-            onClick={handleChangePassword}
-          />
+          {context.submitting ? (
+            <Loader />
+          ) : (
+            <CustomButton
+              type="primary"
+              title="change"
+              onClick={handleChangePassword}
+            />
+          )}
         </FormContainer>
       </Content>
     </Container>
@@ -128,6 +182,13 @@ const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+`;
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 7px;
 `;
 
 export default ChangePassword;

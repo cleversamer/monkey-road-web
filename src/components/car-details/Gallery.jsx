@@ -1,43 +1,39 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-const testImages = [
-  { _id: 1, url: "/assets/images/about-us.svg", selected: true },
-  { _id: 2, url: "/assets/images/car.jpg", selected: false },
-  { _id: 3, url: "/assets/images/car.jpg", selected: false },
-  { _id: 4, url: "/assets/images/car.jpg", selected: false },
-  { _id: 5, url: "/assets/images/car.jpg", selected: false },
-  { _id: 6, url: "/assets/images/car.jpg", selected: false },
-];
+const Gallery = ({ images: imageURLs = [] }) => {
+  const [images, setImages] = useState(
+    imageURLs.map((img, index) => ({ url: img, selected: index === 0 }))
+  );
 
-const Gallery = () => {
-  const [images, setImages] = useState(testImages);
+  const mapImage = (url) => `http://191.101.229.249${url}`;
 
   const getSelectedImage = () => {
-    const SelectedImageIndex = images.findIndex((img) => img.selected);
-    return images[SelectedImageIndex].url;
+    const index = images.findIndex((img) => img.selected);
+    return images[index];
   };
 
-  const getUnselectedImages = () => images.filter((img) => !img.selected);
+  const getUnselectedImages = () => {
+    return images.filter((img) => !img.selected);
+  };
 
   const handleSelectImage = (imageURL) => {
-    const newImages = images.map((img) => ({ ...img, selected: false }));
-    const newSelectedImageIndex = newImages.findIndex(
-      (img) => img.url === imageURL
-    );
-    newImages[newSelectedImageIndex].selected = true;
+    const newImages = images.map((img) => ({
+      ...img,
+      selected: img.url === imageURL,
+    }));
     setImages(newImages);
   };
 
   return (
     <Container>
-      <SelectedImage src={getSelectedImage()} alt="a red car" />
+      <SelectedImage src={mapImage(getSelectedImage().url)} alt="a red car" />
 
       <ImagesBar>
-        {getUnselectedImages().map((img) => (
+        {getUnselectedImages().map((img, index) => (
           <BarImage
-            key={img._id}
-            src={img.url}
+            key={index}
+            src={mapImage(img.url)}
             alt="a red car"
             onClick={() => handleSelectImage(img.url)}
           />

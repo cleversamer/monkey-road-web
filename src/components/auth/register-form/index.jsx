@@ -1,18 +1,26 @@
 import { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
 import { routes } from "client";
+import useAuth from "auth/useAuth";
+import authApi from "api/user/auth";
+import Loader from "components/loader";
 
 const RegisterForm = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [context, setContext] = useState({
+    lang: "en",
     authType: "email",
     name: "",
     email: "",
     phoneICC: "+971",
     phoneNSN: "",
     password: "",
+    error: "",
+    submitting: false,
   });
 
   const handleKeyChange = (key) => (e) =>
@@ -20,10 +28,35 @@ const RegisterForm = () => {
 
   const handleRegisterWithEmailAndPhone = () => {};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    let error = "";
+    try {
+      e.preventDefault();
 
-    // TODO: submit login credentials
+      if (context.submitting) return;
+
+      setContext({ ...context, submitting: true });
+
+      const { lang, name, email, phoneICC, phoneNSN, password, authType } =
+        context;
+      const res = await authApi.registerWithEmail(
+        lang,
+        name,
+        email,
+        phoneICC,
+        phoneNSN,
+        password,
+        authType
+      );
+
+      navigate(routes.verify.navigate("phone"));
+      const { user, token } = res.data;
+      login(user, token);
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
   };
 
   return (
@@ -57,23 +90,31 @@ const RegisterForm = () => {
           onNSNChange={handleKeyChange("phoneNSN")}
         />
 
-        <CustomInput
-          type="password"
-          title="Password"
-          value={context.password}
-          onChange={handleKeyChange("password")}
-        />
+        <ErrorWrapper>
+          <CustomInput
+            type="password"
+            title="Password"
+            value={context.password}
+            onChange={handleKeyChange("password")}
+          />
+
+          {!!context.error && <ErrorText>{context.error}</ErrorText>}
+        </ErrorWrapper>
 
         <Terms to={routes.home.navigate()}>
           By clicking “Register“, I agree to{" "}
           <span>terms of condition &amp; privacy policy.</span>
         </Terms>
 
-        <CustomButton
-          type="primary"
-          title="Register"
-          onClick={handleRegisterWithEmailAndPhone}
-        />
+        {context.submitting ? (
+          <Loader />
+        ) : (
+          <CustomButton
+            type="primary"
+            title="Register"
+            onClick={handleRegisterWithEmailAndPhone}
+          />
+        )}
 
         <BreakLineContainer>
           <BreakLine />
@@ -183,6 +224,18 @@ const RegisterPhrase = styled.p`
 const RegisterRoute = styled(RouterLink)`
   color: #fe7777;
   text-decoration: underline;
+`;
+
+const ErrorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 7px;
 `;
 
 export default RegisterForm;

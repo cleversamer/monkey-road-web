@@ -2,12 +2,12 @@ import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
 
-const Details2 = ({ order, onPrev, onNext }) => {
+const Details2 = ({ car, order, onPrev, onNext }) => {
   return (
     <Container>
       <TitleContainer>
         <CarTitle>Car name</CarTitle>
-        <CarPricePerDay>1000 AED / day</CarPricePerDay>
+        <CarPricePerDay>{car.price.daily} AED / day</CarPricePerDay>
       </TitleContainer>
 
       <BreakLine />

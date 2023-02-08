@@ -12,406 +12,14 @@ import carsData from "static/carsData";
 import OrderDetails from "hoc/OrderDetails";
 import CustomButton from "components/common/custom-button";
 import PopupConfirm from "hoc/PopupConfirm";
-
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
-
-const testOrders = [
-  {
-    _id: 1,
-    totalPrice: 1000,
-    status: "pending",
-    date: "Fri Jan 27 2023 12:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 1",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description: "",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 1.5,
-    totalPrice: 1000,
-    status: "pending",
-    date: "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 2",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 2,
-    totalPrice: 1000,
-    status: "approved",
-    date: "Fri Jan 26 2023 9:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 3",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 2.5,
-    totalPrice: 1000,
-    status: "approved",
-    date: "Fri Jan 26 2023 3:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 4",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 3,
-    totalPrice: 1000,
-    status: "rejected",
-    date: "Fri Jan 26 2023 17:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 5",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 3.5,
-    totalPrice: 1000,
-    status: "rejected",
-    date: "Fri Jan 26 2023 21:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 6",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 4,
-    totalPrice: 1000,
-    status: "closed",
-    date: "Fri Jan 23 2023 19:28:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 7",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-  {
-    _id: 4.5,
-    totalPrice: 1000,
-    status: "closed",
-    date: "Fri Jan 21 2023 14:39:46 GMT+0200 (Eastern European Standard Time)",
-    startDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    endDate:
-      "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    receptionLocation: {
-      title: "United states, california, AS89 St.",
-      longitude: -180,
-      latitude: -90,
-    },
-    rentCar: {
-      _id: 1,
-      photos: ["/assets/images/car.jpg"],
-      name: "Car 8",
-      price: 100000,
-      model: "EX",
-      year: "2022",
-      description:
-        "this is a random text just to show up on the description area.",
-      brand: {
-        _id: 1,
-        name: {
-          en: "Toyota",
-          ar: "تويوتا",
-        },
-      },
-    },
-  },
-];
+import rentApi from "api/car/rent";
+import purchaseApi from "api/car/purchase";
+import rentOrdersApi from "api/car/rentOrders";
+import Loader from "components/loader";
 
 const MyReceivedOrders = () => {
   const navigate = useNavigate();
-  const [confirm, setConfirm] = useState({
+  const [popupConfirm, setPopupConfirm] = useState({
     visible: false,
     onConfirm: null,
     title: "",
@@ -419,20 +27,36 @@ const MyReceivedOrders = () => {
     hint: "",
   });
   const [orders, setOrders] = useState({
-    all: testOrders,
-    view: testOrders,
+    all: [],
+    view: [],
     statuses: carsData.orderStatuses,
     purposes: carsData.orderPurposes,
     selectedStatus: "all",
     selectedOrder: null,
+    loading: true,
   });
-  const [latestCars, setLatestCars] = useState({
-    forRent: testCars,
-    forSale: testCars,
-  });
+  const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
-    // fetch favorites
+    // fetch orders
+    rentOrdersApi.office
+      .getMyReceivedOrders(0)
+      .then((res) =>
+        setOrders({ ...orders, all: res.data.orders, loading: false })
+      )
+      .catch((err) => setOrders({ ...orders, loading: false }));
+
+    // fetch latest rent cars
+    rentApi.common
+      .getAllRentCars()
+      .then((res) => setLatestCars({ ...latestCars, forRent: res.data.cars }))
+      .catch((err) => {});
+
+    // fetch latest purchase cars
+    purchaseApi.common
+      .getAllPurchaseCars()
+      .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
+      .catch((err) => {});
   }, []);
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
@@ -455,17 +79,17 @@ const MyReceivedOrders = () => {
   };
 
   const handleApproveOrder = (order) => {
-    if (confirm.visible) return;
+    if (popupConfirm.visible) return;
 
     handleHideOrderDetails();
 
     const approveOder = () => {
       // approve order code
 
-      setConfirm({ visible: false, handler: null });
+      setPopupConfirm({ visible: false, handler: null });
     };
 
-    setConfirm({
+    setPopupConfirm({
       visible: true,
       onConfirm: approveOder,
       title: "approve order",
@@ -475,17 +99,17 @@ const MyReceivedOrders = () => {
   };
 
   const handleRejectOrder = (order) => {
-    if (confirm.visible) return;
+    if (popupConfirm.visible) return;
 
     handleHideOrderDetails();
 
     const rejectOder = () => {
       // rejecr order code
 
-      setConfirm({ visible: false, handler: null });
+      setPopupConfirm({ visible: false, handler: null });
     };
 
-    setConfirm({
+    setPopupConfirm({
       visible: true,
       onConfirm: rejectOder,
       title: "reject order",
@@ -519,14 +143,14 @@ const MyReceivedOrders = () => {
         </OrderDetails>
       )}
 
-      {confirm.visible && (
+      {popupConfirm.visible && (
         <PopupConfirm
-          title={confirm.title}
-          subtitle={confirm.subtitle}
-          hint={confirm.hint}
-          onConfirm={confirm.onConfirm}
+          title={popupConfirm.title}
+          subtitle={popupConfirm.subtitle}
+          hint={popupConfirm.hint}
+          onConfirm={popupConfirm.onConfirm}
           onHide={() =>
-            setConfirm({
+            setPopupConfirm({
               visible: false,
               onConfirm: null,
               title: "",
@@ -540,7 +164,7 @@ const MyReceivedOrders = () => {
       <Location pageTitles={["home", ">", "profile", ">", "received orders"]} />
 
       <OrdersContainer>
-        {orders.all.length ? (
+        {!!orders.all.length ? (
           <OrdersTable
             orders={orders}
             onApprove={handleApproveOrder}
@@ -548,6 +172,8 @@ const MyReceivedOrders = () => {
             onSelectItem={handleFilterItems}
             onViewDetails={handleViewOrderDetails}
           />
+        ) : orders.loading ? (
+          <Loader />
         ) : (
           <EmptyList
             title="It's empty here..."
@@ -559,17 +185,21 @@ const MyReceivedOrders = () => {
       </OrdersContainer>
 
       <LatestCarsContainer>
-        <ItemsSection type="slider" title="latest cars for rent">
-          {latestCars.forRent.map((car) => (
-            <RentCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forRent.length && (
+          <ItemsSection type="slider" title="latest cars for rent">
+            {latestCars.forRent.map((car) => (
+              <RentCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
 
-        <ItemsSection type="slider" title="latest cars for sale">
-          {latestCars.forSale.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forSale.length && (
+          <ItemsSection type="slider" title="latest cars for sale">
+            {latestCars.forSale.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
       </LatestCarsContainer>
     </Container>
   );

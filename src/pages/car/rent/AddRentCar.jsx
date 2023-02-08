@@ -13,10 +13,7 @@ const AddRentCar = () => {
   const [levels, setLevels] = useState({ count: 3, active: 1 });
 
   const handleNext = () => {
-    if (levels.active === levels.count) {
-      return setShowPopup(true);
-    }
-
+    if (levels.active === levels.count) return;
     setLevels({ ...levels, active: levels.active + 1 });
     scroll.scrollToTop();
   };
@@ -27,12 +24,12 @@ const AddRentCar = () => {
     scroll.scrollToTop();
   };
 
-  const handleBackToHome = () => {
-    navigate(routes.home.navigate());
-  };
-
   const handleViewPopup = () => {
     setShowPopup(true);
+  };
+
+  const handleBackToHome = () => {
+    navigate(routes.home.navigate());
   };
 
   return (
@@ -40,8 +37,8 @@ const AddRentCar = () => {
       {showPopup && (
         <PopupMessage
           imageURL="/assets/images/arrow-right.svg"
-          title="Send order"
-          subtitle="operation accomplished successfully"
+          title="Waiting for approval"
+          subtitle="operation accomplished successfully."
           onHide={() => setShowPopup(false)}
         >
           <CustomButton
@@ -60,6 +57,7 @@ const AddRentCar = () => {
         <PostRentCarForm
           onNext={handleNext}
           onPrev={handlePrev}
+          onViewPopup={handleViewPopup}
           activeLevel={levels.active}
           noOfLevels={levels.count}
         />

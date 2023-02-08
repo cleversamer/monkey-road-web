@@ -9,7 +9,7 @@ const Form2 = ({ context, onKeyChange }) => {
       <CustomInput
         type="text"
         title="Price"
-        subtitle="AED"
+        subtitle="1-1M AED"
         placeholder="Price"
         value={context.price}
         onChange={onKeyChange("price")}
@@ -21,15 +21,15 @@ const Form2 = ({ context, onKeyChange }) => {
         primary
         onICCChange={onKeyChange("phoneICC")}
         onNSNChange={onKeyChange("phoneNSN")}
-        icc={context.icc}
-        nsn={context.nsn}
+        icc={context.phoneICC}
+        nsn={context.phoneNSN}
       />
 
       <CustomInput
         type="description"
         title="Description"
         subtitle="optional"
-        placeholder="Describe your car"
+        placeholder="Describe your car (0-1024 letters)"
         value={context.description}
         onChange={onKeyChange("description")}
       />

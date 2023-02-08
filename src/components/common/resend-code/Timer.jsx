@@ -3,7 +3,7 @@ import useTimer from "hooks/useTimer";
 import parseSeconds from "utils/parseSeconds";
 
 const Timer = ({ seconds, onClick }) => {
-  const remainingSeconds = useTimer(seconds);
+  const { seconds: remainingSeconds, reset } = useTimer(seconds);
 
   const mapRemainingTime = () => {
     const { mins, secs } = parseSeconds(remainingSeconds);
@@ -12,12 +12,17 @@ const Timer = ({ seconds, onClick }) => {
     return `${strMins}:${strSecs}`;
   };
 
+  const handleResend = () => {
+    reset();
+    onClick();
+  };
+
   return (
     <Container active={!remainingSeconds}>
       {remainingSeconds ? (
         <span>Resend after {mapRemainingTime()}</span>
       ) : (
-        <span onClick={onClick}>Resend code</span>
+        <span onClick={handleResend}>Resend code</span>
       )}
     </Container>
   );

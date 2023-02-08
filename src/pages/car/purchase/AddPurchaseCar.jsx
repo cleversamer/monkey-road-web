@@ -31,6 +31,10 @@ const AddPurchaseCar = () => {
     navigate(routes.home.navigate());
   };
 
+  const handleViewPopup = () => {
+    setShowPopup(true);
+  };
+
   return (
     <>
       {showPopup && (
@@ -56,6 +60,7 @@ const AddPurchaseCar = () => {
         <PostRentCarForm
           onNext={handleNext}
           onPrev={handlePrev}
+          onViewPopup={handleViewPopup}
           activeLevel={levels.active}
           noOfLevels={levels.count}
         />

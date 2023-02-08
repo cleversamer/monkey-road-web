@@ -9,7 +9,7 @@ const Form2 = ({ context, onKeyChange }) => {
       <CustomInput
         type="text"
         title="Daily price"
-        subtitle="AED"
+        subtitle="3-100,000 AED"
         placeholder="Daily price"
         value={context.dailyPrice}
         onChange={onKeyChange("dailyPrice")}
@@ -17,17 +17,8 @@ const Form2 = ({ context, onKeyChange }) => {
 
       <CustomInput
         type="text"
-        title="Monthly price"
-        subtitle="AED"
-        placeholder="Monthly price"
-        value={context.monthlyPrice}
-        onChange={onKeyChange("monthlyPrice")}
-      />
-
-      <CustomInput
-        type="text"
         title="Weekly price"
-        subtitle="AED"
+        subtitle="3-100,000 AED"
         placeholder="Weekly price"
         value={context.weeklyPrice}
         onChange={onKeyChange("weeklyPrice")}
@@ -35,8 +26,17 @@ const Form2 = ({ context, onKeyChange }) => {
 
       <CustomInput
         type="text"
+        title="Monthly price"
+        subtitle="3-100,000 AED"
+        placeholder="Monthly price"
+        value={context.monthlyPrice}
+        onChange={onKeyChange("monthlyPrice")}
+      />
+
+      <CustomInput
+        type="text"
         title="Deposit"
-        subtitle="AED"
+        subtitle="0-100,000 AED"
         placeholder="Deposit"
         value={context.deposit}
         onChange={onKeyChange("deposit")}
@@ -46,7 +46,7 @@ const Form2 = ({ context, onKeyChange }) => {
         type="description"
         title="Description"
         subtitle="Optional"
-        placeholder="Describe your car"
+        placeholder="Describe your car (0-1024 letters)"
         value={context.description}
         onChange={onKeyChange("description")}
       />

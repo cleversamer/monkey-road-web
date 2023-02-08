@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { CiMail } from "react-icons/ci";
 
-const EmailInput = (props) => {
+const EmailInput = ({ value, onChange, ...props }) => {
   return (
     <Container>
       <LeftIcon>
@@ -12,6 +12,8 @@ const EmailInput = (props) => {
         type="email"
         placeholder="example@example.com"
         autoComplete="true"
+        value={value}
+        onChange={onChange}
         {...props}
       />
     </Container>

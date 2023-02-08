@@ -1,177 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Location from "components/common/search-page/Location";
 import ItemsSection from "components/common/items-section";
 import PurchaseCar from "components/car/purchase";
 import Brand from "components/home/popular-brands/Brand";
+import brandsApi from "api/car/brands";
+import purchaseApi from "api/car/purchase";
 
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "https://cdn.wallpapersafari.com/38/29/mKFTMS.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
-
-const testBrands = [
-  { _id: 1, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 2, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 3, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 4, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 5, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 6, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 7, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 8, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 9, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 10, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 11, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 12, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 13, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 14, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 15, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 16, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 17, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 18, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 19, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 20, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-  { _id: 21, title: "Mazda", imageURL: "/assets/images/brands/mazda.svg" },
-];
+const initialState = {
+  list: [],
+  loading: true,
+};
 
 const Brands = () => {
-  const [context, serContext] = useState({
-    similarCars: testCars,
-    brands: testBrands,
-  });
+  const [brands, setBrands] = useState(initialState);
+  const [latestPurchaseCars, setLatestPurchaseCars] = useState(initialState);
+
+  useEffect(() => {
+    // fetch brands
+    brandsApi.common
+      .getPopularBrands(0)
+      .then((res) => setBrands({ list: res.data.brands, loading: false }))
+      .catch((err) => setBrands({ list: [], loading: false }));
+
+    // fetch similar cars
+    purchaseApi.common
+      .getRecentlyArrivedPurchaseCars(0)
+      .then((res) =>
+        setLatestPurchaseCars({ list: res.data.cars, loading: false })
+      )
+      .catch((err) => setLatestPurchaseCars({ list: [], loading: false }));
+  }, []);
 
   return (
     <Container>
@@ -181,20 +40,22 @@ const Brands = () => {
 
       <Content>
         <GridItems>
-          {context.brands.map((brand) => (
+          {brands.list.map((brand) => (
             <Brand
               key={brand._id}
-              title={brand.title}
-              imageURL={brand.imageURL}
+              title={brand.name.en}
+              imageURL={brand.photoURL}
             />
           ))}
         </GridItems>
 
-        <ItemsSection type="slider" title="Similar products">
-          {context.similarCars.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestPurchaseCars.list.length && (
+          <ItemsSection type="slider" title="Latest cars for sale">
+            {latestPurchaseCars.list.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
       </Content>
     </Container>
   );

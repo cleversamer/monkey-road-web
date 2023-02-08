@@ -3,7 +3,7 @@ import CustomButton from "components/common/custom-button";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 
-const PurchaseCarDetails = ({ onRent }) => {
+const PurchaseCarDetails = ({ car }) => {
   const handleMakeCall = () => {};
 
   const handleWhatsAppCall = () => {};
@@ -16,65 +16,64 @@ const PurchaseCarDetails = ({ onRent }) => {
       </IconsContainer>
 
       <TitleContainer>
-        <CarTitle>Title</CarTitle>
-        <CarPrice>2000 AED</CarPrice>
+        <CarTitle>{car.name}</CarTitle>
+        <CarPrice>{parseInt(car.price).toLocaleString()} AED</CarPrice>
       </TitleContainer>
 
       <BreakLine />
 
-      <DetailsList>
-        <DetailsTitle>Description</DetailsTitle>
+      {!!car.description && (
+        <>
+          <DetailsList>
+            <DetailsTitle>Description</DetailsTitle>
+            <CarDescription>{car.description}</CarDescription>
+          </DetailsList>
 
-        <CarDescription>
-          Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc
-          sed. Laoreet integer egestas tristique at tempor ante donec turpis.
-          Nibh odio sagittis auctor diam .
-        </CarDescription>
-      </DetailsList>
-
-      <BreakLine />
+          <BreakLine />
+        </>
+      )}
 
       <DetailsList>
         <DetailsTitle>Details</DetailsTitle>
 
         <DetailsItem>
           <DetailsItemLeft>Model</DetailsItemLeft>
-          <DetailsItemRight>Toyota</DetailsItemRight>
+          <DetailsItemRight>{car.model}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Trim level</DetailsItemLeft>
-          <DetailsItemRight>CLS53 AMG</DetailsItemRight>
+          <DetailsItemRight>{car.trimLevel}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Kilo per hour</DetailsItemLeft>
-          <DetailsItemRight>900km</DetailsItemRight>
+          <DetailsItemRight>{car.kiloPerHour} km/h</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Brand</DetailsItemLeft>
-          <DetailsItemRight>Toyota</DetailsItemRight>
+          <DetailsItemRight>{car.brand.name.en}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Year</DetailsItemLeft>
-          <DetailsItemRight>2023</DetailsItemRight>
+          <DetailsItemRight>{car.year}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Color</DetailsItemLeft>
-          <DetailsItemRight>Black</DetailsItemRight>
+          <DetailsItemRight>{car.color.en}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
@@ -189,6 +188,7 @@ const DetailsItemRight = styled.span`
   font-weight: 400;
   font-size: 15px;
   color: #333333;
+  text-transform: capitalize;
 `;
 
 const CarDescription = styled.p`

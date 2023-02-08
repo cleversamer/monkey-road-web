@@ -78,7 +78,7 @@ const CustomInput = ({
       ) : type === "name" ? (
         <NameInput value={value} onChange={onChange} {...props} />
       ) : type === "email" ? (
-        <EmailInput {...props} />
+        <EmailInput value={value} onChange={onChange} {...props} />
       ) : type === "phone" ? (
         <PhoneInput
           icc={icc}
@@ -89,7 +89,7 @@ const CustomInput = ({
           {...props}
         />
       ) : type === "code" ? (
-        <CodeInput {...props} />
+        <CodeInput value={value} onChange={onChange} {...props} />
       ) : type === "range" ? (
         <RangeInput
           min={min}

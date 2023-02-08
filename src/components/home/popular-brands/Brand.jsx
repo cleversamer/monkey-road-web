@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 const Brand = ({ title = "", imageURL = "" }) => {
+  const mapImage = (url) => `http://191.101.229.249${url}`;
+
   return (
     <Container>
-      <Image url={imageURL} />
+      <Image url={mapImage(imageURL)} />
       <Title>{title}</Title>
     </Container>
   );
@@ -12,8 +14,8 @@ const Brand = ({ title = "", imageURL = "" }) => {
 const Container = styled.span`
   background-color: rgba(254, 119, 119, 0.2);
   box-shadow: 0px 1px 3px 3px rgba(254, 119, 119, 0.35);
-  width: 120px;
   width: 100%;
+  max-width: 150px;
   height: 120px;
   height: 100%;
   display: flex;
@@ -36,7 +38,9 @@ const Container = styled.span`
   }
 `;
 
-const Title = styled.h4``;
+const Title = styled.h4`
+  text-transform: capitalize;
+`;
 
 const Image = styled.div`
   background-image: url(${({ url }) => url});

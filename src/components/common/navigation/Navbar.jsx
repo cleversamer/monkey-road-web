@@ -11,8 +11,10 @@ import NavLogo from "./NavLogo";
 import NavButton from "./NavButton";
 import { routes } from "client";
 import PopupConfirm from "hoc/PopupConfirm";
+import useAuth from "auth/useAuth";
 
 const Navbar = ({ onOpenMenu }) => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
@@ -30,7 +32,7 @@ const Navbar = ({ onOpenMenu }) => {
     if (popupWindow.visible) return;
 
     const logoutHander = () => {
-      // Logout code...
+      logout();
 
       setPopupWindow({
         visible: false,
@@ -131,7 +133,173 @@ const Navbar = ({ onOpenMenu }) => {
           </NavMenu>
 
           <DesktopNavButtons>
-            <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+            {user && (
+              <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+                {user.role === "office" && (
+                  <NavItem>
+                    <NavRoute
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.addRentCar.navigate()}
+                    >
+                      for rent
+                    </NavRoute>
+                  </NavItem>
+                )}
+
+                <NavItem>
+                  <NavRoute
+                    onClick={() => scroll.scrollToTop()}
+                    to={routes.addPurchaseCar.navigate()}
+                  >
+                    for sale
+                  </NavRoute>
+                </NavItem>
+              </NavButton>
+            )}
+
+            {user && user.role === "office" && (
+              <ButtonRouteContainer
+                to={routes.addRentCar.navigate()}
+                mobile="true"
+                desktop="false"
+              >
+                <NavButton
+                  title="Post Rent"
+                  iconPath="/assets/icons/post.svg"
+                />
+              </ButtonRouteContainer>
+            )}
+
+            {user && (
+              <ButtonRouteContainer
+                to={routes.addPurchaseCar.navigate()}
+                mobile="true"
+                desktop="false"
+              >
+                <NavButton
+                  title="Post Sale"
+                  iconPath="/assets/icons/post.svg"
+                />
+              </ButtonRouteContainer>
+            )}
+
+            {user && (
+              <ButtonRouteContainer
+                to={routes.myOrders.navigate()}
+                mobile="true"
+                desktop="true"
+              >
+                <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+              </ButtonRouteContainer>
+            )}
+
+            {user && (
+              <ButtonRouteContainer
+                to={routes.myFavorites.navigate()}
+                desktop="true"
+                mobile="true"
+              >
+                <NavButton
+                  title="Favorites"
+                  iconPath="/assets/icons/favorite.svg"
+                />
+              </ButtonRouteContainer>
+            )}
+
+            {user && (
+              <ButtonRouteContainer
+                to={routes.alerts.navigate()}
+                desktop="true"
+                mobile="true"
+              >
+                <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+
+                <NotificationsBadge>
+                  <NotificationsCount>
+                    {user.notifications.length}
+                  </NotificationsCount>
+                </NotificationsBadge>
+              </ButtonRouteContainer>
+            )}
+
+            {!user && (
+              <ButtonRouteContainer
+                to={routes.login.navigate()}
+                desktop="true"
+                mobile="true"
+              >
+                <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+              </ButtonRouteContainer>
+            )}
+
+            {user && (
+              <NavButton title="Profile" iconPath="/assets/icons/user.svg">
+                <NavItem>
+                  <NavRoute
+                    onClick={() => scroll.scrollToTop()}
+                    to={routes.personalInfo.navigate()}
+                  >
+                    <FaRegUser /> personal info
+                  </NavRoute>
+                </NavItem>
+
+                <NavItem>
+                  <NavRoute
+                    onClick={() => scroll.scrollToTop()}
+                    to={routes.salesPosts.navigate()}
+                  >
+                    <FaCarAlt /> sales posts
+                  </NavRoute>
+                </NavItem>
+
+                {user && user.role === "office" && (
+                  <NavItem>
+                    <NavRoute
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.rentalPosts.navigate()}
+                    >
+                      <FaCarAlt /> rental posts
+                    </NavRoute>
+                  </NavItem>
+                )}
+
+                {user && user.role === "office" && (
+                  <NavItem>
+                    <NavRoute
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.myReceivedOrders.navigate()}
+                    >
+                      <MdCallReceived /> received orders
+                    </NavRoute>
+                  </NavItem>
+                )}
+
+                <NavItem>
+                  <NavRoute
+                    onClick={() => scroll.scrollToTop()}
+                    to={routes.changePassword.navigate()}
+                  >
+                    <HiOutlineKey /> change password
+                  </NavRoute>
+                </NavItem>
+
+                <NavItem>
+                  <NavRoute onClick={handleLogout} to="#">
+                    <HiOutlineLogout /> logout
+                  </NavRoute>
+                </NavItem>
+              </NavButton>
+            )}
+
+            <NavButton title="EN" iconPath="/assets/icons/language.svg" />
+          </DesktopNavButtons>
+        </NavbarContainer>
+      </Nav>
+
+      <MobileNavButtons>
+        {user && (
+          <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+            {user.role === "office" && (
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
@@ -140,198 +308,83 @@ const Navbar = ({ onOpenMenu }) => {
                   for rent
                 </NavRoute>
               </NavItem>
+            )}
 
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.addPurchaseCar.navigate()}
-                >
-                  for sale
-                </NavRoute>
-              </NavItem>
-            </NavButton>
+            <NavItem>
+              <NavRoute
+                onClick={() => scroll.scrollToTop()}
+                to={routes.addPurchaseCar.navigate()}
+              >
+                for sale
+              </NavRoute>
+            </NavItem>
+          </NavButton>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.addRentCar.navigate()}
-              mobile="true"
-              desktop="false"
-            >
-              <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
-            </ButtonRouteContainer>
+        {user && user.role === "office" && (
+          <ButtonRouteContainer
+            to={routes.addRentCar.navigate()}
+            mobile="true"
+            desktop="false"
+          >
+            <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
+          </ButtonRouteContainer>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.addPurchaseCar.navigate()}
-              mobile="true"
-              desktop="false"
-            >
-              <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
-            </ButtonRouteContainer>
+        {user && (
+          <ButtonRouteContainer
+            to={routes.addPurchaseCar.navigate()}
+            mobile="true"
+            desktop="false"
+          >
+            <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
+          </ButtonRouteContainer>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.myOrders.navigate()}
-              mobile="true"
-              desktop="true"
-            >
-              <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
-            </ButtonRouteContainer>
+        {user && (
+          <ButtonRouteContainer
+            to={routes.myOrders.navigate()}
+            mobile="true"
+            desktop="true"
+          >
+            <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+          </ButtonRouteContainer>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.myFavorites.navigate()}
-              desktop="true"
-              mobile="true"
-            >
-              <NavButton
-                title="Favorites"
-                iconPath="/assets/icons/favorite.svg"
-              />
-            </ButtonRouteContainer>
+        {user && (
+          <ButtonRouteContainer
+            to={routes.myFavorites.navigate()}
+            desktop="true"
+            mobile="true"
+          >
+            <NavButton
+              title="Favorites"
+              iconPath="/assets/icons/favorite.svg"
+            />
+          </ButtonRouteContainer>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.alerts.navigate()}
-              desktop="true"
-              mobile="true"
-            >
-              <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+        {user && (
+          <ButtonRouteContainer to="" desktop="true" mobile="true">
+            <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
 
-              <NotificationsBadge>
-                <NotificationsCount>9</NotificationsCount>
-              </NotificationsBadge>
-            </ButtonRouteContainer>
+            <NotificationsBadge>
+              <NotificationsCount>
+                {user.notifications.length}
+              </NotificationsCount>
+            </NotificationsBadge>
+          </ButtonRouteContainer>
+        )}
 
-            <ButtonRouteContainer
-              to={routes.login.navigate()}
-              desktop="true"
-              mobile="true"
-            >
-              <NavButton title="Login" iconPath="/assets/icons/user.svg" />
-            </ButtonRouteContainer>
-
-            <NavButton title="Profile" iconPath="/assets/icons/user.svg">
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.personalInfo.navigate()}
-                >
-                  <FaRegUser /> personal info
-                </NavRoute>
-              </NavItem>
-
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.salesPosts.navigate()}
-                >
-                  <FaCarAlt /> sales posts
-                </NavRoute>
-              </NavItem>
-
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.rentalPosts.navigate()}
-                >
-                  <FaCarAlt /> rental posts
-                </NavRoute>
-              </NavItem>
-
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.myReceivedOrders.navigate()}
-                >
-                  <MdCallReceived /> received orders
-                </NavRoute>
-              </NavItem>
-
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.changePassword.navigate()}
-                >
-                  <HiOutlineKey /> change password
-                </NavRoute>
-              </NavItem>
-
-              <NavItem>
-                <NavRoute onClick={handleLogout} to="#">
-                  <HiOutlineLogout /> logout
-                </NavRoute>
-              </NavItem>
-            </NavButton>
-
-            <NavButton title="EN" iconPath="/assets/icons/language.svg" />
-          </DesktopNavButtons>
-        </NavbarContainer>
-      </Nav>
-
-      <MobileNavButtons>
-        <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
-          <NavItem>
-            <NavRoute
-              onClick={() => scroll.scrollToTop()}
-              to={routes.addRentCar.navigate()}
-            >
-              for rent
-            </NavRoute>
-          </NavItem>
-
-          <NavItem>
-            <NavRoute
-              onClick={() => scroll.scrollToTop()}
-              to={routes.addPurchaseCar.navigate()}
-            >
-              for sale
-            </NavRoute>
-          </NavItem>
-        </NavButton>
-
-        <ButtonRouteContainer
-          to={routes.addRentCar.navigate()}
-          mobile="true"
-          desktop="false"
-        >
-          <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
-        </ButtonRouteContainer>
-
-        <ButtonRouteContainer
-          to={routes.addPurchaseCar.navigate()}
-          mobile="true"
-          desktop="false"
-        >
-          <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
-        </ButtonRouteContainer>
-
-        <ButtonRouteContainer
-          to={routes.myOrders.navigate()}
-          mobile="true"
-          desktop="true"
-        >
-          <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
-        </ButtonRouteContainer>
-
-        <ButtonRouteContainer
-          to={routes.myFavorites.navigate()}
-          desktop="true"
-          mobile="true"
-        >
-          <NavButton title="Favorites" iconPath="/assets/icons/favorite.svg" />
-        </ButtonRouteContainer>
-
-        <ButtonRouteContainer to="" desktop="true" mobile="true">
-          <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
-
-          <NotificationsBadge>
-            <NotificationsCount>9</NotificationsCount>
-          </NotificationsBadge>
-        </ButtonRouteContainer>
-
-        <ButtonRouteContainer
-          to={routes.login.navigate()}
-          desktop="true"
-          mobile="true"
-        >
-          <NavButton title="Login" iconPath="/assets/icons/user.svg" />
-        </ButtonRouteContainer>
+        {!user && (
+          <ButtonRouteContainer
+            to={routes.login.navigate()}
+            desktop="true"
+            mobile="true"
+          >
+            <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+          </ButtonRouteContainer>
+        )}
 
         <NavButton title="EN" iconPath="/assets/icons/language.svg" />
       </MobileNavButtons>

@@ -1,12 +1,9 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
 
-const LikeBtn = ({ value = false }) => {
-  const [liked, setLiked] = useState(value);
-
+const LikeBtn = ({ liked, onClick }) => {
   return (
-    <Container liked={liked} onClick={() => setLiked(!liked)}>
+    <Container liked={liked} onClick={onClick}>
       <AiFillHeart />
     </Container>
   );

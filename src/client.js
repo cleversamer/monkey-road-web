@@ -28,8 +28,12 @@ export const routes = {
     navigate: () => "/password/forgot",
   },
   changePassword: {
+    route: "/password/change",
+    navigate: () => "/password/change",
+  },
+  resetPassword: {
     route: "/password/reset",
-    navigate: () => "/password/reset",
+    navigate: (emailOrPhone) => `/password/reset?emailOrPhone=${emailOrPhone}`,
   },
   resetPasswordSuccess: {
     route: "/continue",

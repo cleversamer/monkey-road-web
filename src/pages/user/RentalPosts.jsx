@@ -5,166 +5,18 @@ import Location from "components/common/search-page/Location";
 import ProfileNavigation from "components/user/ProfileNavigation";
 import PostCar from "components/post-car";
 import { routes } from "client";
-
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: true,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: true,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: true,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: true,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    accepted: false,
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
+import rentApi from "api/car/rent";
+import Loader from "components/loader";
 
 const RentalPosts = () => {
   const navigate = useNavigate();
-  const [salesPosts, setSalesPosts] = useState(testCars);
+  const [rentalPosts, setRentalPosts] = useState({ loading: true, list: [] });
 
   useEffect(() => {
-    // fetch posts
+    rentApi.office
+      .getMyRentCars(0)
+      .then((res) => setRentalPosts({ loading: false, list: res.data.cars }))
+      .catch((err) => setRentalPosts({ loading: false, list: [] }));
   }, []);
 
   const handleDeletePost = (carId) => {};
@@ -180,19 +32,9 @@ const RentalPosts = () => {
       <Content>
         <ProfileNavigation activeItem="rental posts" />
 
-        {!salesPosts.length && (
-          <EmptyPosts>
-            <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
-            <EmptyPostsTitle>It's empty here!</EmptyPostsTitle>
-            <EmptyPostsSubtitle>
-              No posts have been added yet
-            </EmptyPostsSubtitle>
-          </EmptyPosts>
-        )}
-
-        {!!salesPosts.length && (
+        {!!rentalPosts.list.length ? (
           <PostsContainer>
-            {salesPosts.map((postCar) => (
+            {rentalPosts.list.map((postCar) => (
               <PostCar
                 key={postCar._id}
                 data={postCar}
@@ -201,6 +43,16 @@ const RentalPosts = () => {
               />
             ))}
           </PostsContainer>
+        ) : rentalPosts.loading ? (
+          <Loader />
+        ) : (
+          <EmptyPosts>
+            <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
+            <EmptyPostsTitle>It's empty here!</EmptyPostsTitle>
+            <EmptyPostsSubtitle>
+              No posts have been added yet
+            </EmptyPostsSubtitle>
+          </EmptyPosts>
         )}
       </Content>
     </Container>

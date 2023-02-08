@@ -1,22 +1,33 @@
 import styled from "styled-components";
 
-const ReusableCar = ({ data, onClick, children }) => {
+const ReusableCar = ({
+  imageURL,
+  name,
+  price,
+  brandName,
+  model,
+  year,
+  onClick,
+  children,
+}) => {
+  const mapImage = (url) => `http://191.101.229.249${url}`;
+
   return (
-    <Container onClick={onClick}>
-      <Image url={data.imageURL} />
+    <Container>
+      <Image url={mapImage(imageURL)} onClick={onClick} />
 
       <InfoContaier>
         <Row1>
-          <CarName>{data.name}</CarName>
+          <CarName>{name}</CarName>
           <CarPrice>
-            {data.price.toLocaleString()} <Currency>AED</Currency>
+            {parseInt(price).toLocaleString()} <Currency>AED</Currency>
           </CarPrice>
         </Row1>
 
         <Row2>
-          <CarBrand>{data.brand[0].name["en"]}</CarBrand>
-          <CarModel>{data.model}</CarModel>
-          <CarYear>{data.year}</CarYear>
+          <CarBrand>{brandName}</CarBrand>
+          <CarModel>{model}</CarModel>
+          <CarYear>{year}</CarYear>
         </Row2>
       </InfoContaier>
 

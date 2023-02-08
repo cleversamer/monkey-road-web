@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import carsData from "static/carsData";
 import CustomButton from "components/common/custom-button";
+import Loader from "components/loader";
 import Form1 from "./Form1";
 import Form2 from "./Form2";
 import Form3 from "./Form3";
+import rentApi from "api/car/rent";
+import brandsApi from "api/car/brands";
 
-const testBrands = [
-  { name: { en: "Brand 1", ar: "براند 1" } },
-  { name: { en: "Brand 2", ar: "براند 2" } },
-  { name: { en: "Brand 3", ar: "براند 3" } },
-];
-
-const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
+const PostRentCarForm = ({
+  activeLevel,
+  noOfLevels,
+  onViewPopup,
+  onNext,
+  onPrev,
+}) => {
   const [entries, setEntries] = useState({
     colors: carsData.colors,
-    brands: testBrands,
+    brands: [],
     years: carsData.years,
   });
 
@@ -31,10 +34,17 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
     deposit: 0,
     description: "",
     images: [],
+    error: "",
+    submitting: false,
   });
 
   useEffect(() => {
-    // fetch brands
+    brandsApi.common
+      .getPopularBrands()
+      .then((res) => {
+        setEntries({ ...entries, brands: res.data.brands });
+      })
+      .catch(() => {});
   }, []);
 
   const handleKeyChange = (key) => (e) => {
@@ -48,7 +58,7 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
           : typeof context[key] === "number"
           ? parseInt(value)
           : value;
-      setContext({ ...context, [key]: newValue });
+      setContext({ ...context, [key]: newValue, error: "" });
     } catch (err) {}
   };
 
@@ -80,15 +90,58 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
 
   const colorParser = (color) => color.en;
 
-  const brandParser = (brand) => brand.name.en;
+  const brandParser = (brand) => brand?.name?.en || "Loading...";
 
   const yearParser = (year) => year;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    let error = "";
 
-    // Send post request
-    console.log("a");
+    try {
+      e.preventDefault();
+
+      if (context.submitting) return;
+
+      setContext({ ...context, submitting: true });
+
+      const {
+        carName,
+        model,
+        colorIndex,
+        brandIndex,
+        yearIndex,
+        dailyPrice,
+        weeklyPrice,
+        monthlyPrice,
+        deposit,
+        description,
+        images,
+      } = context;
+      const body = {
+        carName,
+        model,
+        colorEN: entries.colors[colorIndex].en,
+        colorAR: entries.colors[colorIndex].ar,
+        brandId: entries.brands[brandIndex]._id,
+        year: entries.years[yearIndex],
+        dailyPrice,
+        weeklyPrice,
+        monthlyPrice,
+        deposit,
+        description,
+      };
+
+      for (let i = 1; i <= images.length; i++) {
+        body["photo" + i] = images[i - 1].value;
+      }
+
+      await rentApi.office.postRentCar(body);
+      onViewPopup();
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
   };
 
   return (
@@ -112,16 +165,23 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
         />
       ) : null}
 
-      <ButtonsContainer>
-        {activeLevel !== 1 && (
-          <CustomButton type="primary" title="prev" onClick={onPrev} />
-        )}
-        <CustomButton
-          type="primary"
-          title={activeLevel === noOfLevels ? "Complete" : "next"}
-          onClick={onNext}
-        />
-      </ButtonsContainer>
+      {!!context.error && <ErrorText>{context.error}</ErrorText>}
+
+      {context.submitting ? (
+        <Loader />
+      ) : (
+        <ButtonsContainer>
+          {activeLevel !== 1 && (
+            <CustomButton type="primary" title="prev" onClick={onPrev} />
+          )}
+
+          <CustomButton
+            type="primary"
+            title={activeLevel === noOfLevels ? "Complete" : "Next"}
+            onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
+          />
+        </ButtonsContainer>
+      )}
     </Container>
   );
 };
@@ -149,6 +209,12 @@ const ButtonsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+`;
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 export default PostRentCarForm;

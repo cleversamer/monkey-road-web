@@ -5,161 +5,31 @@ import Gallery from "components/car-details/Gallery";
 import Details from "components/car-details/purchase";
 import ItemsSection from "components/common/items-section";
 import PurchaseCar from "components/car/purchase";
-
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
+import purchaseApi from "api/car/purchase";
 
 const PurchaseCarDetails = () => {
   const { carId } = useParams();
-  const [similarCars, setSimilarCars] = useState(testCars);
+  const [car, setCar] = useState(null);
+  const [similarCars, setSimilarCars] = useState([]);
 
   useEffect(() => {
     // fetch car details
+    purchaseApi.common
+      .getPurchaseCarDetails(carId)
+      .then((res) => setCar(res.data));
+
     // fetch similar products
   }, []);
 
   const handleRentCar = () => {};
 
+  if (!car) return null;
+
   return (
     <Container>
       <Content>
-        <Gallery />
-        <Details />
+        <Gallery images={car.photos} />
+        <Details car={car} />
       </Content>
 
       <DetailsSection>
@@ -172,7 +42,7 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>900 Km</ItemTitle>
+            <ItemTitle>{car.kiloPerHour} Km/h</ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -181,7 +51,7 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>900 Km</ItemTitle>
+            <ItemTitle>{car.vehicleType.en}</ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -190,7 +60,7 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>900 Km</ItemTitle>
+            <ItemTitle>{car.fuelType.en}</ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -199,16 +69,18 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>900 Km</ItemTitle>
+            <ItemTitle>{car.noOfSeats} seats</ItemTitle>
           </DetailsItem>
         </DetailsList>
       </DetailsSection>
 
-      <ItemsSection type="slider" title="Similar products">
-        {similarCars.map((car) => (
-          <PurchaseCar key={car._id} data={car} />
-        ))}
-      </ItemsSection>
+      {!!similarCars.length && (
+        <ItemsSection type="slider" title="Similar products">
+          {similarCars.map((car) => (
+            <PurchaseCar key={car._id} data={car} />
+          ))}
+        </ItemsSection>
+      )}
     </Container>
   );
 };
@@ -222,7 +94,7 @@ const Container = styled.main`
   max-width: 1366px;
   margin: 0 auto;
   padding: 60px;
-  gap: 100px;
+  /* gap: 40px; */
 
   @media screen and (max-width: 480px) {
     padding: 30px;
@@ -231,8 +103,10 @@ const Container = styled.main`
 `;
 
 const Content = styled.div`
+  width: 100%;
   display: flex;
   gap: 40px;
+  max-height: max-content;
 
   @media screen and (max-width: 870px) {
     flex-direction: column;
@@ -245,7 +119,6 @@ const DetailsSection = styled.section`
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  margin-top: -70px;
 
   @media screen and (max-width: 540px) {
     gap: 30px;
@@ -287,6 +160,8 @@ const DetailsItem = styled.li`
 
 const ItemImage = styled.img``;
 
-const ItemTitle = styled.h5``;
+const ItemTitle = styled.h5`
+  text-transform: capitalize;
+`;
 
 export default PurchaseCarDetails;

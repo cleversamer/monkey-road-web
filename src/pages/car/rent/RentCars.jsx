@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import SearchPage from "components/common/search-page";
 import RentCar from "components/car/rent";
 import useQueryParams from "hooks/useQueryParams";
+import Loader from "components/loader";
 import { routes } from "client";
+import rentApi from "api/car/rent";
 
 const priceConfig = {
   price: {
@@ -12,151 +14,13 @@ const priceConfig = {
   },
 };
 
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
-
 const RentCars = () => {
   const navigate = useNavigate();
-  const params = useQueryParams();
-  const [rentCars, setRentCars] = useState(testCars);
+  const searchTerm = useQueryParams()?.term?.trim() || "Latest cars";
+
+  const [rentCars, setRentCars] = useState({ list: [], loading: true });
   const [searchContext, setSearchContext] = useState({
-    term: params.term,
-    type: "",
+    term: searchTerm,
     price: {
       min: priceConfig.price.minValue,
       max: priceConfig.price.maxValue,
@@ -167,8 +31,13 @@ const RentCars = () => {
   });
 
   useEffect(() => {
-    // Fetch data
-  }, []);
+    setRentCars({ list: [], loading: true });
+
+    rentApi.common
+      .searchRentCars(searchTerm, 0)
+      .then((res) => setRentCars({ list: res.data.cars, loading: false }))
+      .catch((err) => {});
+  }, [searchTerm]);
 
   const handlePriceChange = (key) => (e) => {
     const isCollision =
@@ -217,9 +86,13 @@ const RentCars = () => {
       onSubmit={handleSubmit}
       pageTitles={["home", ">", "cars for rent"]}
     >
-      {rentCars.map((rentCar) => (
-        <RentCar key={rentCar._id} data={rentCar} />
-      ))}
+      {rentCars.loading ? (
+        <Loader />
+      ) : (
+        rentCars.list.map((rentCar) => (
+          <RentCar key={rentCar._id} data={rentCar} />
+        ))
+      )}
     </SearchPage>
   );
 };

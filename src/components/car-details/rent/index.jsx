@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 
-const RentCarDetails = ({ onNext }) => {
+const RentCarDetails = ({ car, onNext }) => {
   return (
     <Container>
       <TitleContainer>
-        <CarTitle>Title</CarTitle>
+        <CarTitle>{car.name}</CarTitle>
 
         <IconsContainer>
-          <CustomButton type="like" />
           <CustomButton type="share" />
         </IconsContainer>
       </TitleContainer>
@@ -20,80 +19,74 @@ const RentCarDetails = ({ onNext }) => {
 
         <DetailsItem>
           <DetailsItemLeft>Daily price</DetailsItemLeft>
-          <DetailsItemRight>100 AED</DetailsItemRight>
+          <DetailsItemRight>{car.price.daily} AED</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Weekly price</DetailsItemLeft>
-          <DetailsItemRight>100 AED</DetailsItemRight>
+          <DetailsItemRight>{car.price.weekly} AED</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Monthly price</DetailsItemLeft>
-          <DetailsItemRight>100 AED</DetailsItemRight>
+          <DetailsItemRight>{car.price.monthly} AED</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Deposit</DetailsItemLeft>
-          <DetailsItemRight>100 AED</DetailsItemRight>
+          <DetailsItemRight>{car.price.deposit} AED</DetailsItemRight>
         </DetailsItem>
       </DetailsList>
 
       <BreakLine />
 
-      <DetailsList>
-        <DetailsTitle>Description</DetailsTitle>
+      {!!car.description && (
+        <>
+          <DetailsList>
+            <DetailsTitle>Description</DetailsTitle>
+            <CarDescription>{car.description}</CarDescription>
+          </DetailsList>
 
-        <CarDescription>
-          Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc
-          sed. Laoreet integer egestas tristique at tempor ante donec turpis.
-          Nibh odio sagittis auctor diam .
-        </CarDescription>
-      </DetailsList>
-
-      <BreakLine />
+          <BreakLine />
+        </>
+      )}
 
       <DetailsList>
         <DetailsTitle>Details</DetailsTitle>
 
         <DetailsItem>
-          <DetailsItemLeft>Left</DetailsItemLeft>
-          <DetailsItemRight>Left</DetailsItemRight>
-        </DetailsItem>
-
-        <BreakLine />
-
-        <DetailsItem>
           <DetailsItemLeft>Model</DetailsItemLeft>
-          <DetailsItemRight>Toyota</DetailsItemRight>
+          <DetailsItemRight>{car.model}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Year</DetailsItemLeft>
-          <DetailsItemRight>2022</DetailsItemRight>
+          <DetailsItemRight>{car.year}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Brand</DetailsItemLeft>
-          <DetailsItemRight>Toyota</DetailsItemRight>
+          <DetailsItemRight>{car.brand.name.en}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
           <DetailsItemLeft>Color</DetailsItemLeft>
-          <DetailsItemRight>Black</DetailsItemRight>
+          <DetailsItemRight>{car.color.en}</DetailsItemRight>
         </DetailsItem>
+
+        <BreakLine />
       </DetailsList>
 
       <RentButtonContainer>
@@ -192,8 +185,10 @@ const CarDescription = styled.p`
 const RentButtonContainer = styled.div`
   padding-top: 20px;
   width: 100%;
-  max-width: 350px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 `;
 
 export default RentCarDetails;

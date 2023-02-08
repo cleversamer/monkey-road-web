@@ -3,39 +3,16 @@ import styled from "styled-components";
 import Location from "components/common/search-page/Location";
 import ProfileNavigation from "components/user/ProfileNavigation";
 import Alert from "components/alert";
-
-const testAlerts = [
-  {
-    title: "Post added successfully",
-    body: "Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer ",
-    date: new Date().toString(),
-    seen: false,
-  },
-  {
-    title: "Post added successfully",
-    body: "Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer ",
-    date: "Fri Jan 26 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    seen: true,
-  },
-  {
-    title: "Post added successfully",
-    body: "Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer ",
-    date: "Fri Jan 29 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    seen: true,
-  },
-  {
-    title: "Post added successfully",
-    body: "Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer Lorem ipsum dolor sit amet consectetur. Enim dui consequat ut nunc sed. Laoreet integer ",
-    date: "Fri Jan 31 2023 8:28:46 GMT+0200 (Eastern European Standard Time)",
-    seen: true,
-  },
-];
+import useAuth from "auth/useAuth";
+import usersApi from "api/user/users";
 
 const Alerts = () => {
-  const [alerts, setAlerts] = useState(testAlerts);
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
-    // fetch posts
+    usersApi.common.seeNotifications().then((res) => {
+      setUser({ ...user, notifications: res.data.notifications });
+    });
   }, []);
 
   return (
@@ -45,7 +22,7 @@ const Alerts = () => {
       <Content>
         <ProfileNavigation activeItem="" />
 
-        {!alerts.length && (
+        {!user.notifications.length && (
           <EmptyAlerts>
             <EmptyAlertsImage src="/assets/images/empty-4.svg" alt="" />
             <EmptyAlertsTitle>No alerts right now!</EmptyAlertsTitle>
@@ -53,9 +30,9 @@ const Alerts = () => {
           </EmptyAlerts>
         )}
 
-        {!!alerts.length && (
+        {!!user.notifications.length && (
           <AlertsContainer>
-            {alerts.map((alert, index) => (
+            {user.notifications.map((alert, index) => (
               <Alert key={alert.title + index} alert={alert} />
             ))}
           </AlertsContainer>

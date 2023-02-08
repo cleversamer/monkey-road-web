@@ -7,155 +7,34 @@ import RentCar from "components/car/rent";
 import PurchaseCar from "components/car/purchase";
 import EmptyList from "components/common/empty-list";
 import { routes } from "client";
-
-const testCars = [
-  {
-    _id: 1,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 1",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 2,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 2",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 3,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 3",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 4,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 4",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 5,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 5",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 6,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 6",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 7,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 7",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 8,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 8",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 9,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 9",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 10,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 10",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 11,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 11",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 12,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 12",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 13,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 13",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 14,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 14",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-  {
-    _id: 15,
-    imageURL: "/assets/images/car.jpg",
-    name: "Car 15",
-    price: 100000,
-    model: "EX",
-    year: "2022",
-    brand: [{ _id: 1, name: { en: "Toyota", ar: "تويوتا" } }],
-  },
-];
+import usersApi from "api/user/users";
+import rentApi from "api/car/rent";
+import purchaseApi from "api/car/purchase";
+import Loader from "components/loader";
 
 const MyFavorites = () => {
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState(testCars);
-  const [latestCars, setLatestCars] = useState({
-    forRent: testCars,
-    forSale: testCars,
-  });
+  const [favorites, setFavorites] = useState({ loading: true, list: [] });
+  const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
     // fetch favorites
+    usersApi.common
+      .getMyFavorites()
+      .then((res) => setFavorites({ loading: false, list: res.data.favorites }))
+      .catch((err) => setFavorites({ loading: false, list: [] }));
+
+    // fetch latest rent cars
+    rentApi.common
+      .getAllRentCars()
+      .then((res) => setLatestCars({ ...latestCars, forRent: res.data.cars }))
+      .catch((err) => {});
+
+    // fetch latest purchase cars
+    purchaseApi.common
+      .getAllPurchaseCars()
+      .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
+      .catch((err) => {});
   }, []);
 
   const handleGoShopping = () =>
@@ -166,12 +45,14 @@ const MyFavorites = () => {
       <Location pageTitles={["home", ">", "favorites"]} />
 
       <FavoritesContainer>
-        {favorites.length ? (
+        {!!favorites.list.length ? (
           <FavoritesList>
-            {favorites.map((car) => (
+            {favorites.list.map((car) => (
               <PurchaseCar key={car._id} data={car} />
             ))}
           </FavoritesList>
+        ) : favorites.loading ? (
+          <Loader />
         ) : (
           <EmptyList
             title="It's empty here..."
@@ -183,17 +64,21 @@ const MyFavorites = () => {
       </FavoritesContainer>
 
       <LatestCarsContainer>
-        <ItemsSection type="slider" title="latest cars for rent">
-          {latestCars.forRent.map((car) => (
-            <RentCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forRent.length && (
+          <ItemsSection type="slider" title="latest cars for rent">
+            {latestCars.forRent.map((car) => (
+              <RentCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
 
-        <ItemsSection type="slider" title="latest cars for sale">
-          {latestCars.forSale.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forSale.length && (
+          <ItemsSection type="slider" title="latest cars for sale">
+            {latestCars.forSale.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
       </LatestCarsContainer>
     </Container>
   );

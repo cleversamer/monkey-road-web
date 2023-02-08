@@ -3,8 +3,11 @@ import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { routes } from "client";
+import useAuth from "auth/useAuth";
 
 const Sidebar = ({ isOpen, onCloseMenu }) => {
+  const { user } = useAuth();
+
   const closeAndScrollToTop = () => {
     onCloseMenu();
     scroll.scrollToTop();
@@ -45,12 +48,23 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
           </SidebarLink>
         </SidebarMenu>
 
-        <SidebarButton
-          to={routes.login.navigate()}
-          onClick={closeAndScrollToTop}
-        >
-          Login
-        </SidebarButton>
+        {!user && (
+          <SidebarButton
+            to={routes.login.navigate()}
+            onClick={closeAndScrollToTop}
+          >
+            Login
+          </SidebarButton>
+        )}
+
+        {user && (
+          <SidebarButton
+            to={routes.home.navigate()}
+            onClick={closeAndScrollToTop}
+          >
+            Home
+          </SidebarButton>
+        )}
       </SidebarWrapper>
     </Container>
   );

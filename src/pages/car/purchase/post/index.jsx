@@ -2,21 +2,24 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import carsData from "static/carsData";
 import CustomButton from "components/common/custom-button";
+import Loader from "components/loader";
 import Form1 from "./Form1";
 import Form2 from "./Form2";
 import Form3 from "./Form3";
 import Form4 from "./Form4";
+import brandsApi from "api/car/brands";
+import purchaseApi from "api/car/purchase";
 
-const testBrands = [
-  { name: { en: "Brand 1", ar: "براند 1" } },
-  { name: { en: "Brand 2", ar: "براند 2" } },
-  { name: { en: "Brand 3", ar: "براند 3" } },
-];
-
-const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
+const PostRentCarForm = ({
+  activeLevel,
+  noOfLevels,
+  onViewPopup,
+  onNext,
+  onPrev,
+}) => {
   const [entries, setEntries] = useState({
     colors: carsData.colors,
-    brands: testBrands,
+    brands: [],
     years: carsData.years,
     trimLevels: carsData.trimLevels,
     vehicleTypes: carsData.vehicleTypes,
@@ -26,7 +29,7 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
 
   const [context, setContext] = useState({
     carName: "",
-    vinNumber: "",
+    vin: "",
     model: "",
     brandIndex: 0,
     yearIndex: 0,
@@ -48,10 +51,17 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
     postalCode: "",
     month: "",
     year: "",
+    error: "",
+    submitting: false,
   });
 
   useEffect(() => {
-    // fetch brands
+    brandsApi.common
+      .getPopularBrands()
+      .then((res) => {
+        setEntries({ ...entries, brands: res.data.brands });
+      })
+      .catch(() => {});
   }, []);
 
   const handleKeyChange = (key) => (e) => {
@@ -65,7 +75,7 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
           : typeof context[key] === "number"
           ? parseInt(value)
           : value;
-      setContext({ ...context, [key]: newValue });
+      setContext({ ...context, [key]: newValue, error: "" });
     } catch (err) {}
   };
 
@@ -84,7 +94,7 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
         { value: image, url: reader.result },
       ];
 
-      setContext({ ...context, images: newImages });
+      setContext({ ...context, images: newImages, error: "" });
     };
   };
 
@@ -97,7 +107,7 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
 
   const colorParser = (color) => color.en;
 
-  const brandParser = (brand) => brand.name.en;
+  const brandParser = (brand) => brand?.name?.en || "Loading...";
 
   const yearParser = (year) => year;
 
@@ -109,10 +119,68 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
 
   const seatsNumberPaeser = (seatNumber) => seatNumber;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    let error = "";
 
-    // Send post request
+    try {
+      e.preventDefault();
+
+      if (context.submitting) return;
+
+      setContext({ ...context, submitting: true });
+
+      const {
+        carName,
+        vin,
+        model,
+        brandIndex,
+        yearIndex,
+        colorIndex,
+        trimLevelIndex,
+        vehicleTypeIndex,
+        fuelTypeIndex,
+        noOfSeatsIndex,
+        kiloPerHour,
+        price,
+        phoneICC,
+        phoneNSN,
+        description,
+        images,
+      } = context;
+
+      const body = {
+        carName,
+        vin,
+        model,
+        brandId: entries.brands[brandIndex]._id,
+        year: entries.years[yearIndex],
+        colorEN: entries.colors[colorIndex].en,
+        colorAR: entries.colors[colorIndex].ar,
+        trimLevel: entries.trimLevels[trimLevelIndex],
+        vehicleTypeEN: entries.vehicleTypes[vehicleTypeIndex].en,
+        vehicleTypeAR: entries.vehicleTypes[vehicleTypeIndex].ar,
+        fuelTypeEN: entries.fuelTypes[fuelTypeIndex].en,
+        fuelTypeAR: entries.fuelTypes[fuelTypeIndex].ar,
+        noOfSeats: entries.seatsNumbers[noOfSeatsIndex],
+        kiloPerHour,
+        price,
+        phoneICC,
+        phoneNSN,
+        description,
+      };
+
+      for (let i = 1; i <= images.length; i++) {
+        body["photo" + i] = images[i - 1].value;
+      }
+
+      await purchaseApi.common.postPurchaseCar(body);
+      onViewPopup();
+    } catch (err) {
+      error = err?.response?.data?.message?.en || "Network error";
+      console.log("Error", error);
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
   };
 
   return (
@@ -142,16 +210,23 @@ const PostRentCarForm = ({ activeLevel, noOfLevels, onNext, onPrev }) => {
         <Form4 context={context} onKeyChange={handleKeyChange} />
       ) : null}
 
-      <ButtonsContainer>
-        {activeLevel !== 1 && (
-          <CustomButton type="primary" title="prev" onClick={onPrev} />
-        )}
-        <CustomButton
-          type="primary"
-          title={activeLevel === noOfLevels ? "Complete" : "next"}
-          onClick={onNext}
-        />
-      </ButtonsContainer>
+      {!!context.error && <ErrorText>{context.error}</ErrorText>}
+
+      {context.submitting ? (
+        <Loader />
+      ) : (
+        <ButtonsContainer>
+          {activeLevel !== 1 && (
+            <CustomButton type="primary" title="prev" onClick={onPrev} />
+          )}
+
+          <CustomButton
+            type="primary"
+            title={activeLevel === noOfLevels ? "Complete" : "Next"}
+            onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
+          />
+        </ButtonsContainer>
+      )}
     </Container>
   );
 };
@@ -179,6 +254,12 @@ const ButtonsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+`;
+
+const ErrorText = styled.span`
+  color: #f00;
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 export default PostRentCarForm;

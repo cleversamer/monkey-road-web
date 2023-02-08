@@ -1,0 +1,57 @@
+/* eslint-disable import/no-anonymous-default-export */
+import client from "../client";
+import authStorage from "auth/storage";
+
+const getAllRentCars = async (skip = 0) => {
+  const cacheMins = 0;
+  return await client.get(`/cars/rent/get?skip=${skip}`, {}, cacheMins);
+};
+
+const searchRentCars = async (searchTerm, skip = 0) => {
+  const cacheMins = 10;
+  return await client.get(
+    `/cars/rent/get?searchTerm=${searchTerm}&skip=${skip}`,
+    {},
+    cacheMins
+  );
+};
+
+const getRentCarDetails = async (carId) => {
+  const cacheMins = 60;
+  return await client.get(`/cars/rent/details/${carId}`, {}, cacheMins);
+};
+
+const postRentCar = async (profileData) => {
+  const formData = new FormData();
+  for (let key in profileData) {
+    formData.append(key, profileData[key]);
+  }
+
+  const config = {
+    headers: {
+      Authorization: authStorage.getToken(),
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  return await client.post("/cars/rent/add", formData, config);
+};
+
+const getMyRentCars = async (skip = 0) => {
+  const cacheMins = 10;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get(`/cars/rent/my?skip=${skip}`, config, cacheMins);
+};
+
+export default {
+  common: {
+    getAllRentCars,
+    searchRentCars,
+    getRentCarDetails,
+  },
+  office: {
+    postRentCar,
+    getMyRentCars,
+  },
+  admin: {},
+};

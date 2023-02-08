@@ -10,7 +10,15 @@ const RentCar = ({ data }) => {
   const handleRent = () => navigate(routes.rentCarDetails.navigate(data._id));
 
   return (
-    <ReusableCar data={data}>
+    <ReusableCar
+      brandName={data.brand.name.en}
+      imageURL={data.photos[0]}
+      model={data.model}
+      name={data.name}
+      price={data.price.daily}
+      year={data.year}
+      onClick={handleRent}
+    >
       <CTAContainer>
         <CustomButton type="primary" title="Rent now" onClick={handleRent} />
       </CTAContainer>
