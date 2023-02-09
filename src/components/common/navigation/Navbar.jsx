@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
@@ -14,12 +14,21 @@ import PopupConfirm from "hoc/PopupConfirm";
 import useAuth from "auth/useAuth";
 
 const Navbar = ({ onOpenMenu }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, socket, setUser } = useAuth();
   const navigate = useNavigate();
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
   });
+
+  useEffect(() => {
+    socket.on("notification received", (notification) => {
+      setUser({
+        ...user,
+        notifications: [notification, ...user.notifications],
+      });
+    });
+  }, [user]);
 
   const navigateAndScrollToTop = (route) => {
     navigate(route);
@@ -42,6 +51,9 @@ const Navbar = ({ onOpenMenu }) => {
 
     setPopupWindow({ visible: true, handler: logoutHander });
   };
+
+  const getUnseenNotificationsLength = () =>
+    user.notifications.filter((item) => !item.seen).length;
 
   return (
     <>
@@ -216,7 +228,7 @@ const Navbar = ({ onOpenMenu }) => {
 
                 <NotificationsBadge>
                   <NotificationsCount>
-                    {user.notifications.length}
+                    {getUnseenNotificationsLength()}
                   </NotificationsCount>
                 </NotificationsBadge>
               </ButtonRouteContainer>
@@ -370,7 +382,7 @@ const Navbar = ({ onOpenMenu }) => {
 
             <NotificationsBadge>
               <NotificationsCount>
-                {user.notifications.length}
+                {getUnseenNotificationsLength()}
               </NotificationsCount>
             </NotificationsBadge>
           </ButtonRouteContainer>

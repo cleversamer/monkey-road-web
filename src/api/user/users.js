@@ -5,7 +5,7 @@ import authStorage from "auth/storage";
 ////////////////////////////// Common APIs //////////////////////////////
 const isAuth = async () => {
   const config = { headers: { Authorization: authStorage.getToken() } };
-  const cacheMins = 0.5;
+  const cacheMins = 0;
   return await client.get("/users/isauth", config, cacheMins);
 };
 
@@ -70,7 +70,7 @@ const getMyFavorites = async () => {
 };
 
 const seeNotifications = async () => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/users/notifications/see`, config, cacheMins);
 };

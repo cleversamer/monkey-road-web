@@ -24,7 +24,7 @@ const RegisterForm = () => {
   });
 
   const handleKeyChange = (key) => (e) =>
-    setContext({ ...context, [key]: e.target.value });
+    setContext({ ...context, [key]: e.target.value, error: "" });
 
   const handleRegisterWithEmailAndPhone = () => {};
 
@@ -49,7 +49,7 @@ const RegisterForm = () => {
         authType
       );
 
-      navigate(routes.verify.navigate("phone"));
+      navigate(routes.verify.navigate("email"));
       const { user, token } = res.data;
       login(user, token);
     } catch (err) {

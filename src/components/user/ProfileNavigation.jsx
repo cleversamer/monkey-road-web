@@ -9,7 +9,7 @@ import { routes } from "client";
 import useAuth from "auth/useAuth";
 
 const ProfileNavigation = ({ activeItem }) => {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
@@ -62,19 +62,23 @@ const ProfileNavigation = ({ activeItem }) => {
             </RouterLink>
           </NavItem>
 
-          <NavItem active={activeItem === "rental posts"}>
-            <RouterLink to={routes.rentalPosts.navigate()}>
-              <FaCarAlt />
-              <NavItemTitle>rental posts</NavItemTitle>
-            </RouterLink>
-          </NavItem>
+          {user.role === "office" && (
+            <NavItem active={activeItem === "rental posts"}>
+              <RouterLink to={routes.rentalPosts.navigate()}>
+                <FaCarAlt />
+                <NavItemTitle>rental posts</NavItemTitle>
+              </RouterLink>
+            </NavItem>
+          )}
 
-          <NavItem active={activeItem === "received orders"}>
-            <RouterLink to={routes.myReceivedOrders.navigate()}>
-              <MdCallReceived />
-              <NavItemTitle>received orders</NavItemTitle>
-            </RouterLink>
-          </NavItem>
+          {user.role === "office" && (
+            <NavItem active={activeItem === "received orders"}>
+              <RouterLink to={routes.myReceivedOrders.navigate()}>
+                <MdCallReceived />
+                <NavItemTitle>received orders</NavItemTitle>
+              </RouterLink>
+            </NavItem>
+          )}
 
           <NavItem active={activeItem === "change password"}>
             <RouterLink to={routes.changePassword.navigate()}>

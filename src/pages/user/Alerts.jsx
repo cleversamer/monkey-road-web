@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import Location from "components/common/search-page/Location";
 import ProfileNavigation from "components/user/ProfileNavigation";
@@ -22,7 +22,7 @@ const Alerts = () => {
       <Content>
         <ProfileNavigation activeItem="" />
 
-        {!user.notifications.length && (
+        {!user?.notifications?.length && (
           <EmptyAlerts>
             <EmptyAlertsImage src="/assets/images/empty-4.svg" alt="" />
             <EmptyAlertsTitle>No alerts right now!</EmptyAlertsTitle>
@@ -30,7 +30,7 @@ const Alerts = () => {
           </EmptyAlerts>
         )}
 
-        {!!user.notifications.length && (
+        {!!user?.notifications?.length && (
           <AlertsContainer>
             {user.notifications.map((alert, index) => (
               <Alert key={alert.title + index} alert={alert} />
