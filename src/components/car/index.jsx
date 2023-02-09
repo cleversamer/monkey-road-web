@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { serverURL } from "api/client";
 
 const ReusableCar = ({
   imageURL,
@@ -10,7 +11,7 @@ const ReusableCar = ({
   onClick,
   children,
 }) => {
-  const mapImage = (url) => `https://191.101.229.249${url}`;
+  const mapImage = (url) => `${serverURL}${url}`;
 
   return (
     <Container>

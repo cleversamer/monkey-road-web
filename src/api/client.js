@@ -1,8 +1,10 @@
 import axios from "axios";
 import cache from "utils/cache";
 
+export const serverURL = "http://191.101.229.249";
+
 const api = axios.create({
-  baseURL: "https://191.101.229.249/api",
+  baseURL: serverURL + "/api",
   headers: {
     "Content-Type": "application/json",
   },

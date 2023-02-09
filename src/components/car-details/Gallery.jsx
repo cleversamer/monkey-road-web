@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { serverURL } from "api/client";
 
 const Gallery = ({ images: imageURLs = [] }) => {
   const [images, setImages] = useState(
     imageURLs.map((img, index) => ({ url: img, selected: index === 0 }))
   );
 
-  const mapImage = (url) => `https://191.101.229.249${url}`;
+  const mapImage = (url) => `${serverURL}${url}`;
 
   const getSelectedImage = () => {
     const index = images.findIndex((img) => img.selected);
