@@ -14,8 +14,10 @@ import CustomButton from "components/common/custom-button";
 import PopupConfirm from "hoc/PopupConfirm";
 import rentOrdersApi from "api/car/rentOrders";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const MyOrders = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [popupConfirm, setPopupConfirm] = useState({
     visible: false,
@@ -81,9 +83,9 @@ const MyOrders = () => {
     setPopupConfirm({
       visible: true,
       onConfirm: cancelOrder,
-      title: "cancel order",
-      subtitle: "Do you really want to cancel order?",
-      hint: "You can only cancel your order while it is pending.",
+      title: i18n("cancelOrderTitle"),
+      subtitle: i18n("cancelOrderSubtitle"),
+      hint: i18n("cancelOrderHint"),
     });
   };
 
@@ -101,9 +103,9 @@ const MyOrders = () => {
     setPopupConfirm({
       visible: true,
       onConfirm: deleteOrder,
-      title: "delete order",
-      subtitle: "Do you really want to delete order?",
-      hint: "You can only delete your order while it is pending.",
+      title: i18n("deleteOrderTitle"),
+      subtitle: i18n("deleteOrderSubtitle"),
+      hint: i18n("deleteOrderHint"),
     });
   };
 
@@ -113,18 +115,18 @@ const MyOrders = () => {
     let onClick = () => {};
     switch (status) {
       case "pending":
-        title = "close order";
+        title = i18n("cancelOrderTitle");
         onClick = handleCancelOrder;
         break;
 
       case "rejected":
       case "closed":
-        title = "delete order";
+        title = i18n("deleteOrderTitle");
         onClick = handleDeleteOrder;
         break;
 
       case "approved":
-        title = "complete order";
+        title = i18n("completeOrderTitle");
         onClick = handleCompleteOrder;
         break;
 
@@ -165,7 +167,7 @@ const MyOrders = () => {
         />
       )}
 
-      <Location pageTitles={["home", ">", "my orders"]} />
+      <Location pageTitles={[i18n("home"), i18n("arrow"), i18n("orders")]} />
 
       <OrdersContainer>
         {!!orders.all.length ? (
@@ -181,8 +183,8 @@ const MyOrders = () => {
           <Loader />
         ) : (
           <EmptyList
-            title="It's empty here..."
-            buttonTitle="go shopping"
+            title={i18n("empty")}
+            buttonTitle={i18n("goShopping")}
             imageURL="/assets/images/empty-1.svg"
             onClick={handleGoShopping}
           />
@@ -190,17 +192,21 @@ const MyOrders = () => {
       </OrdersContainer>
 
       <LatestCarsContainer>
-        <ItemsSection type="slider" title="latest cars for rent">
-          {latestCars.forRent.map((car) => (
-            <RentCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forRent.length && (
+          <ItemsSection type="slider" title={i18n("latestRentalCars")}>
+            {latestCars.forRent.map((car) => (
+              <RentCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
 
-        <ItemsSection type="slider" title="latest cars for sale">
-          {latestCars.forSale.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+        {!!latestCars.forSale.length && (
+          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
+            {latestCars.forSale.map((car) => (
+              <PurchaseCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
       </LatestCarsContainer>
     </Container>
   );

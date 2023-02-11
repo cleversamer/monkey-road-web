@@ -1,19 +1,21 @@
 import { useRef } from "react";
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const PaymentMethods = ({ onChange, paymentMethod }) => {
+  const { i18n, lang } = useLocale();
   const debitRef = useRef(null);
   const paypalRef = useRef(null);
 
   return (
     <Container>
-      <Title>Payment methods</Title>
+      <Title>{i18n("paymentMethods")}</Title>
 
       <MethodsList>
-        <MethodItem onClick={() => debitRef.current.click()}>
-          <ImageContainer>
+        <MethodItem lang={lang} onClick={() => debitRef.current.click()}>
+          <ImageContainer lang={lang}>
             <MethodImage src="/assets/icons/payment/visa.svg" alt="visa card" />
-            <MethodTitle>Debit/credit card</MethodTitle>
+            <MethodTitle>{i18n("debitOrCredit")}</MethodTitle>
           </ImageContainer>
 
           <MethodInput
@@ -26,13 +28,13 @@ const PaymentMethods = ({ onChange, paymentMethod }) => {
           />
         </MethodItem>
 
-        <MethodItem onClick={() => paypalRef.current.click()}>
-          <ImageContainer>
+        <MethodItem lang={lang} onClick={() => paypalRef.current.click()}>
+          <ImageContainer lang={lang}>
             <MethodImage
               src="/assets/icons/payment/paypal.svg"
               alt="paypal logo"
             />
-            <MethodTitle>Paypal</MethodTitle>
+            <MethodTitle>{i18n("paypal")}</MethodTitle>
           </ImageContainer>
 
           <MethodInput
@@ -68,6 +70,7 @@ const MethodsList = styled.ul`
 
 const MethodItem = styled.li`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
@@ -75,6 +78,7 @@ const MethodItem = styled.li`
 
 const ImageContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 10px;
 `;

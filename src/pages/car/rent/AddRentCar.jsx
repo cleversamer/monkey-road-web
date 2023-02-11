@@ -6,8 +6,10 @@ import PostRentCarForm from "./post";
 import PopupMessage from "hoc/PopupMessage";
 import CustomButton from "components/common/custom-button";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const AddRentCar = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [levels, setLevels] = useState({ count: 3, active: 1 });
@@ -37,20 +39,20 @@ const AddRentCar = () => {
       {showPopup && (
         <PopupMessage
           imageURL="/assets/images/arrow-right.svg"
-          title="Waiting for approval"
-          subtitle="operation accomplished successfully."
+          title={i18n("waitingForApproval")}
+          subtitle={i18n("operationSucceeded")}
           onHide={() => setShowPopup(false)}
         >
           <CustomButton
             type="primary"
-            title="Back to home"
+            title={i18n("backToHome")}
             onClick={handleBackToHome}
           />
         </PopupMessage>
       )}
 
       <AddCar
-        pageTitles={["home", ">", "post car for rent"]}
+        pageTitles={[i18n("home"), i18n("arrow"), i18n("postPurchaseCar")]}
         noOfLevels={levels.count}
         activeLevel={levels.active}
       >

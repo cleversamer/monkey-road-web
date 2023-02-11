@@ -1,7 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const RangeInput = ({ min, max, minValue, maxValue, onChange }) => {
+  const { i18n, lang } = useLocale();
   const [style, setStyle] = useState({
     left: `${(min / maxValue) * 100}%`,
     right: `${100 - (max / maxValue) * 100}%`,
@@ -50,8 +52,12 @@ const RangeInput = ({ min, max, minValue, maxValue, onChange }) => {
       </TopRow>
 
       <BottomRow>
-        <Price>{filterPrice(min)} AED</Price>
-        <Price>{filterPrice(max)} AED</Price>
+        <Price>
+          {filterPrice(min)} {i18n("aed")}
+        </Price>
+        <Price>
+          {filterPrice(max)} {i18n("aed")}
+        </Price>
       </BottomRow>
     </PriceInput>
   );
@@ -61,6 +67,7 @@ const PriceInput = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: left;
 `;
 
 const TopRow = styled.div``;

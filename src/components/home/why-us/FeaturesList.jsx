@@ -1,31 +1,34 @@
 import styled from "styled-components";
 import FeatureItem from "./FeatureItem";
+import useLocale from "hooks/useLocale";
 
 const FeaturesList = () => {
+  const { i18n } = useLocale();
+
   return (
     <Container>
       <FeatureItem
         iconPath="/assets/icons/better-exp.svg"
-        title="Better experience"
-        description="We believe in fairness and transparency"
+        title={i18n("whyUs1Title")}
+        description={i18n("whyUs1Description")}
       />
 
       <FeatureItem
         iconPath="/assets/icons/better-cars.svg"
-        title="Better cars"
-        description="Like-new cars at like-wow prices"
+        title={i18n("whyUs2Title")}
+        description={i18n("whyUs2Description")}
       />
 
       <FeatureItem
         iconPath="/assets/icons/guarantee.svg"
-        title="Better guarantees"
-        description="our vehicles are guaranteed like no place else"
+        title={i18n("whyUs3Title")}
+        description={i18n("whyUs3Description")}
       />
 
       <FeatureItem
         iconPath="/assets/icons/better-anywhere.svg"
-        title="Better than anywhere"
-        description="Compare and you will find no other choice makes sense"
+        title={i18n("whyUs4Title")}
+        description={i18n("whyUs4Description")}
       />
     </Container>
   );

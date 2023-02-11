@@ -1,38 +1,48 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import CustomButton from "components/common/custom-button";
+import useLocale from "hooks/useLocale";
 
 const Details2 = ({ car, order, onPrev, onNext }) => {
+  const { i18n, lang } = useLocale();
+
   return (
-    <Container>
-      <TitleContainer>
-        <CarTitle>Car name</CarTitle>
-        <CarPricePerDay>{car.price.daily} AED / day</CarPricePerDay>
+    <Container lang={lang}>
+      <TitleContainer lang={lang}>
+        <CarTitle>{car.name}</CarTitle>
+        <CarPricePerDay>
+          {car.price.daily} {i18n("aed")} / {i18n("day")}
+        </CarPricePerDay>
       </TitleContainer>
 
       <BreakLine />
 
-      <InputsContainer>
-        <InputsTitle>Delivery information</InputsTitle>
+      <InputsContainer lang={lang}>
+        <InputsTitle>{i18n("deliveryInfo")}</InputsTitle>
 
-        <InputsRow1>
-          <CustomInput type="date" title="from" />
+        <InputsRow1 lang={lang}>
+          <CustomInput type="date" title={i18n("from")} />
 
           <CustomInput
             type="text"
-            title="NO. of days"
-            placeholder="NO. of days"
+            title={i18n("noOfDays")}
+            placeholder={i18n("noOfDays")}
           />
         </InputsRow1>
 
-        <InputsRow2>
-          <CustomInput type="time" title="time" />
+        <InputsRow2 lang={lang}>
+          <CustomInput type="time" title={i18n("time")} />
         </InputsRow2>
       </InputsContainer>
 
-      <CTAContainer>
-        <CustomButton title="prev" type="primary" onClick={onPrev} />
-        <CustomButton title="continue" type="primary" onClick={onNext} />
+      <CTAContainer lang={lang}>
+        <CustomButton title={i18n("prev")} type="primary" onClick={onPrev} />
+
+        <CustomButton
+          title={i18n("continue")}
+          type="primary"
+          onClick={onNext}
+        />
       </CTAContainer>
     </Container>
   );
@@ -43,6 +53,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   @media screen and (max-width: 870px) {
     width: 100%;
@@ -53,6 +64,7 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
 `;
@@ -89,6 +101,7 @@ const InputsTitle = styled.h4`
 
 const InputsRow = styled.div`
   display: flex;
+  justify-content: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   gap: 20px;
 
   > * {
@@ -102,6 +115,7 @@ const InputsRow2 = styled(InputsRow)``;
 
 const CTAContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 15px;
 

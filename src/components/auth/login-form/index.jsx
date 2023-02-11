@@ -7,8 +7,10 @@ import { routes } from "client";
 import useAuth from "auth/useAuth";
 import authApi from "api/user/auth";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const LoginForm = () => {
+  const { i18n, lang } = useLocale();
   const { login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
@@ -26,24 +28,36 @@ const LoginForm = () => {
   const handleToggleRememberMe = () =>
     setContext({ ...context, rememberMe: !context.rememberMe });
 
-  const handleLoginWithEmailOrPhone = () => {};
-
-  const handleLoginWithGoogle = () => {};
-
-  const handleLoginWithFacebook = () => {};
-
-  const handleSubmit = async (e) => {
+  const handleLoginWithGoogle = async () => {
     let error = "";
 
     try {
-      e.preventDefault();
+      if (context.submitting) return;
 
+      setContext({ ...context, submitting: true });
+
+      const res = await authApi.loginWithGoogle();
+
+      navigate(routes.home.navigate());
+      const { user, token } = res.data;
+      login(user, token);
+    } catch (err) {
+      error = err?.response?.data?.message[lang] || i18n("networkError");
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
+  };
+
+  const handleLoginWithEmailOrPhone = async () => {
+    let error = "";
+
+    try {
       if (context.submitting) return;
 
       setContext({ ...context, submitting: true });
 
       const { emailOrPhone, password } = context;
-      const res = await authApi.loginWithEmail(emailOrPhone, password);
+      const res = await authApi.loginWithEmail({ emailOrPhone, password });
 
       navigate(routes.home.navigate());
       const { user, token } = res.data;
@@ -56,16 +70,16 @@ const LoginForm = () => {
   };
 
   return (
-    <Container onSubmit={handleSubmit}>
+    <Container onSubmit={(e) => e.preventDefault()}>
       <Content>
         <Heading>
-          <Title>Welcome</Title>
-          <Subtitle>Sign in to continue</Subtitle>
+          <Title>{i18n("welcome")}</Title>
+          <Subtitle>{i18n("loginFormSubtitle")}</Subtitle>
         </Heading>
 
         <CustomInput
           type="emailorphone"
-          title="Email or phone number"
+          title={i18n("emailOrPhone")}
           value={context.emailOrPhone}
           onChange={handleKeyChange("emailOrPhone")}
         />
@@ -73,7 +87,7 @@ const LoginForm = () => {
         <ErrorWrapper>
           <CustomInput
             type="password"
-            title="Password"
+            title={i18n("password")}
             value={context.password}
             onChange={handleKeyChange("password")}
           />
@@ -85,13 +99,13 @@ const LoginForm = () => {
           <CustomInput
             id="remember-me"
             type="checkbox"
-            title="Remember me"
+            title={i18n("rememberMe")}
             value={context.rememberMe}
             onChange={handleToggleRememberMe}
           />
 
           <ForgotPasswordRoute to={routes.forgotPassword.navigate()}>
-            Forgot password?
+            {i18n("loginForgotPassword")}
           </ForgotPasswordRoute>
         </LowerContainer>
 
@@ -100,25 +114,25 @@ const LoginForm = () => {
         ) : (
           <CustomButton
             type="primary"
-            title="Login"
+            title={i18n("loginTitle")}
             onClick={handleLoginWithEmailOrPhone}
           />
         )}
 
         <BreakLineContainer>
           <BreakLine />
-          <BreakLineWord>or</BreakLineWord>
+          <BreakLineWord>{i18n("or")}</BreakLineWord>
           <BreakLine />
         </BreakLineContainer>
 
         <CustomButton type="google" onClick={handleLoginWithGoogle} />
 
-        <CustomButton type="facebook" onClick={handleLoginWithFacebook} />
+        {/* <CustomButton type="facebook" onClick={handleLoginWithFacebook} /> */}
 
-        <RegisterContainer>
-          <RegisterPhrase>Don't have an account?</RegisterPhrase>
+        <RegisterContainer lang={lang}>
+          <RegisterPhrase>{i18n("dontHaveAcc")}</RegisterPhrase>
           <RegisterRoute to={routes.register.navigate()}>
-            Register
+            {i18n("register")}
           </RegisterRoute>
         </RegisterContainer>
       </Content>
@@ -197,6 +211,7 @@ const BreakLineWord = styled.span`
 
 const RegisterContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: center;
   gap: 5px;
   font-size: 15px;

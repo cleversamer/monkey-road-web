@@ -12,8 +12,10 @@ import NavButton from "./NavButton";
 import { routes } from "client";
 import PopupConfirm from "hoc/PopupConfirm";
 import useAuth from "auth/useAuth";
+import useLocale from "hooks/useLocale";
 
 const Navbar = ({ onOpenMenu }) => {
+  const { i18n, switchLang, lang } = useLocale();
   const { user, logout, socket, setUser } = useAuth();
   const navigate = useNavigate();
   const [popupWindow, setPopupWindow] = useState({
@@ -23,6 +25,7 @@ const Navbar = ({ onOpenMenu }) => {
 
   useEffect(() => {
     socket.on("notification received", (notification) => {
+      console.log("notification", notification);
       setUser({
         ...user,
         notifications: [notification, ...user.notifications],
@@ -35,7 +38,9 @@ const Navbar = ({ onOpenMenu }) => {
     scroll.scrollToTop();
   };
 
-  const handleSwitchLanguage = () => {};
+  const handleSwitchLanguage = () => {
+    switchLang();
+  };
 
   const handleLogout = () => {
     if (popupWindow.visible) return;
@@ -59,9 +64,9 @@ const Navbar = ({ onOpenMenu }) => {
     <>
       {popupWindow.visible && (
         <PopupConfirm
-          title="logout"
-          subtitle="Do you really want to logout?"
-          hint="If you log out, you will have to retype your email and password again."
+          title={i18n("logoutTitle")}
+          subtitle={i18n("logoutSubtitle")}
+          hint={i18n("logoutHint")}
           onHide={() => setPopupWindow(false)}
           onConfirm={popupWindow.handler}
         />
@@ -86,13 +91,13 @@ const Navbar = ({ onOpenMenu }) => {
                 exact="true"
                 offset={-80}
               >
-                Home
+                {i18n("home")}
               </NavLink>
             </NavItem>
 
             <NavItem>
               <NavLink to="app">
-                <IoIosArrowDown /> View cars
+                <IoIosArrowDown /> {i18n("viewCars")}
               </NavLink>
 
               <SubMenu>
@@ -101,7 +106,7 @@ const Navbar = ({ onOpenMenu }) => {
                     onClick={() => scroll.scrollToTop()}
                     to={routes.rentCars.navigate()}
                   >
-                    Cars for rent
+                    {i18n("rentCars")}
                   </NavRoute>
                 </NavItem>
 
@@ -110,7 +115,7 @@ const Navbar = ({ onOpenMenu }) => {
                     onClick={() => scroll.scrollToTop()}
                     to={routes.purchaseCars.navigate()}
                   >
-                    Cars for sale
+                    {i18n("purchaseCars")}
                   </NavRoute>
                 </NavItem>
               </SubMenu>
@@ -126,7 +131,7 @@ const Navbar = ({ onOpenMenu }) => {
                 exact="true"
                 onClick={() => navigate(routes.home.route)}
               >
-                Why us?
+                {i18n("whyUs")}
               </NavLink>
             </NavItem>
 
@@ -139,21 +144,25 @@ const Navbar = ({ onOpenMenu }) => {
                 exact="true"
                 onClick={() => navigate(routes.home.route)}
               >
-                About us
+                {i18n("aboutUs")}
               </NavLink>
             </NavItem>
           </NavMenu>
 
           <DesktopNavButtons>
             {user && (
-              <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+              <NavButton
+                title={i18n("post")}
+                iconPath="/assets/icons/post.svg"
+                laptop
+              >
                 {user.role === "office" && (
                   <NavItem>
                     <NavRoute
                       onClick={() => scroll.scrollToTop()}
                       to={routes.addRentCar.navigate()}
                     >
-                      for rent
+                      {i18n("forRent")}
                     </NavRoute>
                   </NavItem>
                 )}
@@ -163,7 +172,7 @@ const Navbar = ({ onOpenMenu }) => {
                     onClick={() => scroll.scrollToTop()}
                     to={routes.addPurchaseCar.navigate()}
                   >
-                    for sale
+                    {i18n("forSale")}
                   </NavRoute>
                 </NavItem>
               </NavButton>
@@ -176,7 +185,7 @@ const Navbar = ({ onOpenMenu }) => {
                 desktop="false"
               >
                 <NavButton
-                  title="Post Rent"
+                  title={i18n("postRent")}
                   iconPath="/assets/icons/post.svg"
                 />
               </ButtonRouteContainer>
@@ -189,7 +198,7 @@ const Navbar = ({ onOpenMenu }) => {
                 desktop="false"
               >
                 <NavButton
-                  title="Post Sale"
+                  title={i18n("postSale")}
                   iconPath="/assets/icons/post.svg"
                 />
               </ButtonRouteContainer>
@@ -201,7 +210,10 @@ const Navbar = ({ onOpenMenu }) => {
                 mobile="true"
                 desktop="true"
               >
-                <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+                <NavButton
+                  title={i18n("orders")}
+                  iconPath="/assets/icons/orders.svg"
+                />
               </ButtonRouteContainer>
             )}
 
@@ -212,7 +224,7 @@ const Navbar = ({ onOpenMenu }) => {
                 mobile="true"
               >
                 <NavButton
-                  title="Favorites"
+                  title={i18n("favorites")}
                   iconPath="/assets/icons/favorite.svg"
                 />
               </ButtonRouteContainer>
@@ -224,7 +236,10 @@ const Navbar = ({ onOpenMenu }) => {
                 desktop="true"
                 mobile="true"
               >
-                <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+                <NavButton
+                  title={i18n("alerts")}
+                  iconPath="/assets/icons/alert.svg"
+                />
 
                 <NotificationsBadge>
                   <NotificationsCount>
@@ -240,37 +255,46 @@ const Navbar = ({ onOpenMenu }) => {
                 desktop="true"
                 mobile="true"
               >
-                <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+                <NavButton
+                  title={i18n("login")}
+                  iconPath="/assets/icons/user.svg"
+                />
               </ButtonRouteContainer>
             )}
 
             {user && (
-              <NavButton title="Profile" iconPath="/assets/icons/user.svg">
+              <NavButton
+                title={i18n("profile")}
+                iconPath="/assets/icons/user.svg"
+              >
                 <NavItem>
                   <NavRoute
+                    lang={lang}
                     onClick={() => scroll.scrollToTop()}
                     to={routes.personalInfo.navigate()}
                   >
-                    <FaRegUser /> personal info
+                    <FaRegUser /> {i18n("personalInfo")}
                   </NavRoute>
                 </NavItem>
 
                 <NavItem>
                   <NavRoute
+                    lang={lang}
                     onClick={() => scroll.scrollToTop()}
                     to={routes.salesPosts.navigate()}
                   >
-                    <FaCarAlt /> sales posts
+                    <FaCarAlt /> {i18n("salesPosts")}
                   </NavRoute>
                 </NavItem>
 
                 {user && user.role === "office" && (
                   <NavItem>
                     <NavRoute
+                      lang={lang}
                       onClick={() => scroll.scrollToTop()}
                       to={routes.rentalPosts.navigate()}
                     >
-                      <FaCarAlt /> rental posts
+                      <FaCarAlt /> {i18n("rentalPosts")}
                     </NavRoute>
                   </NavItem>
                 )}
@@ -278,46 +302,56 @@ const Navbar = ({ onOpenMenu }) => {
                 {user && user.role === "office" && (
                   <NavItem>
                     <NavRoute
+                      lang={lang}
                       onClick={() => scroll.scrollToTop()}
                       to={routes.myReceivedOrders.navigate()}
                     >
-                      <MdCallReceived /> received orders
+                      <MdCallReceived /> {i18n("receivedOrders")}
                     </NavRoute>
                   </NavItem>
                 )}
 
                 <NavItem>
                   <NavRoute
+                    lang={lang}
                     onClick={() => scroll.scrollToTop()}
                     to={routes.changePassword.navigate()}
                   >
-                    <HiOutlineKey /> change password
+                    <HiOutlineKey /> {i18n("changePassword")}
                   </NavRoute>
                 </NavItem>
 
                 <NavItem>
-                  <NavRoute onClick={handleLogout} to="#">
-                    <HiOutlineLogout /> logout
+                  <NavRoute lang={lang} onClick={handleLogout} to="#">
+                    <HiOutlineLogout /> {i18n("logoutTitle")}
                   </NavRoute>
                 </NavItem>
               </NavButton>
             )}
 
-            <NavButton title="EN" iconPath="/assets/icons/language.svg" />
+            <NavButton
+              title={lang.toUpperCase()}
+              iconPath="/assets/icons/language.svg"
+              onClick={handleSwitchLanguage}
+            />
           </DesktopNavButtons>
         </NavbarContainer>
       </Nav>
 
       <MobileNavButtons>
         {user && (
-          <NavButton title="Post" iconPath="/assets/icons/post.svg" laptop>
+          <NavButton
+            title={i18n("post")}
+            iconPath="/assets/icons/post.svg"
+            laptop
+          >
             {user.role === "office" && (
               <NavItem>
                 <NavRoute
                   onClick={() => scroll.scrollToTop()}
                   to={routes.addRentCar.navigate()}
                 >
-                  for rent
+                  {i18n("forRent")}
                 </NavRoute>
               </NavItem>
             )}
@@ -327,7 +361,7 @@ const Navbar = ({ onOpenMenu }) => {
                 onClick={() => scroll.scrollToTop()}
                 to={routes.addPurchaseCar.navigate()}
               >
-                for sale
+                {i18n("forSale")}
               </NavRoute>
             </NavItem>
           </NavButton>
@@ -339,7 +373,10 @@ const Navbar = ({ onOpenMenu }) => {
             mobile="true"
             desktop="false"
           >
-            <NavButton title="Post Rent" iconPath="/assets/icons/post.svg" />
+            <NavButton
+              title={i18n("postRent")}
+              iconPath="/assets/icons/post.svg"
+            />
           </ButtonRouteContainer>
         )}
 
@@ -349,7 +386,10 @@ const Navbar = ({ onOpenMenu }) => {
             mobile="true"
             desktop="false"
           >
-            <NavButton title="Post Sale" iconPath="/assets/icons/post.svg" />
+            <NavButton
+              title={i18n("postSale")}
+              iconPath="/assets/icons/post.svg"
+            />
           </ButtonRouteContainer>
         )}
 
@@ -359,7 +399,10 @@ const Navbar = ({ onOpenMenu }) => {
             mobile="true"
             desktop="true"
           >
-            <NavButton title="Orders" iconPath="/assets/icons/orders.svg" />
+            <NavButton
+              title={i18n("orders")}
+              iconPath="/assets/icons/orders.svg"
+            />
           </ButtonRouteContainer>
         )}
 
@@ -370,15 +413,22 @@ const Navbar = ({ onOpenMenu }) => {
             mobile="true"
           >
             <NavButton
-              title="Favorites"
+              title={i18n("favorites")}
               iconPath="/assets/icons/favorite.svg"
             />
           </ButtonRouteContainer>
         )}
 
         {user && (
-          <ButtonRouteContainer to="" desktop="true" mobile="true">
-            <NavButton title="Alerts" iconPath="/assets/icons/alert.svg" />
+          <ButtonRouteContainer
+            to={routes.alerts.navigate()}
+            desktop="true"
+            mobile="true"
+          >
+            <NavButton
+              title={i18n("alerts")}
+              iconPath="/assets/icons/alert.svg"
+            />
 
             <NotificationsBadge>
               <NotificationsCount>
@@ -394,11 +444,31 @@ const Navbar = ({ onOpenMenu }) => {
             desktop="true"
             mobile="true"
           >
-            <NavButton title="Login" iconPath="/assets/icons/user.svg" />
+            <NavButton
+              title={i18n("login")}
+              iconPath="/assets/icons/user.svg"
+            />
           </ButtonRouteContainer>
         )}
 
-        <NavButton title="EN" iconPath="/assets/icons/language.svg" />
+        {user && (
+          <ButtonRouteContainer
+            to={routes.personalInfo.navigate()}
+            desktop="false"
+            mobile="true"
+          >
+            <NavButton
+              title={i18n("profile")}
+              iconPath="/assets/icons/user.svg"
+            />
+          </ButtonRouteContainer>
+        )}
+
+        <NavButton
+          title={lang.toUpperCase()}
+          iconPath="/assets/icons/language.svg"
+          onClick={handleSwitchLanguage}
+        />
       </MobileNavButtons>
     </>
   );
@@ -524,6 +594,7 @@ const NavLink = styled(ScrollLink)`
 
 const NavRoute = styled(RouterLink)`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   justify-content: center;
   gap: 7px;

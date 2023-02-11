@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import FeaturesList from "./FeaturesList";
+import useLocale from "hooks/useLocale";
 
 const RightSide = () => {
-  return (
-    <Container>
-      <Title>why us?</Title>
+  const { i18n, lang } = useLocale();
 
-      <Description>
-        Lorem ipsum dolor sit amet consectetur. Arcu pellentesque sit in nisi
-        nunc justo vel nascetur. Id massa commodo diam eget in arcu faucibus. So
-      </Description>
+  return (
+    <Container lang={lang}>
+      <Title>{i18n("whyUs")}</Title>
+
+      <Description>{i18n("whyUsDescription")}</Description>
 
       <FeaturesList />
     </Container>
@@ -19,6 +19,8 @@ const RightSide = () => {
 const Container = styled.div`
   width: 75%;
   display: flex;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
   flex-direction: column;
   gap: 15px;
 

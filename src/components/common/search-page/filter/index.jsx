@@ -4,6 +4,7 @@ import PriceFilter from "./PriceFilter";
 import BrandsFilter from "./BrandsFilter";
 import ColorsFilter from "./ColorsFilter";
 import YearsFilter from "./YearsFilter";
+import useLocale from "hooks/useLocale";
 
 const Filter = ({
   priceConfig,
@@ -11,11 +12,13 @@ const Filter = ({
   onListChange,
   onPriceChange,
 }) => {
-  return (
-    <Container>
-      <Title>Filters</Title>
+  const { i18n, lang } = useLocale();
 
-      <FilterSection title="Price">
+  return (
+    <Container lang={lang}>
+      <Title>{i18n("filters")}</Title>
+
+      <FilterSection title={i18n("price")}>
         <PriceFilter
           min={searchContext.price.min}
           minValue={priceConfig.price.minValue}
@@ -25,16 +28,25 @@ const Filter = ({
         />
       </FilterSection>
 
-      <FilterSection title="Brands" withIcon={true}>
-        <BrandsFilter onChange={onListChange("brands")} />
+      <FilterSection title={i18n("brands")} withIcon={true}>
+        <BrandsFilter
+          selectedBrands={searchContext.brands}
+          onChange={onListChange("brands")}
+        />
       </FilterSection>
 
-      <FilterSection title="Colors" withIcon={true}>
-        <ColorsFilter onChange={onListChange("colors")} />
+      <FilterSection title={i18n("colors")} withIcon={true}>
+        <ColorsFilter
+          selectedColors={searchContext.colors}
+          onChange={onListChange("colors")}
+        />
       </FilterSection>
 
-      <FilterSection title="Year Models" withIcon={true}>
-        <YearsFilter onChange={onListChange("years")} />
+      <FilterSection title={i18n("yearModel")} withIcon={true}>
+        <YearsFilter
+          selectedYears={searchContext.years}
+          onChange={onListChange("years")}
+        />
       </FilterSection>
     </Container>
   );
@@ -46,6 +58,7 @@ const Container = styled.aside`
   background-color: #fff;
   border-radius: 16px;
   padding: 20px 0;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const Title = styled.h3`

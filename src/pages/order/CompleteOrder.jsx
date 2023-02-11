@@ -7,6 +7,8 @@ import StripeForm from "components/common/payment-form/StripeForm";
 import PaypalForm from "components/common/payment-form/PaypalForm";
 import CustomButton from "components/common/custom-button";
 import PopupMessage from "hoc/PopupMessage";
+import rentOrdersApi from "api/car/rentOrders";
+import Loader from "components/loader";
 import { routes } from "client";
 
 const CompleteOrder = () => {
@@ -22,14 +24,20 @@ const CompleteOrder = () => {
     postalCode: "",
     month: "",
     year: "",
+    loading: true,
   });
 
   useEffect(() => {
-    // fetch order
+    rentOrdersApi.common
+      .getOrderDetails(orderId)
+      .then((res) =>
+        setContext({ ...context, loading: false, order: res.data })
+      )
+      .catch((err) => setContext({ ...context, loading: false, order: null }));
   }, []);
 
   const invoiceItems = [
-    { title: "car rental", cost: context.order.totalPrice },
+    { title: "car rental", cost: context?.order?.totalPrice },
   ];
 
   const handleKeyChange = (key) => (e) => {
@@ -55,6 +63,14 @@ const CompleteOrder = () => {
   const handleBackToHome = () => {
     navigate(routes.home.navigate());
   };
+
+  if (!context.order && context.loading) {
+    return <Loader />;
+  }
+
+  if (!context.order) {
+    navigate(routes.myOrders.navigate());
+  }
 
   return (
     <>

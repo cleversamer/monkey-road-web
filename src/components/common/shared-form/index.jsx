@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const SharedForm = ({ title, subtitle, imageURL, onSubmit, children }) => {
+  const { lang } = useLocale();
+
   return (
     <Container onSubmit={onSubmit}>
-      <Content>
+      <Content lang={lang}>
         <Image src={imageURL} alt="" />
         <Title>{title}</Title>
         <Subtitle>{subtitle}</Subtitle>
@@ -29,6 +32,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 70%;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const Image = styled.img`

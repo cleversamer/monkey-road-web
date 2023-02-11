@@ -2,29 +2,34 @@ import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const ColumnsList = () => {
+  const { i18n } = useLocale();
+
   return (
     <Container>
       <ColumnItem>
-        <ColumnTitle>Website</ColumnTitle>
+        <ColumnTitle>{i18n("website")}</ColumnTitle>
 
         <ColumnRoute
           to={routes.home.navigate()}
           onClick={() => scroll.scrollToTop()}
         >
-          Home
+          {i18n("home")}
         </ColumnRoute>
 
-        <ColumnRoute to={routes.rentCars.navigate()}>Cars for rent</ColumnRoute>
+        <ColumnRoute to={routes.rentCars.navigate()}>
+          {i18n("rentCars")}
+        </ColumnRoute>
 
         <ColumnRoute to={routes.purchaseCars.navigate()}>
-          Cars for sale
+          {i18n("purchaseCars")}
         </ColumnRoute>
       </ColumnItem>
 
       <ColumnItem>
-        <ColumnTitle>About</ColumnTitle>
+        <ColumnTitle>{i18n("aboutUs")}</ColumnTitle>
 
         <ColumnScrollLink
           to="about-us"
@@ -33,20 +38,20 @@ const ColumnsList = () => {
           spy={true}
           exact="true"
         >
-          About us
+          {i18n("aboutUs")}
         </ColumnScrollLink>
 
-        <ColumnRoute to={routes.home.navigate()}>FAQ</ColumnRoute>
-
-        <ColumnRoute to={routes.home.navigate()}>Privacy policy</ColumnRoute>
+        <ColumnRoute to={routes.home.navigate()}>{i18n("faq")}</ColumnRoute>
 
         <ColumnRoute to={routes.home.navigate()}>
-          Terms of condition
+          {i18n("privacyPolicy")}
         </ColumnRoute>
+
+        <ColumnRoute to={routes.home.navigate()}>{i18n("terms")}</ColumnRoute>
       </ColumnItem>
 
       <ColumnItem>
-        <ColumnTitle>App</ColumnTitle>
+        <ColumnTitle>{i18n("app")}</ColumnTitle>
 
         <ColumnLink target="_blank" href="https://play.google.com">
           <StoreImage

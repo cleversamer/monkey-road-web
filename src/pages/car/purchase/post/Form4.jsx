@@ -2,13 +2,16 @@ import styled from "styled-components";
 import PaymentMethods from "components/common/payment-form/PaymentMethods";
 import StripeForm from "components/common/payment-form/StripeForm";
 import PaypalForm from "components/common/payment-form/PaypalForm";
-
-const invoiceItems = [{ title: "Post cost", cost: 100 }];
+import useLocale from "hooks/useLocale";
 
 const Form4 = ({ context, onKeyChange }) => {
+  const { i18n } = useLocale();
+
+  const invoiceItems = [{ title: i18n("postCost"), cost: 100 }];
+
   return (
     <>
-      <FormTitle>payment method</FormTitle>
+      <FormTitle>{i18n("paymentFormTitle")}</FormTitle>
 
       <PaymentMethods
         paymentMethod={context.paymentMethod}

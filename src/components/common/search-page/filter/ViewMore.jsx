@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const ViewMore = ({ onClick }) => {
-  return <Container onClick={onClick}>+ View more</Container>;
+  const { i18n } = useLocale();
+
+  return <Container onClick={onClick}>{i18n("viewMore")}</Container>;
 };
 
 const Container = styled.div`

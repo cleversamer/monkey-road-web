@@ -9,6 +9,7 @@ import { routes } from "client";
 import Loader from "components/loader";
 import purchaseApi from "api/car/purchase";
 import brandsApi from "api/car/brands";
+import useLocale from "hooks/useLocale";
 
 const initialState = {
   loading: true,
@@ -16,6 +17,7 @@ const initialState = {
 };
 
 const PurchaseCars = () => {
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const [recentlyArrivedCars, setRecentlyArrivedCars] = useState(initialState);
   const [popularBrands, setPopularBrands] = useState(initialState);
@@ -56,12 +58,14 @@ const PurchaseCars = () => {
 
   return (
     <Container>
-      <Location pageTitles={["Home", ">", "Cars for sale"]} />
+      <Location
+        pageTitles={[i18n("home"), i18n("arrow"), i18n("purchaseCars")]}
+      />
 
       <SectionsContainer>
         <ItemsSection
           type="section"
-          title="Recently arrived"
+          title={i18n("recentlyArrived")}
           onSeeMore={() =>
             navigate(routes.recentlyArrivedPurchaseCars.navigate())
           }
@@ -78,7 +82,7 @@ const PurchaseCars = () => {
         <ItemsSection
           type="section"
           brands
-          title="Popular brands"
+          title={i18n("popularBrands")}
           onSeeMore={() => navigate(routes.popularBrands.navigate())}
         >
           {popularBrands.loading ? (
@@ -96,7 +100,7 @@ const PurchaseCars = () => {
 
         <ItemsSection
           type="section"
-          title="Latest models"
+          title={i18n("latestModels")}
           onSeeMore={() => navigate(routes.latestPurchaseCarModels.navigate())}
         >
           {latestModelsCars.loading ? (
@@ -110,7 +114,7 @@ const PurchaseCars = () => {
 
         <ItemsSection
           type="section"
-          title="Best seller"
+          title={i18n("bestSeller")}
           onSeeMore={() => navigate(routes.bestPurchaseCarSellers.navigate())}
         >
           {bestSellerCars.loading ? (

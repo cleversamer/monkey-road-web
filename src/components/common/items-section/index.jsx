@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import Slider from "./Slider";
 import { IoIosArrowForward } from "react-icons/io";
+import useLocale from "hooks/useLocale";
 
 const ItemsSection = ({ type, title, onSeeMore, brands, children }) => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container>
-      <TitleContainer>
+      <TitleContainer lang={lang}>
         <Title>{title}</Title>
+
         {type === "section" && (
           <SeeMore onClick={onSeeMore}>
-            See more <IoIosArrowForward />
+            {i18n("seeMore")} <IoIosArrowForward />
           </SeeMore>
         )}
       </TitleContainer>
@@ -38,6 +42,7 @@ const TitleContainer = styled.div`
   width: 100%;
   margin-left: ${({ type }) => (type === "slider" ? "100px" : "0")};
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
 

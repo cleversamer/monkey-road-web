@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const SelectInput = ({
   values,
@@ -7,11 +8,14 @@ const SelectInput = ({
   onChange,
   valueParser,
 }) => {
+  const { lang } = useLocale();
+
   return (
     <Container
       placeholder={placeholder}
       defaultValue={valueParser(values[selectedIndex])}
       onChange={onChange}
+      lang={lang}
     >
       {values.map((value, index) => (
         <Option
@@ -37,6 +41,7 @@ const Container = styled.select`
   border-radius: 8px;
   padding: 0 15px;
   cursor: pointer;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const Option = styled.option`

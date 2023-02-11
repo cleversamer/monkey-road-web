@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const Location = ({ pageTitles = [] }) => {
+  const { lang, i18n } = useLocale();
+
   pageTitles = pageTitles.map((pageTitle, index) => {
     return () =>
-      pageTitle === ">" ? (
+      pageTitle === i18n("arrow") ? (
         <Separator>{pageTitle}</Separator>
       ) : (
         <PageTitle active={index === pageTitles.length - 1}>
@@ -15,7 +18,7 @@ const Location = ({ pageTitles = [] }) => {
   pageTitles.join(<Separator>&gt;</Separator>);
 
   return (
-    <Container>
+    <Container lang={lang}>
       {pageTitles.map((Item, index) => (
         <Item key={index} />
       ))}
@@ -27,6 +30,7 @@ const Container = styled.section`
   font-size: 15px;
   font-weight: 500;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 7px;
 `;

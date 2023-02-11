@@ -1,11 +1,15 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const DescriptionInput = ({ placeholder, value, onChange, ...props }) => {
+  const { lang } = useLocale();
+
   return (
     <Container
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      lang={lang}
       {...props}
     />
   );
@@ -22,6 +26,7 @@ const Container = styled.textarea`
   border: 1px solid #fe7777;
   border-radius: 8px;
   resize: none;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   ::placeholder {
     text-transform: capitalize;

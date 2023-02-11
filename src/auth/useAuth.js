@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import AuthContext from "./context";
 import authStorage from "./storage";
-import socket from "socket/client";
 
 const useAuth = (props) => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, socket } = useContext(AuthContext);
 
   const logout = () => {
     authStorage.removeToken();

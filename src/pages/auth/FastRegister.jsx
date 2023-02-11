@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PhoneForm from "components/auth/phone-form";
 
-const FastLogin = () => {
+const FastRegister = () => {
   return (
     <Container>
       <PhoneForm />
@@ -16,4 +16,4 @@ const Container = styled.main`
   margin: 0 auto;
 `;
 
-export default FastLogin;
+export default FastRegister;

@@ -1,10 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "pages/user/Home";
-import NotFound from "pages/user/NotFound";
 import Navigation from "components/common/navigation";
 import Footer from "components/common/footer";
 import Login from "pages/auth/Login";
-import FastLogin from "pages/auth/FastLogin";
+import FastRegister from "pages/auth/FastRegister";
 import Register from "pages/auth/Register";
 import Verify from "pages/auth/Verify";
 import ForgotPassword from "pages/auth/ForgotPassword";
@@ -35,9 +34,12 @@ import AuthContext from "auth/context";
 import usersApi from "api/user/users";
 import { useEffect, useState } from "react";
 import Splash from "pages/user/Splash";
+import socket from "socket/client";
+import authStorage from "auth/storage";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [lang, setLang] = useState(authStorage.getLanguage());
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, socket, lang, setLang }}>
       <Navigation />
 
       <Routes>
@@ -114,7 +116,10 @@ const App = () => {
         {!user && (
           <>
             <Route path={routes.register.route} element={<Register />} />
-            <Route path={routes.fastRegister.route} element={<FastLogin />} />
+            <Route
+              path={routes.fastRegister.route}
+              element={<FastRegister />}
+            />
             <Route path={routes.login.route} element={<Login />} />
             <Route
               path={routes.forgotPassword.route}

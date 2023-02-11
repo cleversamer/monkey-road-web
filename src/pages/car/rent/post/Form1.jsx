@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
+import useLocale from "hooks/useLocale";
 
 const Form1 = ({
   entries,
@@ -9,32 +10,34 @@ const Form1 = ({
   brandParser,
   yearParser,
 }) => {
+  const { i18n } = useLocale();
+
   return (
     <>
-      <FormTitle>Tell us about your car</FormTitle>
+      <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
 
       <CustomInput
         type="text"
-        title="Car name"
-        subtitle="3-64 letters"
-        placeholder="Car name"
+        title={i18n("carName")}
+        subtitle={`3-64 ${i18n("letters")}`}
+        placeholder={i18n("carName")}
         value={context.carName}
         onChange={onKeyChange("carName")}
       />
 
       <CustomInput
         type="text"
-        title="Model"
-        subtitle="3-64 letters"
-        placeholder="Model"
+        title={i18n("carModel")}
+        subtitle={`3-64 ${i18n("letters")}`}
+        placeholder={i18n("carModel")}
         value={context.model}
         onChange={onKeyChange("model")}
       />
 
       <CustomInput
         type="select"
-        title="Color"
-        placeholder="Color"
+        title={i18n("color")}
+        placeholder={i18n("color")}
         value={context.colorIndex}
         values={entries.colors}
         valueParser={colorParser}
@@ -44,8 +47,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Brand"
-        placeholder="Brand"
+        title={i18n("brand")}
+        placeholder={i18n("brand")}
         value={context.brandIndex}
         values={entries.brands}
         valueParser={brandParser}
@@ -55,8 +58,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Year"
-        placeholder="Year"
+        title={i18n("year")}
+        placeholder={i18n("year")}
         value={context.yearIndex}
         values={entries.years}
         valueParser={yearParser}

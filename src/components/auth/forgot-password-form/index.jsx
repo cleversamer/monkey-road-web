@@ -7,8 +7,10 @@ import CustomButton from "components/common/custom-button";
 import usersApi from "api/user/users";
 import Loader from "components/loader";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const ForgotPasswordForm = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [context, setContext] = useState({
     lang: "en",
@@ -45,13 +47,13 @@ const ForgotPasswordForm = () => {
   return (
     <SharedForm
       imageURL="/assets/images/form/forgot-password.svg"
-      title="Forgot Your Password?"
-      subtitle="We will send you a verification code."
+      title={i18n("forgotPasswordTitle")}
+      subtitle={i18n("forgotPasswordSubtitle")}
       onSubmit={handleSubmit}
     >
       <CustomInput
         type="emailorphone"
-        title="Email or phone number"
+        title={i18n("emailOrPhone")}
         value={context.emailOrPhone}
         onChange={handleChange}
       />
@@ -67,7 +69,11 @@ const ForgotPasswordForm = () => {
       {context.submitting ? (
         <Loader />
       ) : (
-        <CustomButton type="primary" title="Send code" onClick={handleSubmit} />
+        <CustomButton
+          type="primary"
+          title={i18n("sendCode")}
+          onClick={handleSubmit}
+        />
       )}
     </SharedForm>
   );

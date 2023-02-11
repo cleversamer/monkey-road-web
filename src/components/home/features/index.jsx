@@ -2,14 +2,17 @@ import styled from "styled-components";
 import ContentWrapper from "hoc/ContentWrapper";
 import FeaturesList from "./FeaturesList";
 import Clips from "./Clips";
+import useLocale from "hooks/useLocale";
 
 const Features = () => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container>
       <Clips />
 
-      <Content>
-        <Title>Here comfort and safety</Title>
+      <Content lang={lang}>
+        <Title>{i18n("featuresSectionTitle")}</Title>
         <FeaturesList />
       </Content>
     </Container>
@@ -34,6 +37,7 @@ const Content = styled(ContentWrapper)`
   gap: 40px;
   margin: 0;
   z-index: 99999;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const Title = styled.h3`

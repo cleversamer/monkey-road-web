@@ -6,8 +6,10 @@ import Details from "components/car-details/purchase";
 import ItemsSection from "components/common/items-section";
 import PurchaseCar from "components/car/purchase";
 import purchaseApi from "api/car/purchase";
+import useLocale from "hooks/useLocale";
 
 const PurchaseCarDetails = () => {
+  const { i18n, lang } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [similarCars, setSimilarCars] = useState([]);
@@ -33,7 +35,7 @@ const PurchaseCarDetails = () => {
       </Content>
 
       <DetailsSection>
-        <DetailsTitle>Item overview</DetailsTitle>
+        <DetailsTitle>{i18n("itemOverview")}</DetailsTitle>
 
         <DetailsList>
           <DetailsItem>
@@ -42,7 +44,9 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>{car.kiloPerHour} Km/h</ItemTitle>
+            <ItemTitle>
+              {car.kiloPerHour} {i18n("kmph")}
+            </ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -51,7 +55,7 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>{car.vehicleType.en}</ItemTitle>
+            <ItemTitle>{car.vehicleType[lang]}</ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -60,7 +64,7 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>{car.fuelType.en}</ItemTitle>
+            <ItemTitle>{car.fuelType[lang]}</ItemTitle>
           </DetailsItem>
 
           <DetailsItem>
@@ -69,13 +73,15 @@ const PurchaseCarDetails = () => {
               alt="kilometers per hour icon"
             />
 
-            <ItemTitle>{car.noOfSeats} seats</ItemTitle>
+            <ItemTitle>
+              {car.noOfSeats} {i18n("seats")}
+            </ItemTitle>
           </DetailsItem>
         </DetailsList>
       </DetailsSection>
 
       {!!similarCars.length && (
-        <ItemsSection type="slider" title="Similar products">
+        <ItemsSection type="slider" title={i18n("similarProducts")}>
           {similarCars.map((car) => (
             <PurchaseCar key={car._id} data={car} />
           ))}

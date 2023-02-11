@@ -2,8 +2,11 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
+import useLocale from "hooks/useLocale";
 
 const PopupConfirm = ({ onHide, onConfirm, title, subtitle, hint }) => {
+  const { i18n } = useLocale();
+
   useEffect(() => {
     window.onkeydown = function (event) {
       if (event.keyCode == 27) {
@@ -25,8 +28,8 @@ const PopupConfirm = ({ onHide, onConfirm, title, subtitle, hint }) => {
         <Hint>{hint}</Hint>
 
         <CTAContainer>
-          <CancelButton onClick={onHide}>cancel</CancelButton>
-          <ConfirmButton onClick={onConfirm}>ok</ConfirmButton>
+          <CancelButton onClick={onHide}>{i18n("cancel")}</CancelButton>
+          <ConfirmButton onClick={onConfirm}>{i18n("ok")}</ConfirmButton>
         </CTAContainer>
       </Container>
     </PopupContainer>

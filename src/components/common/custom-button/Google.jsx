@@ -1,16 +1,20 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const Google = ({ title, onClick, ...props }) => {
+  const { i18n, lang } = useLocale();
+
   return (
-    <Container onClick={onClick} {...props}>
+    <Container onClick={onClick} {...props} lang={lang}>
       <Icon src="/assets/icons/social/google.svg" alt="Google logo" />
-      <Title>{title || "Continue with google"}</Title>
+      <Title>{i18n("continueWithGoogle")}</Title>
     </Container>
   );
 };
 
 const Container = styled.button`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: center;
   align-items: center;
   gap: 10px;

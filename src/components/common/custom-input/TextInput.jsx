@@ -1,12 +1,16 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const TextInput = ({ placeholder, value, onChange, ...props }) => {
+  const { lang } = useLocale();
+
   return (
     <Container
       type="text"
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      lang={lang}
       {...props}
     />
   );
@@ -22,6 +26,7 @@ const Container = styled.input`
   background-color: transparent;
   border: 1px solid #fe7777;
   border-radius: 8px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   ::placeholder {
     text-transform: capitalize;

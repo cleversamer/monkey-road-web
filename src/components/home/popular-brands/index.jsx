@@ -4,8 +4,10 @@ import ContentWrapper from "hoc/ContentWrapper";
 import Brand from "./Brand";
 import Loader from "components/loader";
 import brandsApi from "api/car/brands";
+import useLocale from "hooks/useLocale";
 
 const PopularBrands = () => {
+  const { i18n, lang } = useLocale();
   const [context, setContext] = useState({
     brands: [],
     loading: true,
@@ -19,7 +21,7 @@ const PopularBrands = () => {
 
   return (
     <Container>
-      <Title>Popular brands</Title>
+      <Title>{i18n("popularBrands")}</Title>
 
       <Content>
         {context.loading ? (
@@ -28,7 +30,7 @@ const PopularBrands = () => {
           context.brands.map((brand) => (
             <Brand
               key={brand._id}
-              title={brand.name.en}
+              title={brand.name[lang]}
               imageURL={brand.photoURL}
             />
           ))

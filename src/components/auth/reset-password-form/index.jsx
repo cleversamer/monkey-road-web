@@ -9,8 +9,10 @@ import usersApi from "api/user/users";
 import useAuth from "auth/useAuth";
 import useQueryParams from "hooks/useQueryParams";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const ResetPasswordForm = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const { login } = useAuth();
   const { emailOrPhone } = useQueryParams();
@@ -71,28 +73,28 @@ const ResetPasswordForm = () => {
   return (
     <SharedForm
       imageURL="/assets/images/form/forgot-password.svg"
-      title="Reset Your Password"
-      subtitle="We have just sent you a password reset code."
+      title={i18n("resetPasswordTitle")}
+      subtitle={i18n("resetPasswordSubtitle")}
       onSubmit={handleSubmit}
     >
       <CustomInput
         type="code"
-        title="code"
-        subtitle="4 digits"
+        title={i18n("code")}
+        subtitle={`4 ${i18n("digits")}`}
         value={context.code}
         onChange={handleKeyChange("code")}
       />
 
       <CustomInput
         type="password"
-        title="Password"
+        title={i18n("password")}
         value={context.password}
         onChange={handleKeyChange("password")}
       />
 
       <CustomInput
         type="password"
-        title="Confirm password"
+        title={i18n("confirmPassword")}
         value={context.confirmPassowrd}
         onChange={handleKeyChange("confirmPassowrd")}
       />
@@ -104,7 +106,7 @@ const ResetPasswordForm = () => {
       ) : (
         <CustomButton
           type="primary"
-          title="Reset password"
+          title={i18n("resetPassword")}
           onClick={handleSubmit}
         />
       )}

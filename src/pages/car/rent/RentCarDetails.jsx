@@ -9,8 +9,10 @@ import Details1 from "./details/Details1";
 import Details2 from "./details/Details2";
 import Details3 from "./details/Details3";
 import rentApi from "api/car/rent";
+import useLocale from "hooks/useLocale";
 
 const RentCarDetails = () => {
+  const { i18n } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [pages, setPages] = useState({ count: 3, current: 1 });
@@ -55,7 +57,7 @@ const RentCarDetails = () => {
         ) : null}
       </Content>
 
-      <ItemsSection type="slider" title="Similar products">
+      <ItemsSection type="slider" title={i18n("similarProducts")}>
         {similarCars.map((car) => (
           <RentCar key={car._id} data={car} />
         ))}

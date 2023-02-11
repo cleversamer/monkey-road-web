@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   color: #303030;
+  font-family: inherit;
 }
 
 html {

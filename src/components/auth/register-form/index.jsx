@@ -7,8 +7,10 @@ import { routes } from "client";
 import useAuth from "auth/useAuth";
 import authApi from "api/user/auth";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const RegisterForm = () => {
+  const { i18n, lang } = useLocale();
   const { login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
@@ -39,15 +41,15 @@ const RegisterForm = () => {
 
       const { lang, name, email, phoneICC, phoneNSN, password, authType } =
         context;
-      const res = await authApi.registerWithEmail(
+      const res = await authApi.registerWithEmail({
         lang,
         name,
         email,
         phoneICC,
         phoneNSN,
         password,
-        authType
-      );
+        authType,
+      });
 
       navigate(routes.verify.navigate("email"));
       const { user, token } = res.data;
@@ -63,27 +65,28 @@ const RegisterForm = () => {
     <Container onSubmit={handleSubmit}>
       <Content>
         <Heading>
-          <Title>Welcome</Title>
-          <Subtitle>Sign up to continue</Subtitle>
+          <Title>{i18n("welcome")}</Title>
+          <Subtitle>{i18n("registerFormSubtitle")}</Subtitle>
         </Heading>
 
         <CustomInput
           type="name"
-          title="Full name"
+          title={i18n("fullName")}
+          placeholder={i18n("samerAlsaadawi")}
           value={context.name}
           onChange={handleKeyChange("name")}
         />
 
         <CustomInput
           type="email"
-          title="Email"
+          title={i18n("email")}
           value={context.email}
           onChange={handleKeyChange("email")}
         />
 
         <CustomInput
           type="phone"
-          title="Phone number"
+          title={i18n("phoneNumber")}
           icc={context.phoneICC}
           onICCChange={handleKeyChange("phoneICC")}
           nsn={context.phoneNSN}
@@ -93,7 +96,7 @@ const RegisterForm = () => {
         <ErrorWrapper>
           <CustomInput
             type="password"
-            title="Password"
+            title={i18n("password")}
             value={context.password}
             onChange={handleKeyChange("password")}
           />
@@ -101,9 +104,8 @@ const RegisterForm = () => {
           {!!context.error && <ErrorText>{context.error}</ErrorText>}
         </ErrorWrapper>
 
-        <Terms to={routes.home.navigate()}>
-          By clicking “Register“, I agree to{" "}
-          <span>terms of condition &amp; privacy policy.</span>
+        <Terms to={routes.home.navigate()} lang={lang}>
+          {i18n("registrHint1")} <span>{i18n("registrHint2")}</span>
         </Terms>
 
         {context.submitting ? (
@@ -111,14 +113,14 @@ const RegisterForm = () => {
         ) : (
           <CustomButton
             type="primary"
-            title="Register"
+            title={i18n("register")}
             onClick={handleRegisterWithEmailAndPhone}
           />
         )}
 
         <BreakLineContainer>
           <BreakLine />
-          <BreakLineWord>or</BreakLineWord>
+          <BreakLineWord>{i18n("or")}</BreakLineWord>
           <BreakLine />
         </BreakLineContainer>
 
@@ -126,13 +128,15 @@ const RegisterForm = () => {
           <CustomButton type="google" />
         </RouterLink>
 
-        <RouterLink to={routes.fastRegister.navigate("facebook")}>
+        {/* <RouterLink to={routes.fastRegister.navigate("facebook")}>
           <CustomButton type="facebook" />
-        </RouterLink>
+        </RouterLink> */}
 
-        <RegisterContainer>
-          <RegisterPhrase>Already have an account?</RegisterPhrase>
-          <RegisterRoute to={routes.login.navigate()}>Login</RegisterRoute>
+        <RegisterContainer lang={lang}>
+          <RegisterPhrase>{i18n("alreadyHaveAcc")}</RegisterPhrase>
+          <RegisterRoute to={routes.login.navigate()}>
+            {i18n("login")}
+          </RegisterRoute>
         </RegisterContainer>
       </Content>
     </Container>
@@ -184,6 +188,7 @@ const Terms = styled(RouterLink)`
   color: #333;
   line-height: 19.5px;
   text-transform: capitalize;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   span {
     color: #0500ff;
@@ -211,6 +216,7 @@ const BreakLineWord = styled.span`
 
 const RegisterContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: center;
   gap: 5px;
   font-size: 15px;

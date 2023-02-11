@@ -10,11 +10,13 @@ import { routes } from "client";
 import useAuth from "auth/useAuth";
 import parseDate from "utils/parseDate";
 import usersApi from "api/user/users";
+import useLocale from "hooks/useLocale";
 
 const PersonalInfo = () => {
+  const { i18n, lang } = useLocale();
   const { user, login } = useAuth();
   const navigate = useNavigate();
-  const [lastLogin, setLastLogin] = useState(parseDate(user.lastLogin));
+  const [lastLogin, setLastLogin] = useState(parseDate(user.lastLogin, lang));
   const [context, setContext] = useState({
     lang: "en",
     name: user.name,
@@ -28,13 +30,13 @@ const PersonalInfo = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setLastLogin(parseDate(user.lastLogin));
+      setLastLogin(parseDate(user.lastLogin, lang));
     }, 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [lang]);
 
   const handleKeyChange = (key) => (e) => {
     let newChanges = [...context.changes];
@@ -66,7 +68,7 @@ const PersonalInfo = () => {
       const { user, token } = res.data;
       login(user, token);
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, changes: [], error });
     }
@@ -82,33 +84,49 @@ const PersonalInfo = () => {
 
   return (
     <Container>
-      <Location pageTitles={["home", ">", "profile", ">", "personal info"]} />
+      <Location
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("profile"),
+          i18n("arrow"),
+          i18n("personalInfo"),
+        ]}
+      />
 
-      <Content>
+      <Content lang={lang}>
         <ProfileNavigation activeItem="personal info" />
 
         <FormContainer>
-          <Title>personal info</Title>
+          <Title lang={lang}>{i18n("personalInfo")}</Title>
+
           <BreakLine />
 
-          <LastLoginContainer>
-            <LastLoginItem>last login:</LastLoginItem>
-            <LastLoginItem>{lastLogin} ago</LastLoginItem>
+          <LastLoginContainer lang={lang}>
+            <LastLoginItem>
+              {lang === "ar" && ":"}
+              {i18n("lastLogin")}
+              {lang === "en" && ":"}
+            </LastLoginItem>
+            <LastLoginItem>
+              {lang === "ar" && i18n("ago")} {lastLogin}{" "}
+              {lang === "en" && i18n("ago")}
+            </LastLoginItem>
           </LastLoginContainer>
 
           <InputsContainer>
             <CustomInput
               type="name"
-              title="Full Name"
-              placeholder="Full Name"
+              title={i18n("fullName")}
+              placeholder={i18n("samerAlsaadawi")}
               value={context.name}
               onChange={handleKeyChange("name")}
             />
 
             <CustomInput
               type="email"
-              title="Email"
-              placeholder="Email"
+              title={i18n("email")}
+              placeholder={i18n("email")}
               verified={user.verified.email}
               onVerify={handleVerifyEmail}
               profile
@@ -118,8 +136,8 @@ const PersonalInfo = () => {
 
             <CustomInput
               type="phone"
-              title="phone number"
-              placeholder="phone number"
+              title={i18n("phoneNumber")}
+              placeholder={i18n("phoneNumber")}
               verified={user.verified.phone}
               onVerify={handleVerifyPhone}
               profile
@@ -131,26 +149,24 @@ const PersonalInfo = () => {
 
             <CustomInput
               type="name"
-              title="role"
-              placeholder="role"
+              title={i18n("role")}
+              placeholder={i18n("role")}
               disabled
-              value={user.role}
+              value={i18n(user.role)}
             />
-
-            {!!context.error && (
-              <ErrorWrapper>
-                <ErrorText>{context.error}</ErrorText>
-              </ErrorWrapper>
-            )}
           </InputsContainer>
 
-          <SubmitContainer>
+          {!!context.error && (
+            <ErrorText lang={lang}>{context.error}</ErrorText>
+          )}
+
+          <SubmitContainer lang={lang}>
             {context.submitting ? (
               <Loader />
             ) : (
               <CustomButton
                 type="primary"
-                title={context.changes.length ? "save" : "edit"}
+                title={context.changes.length ? i18n("save") : i18n("edit")}
                 disabled={!context.changes.length}
                 onClick={handleEditProfile}
               />
@@ -181,6 +197,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 30px;
 
   @media screen and (max-width: 900px) {
@@ -200,8 +217,10 @@ const FormContainer = styled.div`
 `;
 
 const SubmitContainer = styled.div`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+
   @media screen and (max-width: 540px) {
-    display: flex;
     justify-content: center;
   }
 
@@ -226,6 +245,7 @@ const Title = styled.h3`
   font-size: 22px;
   font-weight: 500;
   text-transform: capitalize;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const BreakLine = styled.span`
@@ -237,6 +257,7 @@ const BreakLine = styled.span`
 
 const LastLoginContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 5px;
   font-size: 14px;
@@ -261,16 +282,12 @@ const InputsContainer = styled.div`
   }
 `;
 
-const ErrorWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const ErrorText = styled.span`
   color: #f00;
   font-size: 13px;
   font-weight: 500;
   margin-top: 7px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 export default PersonalInfo;

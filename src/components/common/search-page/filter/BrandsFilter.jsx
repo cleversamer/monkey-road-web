@@ -1,40 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
 import ViewMore from "./ViewMore";
+import brandsApi from "api/car/brands";
+import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
-const BrandsFilter = ({ onChange }) => {
-  const [brands, setBrands] = useState([
-    { _id: 1, title: "Brand 1", selected: false },
-    { _id: 2, title: "Brand 2", selected: false },
-    { _id: 3, title: "Brand 3", selected: false },
-    { _id: 4, title: "Brand 4", selected: false },
-  ]);
+const BrandsFilter = ({ selectedBrands, onChange }) => {
+  const { lang } = useLocale();
+  const [brands, setBrands] = useState({ loading: true, list: [] });
+
+  useEffect(() => {
+    brandsApi.common
+      .getPopularBrands(0)
+      .then((res) => {
+        setBrands({
+          loading: false,
+          list: res.data.brands,
+        });
+      })
+      .catch((err) => setBrands({ loading: false, list: [] }));
+  }, []);
 
   const handleChange = (e, brand) => {
-    const brandsList = [...brands];
+    const brandsList = [...brands.list];
     const brandIndex = brandsList.findIndex((item) => item._id === brand._id);
     brandsList[brandIndex].selected = e.target.checked;
-    setBrands(brandsList);
+    setBrands({ ...brands, list: brandsList });
 
-    const selectedBrands = brands.filter((item) => item.selected);
+    const selectedBrands = brands.list.filter((item) => item.selected);
     onChange(selectedBrands);
   };
 
   const handleViewMore = () => {};
 
+  const checkBrandSelected = (brand) => {
+    const index = selectedBrands.findIndex((b) => b._id === brand._id);
+    return index >= 0;
+  };
+
   return (
     <Container>
-      {brands.map((brand) => (
-        <CustomInput
-          key={brand._id}
-          id={brand._id}
-          type="checkbox"
-          title={brand.title}
-          checked={brand.selected}
-          onChange={(e) => handleChange(e, brand)}
-        />
-      ))}
+      {brands.loading ? (
+        <Loader />
+      ) : (
+        brands.list.map((brand) => (
+          <CustomInput
+            key={brand._id}
+            id={brand._id}
+            type="checkbox"
+            title={brand.name[lang]}
+            value={checkBrandSelected(brand)}
+            onChange={(e) => handleChange(e, brand)}
+          />
+        ))
+      )}
 
       <ViewMore onClick={handleViewMore} />
     </Container>

@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
+import useLocale from "hooks/useLocale";
+import DetailsItem from "./DetailsItem";
+import DetailsTitle from "./DetailsTitle";
 
 const RentCarDetails = ({ car, onNext }) => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container>
-      <TitleContainer>
+      <TitleContainer lang={lang}>
         <CarTitle>{car.name}</CarTitle>
 
         <IconsContainer>
@@ -15,33 +20,33 @@ const RentCarDetails = ({ car, onNext }) => {
       <BreakLine />
 
       <DetailsList>
-        <DetailsTitle>Price</DetailsTitle>
+        <DetailsTitle title={i18n("price")} />
 
-        <DetailsItem>
-          <DetailsItemLeft>Daily price</DetailsItemLeft>
-          <DetailsItemRight>{car.price.daily} AED</DetailsItemRight>
-        </DetailsItem>
-
-        <BreakLine />
-
-        <DetailsItem>
-          <DetailsItemLeft>Weekly price</DetailsItemLeft>
-          <DetailsItemRight>{car.price.weekly} AED</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem
+          leftTitle={i18n("dailyPrice")}
+          rightTitle={`${car.price.daily} ${i18n("aed")}`}
+        />
 
         <BreakLine />
 
-        <DetailsItem>
-          <DetailsItemLeft>Monthly price</DetailsItemLeft>
-          <DetailsItemRight>{car.price.monthly} AED</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem
+          leftTitle={i18n("weeklyPrice")}
+          rightTitle={`${car.price.weekly} ${i18n("aed")}`}
+        />
 
         <BreakLine />
 
-        <DetailsItem>
-          <DetailsItemLeft>Deposit</DetailsItemLeft>
-          <DetailsItemRight>{car.price.deposit} AED</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem
+          leftTitle={i18n("monthlyPrice")}
+          rightTitle={`${i18n("aed")} ${car.price.monthly}`}
+        />
+
+        <BreakLine />
+
+        <DetailsItem
+          leftTitle={i18n("deposit")}
+          rightTitle={`${car.price.deposit} ${i18n("aed")}`}
+        />
       </DetailsList>
 
       <BreakLine />
@@ -49,7 +54,7 @@ const RentCarDetails = ({ car, onNext }) => {
       {!!car.description && (
         <>
           <DetailsList>
-            <DetailsTitle>Description</DetailsTitle>
+            <DetailsTitle title={i18n("description")} />
             <CarDescription>{car.description}</CarDescription>
           </DetailsList>
 
@@ -58,39 +63,30 @@ const RentCarDetails = ({ car, onNext }) => {
       )}
 
       <DetailsList>
-        <DetailsTitle>Details</DetailsTitle>
+        <DetailsTitle title={i18n("details")} />
 
-        <DetailsItem>
-          <DetailsItemLeft>Model</DetailsItemLeft>
-          <DetailsItemRight>{car.model}</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem leftTitle={i18n("carModel")} rightTitle={car.model} />
 
         <BreakLine />
 
-        <DetailsItem>
-          <DetailsItemLeft>Year</DetailsItemLeft>
-          <DetailsItemRight>{car.year}</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem leftTitle={i18n("yearModel")} rightTitle={car.year} />
 
         <BreakLine />
 
-        <DetailsItem>
-          <DetailsItemLeft>Brand</DetailsItemLeft>
-          <DetailsItemRight>{car.brand.name.en}</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem
+          leftTitle={i18n("brand")}
+          rightTitle={car.brand.name[lang]}
+        />
 
         <BreakLine />
 
-        <DetailsItem>
-          <DetailsItemLeft>Color</DetailsItemLeft>
-          <DetailsItemRight>{car.color.en}</DetailsItemRight>
-        </DetailsItem>
+        <DetailsItem leftTitle={i18n("color")} rightTitle={car.color[lang]} />
 
         <BreakLine />
       </DetailsList>
 
       <RentButtonContainer>
-        <CustomButton type="primary" title="Rent now" onClick={onNext} />
+        <CustomButton type="primary" title={i18n("rentNow")} onClick={onNext} />
       </RentButtonContainer>
     </Container>
   );
@@ -111,6 +107,7 @@ const Container = styled.div`
 
 const TitleContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
 `;
@@ -147,31 +144,6 @@ const DetailsList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 12px;
-`;
-
-const DetailsTitle = styled.h4`
-  font-weight: 700;
-  font-size: 18px;
-  color: #000000;
-`;
-
-const DetailsItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const DetailsItemLeft = styled.span`
-  font-weight: 500;
-  font-size: 15px;
-  text-transform: capitalize;
-  color: #000000;
-`;
-
-const DetailsItemRight = styled.span`
-  font-weight: 400;
-  font-size: 15px;
-  color: #333333;
 `;
 
 const CarDescription = styled.p`

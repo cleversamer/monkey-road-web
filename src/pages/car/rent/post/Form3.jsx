@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
+import useLocale from "hooks/useLocale";
 
 const Form3 = ({ context, onImagesChange, onDeleteImage }) => {
+  const { i18n } = useLocale();
+
   return (
     <>
-      <FormTitle>Upload car images</FormTitle>
+      <FormTitle>{i18n("uploadCarImages")}</FormTitle>
 
       <CustomInput type="image" onChange={onImagesChange} />
 

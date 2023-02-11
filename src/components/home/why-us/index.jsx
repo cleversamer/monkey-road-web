@@ -2,11 +2,14 @@ import styled from "styled-components";
 import ContentWrapper from "hoc/ContentWrapper";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
+import useLocale from "hooks/useLocale";
 
 const WhyUs = () => {
+  const { lang } = useLocale();
+
   return (
     <Container id="why-us">
-      <Content>
+      <Content lang={lang}>
         <LeftSide />
         <RightSide />
       </Content>
@@ -23,6 +26,7 @@ const Container = styled.section`
 
 const Content = styled(ContentWrapper)`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: center;
   align-items: center;
   gap: 50px;

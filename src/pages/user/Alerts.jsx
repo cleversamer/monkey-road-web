@@ -5,8 +5,10 @@ import ProfileNavigation from "components/user/ProfileNavigation";
 import Alert from "components/alert";
 import useAuth from "auth/useAuth";
 import usersApi from "api/user/users";
+import useLocale from "hooks/useLocale";
 
 const Alerts = () => {
+  const { i18n, lang } = useLocale();
   const { user, setUser } = useAuth();
 
   useEffect(() => {
@@ -17,9 +19,9 @@ const Alerts = () => {
 
   return (
     <Container>
-      <Location pageTitles={["home", ">", "alerts"]} />
+      <Location pageTitles={[i18n("home"), i18n("arrow"), i18n("alerts")]} />
 
-      <Content>
+      <Content lang={lang}>
         <ProfileNavigation activeItem="" />
 
         {!user?.notifications?.length && (
@@ -31,7 +33,7 @@ const Alerts = () => {
         )}
 
         {!!user?.notifications?.length && (
-          <AlertsContainer>
+          <AlertsContainer lang={lang}>
             {user.notifications.map((alert, index) => (
               <Alert key={alert.title + index} alert={alert} />
             ))}
@@ -61,6 +63,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 30px;
 
   @media screen and (max-width: 900px) {
@@ -93,6 +96,7 @@ const AlertsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   gap: 20px;
 `;
 

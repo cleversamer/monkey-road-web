@@ -1,22 +1,26 @@
 import styled from "styled-components";
 import CustomInput from "../custom-input";
+import useLocale from "hooks/useLocale";
 
 const CardInfo = ({ context, onKeyChange }) => {
+  const { i18n } = useLocale();
+
   return (
     <Container>
-      <Title>Card information</Title>
+      <Title>{i18n("cardInfo")}</Title>
 
       <CustomInput
         type="text"
-        title="name on card"
-        placeholder="name on card"
+        title={i18n("nameOnCard")}
+        placeholder={i18n("nameOnCard")}
         value={context.nameOnCard}
         onChange={onKeyChange("nameOnCard")}
       />
 
       <CustomInput
         type="text"
-        title="card number"
+        title={i18n("cardNumber")}
+        subtitle={`16 ${i18n("digit")}`}
         placeholder="4444 4444 4444 4444"
         value={context.cardNumber}
         onChange={onKeyChange("cardNumber")}
@@ -24,7 +28,8 @@ const CardInfo = ({ context, onKeyChange }) => {
 
       <CustomInput
         type="text"
-        title="CVV/CVC code"
+        title={i18n("cvv")}
+        subtitle={`3 ${i18n("digits")}`}
         placeholder="000"
         value={context.cvv}
         onChange={onKeyChange("cvv")}
@@ -32,7 +37,7 @@ const CardInfo = ({ context, onKeyChange }) => {
 
       <CustomInput
         type="text"
-        title="postal code"
+        title={i18n("postalCode")}
         placeholder="12345"
         value={context.postalCode}
         onChange={onKeyChange("postalCode")}

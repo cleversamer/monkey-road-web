@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import useTimer from "hooks/useTimer";
 import parseSeconds from "utils/parseSeconds";
+import useLocale from "hooks/useLocale";
 
 const Timer = ({ seconds, onClick }) => {
+  const { i18n } = useLocale();
   const { seconds: remainingSeconds, reset } = useTimer(seconds);
 
   const mapRemainingTime = () => {
@@ -20,9 +22,11 @@ const Timer = ({ seconds, onClick }) => {
   return (
     <Container active={!remainingSeconds}>
       {remainingSeconds ? (
-        <span>Resend after {mapRemainingTime()}</span>
+        <span>
+          {i18n("resendAfter")} {mapRemainingTime()}
+        </span>
       ) : (
-        <span onClick={handleResend}>Resend code</span>
+        <span onClick={handleResend}>{i18n("resendCode")}</span>
       )}
     </Container>
   );

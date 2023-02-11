@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "utils/parseDate";
+import useLocale from "hooks/useLocale";
 
 const Alert = ({ alert }) => {
-  const [time, setTime] = useState(parseDate(alert.date));
+  const { i18n, lang } = useLocale();
+  const [time, setTime] = useState(parseDate(alert.date, lang));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(parseDate(alert.date));
+      setTime(parseDate(alert.date, lang));
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [lang]);
 
   return (
-    <Container>
+    <Container lang={lang}>
       <AlertTitle primary={!alert.seen}>{alert.title}</AlertTitle>
       <AlertBody bold={!alert.seen}>{alert.body}</AlertBody>
-      <AlertDate bold={!alert.seen}>{time} ago</AlertDate>
-      {!alert.seen && <NewAlertBadge />}
+      <AlertDate bold={!alert.seen}>
+        {lang === "ar" && i18n("ago")} {time} {lang === "en" && i18n("ago")}
+      </AlertDate>
+      {!alert.seen && <NewAlertBadge lang={lang} />}
     </Container>
   );
 };
@@ -32,6 +36,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   gap: 12px;
   padding: 20px;
   border-radius: 8px;
@@ -57,7 +62,7 @@ const AlertDate = styled.div`
 const NewAlertBadge = styled.span`
   position: absolute;
   top: 10px;
-  right: 10px;
+  ${({ lang }) => (lang === "en" ? "right: 10px;" : "left: 10px;")}
   display: inline-block;
   width: 12px;
   height: 12px;

@@ -7,8 +7,10 @@ import CustomButton from "components/common/custom-button";
 import Loader from "components/loader";
 import usersApi from "api/user/users";
 import useAuth from "auth/useAuth";
+import useLocale from "hooks/useLocale";
 
 const ChangePassword = () => {
+  const { i18n, lang } = useLocale();
   const { login } = useAuth();
   const [context, setContext] = useState({
     oldPassword: "",
@@ -40,7 +42,7 @@ const ChangePassword = () => {
       const { user, token } = res.data;
       login(user, token);
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -59,53 +61,65 @@ const ChangePassword = () => {
 
   return (
     <Container>
-      <Location pageTitles={["home", ">", "profile", ">", "change password"]} />
+      <Location
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("profile"),
+          i18n("arrow"),
+          i18n("changePassword"),
+        ]}
+      />
 
-      <Content>
+      <Content lang={lang}>
         <ProfileNavigation activeItem="change password" />
 
         <FormContainer>
-          <Title>change password</Title>
+          <Title lang={lang}>{i18n("changePassword")}</Title>
 
           <BreakLine />
 
           <InputsContainer>
             <CustomInput
               type="password"
-              title="old password"
-              subtitle="8-32 letters"
+              title={i18n("oldPassword")}
+              subtitle={`8-32 ${i18n("letters")}`}
               value={context.oldPassword}
               onChange={handleKeyChange("oldPassword")}
             />
 
             <CustomInput
               type="password"
-              title="new password"
-              subtitle="8-32 letters"
+              title={i18n("newPassword")}
+              subtitle={`8-32 ${i18n("letters")}`}
               value={context.newPassword}
               onChange={handleKeyChange("newPassword")}
             />
 
             <CustomInput
               type="password"
-              title="confirm password"
-              subtitle="8-32 letters"
+              title={i18n("confirmPassword")}
+              subtitle={`8-32 ${i18n("letters")}`}
               value={context.confirmPassword}
               onChange={handleKeyChange("confirmPassword")}
             />
 
-            {!!context.error && <ErrorText>{context.error}</ErrorText>}
+            {!!context.error && (
+              <ErrorText lang={lang}>{context.error}</ErrorText>
+            )}
           </InputsContainer>
 
-          {context.submitting ? (
-            <Loader />
-          ) : (
-            <CustomButton
-              type="primary"
-              title="change"
-              onClick={handleChangePassword}
-            />
-          )}
+          <SubmitContainer lang={lang}>
+            {context.submitting ? (
+              <Loader />
+            ) : (
+              <CustomButton
+                type="primary"
+                title={i18n("save")}
+                onClick={handleChangePassword}
+              />
+            )}
+          </SubmitContainer>
         </FormContainer>
       </Content>
     </Container>
@@ -131,6 +145,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 30px;
 
   @media screen and (max-width: 900px) {
@@ -169,6 +184,7 @@ const Title = styled.h3`
   font-size: 22px;
   font-weight: 500;
   text-transform: capitalize;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const BreakLine = styled.span`
@@ -189,6 +205,31 @@ const ErrorText = styled.span`
   font-size: 13px;
   font-weight: 500;
   margin-top: 7px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
+`;
+
+const SubmitContainer = styled.div`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+
+  @media screen and (max-width: 540px) {
+    justify-content: center;
+  }
+
+  div,
+  button {
+    max-width: 120px;
+    font-size: 15px;
+
+    @media screen and (max-width: 540px) {
+      margin: 0 auto;
+      max-width: 200px;
+    }
+
+    @media screen and (max-width: 400px) {
+      max-width: 100%;
+    }
+  }
 `;
 
 export default ChangePassword;

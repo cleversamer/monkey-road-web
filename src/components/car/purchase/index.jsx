@@ -6,8 +6,10 @@ import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { routes } from "client";
 import useAuth from "auth/useAuth";
+import useLocale from "hooks/useLocale";
 
 const PurchaseCar = ({ data }) => {
+  const { i18n, lang } = useLocale();
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const PurchaseCar = ({ data }) => {
   return (
     <ReusableCar
       onClick={navigateToDetails}
-      brandName={data.brand.name.en}
+      brandName={data.brand.name[lang]}
       imageURL={data.photos[0]}
       model={data.model}
       name={data.name}
@@ -49,8 +51,8 @@ const PurchaseCar = ({ data }) => {
           type="primary"
           onClick={handleMakeCall}
           title={
-            <CallContainer>
-              <BiPhone /> Call Seller
+            <CallContainer lang={lang}>
+              <BiPhone /> {i18n("callSeller")}
             </CallContainer>
           }
         />
@@ -59,8 +61,8 @@ const PurchaseCar = ({ data }) => {
           type="primary"
           color="#1A8331"
           title={
-            <CallContainer>
-              <AiOutlineWhatsApp /> WhatsApp
+            <CallContainer lang={lang}>
+              <AiOutlineWhatsApp /> {i18n("whatsApp")}
             </CallContainer>
           }
           onClick={handleWhatsAppCall}
@@ -94,6 +96,7 @@ const CTAContainer = styled.div`
 
 const CallContainer = styled.span`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: center;
   align-items: center;
   gap: 5px;

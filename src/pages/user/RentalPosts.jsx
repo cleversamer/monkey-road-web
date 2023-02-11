@@ -7,8 +7,10 @@ import PostCar from "components/post-car";
 import { routes } from "client";
 import rentApi from "api/car/rent";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const RentalPosts = () => {
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const [rentalPosts, setRentalPosts] = useState({ loading: true, list: [] });
 
@@ -27,9 +29,17 @@ const RentalPosts = () => {
 
   return (
     <Container>
-      <Location pageTitles={["home", ">", "profile", ">", "rental posts"]} />
+      <Location
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("profile"),
+          i18n("arrow"),
+          i18n("rentalPosts"),
+        ]}
+      />
 
-      <Content>
+      <Content lang={lang}>
         <ProfileNavigation activeItem="rental posts" />
 
         {!!rentalPosts.list.length ? (
@@ -48,10 +58,8 @@ const RentalPosts = () => {
         ) : (
           <EmptyPosts>
             <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
-            <EmptyPostsTitle>It's empty here!</EmptyPostsTitle>
-            <EmptyPostsSubtitle>
-              No posts have been added yet
-            </EmptyPostsSubtitle>
+            <EmptyPostsTitle>{i18n("empty")}</EmptyPostsTitle>
+            <EmptyPostsSubtitle>{i18n("noPosts")}</EmptyPostsSubtitle>
           </EmptyPosts>
         )}
       </Content>
@@ -78,6 +86,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 30px;
 
   @media screen and (max-width: 900px) {

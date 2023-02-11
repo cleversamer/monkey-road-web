@@ -1,22 +1,19 @@
 import { useState } from "react";
 import styled from "styled-components";
 import ViewMore from "./ViewMore";
+import carsData from "static/carsData";
+import useLocale from "hooks/useLocale";
 
-const ColorsFilter = ({ onChange }) => {
-  const [colors, setColors] = useState([
-    { _id: 1, title: "Red", hex: "red", selected: false },
-    { _id: 2, title: "Blue", hex: "blue", selected: false },
-    { _id: 3, title: "Black", hex: "black", selected: false },
-    { _id: 4, title: "Purple", hex: "purple", selected: false },
-    { _id: 5, title: "Yellow", hex: "yellow", selected: false },
-    { _id: 6, title: "Green", hex: "green", selected: false },
-  ]);
+const ColorsFilter = ({ selectedColors, onChange }) => {
+  const { lang } = useLocale();
+  const [colors, setColors] = useState(
+    carsData.colors.map((item) => ({ ...item, selected: false }))
+  );
 
   const handleViewMore = () => {};
 
-  const handleSelect = (color) => {
+  const handleSelect = (colorIndex) => {
     const colorsList = [...colors];
-    const colorIndex = colorsList.findIndex((item) => item._id === color._id);
     colorsList[colorIndex].selected = !colorsList[colorIndex].selected;
     setColors(colorsList);
 
@@ -24,13 +21,24 @@ const ColorsFilter = ({ onChange }) => {
     onChange(selectedColors);
   };
 
+  const checkColorSelected = (color) => {
+    const index = selectedColors.findIndex((c) => c.en === color.en);
+    return index >= 0;
+  };
+
   return (
     <Container>
       <List>
-        {colors.map((color) => (
-          <Color key={color._id} onClick={() => handleSelect(color)}>
-            <ColorCircle selected={color.selected} color={color.hex} />
-            <ColorTitle selected={color.selected}>{color.title}</ColorTitle>
+        {colors.map((color, index) => (
+          <Color key={color.en} onClick={() => handleSelect(index)}>
+            <ColorCircle
+              selected={checkColorSelected(color)}
+              color={color.en}
+            />
+
+            <ColorTitle selected={checkColorSelected(color)}>
+              {color[lang]}
+            </ColorTitle>
           </Color>
         ))}
       </List>
@@ -65,7 +73,8 @@ const ColorCircle = styled.span`
   height: 30px;
   border-radius: 50%;
   transition-duration: 100ms;
-  border: ${({ selected }) => (selected ? "4px solid #ccc" : "")};
+  border: 1px solid #fe7777;
+  border: ${({ selected }) => (selected ? "4px solid #fe7777" : "")};
   cursor: pointer;
 
   :hover {

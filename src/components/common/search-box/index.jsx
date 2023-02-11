@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const HeaderSearch = ({
   searchTerm,
@@ -6,12 +7,15 @@ const HeaderSearch = ({
   onSubmit,
   onSearchChange,
 }) => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container onSubmit={onSubmit}>
       <HeaderSearchInput
+        lang={lang}
         value={searchTerm}
         onChange={onSearchChange}
-        placeholder={placeholder || "Find your favorite car..."}
+        placeholder={placeholder || i18n("headerSearchPlaceholder")}
       />
 
       <HeaderSearchIconContainer type="submit">

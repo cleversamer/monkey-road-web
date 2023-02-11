@@ -9,14 +9,16 @@ import Form3 from "./Form3";
 import Form4 from "./Form4";
 import brandsApi from "api/car/brands";
 import purchaseApi from "api/car/purchase";
+import useLocale from "hooks/useLocale";
 
-const PostRentCarForm = ({
+const PostPurchaseCarForm = ({
   activeLevel,
   noOfLevels,
   onViewPopup,
   onNext,
   onPrev,
 }) => {
+  const { i18n, lang } = useLocale();
   const [entries, setEntries] = useState({
     colors: carsData.colors,
     brands: [],
@@ -41,7 +43,7 @@ const PostRentCarForm = ({
     kiloPerHour: 95,
     price: 0,
     phoneICC: "",
-    phoneNSN: 0,
+    phoneNSN: "",
     description: "",
     images: [],
     paymentMethod: "debit",
@@ -105,17 +107,17 @@ const PostRentCarForm = ({
     setContext({ ...context, images: newImages });
   };
 
-  const colorParser = (color) => color.en;
+  const colorParser = (color) => color[lang];
 
-  const brandParser = (brand) => brand?.name?.en || "Loading...";
+  const brandParser = (brand) => brand?.name[lang] || "Loading...";
 
   const yearParser = (year) => year;
 
   const trimLevelParser = (trimLevel) => trimLevel;
 
-  const vehicleTypeParser = (vehicleType) => vehicleType.en;
+  const vehicleTypeParser = (vehicleType) => vehicleType[lang];
 
-  const fuelTypeParser = (fuelType) => fuelType.en;
+  const fuelTypeParser = (fuelType) => fuelType[lang];
 
   const seatsNumberPaeser = (seatNumber) => seatNumber;
 
@@ -176,7 +178,7 @@ const PostRentCarForm = ({
       await purchaseApi.common.postPurchaseCar(body);
       onViewPopup();
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -214,14 +216,18 @@ const PostRentCarForm = ({
       {context.submitting ? (
         <Loader />
       ) : (
-        <ButtonsContainer>
+        <ButtonsContainer lang={lang}>
           {activeLevel !== 1 && (
-            <CustomButton type="primary" title="prev" onClick={onPrev} />
+            <CustomButton
+              type="primary"
+              title={i18n("prev")}
+              onClick={onPrev}
+            />
           )}
 
           <CustomButton
             type="primary"
-            title={activeLevel === noOfLevels ? "Complete" : "Next"}
+            title={activeLevel === noOfLevels ? i18n("complete") : i18n("next")}
             onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
           />
         </ButtonsContainer>
@@ -250,6 +256,7 @@ const Container = styled.form`
 
 const ButtonsContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
   gap: 20px;
@@ -261,4 +268,4 @@ const ErrorText = styled.span`
   font-weight: 500;
 `;
 
-export default PostRentCarForm;
+export default PostPurchaseCarForm;

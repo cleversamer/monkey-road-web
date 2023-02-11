@@ -1,9 +1,12 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
-const NavButton = ({ iconPath, title, laptop, children }) => {
+const NavButton = ({ iconPath, title, laptop, onClick, children }) => {
+  const { lang } = useLocale();
+
   return (
     <Container laptop={laptop}>
-      <Content>
+      <Content lang={lang} onClick={onClick}>
         <NavButtonIcon src={iconPath} />
         <NavButtonTitle>{title}</NavButtonTitle>
       </Content>

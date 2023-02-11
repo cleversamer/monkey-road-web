@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { CiMail } from "react-icons/ci";
+import useLocale from "hooks/useLocale";
 
 const EmailInput = ({ value, onChange, ...props }) => {
+  const { lang } = useLocale();
+
   return (
-    <Container>
+    <Container lang={lang}>
       <LeftIcon>
         <CiMail />
       </LeftIcon>
@@ -14,6 +17,7 @@ const EmailInput = ({ value, onChange, ...props }) => {
         autoComplete="true"
         value={value}
         onChange={onChange}
+        lang={lang}
         {...props}
       />
     </Container>
@@ -22,6 +26,7 @@ const EmailInput = ({ value, onChange, ...props }) => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   position: relative;
 `;
@@ -32,8 +37,9 @@ const Input = styled.input`
   border: none;
   outline: none;
   border-radius: 6px;
-  padding-left: 40px;
-  padding-right: 10px;
+  padding-left: ${({ lang }) => (lang === "en" ? "40px" : "10px")};
+  padding-right: ${({ lang }) => (lang === "en" ? "10px" : "40px")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
   background-color: #f4f4f4;
 `;
 

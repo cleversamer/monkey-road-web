@@ -6,6 +6,7 @@ import useQueryParams from "hooks/useQueryParams";
 import Loader from "components/loader";
 import { routes } from "client";
 import rentApi from "api/car/rent";
+import useLocale from "hooks/useLocale";
 
 const priceConfig = {
   price: {
@@ -15,6 +16,7 @@ const priceConfig = {
 };
 
 const RentCars = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const searchTerm = useQueryParams()?.term?.trim() || "Latest cars";
 
@@ -36,7 +38,7 @@ const RentCars = () => {
     rentApi.common
       .searchRentCars(searchTerm, 0)
       .then((res) => setRentCars({ list: res.data.cars, loading: false }))
-      .catch((err) => {});
+      .catch((err) => setRentCars({ list: [], loading: false }));
   }, [searchTerm]);
 
   const handlePriceChange = (key) => (e) => {
@@ -84,7 +86,7 @@ const RentCars = () => {
       onPriceChange={handlePriceChange}
       onSearchChange={handleSearchChange}
       onSubmit={handleSubmit}
-      pageTitles={["home", ">", "cars for rent"]}
+      pageTitles={[i18n("home"), i18n("arrow"), i18n("rentCars")]}
     >
       {rentCars.loading ? (
         <Loader />

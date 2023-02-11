@@ -11,8 +11,10 @@ import usersApi from "api/user/users";
 import rentApi from "api/car/rent";
 import purchaseApi from "api/car/purchase";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const MyFavorites = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState({ loading: true, list: [] });
   const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
@@ -42,7 +44,7 @@ const MyFavorites = () => {
 
   return (
     <Container>
-      <Location pageTitles={["home", ">", "favorites"]} />
+      <Location pageTitles={[i18n("home"), i18n("arrow"), i18n("favorites")]} />
 
       <FavoritesContainer>
         {!!favorites.list.length ? (
@@ -55,8 +57,8 @@ const MyFavorites = () => {
           <Loader />
         ) : (
           <EmptyList
-            title="It's empty here..."
-            buttonTitle="go shopping"
+            title={i18n("empty")}
+            buttonTitle={i18n("goShopping")}
             imageURL="/assets/images/empty-1.svg"
             onClick={handleGoShopping}
           />
@@ -65,7 +67,7 @@ const MyFavorites = () => {
 
       <LatestCarsContainer>
         {!!latestCars.forRent.length && (
-          <ItemsSection type="slider" title="latest cars for rent">
+          <ItemsSection type="slider" title={i18n("latestRentalCars")}>
             {latestCars.forRent.map((car) => (
               <RentCar key={car._id} data={car} />
             ))}

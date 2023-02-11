@@ -1,52 +1,55 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
+import useLocale from "hooks/useLocale";
 
 const Form2 = ({ context, onKeyChange }) => {
+  const { i18n } = useLocale();
+
   return (
     <>
-      <FormTitle>Tell us about your car</FormTitle>
+      <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
 
       <CustomInput
         type="text"
-        title="Daily price"
-        subtitle="3-100,000 AED"
-        placeholder="Daily price"
+        title={i18n("dailyPrice")}
+        subtitle={`3-100,000 ${i18n("aed")}`}
+        placeholder={i18n("dailyPrice")}
         value={context.dailyPrice}
         onChange={onKeyChange("dailyPrice")}
       />
 
       <CustomInput
         type="text"
-        title="Weekly price"
-        subtitle="3-100,000 AED"
-        placeholder="Weekly price"
+        title={i18n("weeklyPrice")}
+        subtitle={`3-100,000 ${i18n("aed")}`}
+        placeholder={i18n("weeklyPrice")}
         value={context.weeklyPrice}
         onChange={onKeyChange("weeklyPrice")}
       />
 
       <CustomInput
         type="text"
-        title="Monthly price"
-        subtitle="3-100,000 AED"
-        placeholder="Monthly price"
+        title={i18n("monthlyPrice")}
+        subtitle={`3-100,000 ${i18n("aed")}`}
+        placeholder={i18n("monthlyPrice")}
         value={context.monthlyPrice}
         onChange={onKeyChange("monthlyPrice")}
       />
 
       <CustomInput
         type="text"
-        title="Deposit"
-        subtitle="0-100,000 AED"
-        placeholder="Deposit"
+        title={i18n("deposit")}
+        subtitle={`0-100,000 ${i18n("aed")}`}
+        placeholder={i18n("deposit")}
         value={context.deposit}
         onChange={onKeyChange("deposit")}
       />
 
       <CustomInput
         type="description"
-        title="Description"
-        subtitle="Optional"
-        placeholder="Describe your car (0-1024 letters)"
+        title={i18n("description")}
+        subtitle={i18n("optional")}
+        placeholder={i18n("descriptionPlaceholder")}
         value={context.description}
         onChange={onKeyChange("description")}
       />

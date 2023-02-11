@@ -6,6 +6,7 @@ import PurchaseCar from "components/car/purchase";
 import Brand from "components/home/popular-brands/Brand";
 import brandsApi from "api/car/brands";
 import purchaseApi from "api/car/purchase";
+import useLocale from "hooks/useLocale";
 
 const initialState = {
   list: [],
@@ -13,6 +14,7 @@ const initialState = {
 };
 
 const Brands = () => {
+  const { i18n } = useLocale();
   const [brands, setBrands] = useState(initialState);
   const [latestPurchaseCars, setLatestPurchaseCars] = useState(initialState);
 
@@ -35,7 +37,13 @@ const Brands = () => {
   return (
     <Container>
       <Location
-        pageTitles={["Home", ">", "Cars for sale", ">", "Popular brands"]}
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("purchaseCars"),
+          i18n("arrow"),
+          i18n("popularBrands"),
+        ]}
       />
 
       <Content>
@@ -50,7 +58,7 @@ const Brands = () => {
         </GridItems>
 
         {!!latestPurchaseCars.list.length && (
-          <ItemsSection type="slider" title="Latest cars for sale">
+          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
             {latestPurchaseCars.list.map((car) => (
               <PurchaseCar key={car._id} data={car} />
             ))}

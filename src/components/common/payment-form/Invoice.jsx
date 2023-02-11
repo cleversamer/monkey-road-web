@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const Invoice = ({ items = [], percentageFee, fixedFee }) => {
+  const { i18n, lang } = useLocale();
+
   const calcTotal = () => {
     let total = 0;
     items.forEach((item) => {
@@ -16,26 +19,32 @@ const Invoice = ({ items = [], percentageFee, fixedFee }) => {
 
   return (
     <Container>
-      <Title>Invoice</Title>
+      <Title>{i18n("invoice")}</Title>
 
       <ItemsList>
         {items.map((item) => (
-          <Item key={item.title}>
+          <Item key={item.title} lang={lang}>
             <ItemTitle>{item.title}</ItemTitle>
-            <ItemCost>{item.cost} AED</ItemCost>
+            <ItemCost>
+              {item.cost} {i18n("aed")}
+            </ItemCost>
           </Item>
         ))}
 
-        <Item>
-          <ItemTitle>Payment fees</ItemTitle>
-          <ItemCost>{calcTotal().fees} AED</ItemCost>
+        <Item lang={lang}>
+          <ItemTitle>{i18n("paymentFees")}</ItemTitle>
+          <ItemCost>
+            {calcTotal().fees} {i18n("aed")}
+          </ItemCost>
         </Item>
 
         <BreakLine />
 
-        <Item>
-          <ItemTitle>Total</ItemTitle>
-          <ItemCost>{calcTotal().total} AED</ItemCost>
+        <Item lang={lang}>
+          <ItemTitle>{i18n("total")}</ItemTitle>
+          <ItemCost>
+            {calcTotal().total} {i18n("aed")}
+          </ItemCost>
         </Item>
       </ItemsList>
     </Container>
@@ -66,6 +75,7 @@ const ItemsList = styled.ul`
 
 const Item = styled.li`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   font-size: 15px;
   font-weight: 500;

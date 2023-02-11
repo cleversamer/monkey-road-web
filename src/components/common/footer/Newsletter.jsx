@@ -7,8 +7,10 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from "react-icons/fa";
+import useLocale from "hooks/useLocale";
 
 const Newsletter = () => {
+  const { i18n, lang } = useLocale();
   const [context, setContext] = useState({ email: "", submitted: false });
 
   const handleSubmit = (e) => {
@@ -27,18 +29,19 @@ const Newsletter = () => {
     setContext({ ...context, email: e.target.value });
 
   return (
-    <Container>
-      <Title>Our newsletter</Title>
-      <Subtitle>Subscribe to receive all new</Subtitle>
+    <Container lang={lang}>
+      <Title>{i18n("newsletterTitle")}</Title>
+      <Subtitle>{i18n("newsletterSubtitle")}</Subtitle>
 
       <InputContainer onSubmit={handleSubmit}>
         <Input
           disabled={context.submitted}
           type="email"
           required
-          placeholder="Enter your email"
+          placeholder={i18n("enterEmail")}
           value={context.email}
           onChange={handleEmailChange}
+          lang={lang}
         />
 
         <Button
@@ -46,15 +49,17 @@ const Newsletter = () => {
           onClick={handleSubmit}
           disabled={context.submitted}
         >
-          Subscribe
+          {i18n("subscribe")}
         </Button>
       </InputContainer>
 
-      {context.submitted && <Subscriped>You're now subscribed.</Subscriped>}
+      {context.submitted && (
+        <Subscriped>{i18n("successfullySubscribed")}</Subscriped>
+      )}
 
       <SocialContainer>
-        <SocialTitle>Follow us</SocialTitle>
-        <SocialIcons>
+        <SocialTitle>{i18n("followUs")}</SocialTitle>
+        <SocialIcons lang={lang}>
           <SocialIcon>
             <SocialLink color="#fe7777">
               <FaFacebookF />
@@ -94,6 +99,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   @media screen and (max-width: 1280px) {
     flex-direction: column;
@@ -135,6 +141,7 @@ const Input = styled.input`
   width: 250px;
   height: 35px;
   color: #fff;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   ::placeholder {
     color: #888;
@@ -187,6 +194,7 @@ const SocialTitle = styled.h6`
 const SocialIcons = styled.ul`
   list-style: none;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 7px;
 `;

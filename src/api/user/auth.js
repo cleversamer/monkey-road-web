@@ -1,43 +1,35 @@
 /* eslint-disable import/no-anonymous-default-export */
 import client from "../client";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase";
 
-const login = async (authType, credentials) => {
-  return await client.post("/auth/login", {
-    ...credentials,
-    authType,
-  });
+const loginWithEmail = async (credentials) => {
+  return await client.post("/auth/login/email", credentials);
 };
 
-const loginWithEmail = async (emailOrPhone, password) => {
-  return await login("email", { emailOrPhone, password });
+const loginWithGoogle = async () => {
+  const googleUser = await getGoogleUser();
+  const body = { googleToken: googleUser.user.accessToken };
+  return await client.post("/auth/login/google", body);
 };
 
-const register = async (authType, credentials) => {
-  return await client.post("/auth/register", {
-    ...credentials,
-    authType,
-  });
+const registerWithEmail = async (credentials) => {
+  return await client.post("/auth/register/email", credentials);
 };
 
-const registerWithEmail = async (
-  lang,
-  name,
-  email,
-  phoneICC,
-  phoneNSN,
-  password
-) => {
-  return await register("email", {
-    lang,
-    name,
-    email,
-    phoneICC,
-    phoneNSN,
-    password,
-  });
+const registerWithGoogle = async (credentials) => {
+  const googleUser = await getGoogleUser();
+  const body = { ...credentials, googleToken: googleUser.user.accessToken };
+  return await client.post("/auth/register/google", body);
+};
+
+const getGoogleUser = async () => {
+  return await signInWithPopup(auth, new GoogleAuthProvider());
 };
 
 export default {
   loginWithEmail,
+  loginWithGoogle,
   registerWithEmail,
+  registerWithGoogle,
 };

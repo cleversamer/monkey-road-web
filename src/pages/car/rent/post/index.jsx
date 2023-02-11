@@ -8,6 +8,7 @@ import Form2 from "./Form2";
 import Form3 from "./Form3";
 import rentApi from "api/car/rent";
 import brandsApi from "api/car/brands";
+import useLocale from "hooks/useLocale";
 
 const PostRentCarForm = ({
   activeLevel,
@@ -16,6 +17,7 @@ const PostRentCarForm = ({
   onNext,
   onPrev,
 }) => {
+  const { i18n, lang } = useLocale();
   const [entries, setEntries] = useState({
     colors: carsData.colors,
     brands: [],
@@ -88,9 +90,9 @@ const PostRentCarForm = ({
     setContext({ ...context, images: newImages });
   };
 
-  const colorParser = (color) => color.en;
+  const colorParser = (color) => color[lang];
 
-  const brandParser = (brand) => brand?.name?.en || "Loading...";
+  const brandParser = (brand) => brand?.name[lang] || "Loading...";
 
   const yearParser = (year) => year;
 
@@ -138,7 +140,7 @@ const PostRentCarForm = ({
       await rentApi.office.postRentCar(body);
       onViewPopup();
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -170,14 +172,18 @@ const PostRentCarForm = ({
       {context.submitting ? (
         <Loader />
       ) : (
-        <ButtonsContainer>
+        <ButtonsContainer lang={lang}>
           {activeLevel !== 1 && (
-            <CustomButton type="primary" title="prev" onClick={onPrev} />
+            <CustomButton
+              type="primary"
+              title={i18n("prev")}
+              onClick={onPrev}
+            />
           )}
 
           <CustomButton
             type="primary"
-            title={activeLevel === noOfLevels ? "Complete" : "Next"}
+            title={activeLevel === noOfLevels ? i18n("complete") : i18n("next")}
             onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
           />
         </ButtonsContainer>
@@ -206,6 +212,7 @@ const Container = styled.form`
 
 const ButtonsContainer = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
   gap: 20px;

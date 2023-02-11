@@ -2,14 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import { MdOutlineLock } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import useLocale from "hooks/useLocale";
 
 const PasswordInput = (props) => {
+  const { lang } = useLocale();
   const [visible, setVisible] = useState(false);
 
   const onToggleVisible = () => setVisible(!visible);
 
   return (
-    <Container>
+    <Container lang={lang}>
       <LeftIcon>
         <MdOutlineLock />
       </LeftIcon>
@@ -18,10 +20,11 @@ const PasswordInput = (props) => {
         type={visible ? "text" : "password"}
         placeholder="********"
         autoComplete="true"
+        lang={lang}
         {...props}
       />
 
-      <RightIcon onClick={onToggleVisible}>
+      <RightIcon onClick={onToggleVisible} lang={lang}>
         {visible ? <AiFillEyeInvisible /> : <AiFillEye />}
       </RightIcon>
     </Container>
@@ -30,6 +33,7 @@ const PasswordInput = (props) => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   position: relative;
 `;
@@ -40,8 +44,9 @@ const Input = styled.input`
   border: none;
   outline: none;
   border-radius: 6px;
-  padding-left: 40px;
-  padding-right: 10px;
+  padding-left: ${({ lang }) => (lang === "en" ? "40px" : "10px")};
+  padding-right: ${({ lang }) => (lang === "en" ? "10px" : "40px")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
   background-color: #f4f4f4;
 `;
 
@@ -54,7 +59,7 @@ const LeftIcon = styled.span`
 
 const RightIcon = styled.span`
   position: absolute;
-  right: 0;
+  ${({ lang }) => (lang === "en" ? "right: 0;" : "left: 0;")}
   margin-top: 5px;
   font-size: 20px;
   padding: 10px;

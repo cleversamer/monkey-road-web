@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import Timer from "./Timer";
+import useLocale from "hooks/useLocale";
 
 const ResendCode = ({ onResend, seconds }) => {
+  const { i18n } = useLocale();
+
   return (
     <Container>
-      <Title>Didn't receive a code?</Title>
+      <Title>{i18n("didntReceiveCode")}</Title>
       <Timer onClick={onResend} seconds={seconds} />
     </Container>
   );

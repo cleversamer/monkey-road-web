@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const FeatureItem = ({ iconPath, title, description }) => {
+  const { lang } = useLocale();
+
   return (
-    <Container>
+    <Container lang={lang}>
       <FeatureIcon src={iconPath} alt={title} />
 
       <FeatureRight>
@@ -15,6 +18,7 @@ const FeatureItem = ({ iconPath, title, description }) => {
 
 const Container = styled.li`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: flex-start;
   gap: 15px;
   width: 100vw;

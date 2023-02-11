@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import AddCar from "components/common/add-car";
-import PostRentCarForm from "./post";
+import PostPurchaseCarForm from "./post";
 import PopupMessage from "hoc/PopupMessage";
 import { routes } from "client";
 import CustomButton from "components/common/custom-button";
+import useLocale from "hooks/useLocale";
 
 const AddPurchaseCar = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [levels, setLevels] = useState({ count: 4, active: 1 });
@@ -40,24 +42,24 @@ const AddPurchaseCar = () => {
       {showPopup && (
         <PopupMessage
           imageURL="/assets/images/arrow-right.svg"
-          title="Send order"
-          subtitle="operation accomplished successfully"
+          title={i18n("done")}
+          subtitle={i18n("operationSucceeded")}
           onHide={() => setShowPopup(false)}
         >
           <CustomButton
             type="primary"
-            title="Back to home"
+            title={i18n("backToHome")}
             onClick={handleBackToHome}
           />
         </PopupMessage>
       )}
 
       <AddCar
-        pageTitles={["home", ">", "post car for sale"]}
+        pageTitles={[i18n("home"), i18n("arrow"), i18n("postPurchaseCar")]}
         noOfLevels={levels.count}
         activeLevel={levels.active}
       >
-        <PostRentCarForm
+        <PostPurchaseCarForm
           onNext={handleNext}
           onPrev={handlePrev}
           onViewPopup={handleViewPopup}

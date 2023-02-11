@@ -16,8 +16,10 @@ import rentApi from "api/car/rent";
 import purchaseApi from "api/car/purchase";
 import rentOrdersApi from "api/car/rentOrders";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const MyReceivedOrders = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [popupConfirm, setPopupConfirm] = useState({
     visible: false,
@@ -161,7 +163,15 @@ const MyReceivedOrders = () => {
         />
       )}
 
-      <Location pageTitles={["home", ">", "profile", ">", "received orders"]} />
+      <Location
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("profile"),
+          i18n("arrow"),
+          i18n("receivedOrders"),
+        ]}
+      />
 
       <OrdersContainer>
         {!!orders.all.length ? (
@@ -176,8 +186,8 @@ const MyReceivedOrders = () => {
           <Loader />
         ) : (
           <EmptyList
-            title="It's empty here..."
-            buttonTitle="go shopping"
+            title={i18n("empty")}
+            buttonTitle={i18n("goShopping")}
             imageURL="/assets/images/empty-1.svg"
             onClick={handleGoShopping}
           />
@@ -186,7 +196,7 @@ const MyReceivedOrders = () => {
 
       <LatestCarsContainer>
         {!!latestCars.forRent.length && (
-          <ItemsSection type="slider" title="latest cars for rent">
+          <ItemsSection type="slider" title={i18n("latestRentalCars")}>
             {latestCars.forRent.map((car) => (
               <RentCar key={car._id} data={car} />
             ))}
@@ -194,7 +204,7 @@ const MyReceivedOrders = () => {
         )}
 
         {!!latestCars.forSale.length && (
-          <ItemsSection type="slider" title="latest cars for sale">
+          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
             {latestCars.forSale.map((car) => (
               <PurchaseCar key={car._id} data={car} />
             ))}

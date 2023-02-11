@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SearchBox from "../../common/search-box";
 import { IoIosArrowForward } from "react-icons/io";
+import useLocale from "hooks/useLocale";
 
 const HeaderLeft = ({
   search,
@@ -10,20 +11,22 @@ const HeaderLeft = ({
   onSaleSelect,
   onSearchChange,
 }) => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container>
-      <HeaderTitle>
-        High-quality cars, reasonable prices, and within everyone's reach
-      </HeaderTitle>
+      <HeaderTitle lang={lang}>{i18n("headerTitle")}</HeaderTitle>
 
       <SearchContainer>
         <HeaderSearchFilters>
           <HeaderSearchFilter onClick={onRentSelect}>
-            {search.type === "rent" && <IoIosArrowForward />} Cars For Rent
+            {search.type === "rent" && <IoIosArrowForward />}
+            {i18n("rentCars")}
           </HeaderSearchFilter>
 
           <HeaderSearchFilter onClick={onSaleSelect}>
-            {search.type === "sale" && <IoIosArrowForward />} Cars For Sale
+            {search.type === "sale" && <IoIosArrowForward />}
+            {i18n("purchaseCars")}
           </HeaderSearchFilter>
         </HeaderSearchFilters>
 
@@ -55,6 +58,8 @@ const HeaderTitle = styled.h1`
   font-size: 28px;
   font-weight: 600;
   color: #fff;
+  max-width: 420px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   @media screen and (max-width: 480px) {
     font-size: 21px;

@@ -2,13 +2,16 @@ import styled from "styled-components";
 import ContentWrapper from "hoc/ContentWrapper";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
+import useLocale from "hooks/useLocale";
 
 const AboutUs = () => {
+  const { i18n, lang } = useLocale();
+
   return (
     <Container id="about-us">
-      <Title>About Us</Title>
+      <Title>{i18n("aboutUs")}</Title>
 
-      <Content>
+      <Content lang={lang}>
         <LeftSide />
         <RightSide />
       </Content>
@@ -33,6 +36,7 @@ const Title = styled.h3`
 const Content = styled(ContentWrapper)`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-evenly;
   align-items: center;
 

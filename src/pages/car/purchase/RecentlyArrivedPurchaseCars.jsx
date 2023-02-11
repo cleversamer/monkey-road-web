@@ -6,6 +6,7 @@ import useQueryParams from "hooks/useQueryParams";
 import purchaseApi from "api/car/purchase";
 import { routes } from "client";
 import Loader from "components/loader";
+import useLocale from "hooks/useLocale";
 
 const priceConfig = {
   price: {
@@ -15,6 +16,7 @@ const priceConfig = {
 };
 
 const RecentlyArrivedPurchaseCars = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const searchTerm = useQueryParams()?.term?.trim() || "Latest cars";
 
@@ -84,7 +86,13 @@ const RecentlyArrivedPurchaseCars = () => {
       onPriceChange={handlePriceChange}
       onSearchChange={handleSearchChange}
       onSubmit={handleSubmit}
-      pageTitles={["home", ">", "cars for sale", ">", "Recently arrived"]}
+      pageTitles={[
+        i18n("home"),
+        i18n("arrow"),
+        i18n("purchaseCars"),
+        i18n("arrow"),
+        i18n("recentlyArrived"),
+      ]}
     >
       {purchaseCars.loading ? (
         <Loader />

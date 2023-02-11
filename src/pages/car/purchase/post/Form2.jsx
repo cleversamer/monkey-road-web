@@ -1,23 +1,26 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
+import useLocale from "hooks/useLocale";
 
 const Form2 = ({ context, onKeyChange }) => {
+  const { i18n } = useLocale();
+
   return (
     <>
-      <FormTitle>Tell us about your car</FormTitle>
+      <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
 
       <CustomInput
         type="text"
-        title="Price"
-        subtitle="1-1M AED"
-        placeholder="Price"
+        title={i18n("price")}
+        subtitle={`1-1M ${i18n("aed")}`}
+        placeholder={i18n("price")}
         value={context.price}
         onChange={onKeyChange("price")}
       />
 
       <CustomInput
         type="phone"
-        title="Phone number"
+        title={i18n("phoneNumber")}
         primary
         onICCChange={onKeyChange("phoneICC")}
         onNSNChange={onKeyChange("phoneNSN")}
@@ -27,9 +30,9 @@ const Form2 = ({ context, onKeyChange }) => {
 
       <CustomInput
         type="description"
-        title="Description"
-        subtitle="optional"
-        placeholder="Describe your car (0-1024 letters)"
+        title={i18n("description")}
+        subtitle={i18n("optional")}
+        placeholder={i18n("descriptionPlaceholder")}
         value={context.description}
         onChange={onKeyChange("description")}
       />

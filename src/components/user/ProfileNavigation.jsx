@@ -7,8 +7,10 @@ import { MdCallReceived } from "react-icons/md";
 import PopupConfirm from "hoc/PopupConfirm";
 import { routes } from "client";
 import useAuth from "auth/useAuth";
+import useLocale from "hooks/useLocale";
 
 const ProfileNavigation = ({ activeItem }) => {
+  const { i18n, lang } = useLocale();
   const { user, logout } = useAuth();
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
@@ -34,63 +36,63 @@ const ProfileNavigation = ({ activeItem }) => {
     <>
       {popupWindow.visible && (
         <PopupConfirm
-          title="logout"
-          subtitle="Do you really want to logout?"
-          hint="If you log out, you will have to retype your email and password again."
+          title={i18n("logoutTitle")}
+          subtitle={i18n("logoutSubtitle")}
+          hint={i18n("logoutHint")}
           onHide={() => setPopupWindow(false)}
           onConfirm={popupWindow.handler}
         />
       )}
 
       <Container>
-        <Title>my account</Title>
+        <Title>{i18n("myAccount")}</Title>
 
         <BreakLine />
 
-        <NavItems>
+        <NavItems lang={lang}>
           <NavItem active={activeItem === "personal info"}>
-            <RouterLink to={routes.personalInfo.navigate()}>
+            <NavRoute to={routes.personalInfo.navigate()} lang={lang}>
               <FaRegUser />
-              <NavItemTitle>personal info</NavItemTitle>
-            </RouterLink>
+              <NavItemTitle>{i18n("personalInfo")}</NavItemTitle>
+            </NavRoute>
           </NavItem>
 
           <NavItem active={activeItem === "sales posts"}>
-            <RouterLink to={routes.salesPosts.navigate()}>
+            <NavRoute to={routes.salesPosts.navigate()} lang={lang}>
               <FaCarAlt />
-              <NavItemTitle>sales posts</NavItemTitle>
-            </RouterLink>
+              <NavItemTitle>{i18n("salesPosts")}</NavItemTitle>
+            </NavRoute>
           </NavItem>
 
           {user.role === "office" && (
             <NavItem active={activeItem === "rental posts"}>
-              <RouterLink to={routes.rentalPosts.navigate()}>
+              <NavRoute to={routes.rentalPosts.navigate()} lang={lang}>
                 <FaCarAlt />
-                <NavItemTitle>rental posts</NavItemTitle>
-              </RouterLink>
+                <NavItemTitle>{i18n("rentalPosts")}</NavItemTitle>
+              </NavRoute>
             </NavItem>
           )}
 
           {user.role === "office" && (
             <NavItem active={activeItem === "received orders"}>
-              <RouterLink to={routes.myReceivedOrders.navigate()}>
+              <NavRoute to={routes.myReceivedOrders.navigate()} lang={lang}>
                 <MdCallReceived />
-                <NavItemTitle>received orders</NavItemTitle>
-              </RouterLink>
+                <NavItemTitle>{i18n("receivedOrders")}</NavItemTitle>
+              </NavRoute>
             </NavItem>
           )}
 
           <NavItem active={activeItem === "change password"}>
-            <RouterLink to={routes.changePassword.navigate()}>
+            <NavRoute to={routes.changePassword.navigate()} lang={lang}>
               <HiOutlineKey />
-              <NavItemTitle>change password</NavItemTitle>
-            </RouterLink>
+              <NavItemTitle>{i18n("changePassword")}</NavItemTitle>
+            </NavRoute>
           </NavItem>
 
           <NavItem active={activeItem === "logout"}>
-            <NavButton onClick={handleLogout}>
+            <NavButton onClick={handleLogout} lang={lang}>
               <HiOutlineLogout />
-              <NavItemTitle>logout</NavItemTitle>
+              <NavItemTitle>{i18n("logoutTitle")}</NavItemTitle>
             </NavButton>
           </NavItem>
         </NavItems>
@@ -132,20 +134,11 @@ const NavItems = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
 `;
 
 const NavItem = styled.li`
-  a {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 10px 0;
-    transition-duration: 176ms;
-    cursor: pointer;
-  }
-
   h4 {
-    transition-duration: 176ms;
     color: ${({ active }) => (active ? "#fe7777" : "#000")};
   }
 
@@ -173,10 +166,22 @@ const NavItem = styled.li`
 const NavItemTitle = styled.h4`
   font-weight: 600;
   font-size: 15px;
+  transition-duration: 176ms;
+`;
+
+const NavRoute = styled(RouterLink)`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  align-items: center;
+  gap: 7px;
+  padding: 10px 0;
+  transition-duration: 176ms;
+  cursor: pointer;
 `;
 
 const NavButton = styled.span`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 7px;
   padding: 10px 0;

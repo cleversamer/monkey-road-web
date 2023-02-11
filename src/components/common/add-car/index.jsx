@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import Location from "../search-page/Location";
 import LevelsTracker from "../levels-tracker";
+import useLocale from "hooks/useLocale";
 
 const AddCar = ({ noOfLevels, activeLevel, pageTitles, children }) => {
+  const { lang } = useLocale();
+
   return (
     <Container>
       <Location pageTitles={pageTitles} />
       <LevelsTracker noOfLevels={noOfLevels} activeLevel={activeLevel} />
-      <FormContainer>
-        <CarClip src="/assets/images/car-clip.svg" alt="" />
+      <FormContainer lang={lang}>
+        <CarClip lang={lang} src="/assets/images/car-clip.svg" alt="" />
         {children}
       </FormContainer>
     </Container>
@@ -33,12 +36,17 @@ const Container = styled.main`
 
 const FormContainer = styled.div`
   position: relative;
+  display: flex;
+  justify-content: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const CarClip = styled.img`
   position: absolute;
   top: 0;
-  right: -60px;
+  ${({ lang }) => (lang === "en" ? "right: -60px;" : "left: -60px;")}
+  ${({ lang }) =>
+    lang === "ar" ? "transform: rotate(360deg) scaleX(-1);" : ""}
   width: 35vw;
   max-width: 478px;
 

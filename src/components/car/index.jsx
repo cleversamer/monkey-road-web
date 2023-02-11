@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { serverURL } from "api/client";
+import useLocale from "hooks/useLocale";
 
 const ReusableCar = ({
   imageURL,
@@ -11,6 +12,8 @@ const ReusableCar = ({
   onClick,
   children,
 }) => {
+  const { i18n, lang } = useLocale();
+
   const mapImage = (url) => `${serverURL}${url}`;
 
   return (
@@ -18,11 +21,12 @@ const ReusableCar = ({
       <Image url={mapImage(imageURL)} onClick={onClick} />
 
       <InfoContaier>
-        <Row1>
+        <Row1 lang={lang}>
           <CarName>{name}</CarName>
-          <CarPrice>
-            {parseInt(price).toLocaleString()} <Currency>AED</Currency>
-          </CarPrice>
+          <CarPriceContainer lang={lang}>
+            <CarPrice>{parseInt(price).toLocaleString()}</CarPrice>
+            <Currency>{i18n("aed")}</Currency>
+          </CarPriceContainer>
         </Row1>
 
         <Row2>
@@ -82,7 +86,9 @@ const Row = styled.div`
   align-items: center;
 `;
 
-const Row1 = styled(Row)``;
+const Row1 = styled(Row)`
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+`;
 
 const CarName = styled.h5`
   font-weight: 700;
@@ -90,8 +96,12 @@ const CarName = styled.h5`
   text-transform: capitalize;
 `;
 
-const CarPrice = styled.h5`
+const CarPriceContainer = styled.h5`
   font-size: 15px;
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  align-items: center;
+  gap: 6px;
 
   &,
   * {
@@ -100,7 +110,11 @@ const CarPrice = styled.h5`
   }
 `;
 
-const Currency = styled.sub``;
+const CarPrice = styled.span``;
+
+const Currency = styled.sub`
+  align-self: flex-end;
+`;
 
 const Row2 = styled(Row)`
   justify-content: flex-start;

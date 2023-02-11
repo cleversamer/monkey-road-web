@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const LevelsTracker = ({ noOfLevels, activeLevel }) => {
+  const { lang } = useLocale();
+
   const levels = [];
   for (let i = 1; i <= noOfLevels; i++) {
     const isActive = i <= activeLevel;
@@ -16,7 +19,7 @@ const LevelsTracker = ({ noOfLevels, activeLevel }) => {
   }
 
   return (
-    <Container>
+    <Container lang={lang}>
       {levels.map((Item, index) => (
         <Item key={index} />
       ))}
@@ -26,6 +29,7 @@ const LevelsTracker = ({ noOfLevels, activeLevel }) => {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 10px;
   width: fit-content;

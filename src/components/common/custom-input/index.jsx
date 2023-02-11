@@ -15,6 +15,7 @@ import ImageInput from "./ImageInput";
 import CardExpiryInput from "./CardExpiryInput";
 import DateInput from "./DateInput";
 import TimeInput from "./TimeInput";
+import useLocale from "hooks/useLocale";
 
 const CustomInput = ({
   value,
@@ -45,6 +46,7 @@ const CustomInput = ({
   profile,
   ...props
 }) => {
+  const { i18n, lang } = useLocale();
   type = type.trim();
 
   return type === "checkbox" ? (
@@ -52,7 +54,7 @@ const CustomInput = ({
   ) : (
     <Container>
       {title && (
-        <TitleContainer>
+        <TitleContainer lang={lang}>
           <Title>{title}</Title>
 
           {subtitle && <Subtitle>({subtitle})</Subtitle>}
@@ -60,11 +62,11 @@ const CustomInput = ({
           {!!["email", "phone"].includes(type) && profile && (
             <>
               <VerificationStatus verified={verified}>
-                {verified ? "verified" : "not verified"}
+                {verified ? i18n("verified") : i18n("notVerified")}
               </VerificationStatus>
 
               {!verified && (
-                <VerifyButton onClick={onVerify}>verify</VerifyButton>
+                <VerifyButton onClick={onVerify}>{i18n("verify")}</VerifyButton>
               )}
             </>
           )}
@@ -76,7 +78,12 @@ const CustomInput = ({
       ) : type === "password" ? (
         <PasswordInput value={value} onChange={onChange} {...props} />
       ) : type === "name" ? (
-        <NameInput value={value} onChange={onChange} {...props} />
+        <NameInput
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          {...props}
+        />
       ) : type === "email" ? (
         <EmailInput value={value} onChange={onChange} {...props} />
       ) : type === "phone" ? (
@@ -150,6 +157,7 @@ const TitleContainer = styled.h4`
   margin-bottom: 7px;
   text-transform: capitalize;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 4px;
   align-items: center;
 `;

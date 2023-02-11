@@ -3,15 +3,17 @@ import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const RentCar = ({ data }) => {
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
 
   const handleRent = () => navigate(routes.rentCarDetails.navigate(data._id));
 
   return (
     <ReusableCar
-      brandName={data.brand.name.en}
+      brandName={data.brand.name[lang]}
       imageURL={data.photos[0]}
       model={data.model}
       name={data.name}
@@ -20,7 +22,11 @@ const RentCar = ({ data }) => {
       onClick={handleRent}
     >
       <CTAContainer>
-        <CustomButton type="primary" title="Rent now" onClick={handleRent} />
+        <CustomButton
+          type="primary"
+          title={i18n("rentNow")}
+          onClick={handleRent}
+        />
       </CTAContainer>
     </ReusableCar>
   );

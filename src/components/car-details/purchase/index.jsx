@@ -2,8 +2,11 @@ import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
+import useLocale from "hooks/useLocale";
 
 const PurchaseCarDetails = ({ car }) => {
+  const { i18n, lang } = useLocale();
+
   const handleMakeCall = () => {};
 
   const handleWhatsAppCall = () => {};
@@ -17,7 +20,9 @@ const PurchaseCarDetails = ({ car }) => {
 
       <TitleContainer>
         <CarTitle>{car.name}</CarTitle>
-        <CarPrice>{parseInt(car.price).toLocaleString()} AED</CarPrice>
+        <CarPrice>
+          {parseInt(car.price).toLocaleString()} {i18n("aed")}
+        </CarPrice>
       </TitleContainer>
 
       <BreakLine />
@@ -25,7 +30,7 @@ const PurchaseCarDetails = ({ car }) => {
       {!!car.description && (
         <>
           <DetailsList>
-            <DetailsTitle>Description</DetailsTitle>
+            <DetailsTitle>{i18n("description")}</DetailsTitle>
             <CarDescription>{car.description}</CarDescription>
           </DetailsList>
 
@@ -34,46 +39,48 @@ const PurchaseCarDetails = ({ car }) => {
       )}
 
       <DetailsList>
-        <DetailsTitle>Details</DetailsTitle>
+        <DetailsTitle>{i18n("details")}</DetailsTitle>
 
         <DetailsItem>
-          <DetailsItemLeft>Model</DetailsItemLeft>
+          <DetailsItemLeft>{i18n("carModel")}</DetailsItemLeft>
           <DetailsItemRight>{car.model}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
-          <DetailsItemLeft>Trim level</DetailsItemLeft>
+          <DetailsItemLeft>{i18n("trimLevel")}</DetailsItemLeft>
           <DetailsItemRight>{car.trimLevel}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
-          <DetailsItemLeft>Kilo per hour</DetailsItemLeft>
-          <DetailsItemRight>{car.kiloPerHour} km/h</DetailsItemRight>
+          <DetailsItemLeft>{i18n("kiloPerHour")}</DetailsItemLeft>
+          <DetailsItemRight>
+            {car.kiloPerHour} {i18n("kmph")}
+          </DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
-          <DetailsItemLeft>Brand</DetailsItemLeft>
-          <DetailsItemRight>{car.brand.name.en}</DetailsItemRight>
+          <DetailsItemLeft>{i18n("brand")}</DetailsItemLeft>
+          <DetailsItemRight>{car.brand.name[lang]}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
-          <DetailsItemLeft>Year</DetailsItemLeft>
+          <DetailsItemLeft>{i18n("yearModel")}</DetailsItemLeft>
           <DetailsItemRight>{car.year}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
 
         <DetailsItem>
-          <DetailsItemLeft>Color</DetailsItemLeft>
-          <DetailsItemRight>{car.color.en}</DetailsItemRight>
+          <DetailsItemLeft>{i18n("color")}</DetailsItemLeft>
+          <DetailsItemRight>{car.color[lang]}</DetailsItemRight>
         </DetailsItem>
 
         <BreakLine />
@@ -85,7 +92,7 @@ const PurchaseCarDetails = ({ car }) => {
           onClick={handleMakeCall}
           title={
             <CallContainer>
-              <BiPhone /> Call Seller
+              <BiPhone /> {i18n("callSeller")}
             </CallContainer>
           }
         />
@@ -95,7 +102,7 @@ const PurchaseCarDetails = ({ car }) => {
           color="#1A8331"
           title={
             <CallContainer>
-              <AiOutlineWhatsApp /> WhatsApp
+              <AiOutlineWhatsApp /> {i18n("whatsApp")}
             </CallContainer>
           }
           onClick={handleWhatsAppCall}

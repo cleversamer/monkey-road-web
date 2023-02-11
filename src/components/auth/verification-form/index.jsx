@@ -9,8 +9,10 @@ import Loader from "components/loader";
 import usersApi from "api/user/users";
 import useAuth from "auth/useAuth";
 import { routes } from "client";
+import useLocale from "hooks/useLocale";
 
 const PhoneForm = () => {
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const { subject } = useParams(); // email or phone
   const { setUser } = useAuth();
@@ -56,7 +58,7 @@ const PhoneForm = () => {
       setUser(res.data);
       navigate(routes.personalInfo.navigate());
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -81,8 +83,8 @@ const PhoneForm = () => {
   return (
     <SharedForm
       imageURL="/assets/images/form/verification.svg"
-      title={`Verify your ${subject}`}
-      subtitle="We have just sent you a verification code."
+      title={i18n(`${subject}VerificationTitle`)}
+      subtitle={i18n(`${subject}VerificationSubtitle`)}
       onSubmit={handleSubmit}
     >
       <CustomInput
@@ -97,7 +99,11 @@ const PhoneForm = () => {
       {context.submitting ? (
         <Loader />
       ) : (
-        <CustomButton type="primary" title="Verify" onClick={handleSubmit} />
+        <CustomButton
+          type="primary"
+          title={i18n("verify")}
+          onClick={handleSubmit}
+        />
       )}
 
       <ResendCode seconds={60} onResend={handleResendCode} />

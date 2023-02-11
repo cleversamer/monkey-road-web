@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CustomInput from "components/common/custom-input";
+import useLocale from "hooks/useLocale";
 
 const Form1 = ({
   entries,
@@ -13,41 +14,43 @@ const Form1 = ({
   fuelTypeParser,
   seatsNumberPaeser,
 }) => {
+  const { i18n } = useLocale();
+
   return (
     <>
-      <FormTitle>Tell us about your car</FormTitle>
+      <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
 
       <CustomInput
         type="text"
-        title="Car name"
-        subtitle="3-64 letters"
-        placeholder="Car name"
+        title={i18n("carName")}
+        subtitle={`3-64 ${i18n("letters")}`}
+        placeholder={i18n("carName")}
         value={context.carName}
         onChange={onKeyChange("carName")}
       />
 
       <CustomInput
         type="text"
-        title="VIN Number"
-        placeholder="VIN Number"
-        subtitle="17 letters"
+        title={i18n("vinNumber")}
+        placeholder={i18n("vinNumber")}
+        subtitle={`17 ${i18n("letters")}`}
         value={context.vin}
         onChange={onKeyChange("vin")}
       />
 
       <CustomInput
         type="text"
-        title="Model"
-        subtitle="3-64 letters"
-        placeholder="Model"
+        title={i18n("carModel")}
+        subtitle={`3-64 ${i18n("letters")}`}
+        placeholder={i18n("carModel")}
         value={context.model}
         onChange={onKeyChange("model")}
       />
 
       <CustomInput
         type="select"
-        title="Brand"
-        placeholder="Brand"
+        title={i18n("brand")}
+        placeholder={i18n("brand")}
         value={context.brandIndex}
         values={entries.brands}
         valueParser={brandParser}
@@ -57,8 +60,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Year"
-        placeholder="Year"
+        title={i18n("yearModel")}
+        placeholder={i18n("yearModel")}
         value={context.yearIndex}
         values={entries.years}
         valueParser={yearParser}
@@ -68,8 +71,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Color"
-        placeholder="Color"
+        title={i18n("color")}
+        placeholder={i18n("color")}
         value={context.colorIndex}
         values={entries.colors}
         valueParser={colorParser}
@@ -79,8 +82,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Trim level"
-        placeholder="Trim level"
+        title={i18n("trimLevel")}
+        placeholder={i18n("trimLevel")}
         value={context.trimLevelIndex}
         values={entries.trimLevels}
         valueParser={trimLevelParser}
@@ -90,8 +93,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Vehicle type"
-        placeholder="Vehicle type"
+        title={i18n("vehicleType")}
+        placeholder={i18n("vehicleType")}
         value={context.vehicleTypeIndex}
         values={entries.vehicleTypes}
         valueParser={vehicleTypeParser}
@@ -101,8 +104,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="Fuel type"
-        placeholder="Fuel type"
+        title={i18n("fuelType")}
+        placeholder={i18n("fuelType")}
         value={context.fuelTypeIndex}
         values={entries.fuelTypes}
         valueParser={fuelTypeParser}
@@ -112,8 +115,8 @@ const Form1 = ({
 
       <CustomInput
         type="select"
-        title="NO. of seats"
-        placeholder="NO. of seats"
+        title={i18n("noOfSeats")}
+        placeholder={i18n("noOfSeats")}
         value={context.noOfSeatsIndex}
         values={entries.seatsNumbers}
         valueParser={seatsNumberPaeser}
@@ -123,9 +126,9 @@ const Form1 = ({
 
       <CustomInput
         type="text"
-        title="Kilo per hour"
-        subtitle="95-105 km/h"
-        placeholder="Kilo per hour"
+        title={i18n("kiloPerHour")}
+        subtitle={`95-105 ${i18n("kmph")}`}
+        placeholder={i18n("kiloPerHour")}
         value={context.kiloPerHour}
         onChange={onKeyChange("kiloPerHour")}
       />

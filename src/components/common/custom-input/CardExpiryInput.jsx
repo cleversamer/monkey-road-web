@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import TextInput from "./TextInput";
+import useLocale from "hooks/useLocale";
 
 const CardExpiryInput = ({ month, year, onMonthChange, onYearChange }) => {
+  const { i18n } = useLocale();
+
   return (
     <Container>
       <SubContainer>
-        <Title>month</Title>
+        <Title>{i18n("month")}</Title>
         <TextInput value={month} placeholder="06" onChange={onMonthChange} />
       </SubContainer>
 
       <SubContainer>
-        <Title>year</Title>
+        <Title>{i18n("year")}</Title>
         <TextInput value={year} placeholder="26" onChange={onYearChange} />
       </SubContainer>
     </Container>

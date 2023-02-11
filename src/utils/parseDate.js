@@ -1,4 +1,15 @@
-module.exports = (strDate) => {
+import useLocale from "hooks/useLocale";
+
+export default function (strDate, lang) {
+  const day = lang === "ar" ? "يوم" : "day";
+  const days = lang === "ar" ? "أيام" : "days";
+  const hour = lang === "ar" ? "ساعة" : "hour";
+  const hours = lang === "ar" ? "ساعات" : "hours";
+  const min = lang === "ar" ? "دقيقة" : "min";
+  const mins = lang === "ar" ? "دقائق" : "mins";
+  const sec = lang === "ar" ? "ثانية" : "sec";
+  const secs = lang === "ar" ? "ثواني" : "secs";
+
   try {
     const secInMs = 1000;
     const minInMs = secInMs * 60;
@@ -18,7 +29,7 @@ module.exports = (strDate) => {
     const diffInDays = Math.floor(diffInMs / dayInMs);
     diffInMs = diffInMs - diffInDays * dayInMs;
     times.push({
-      type: diffInDays > 1 ? "days" : "day",
+      type: diffInDays > 1 ? days : day,
       diff: diffInDays,
     });
 
@@ -26,7 +37,7 @@ module.exports = (strDate) => {
     const diffInHours = Math.floor(diffInMs / hourInMs);
     diffInMs = diffInMs - diffInHours * hourInMs;
     times.push({
-      type: diffInHours > 1 ? "hours" : "hour",
+      type: diffInHours > 1 ? hours : hour,
       diff: diffInHours,
     });
 
@@ -34,7 +45,7 @@ module.exports = (strDate) => {
     const diffInMins = Math.floor(diffInMs / minInMs);
     diffInMs = diffInMs - diffInMins * minInMs;
     times.push({
-      type: diffInMins > 1 ? "mins" : "min",
+      type: diffInMins > 1 ? mins : min,
       diff: diffInMins,
     });
 
@@ -42,7 +53,7 @@ module.exports = (strDate) => {
     const diffInSecs = Math.floor(diffInMs / secInMs);
     diffInMs = diffInMs - diffInSecs * secInMs;
     times.push({
-      type: diffInSecs > 1 ? "secs" : "sec",
+      type: diffInSecs > 1 ? secs : sec,
       diff: diffInSecs,
     });
 
@@ -59,4 +70,4 @@ module.exports = (strDate) => {
   } catch (err) {
     return "time-ended";
   }
-};
+}
