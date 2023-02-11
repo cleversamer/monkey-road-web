@@ -338,7 +338,7 @@ const Navbar = ({ onOpenMenu }) => {
         </NavbarContainer>
       </Nav>
 
-      <MobileNavButtons>
+      <MobileNavButtons user={user}>
         {user && (
           <NavButton
             title={i18n("post")}
@@ -660,7 +660,7 @@ const MobileNavButtons = styled.ul`
   }
 
   @media screen and (max-width: 460px) {
-    padding-left: 70px;
+    ${({ user }) => (user ? "padding-left: 70px;" : "")}
   }
 
   @media screen and (max-width: 380px) {
