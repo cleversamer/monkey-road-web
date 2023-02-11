@@ -4,8 +4,10 @@ import { Link as RouterLink } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
 import { routes } from "client";
 import useAuth from "auth/useAuth";
+import useLocale from "hooks/useLocale";
 
 const Sidebar = ({ isOpen, onCloseMenu }) => {
+  const { i18n } = useLocale();
   const { user } = useAuth();
 
   const closeAndScrollToTop = () => {
@@ -22,29 +24,29 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
       <SidebarWrapper>
         <SidebarMenu>
           <SidebarLink to="app" onClick={closeAndScrollToTop}>
-            Home
+            {i18n("home")}
           </SidebarLink>
 
           <SidebarRoute
             to={routes.rentCars.navigate()}
             onClick={closeAndScrollToTop}
           >
-            Cars for rent
+            {i18n("rentCars")}
           </SidebarRoute>
 
           <SidebarRoute
             to={routes.purchaseCars.navigate()}
             onClick={closeAndScrollToTop}
           >
-            Cars for sale
+            {i18n("purchaseCars")}
           </SidebarRoute>
 
           <SidebarLink to="why-us" onClick={onCloseMenu}>
-            Why us?
+            {i18n("whyUs")}
           </SidebarLink>
 
           <SidebarLink to="about-us" onClick={onCloseMenu}>
-            About us
+            {i18n("aboutUs")}
           </SidebarLink>
         </SidebarMenu>
 
@@ -53,7 +55,7 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
             to={routes.login.navigate()}
             onClick={closeAndScrollToTop}
           >
-            Login
+            {i18n("login")}
           </SidebarButton>
         )}
 
@@ -62,7 +64,7 @@ const Sidebar = ({ isOpen, onCloseMenu }) => {
             to={routes.home.navigate()}
             onClick={closeAndScrollToTop}
           >
-            Home
+            {i18n("home")}
           </SidebarButton>
         )}
       </SidebarWrapper>
