@@ -13,10 +13,7 @@ const Clips = () => {
         alt="arrow right"
       />
 
-      <Car
-        src="/assets/icons/features/open-car.svg"
-        alt="a car with open doors"
-      />
+      <Car src="/assets/images/open-car.png" alt="a car with open doors" />
     </>
   );
 };
@@ -43,7 +40,7 @@ const ArrowLeft = styled(Arrow)`
 
 const Car = styled.img`
   position: absolute;
-  top: -186px;
+  top: -136px;
   right: 20px;
   width: 100vw;
   max-width: 400px;
