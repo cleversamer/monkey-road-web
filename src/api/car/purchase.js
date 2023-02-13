@@ -3,12 +3,12 @@ import client from "../client";
 import authStorage from "auth/storage";
 
 const getAllPurchaseCars = async (skip = 0) => {
-  const cacheMins = 3;
+  const cacheMins = 0;
   return await client.get(`/cars/purchase/get?skip=${skip}`, {}, cacheMins);
 };
 
 const getRecentlyArrivedPurchaseCars = async (skip = 0) => {
-  const cacheMins = 3;
+  const cacheMins = 0;
   return await client.get(
     `/cars/purchase/recently-arrived?skip=${skip}`,
     {},
@@ -17,7 +17,7 @@ const getRecentlyArrivedPurchaseCars = async (skip = 0) => {
 };
 
 const getLatestModelsPurchaseCars = async (skip = 0) => {
-  const cacheMins = 3;
+  const cacheMins = 0;
   return await client.get(
     `/cars/purchase/latest-models?skip=${skip}`,
     {},
@@ -26,7 +26,7 @@ const getLatestModelsPurchaseCars = async (skip = 0) => {
 };
 
 const getBestSellerPurchaseCars = async (skip = 0) => {
-  const cacheMins = 3;
+  const cacheMins = 0;
   return await client.get(
     `/cars/purchase/best-seller?skip=${skip}`,
     {},
@@ -35,7 +35,7 @@ const getBestSellerPurchaseCars = async (skip = 0) => {
 };
 
 const searchPurchaseCars = async (searchTerm, skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   return await client.get(
     `/cars/purchase/search?searchTerm=${searchTerm}&skip=${skip}`,
     {},
@@ -44,7 +44,7 @@ const searchPurchaseCars = async (searchTerm, skip = 0) => {
 };
 
 const getPurchaseCarDetails = async (carId) => {
-  const cacheMins = 60;
+  const cacheMins = 0;
   return await client.get(`/cars/purchase/details/${carId}`, {}, cacheMins);
 };
 
@@ -65,7 +65,7 @@ const postPurchaseCar = async (profileData) => {
 };
 
 const getMyPurchaseCars = async (skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/cars/purchase/my?skip=${skip}`, config, cacheMins);
 };

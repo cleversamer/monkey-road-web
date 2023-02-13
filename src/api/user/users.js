@@ -26,7 +26,7 @@ const updateProfile = async (profileData) => {
 };
 
 const getForgotPasswordCode = async (lang, sendTo, emailOrPhone) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   return await client.get(
     `/users/password/forgot?emailOrPhone=${emailOrPhone}&lang=${lang}&sendTo=${sendTo}`,
     {},
@@ -54,7 +54,7 @@ const verify = async (subject, code) => {
 };
 
 const resendVerificationCode = async (subject, lang) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/users/verify/${subject}?lang=${lang}`,
@@ -64,9 +64,22 @@ const resendVerificationCode = async (subject, lang) => {
 };
 
 const getMyFavorites = async () => {
-  const cacheMins = 3;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/users/favorites/my`, config, cacheMins);
+};
+
+const addToFavorites = async (purchaseCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.post("/users/favorites/add", { purchaseCarId }, config);
+};
+
+const deleteFromFavorites = async (purchaseCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.delete(
+    `/users/favorites/delete?purchaseCarId=${purchaseCarId}`,
+    config
+  );
 };
 
 const seeNotifications = async () => {
@@ -85,8 +98,10 @@ export default {
     verify,
     resendVerificationCode,
     getMyFavorites,
+    addToFavorites,
+    deleteFromFavorites,
     seeNotifications,
   },
-  student: {},
+  office: {},
   admin: {},
 };

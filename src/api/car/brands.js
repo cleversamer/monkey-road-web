@@ -2,7 +2,7 @@
 import client from "../client";
 
 const getPopularBrands = async (skip = 0) => {
-  const cacheMins = 1440; // 1 day
+  const cacheMins = 0; // 1 day
   return await client.get(`/brands/popular?skip=${skip}`, {}, cacheMins);
 };
 

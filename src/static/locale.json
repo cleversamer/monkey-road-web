@@ -782,5 +782,13 @@
     "completeOrderTitle": {
         "en": "Pay now",
         "ar": "إدفع الآن"
+    },
+    "noAlerts": {
+        "en": "No alerts right now!",
+        "ar": "ليس لديك إشعارات"
+    },
+    "upToDate": {
+        "en": "You are up to date",
+        "ar": "أنت قيد التحديث"
     }
 }

@@ -27,8 +27,8 @@ const Alerts = () => {
         {!user?.notifications?.length && (
           <EmptyAlerts>
             <EmptyAlertsImage src="/assets/images/empty-4.svg" alt="" />
-            <EmptyAlertsTitle>No alerts right now!</EmptyAlertsTitle>
-            <EmptyAlertsSubtitle>You are up to date</EmptyAlertsSubtitle>
+            <EmptyAlertsTitle>{i18n("noAlerts")}</EmptyAlertsTitle>
+            <EmptyAlertsSubtitle>{i18n("upToDate")}</EmptyAlertsSubtitle>
           </EmptyAlerts>
         )}
 

@@ -58,7 +58,7 @@ const Navbar = ({ onOpenMenu }) => {
   };
 
   const getUnseenNotificationsLength = () =>
-    user.notifications.filter((item) => !item.seen).length;
+    user?.notifications?.filter((item) => !item.seen).length || 0;
 
   return (
     <>

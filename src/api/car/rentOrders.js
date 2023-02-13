@@ -3,13 +3,13 @@ import client from "../client";
 import authStorage from "auth/storage";
 
 const getMyOrders = async (skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/orders/my?skip=${skip}`, config, cacheMins);
 };
 
 const getMyReceivedOrders = async (skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/orders/my-received?skip=${skip}`,

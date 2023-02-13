@@ -12,20 +12,16 @@ import rentApi from "api/car/rent";
 import purchaseApi from "api/car/purchase";
 import Loader from "components/loader";
 import useLocale from "hooks/useLocale";
+import useAuth from "auth/useAuth";
 
 const MyFavorites = () => {
+  const { user } = useAuth();
   const { i18n } = useLocale();
   const navigate = useNavigate();
   const [favorites, setFavorites] = useState({ loading: true, list: [] });
   const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
-    // fetch favorites
-    usersApi.common
-      .getMyFavorites()
-      .then((res) => setFavorites({ loading: false, list: res.data.favorites }))
-      .catch((err) => setFavorites({ loading: false, list: [] }));
-
     // fetch latest rent cars
     rentApi.common
       .getAllRentCars()
@@ -38,6 +34,18 @@ const MyFavorites = () => {
       .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
       .catch((err) => {});
   }, []);
+
+  useEffect(() => {
+    // fetch favorites
+    usersApi.common
+      .getMyFavorites()
+      .then((res) => {
+        setFavorites({ loading: false, list: res.data.favorites });
+      })
+      .catch((err) => {
+        setFavorites({ loading: false, list: [] });
+      });
+  }, [user]);
 
   const handleGoShopping = () =>
     navigate(routes.latestPurchaseCarModels.navigate());

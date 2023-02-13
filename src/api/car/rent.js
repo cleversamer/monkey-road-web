@@ -8,7 +8,7 @@ const getAllRentCars = async (skip = 0) => {
 };
 
 const searchRentCars = async (searchTerm, skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   return await client.get(
     `/cars/rent/get?searchTerm=${searchTerm}&skip=${skip}`,
     {},
@@ -17,7 +17,7 @@ const searchRentCars = async (searchTerm, skip = 0) => {
 };
 
 const getRentCarDetails = async (carId) => {
-  const cacheMins = 60;
+  const cacheMins = 0;
   return await client.get(`/cars/rent/details/${carId}`, {}, cacheMins);
 };
 
@@ -38,7 +38,7 @@ const postRentCar = async (profileData) => {
 };
 
 const getMyRentCars = async (skip = 0) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/cars/rent/my?skip=${skip}`, config, cacheMins);
 };

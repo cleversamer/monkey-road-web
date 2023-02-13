@@ -7,10 +7,11 @@ import { AiOutlineWhatsApp } from "react-icons/ai";
 import { routes } from "client";
 import useAuth from "auth/useAuth";
 import useLocale from "hooks/useLocale";
+import usersApi from "api/user/users";
 
 const PurchaseCar = ({ data }) => {
   const { i18n, lang } = useLocale();
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   const handleMakeCall = () => {};
@@ -21,20 +22,25 @@ const PurchaseCar = ({ data }) => {
     navigate(routes.purchaseCarDetails.navigate(data._id));
 
   const handleLikeClick = async () => {
-    const isLiked = checkIsLiked();
+    try {
+      const isLiked = checkIsLiked();
 
-    if (isLiked) {
-      // remove
-      return;
-    }
+      if (isLiked) {
+        const res = await usersApi.common.deleteFromFavorites(data._id);
+        const { favorites } = res.data;
+        setUser({ ...user, favorites });
+        return;
+      }
 
-    if (!isLiked) {
-      // add
-      return;
+      const res = await usersApi.common.addToFavorites(data._id);
+      const { favorites } = res.data;
+      setUser({ ...user, favorites });
+    } catch (err) {
+      //
     }
   };
 
-  const checkIsLiked = () => user.favorites.includes(data._id);
+  const checkIsLiked = () => user?.favorites?.includes(data._id);
 
   return (
     <ReusableCar

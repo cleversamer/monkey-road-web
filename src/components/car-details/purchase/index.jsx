@@ -3,18 +3,46 @@ import CustomButton from "components/common/custom-button";
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import useLocale from "hooks/useLocale";
+import useAuth from "auth/useAuth";
+import usersApi from "api/user/users";
 
 const PurchaseCarDetails = ({ car }) => {
+  const { user, setUser } = useAuth();
   const { i18n, lang } = useLocale();
 
   const handleMakeCall = () => {};
 
   const handleWhatsAppCall = () => {};
 
+  const handleLikeClick = async () => {
+    try {
+      const isLiked = checkIsLiked();
+
+      if (isLiked) {
+        const res = await usersApi.common.deleteFromFavorites(car._id);
+        const { favorites } = res.data;
+        setUser({ ...user, favorites });
+        return;
+      }
+
+      const res = await usersApi.common.addToFavorites(car._id);
+      const { favorites } = res.data;
+      setUser({ ...user, favorites });
+    } catch (err) {
+      //
+    }
+  };
+
+  const checkIsLiked = () => user?.favorites?.includes(car._id);
+
   return (
     <Container>
       <IconsContainer>
-        <CustomButton type="like" />
+        <CustomButton
+          type="like"
+          liked={checkIsLiked()}
+          onClick={handleLikeClick}
+        />
         <CustomButton type="share" />
       </IconsContainer>
 
