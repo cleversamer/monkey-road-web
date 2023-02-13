@@ -83,7 +83,6 @@ const App = () => {
         {/* user routes */}
         {user && (
           <>
-            <Route path={routes.verify.route} element={<Verify />} />
             <Route path={routes.alerts.route} element={<Alerts />} />
             <Route
               path={routes.changePassword.route}
@@ -105,6 +104,11 @@ const App = () => {
               element={<AddPurchaseCar />}
             />
           </>
+        )}
+
+        {/* unverified user routes */}
+        {user && (!user.verified.email || !user.verified.phone) && (
+          <Route path={routes.verify.route} element={<Verify />} />
         )}
 
         {/* office routes */}

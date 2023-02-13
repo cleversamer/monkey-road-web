@@ -15,7 +15,7 @@ const PhoneForm = () => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const { subject } = useParams(); // email or phone
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [context, setContext] = useState({
     lang: "en",
     code: "",
@@ -26,6 +26,14 @@ const PhoneForm = () => {
   useEffect(() => {
     const isSupported = ["email", "phone"].includes(subject.trim());
     if (!isSupported) {
+      navigate(routes.verify.navigate("email"));
+    }
+
+    if (user.verified.email) {
+      navigate(routes.verify.navigate("phone"));
+    }
+
+    if (user.verified.phone) {
       navigate(routes.verify.navigate("email"));
     }
   }, []);
