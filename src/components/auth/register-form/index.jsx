@@ -55,7 +55,7 @@ const RegisterForm = () => {
       const { user, token } = res.data;
       login(user, token);
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -101,7 +101,9 @@ const RegisterForm = () => {
             onChange={handleKeyChange("password")}
           />
 
-          {!!context.error && <ErrorText>{context.error}</ErrorText>}
+          {!!context.error && (
+            <ErrorText lang={lang}>{context.error}</ErrorText>
+          )}
         </ErrorWrapper>
 
         <Terms to={routes.home.navigate()} lang={lang}>
@@ -242,6 +244,7 @@ const ErrorText = styled.span`
   font-size: 13px;
   font-weight: 500;
   margin-top: 7px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 export default RegisterForm;

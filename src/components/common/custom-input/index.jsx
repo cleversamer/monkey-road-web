@@ -190,6 +190,7 @@ const VerifyButton = styled.span`
   text-decoration: underline;
   transition-duration: 176ms;
   cursor: pointer;
+  display: inline-block;
 
   :hover {
     color: #fe7777;

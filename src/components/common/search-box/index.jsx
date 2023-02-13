@@ -40,6 +40,7 @@ const HeaderSearchInput = styled.input`
   padding-left: 20px;
   padding-right: 50px;
   outline: none;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const HeaderSearchIconContainer = styled.button`

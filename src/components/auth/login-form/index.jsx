@@ -38,9 +38,13 @@ const LoginForm = () => {
 
       const res = await authApi.loginWithGoogle();
 
-      navigate(routes.home.navigate());
       const { user, token } = res.data;
       login(user, token);
+
+      const nextPage = user.verified.email
+        ? routes.home.navigate()
+        : routes.verify.navigate();
+      navigate(nextPage);
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
@@ -59,11 +63,15 @@ const LoginForm = () => {
       const { emailOrPhone, password } = context;
       const res = await authApi.loginWithEmail({ emailOrPhone, password });
 
-      navigate(routes.home.navigate());
       const { user, token } = res.data;
       login(user, token);
+
+      const nextPage = user.verified.email
+        ? routes.home.navigate()
+        : routes.verify.navigate();
+      navigate(nextPage);
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }
@@ -92,7 +100,9 @@ const LoginForm = () => {
             onChange={handleKeyChange("password")}
           />
 
-          {!!context.error && <ErrorText>{context.error}</ErrorText>}
+          {!!context.error && (
+            <ErrorText lang={lang}>{context.error}</ErrorText>
+          )}
         </ErrorWrapper>
 
         <LowerContainer>
@@ -238,6 +248,7 @@ const ErrorText = styled.span`
   font-size: 13px;
   font-weight: 500;
   margin-top: 7px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 export default LoginForm;

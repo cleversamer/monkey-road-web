@@ -1,7 +1,7 @@
 {
     "home": {
         "en": "Home",
-        "ar": "الرئيسية"
+        "ar": "الرئيسيّة"
     },
     "logoutTitle": {
         "en": "Logout",
@@ -9,15 +9,15 @@
     },
     "logoutSubtitle": {
         "en": "Do you really want to logout?",
-        "ar": "هل تريد حقا تسجيل الخروج؟"
+        "ar": "هل تريد حقًا تسجيل الخروج؟"
     },
     "logoutHint": {
         "en": "If you logout, you will have to retype your email and password again",
-        "ar": "إذا قمت بتسجيل الخروج، يجب عليك إاعادة كتابة بريدك الإلكتروني وكلمة المرور مرة أخرى"
+        "ar": "إذا قمت بتسجيل الخروج، يجب عليك إعادة كتابة بريدك الإلكتروني وكلمة المرور مرة أخرى"
     },
     "ok": {
         "en": "Ok",
-        "ar": "حسنا"
+        "ar": "حسنًا"
     },
     "cancel": {
         "en": "Cancel",
@@ -25,15 +25,15 @@
     },
     "viewCars": {
         "en": "View cars",
-        "ar": "عرض السيارات"
+        "ar": "عرض السيّارات"
     },
     "rentCars": {
         "en": "Cars for rent",
-        "ar": "سيارات للإيجار"
+        "ar": "سيّارات للإيجار"
     },
     "purchaseCars": {
         "en": "Cars for sale",
-        "ar": "سيارات للبيع"
+        "ar": "سيّارات للبيع"
     },
     "whyUs": {
         "en": "Why us?",
@@ -57,7 +57,7 @@
     },
     "postRentCar": {
         "en": "Post car for rent",
-        "ar": "نشر سيارة للإيجار"
+        "ar": "نشر سيّارة للإيجار"
     },
     "postSale": {
         "en": "Post sale",
@@ -65,7 +65,7 @@
     },
     "postPurchaseCar": {
         "en": "Post car for sale",
-        "ar": "نشر سيارة للبيع"    
+        "ar": "نشر سيّارة للبيع"    
     },
     "forRent": {
         "en": "For rent",
@@ -77,11 +77,11 @@
     },
     "orders": {
         "en": "Orders",
-        "ar": "الطلبات"
+        "ar": "الطّلبات"
     },
     "favorites": {
         "en": "Favorites",
-        "ar": "المفضلة"
+        "ar": "المفضّلة"
     },
     "alerts": {
         "en": "Alerts",
@@ -101,19 +101,19 @@
     },
     "personalInfo": {
         "en": "Personal info",
-        "ar": "المعلومات الشخصية"
+        "ar": "المعلومات الشخصيّة"
     },
     "salesPosts": {
         "en": "Sales posts",
-        "ar": "سيارات البيع"
+        "ar": "سيّارات البيع"
     },
     "rentalPosts": {
         "en": "Rental posts",
-        "ar": "سيارات الإيجار"
+        "ar": "سيّارات الإيجار"
     },
     "receivedOrders": {
         "en": "Received orders",
-        "ar": "الطلبات المستلمة"
+        "ar": "الطّلبات المستلمة"
     },
     "changePassword": {
         "en": "Change password",
@@ -141,11 +141,11 @@
     },
     "verified": {
         "en": "Verified",
-        "ar": "مفعل"
+        "ar": "مفعّل"
     },
     "notVerified": {
         "en": "Not verified",
-        "ar": "غير مفعل"
+        "ar": "غير مفعّل"
     },
     "verify": {
         "en": "Verify",
@@ -237,7 +237,7 @@
     },
     "welcome": {
         "en": "Welcome",
-        "ar": "أهلًا بك"
+        "ar": "أهلاً بك"
     },
     "loginFormSubtitle": {
         "en": "Sign in to continue",
@@ -249,7 +249,7 @@
     },
     "rememberMe": {
         "en": "Remember me",
-        "ar": "تذكرني"
+        "ar": "تذكّرني"
     },
     "loginForgotPassword": {
         "en": "Forgot password?",
@@ -277,19 +277,19 @@
     },
     "registrHint1": {
         "en": "By clicking “Register“, I agree to",
-        "ar": "بالضغط على كلمة تسجيل، أنا أوافق على"
+        "ar": "بالضغط على كلمة تسجيل، أوافق على"
     },
     "registrHint2": {
         "en": "terms of condition & privacy policy",
-        "ar": "شروط الإستخدام وسياسة الخصوصية"
+        "ar": "شروط الإستخدام وسياسة الخصوصيّة"
     },
     "headerTitle": {
         "en": "High-quality cars, reasonable prices, and within everyone's reach",
-        "ar": "سيارات عالية الجودة وأسعار مناسبة وفي متناول الجميع"
+        "ar": "سيّارات عالية الجودة وأسعار مناسبة وفي متناول الجميع"
     },
     "headerSearchPlaceholder": {
         "en": "Find your favorite car",
-        "ar": "إبحث عن سيارتك المفضلة"
+        "ar": "إبحث عن سيّارتك المفضّلة"
     },
     "popularBrands": {
         "en": "Popular brands",
@@ -301,15 +301,15 @@
     },
     "whyUs1Description": {
         "en": "We believe in fairness and transparency",
-        "ar": "نحن نؤمن بالعدالة والشفافية"
+        "ar": "نحن نؤمن بالعدالة والشفافيّة"
     },
     "whyUs2Title": {
         "en": "Better cars",
-        "ar": "سيارات أفضل"
+        "ar": "سيّارات أفضل"
     },
     "whyUs2Description": {
         "en": "Like-new cars at like-wow prices",
-        "ar": "مثل السيارات الجديدة بأسعار مماثلة"
+        "ar": "مثل السيّارات الجديدة بأسعار مماثلة"
     },
     "whyUs3Title": {
         "en": "Better guarantees",
@@ -317,15 +317,15 @@
     },
     "whyUs3Description": {
         "en": "our vehicles are guaranteed like no place else",
-        "ar": "سياراتنا مضمونة لا مثيل لها في أي مكان آخر"
+        "ar": "سيّاراتنا مضمونة لا مثيل لها في أيّ مكان آخر"
     },
     "whyUs4Title": {
         "en": "Better than anywhere",
-        "ar": "أفضل من أي مكان"
+        "ar": "أفضل من أيّ مكان"
     },
     "whyUs4Description": {
         "en": "Compare and you will find no other choice makes sense",
-        "ar": "قارن ولن تجد أي خيار آخر منطقي"
+        "ar": "قارن ولن تجد أيّ خيار آخر منطقي"
     },
     "aboutUs1Title": {
         "en": "Always available",
@@ -345,7 +345,7 @@
     },
     "feature1Description": {
         "en": "Here we provide you with the best and latest car models",
-        "ar": "نقدم لكم هنا أفضل وأحدث موديلات السيارات"
+        "ar": "نقدم لكم هنا أفضل وأحدث موديلات السيّارات"
     },
     "feature2Title": {
         "en": "No bargaining, no pressure",
@@ -353,15 +353,15 @@
     },
     "feature2Description": {
         "en": "We publish the best cars at the best prices and the most quality",
-        "ar": "ننشر أفضل السيارات بأفضل الأسعار والجودة"
+        "ar": "ننشر أفضل السيّارات بأفضل الأسعار والجودة"
     },
     "feature3Title": {
         "en": "Post your car",
-        "ar": "أنشر سيارتك"
+        "ar": "أنشر سيّارتك"
     },
     "feature3Description": {
         "en": "Hurry up and post your own car in our store",
-        "ar": "أسرع وأنشر سيارتك الخاصة في متجرنا"
+        "ar": "أسرع وأنشر سيّارتك الخاصّة في متجرنا"
     },
     "feature4Title": {
         "en": "Complete deals",
@@ -373,11 +373,11 @@
     },
     "newsletterTitle": {
         "en": "Our newsletter",
-        "ar": "نشرتنا الإخبارية"
+        "ar": "نشرتنا الإخباريّة"
     },
     "newsletterSubtitle": {
         "en": "Subscribe to receive all new",
-        "ar": "اشترك ليصلك كل جديد"
+        "ar": "إشترك ليصلك كل جديد"
     },
     "enterEmail": {
         "en": "Enter your email",
@@ -393,7 +393,7 @@
     },
     "successfullySubscribed": {
         "en": "You're now subscribed",
-        "ar": "أنت الآن مشترك"
+        "ar": "أنت مشترك الآن"
     },
     "followUs": {
         "en": "Follow us",
@@ -409,7 +409,7 @@
     },
     "privacyPolicy": {
         "en": "Privacy policy",
-        "ar": "سياسة الخصوصية"
+        "ar": "سياسة الخصوصيّة"
     },
     "terms": {
         "en": "Terms of condition",
@@ -437,7 +437,7 @@
     },
     "resetPasswordSubtitle": {
         "en": "We have just sent you a password reset code",
-        "ar": "لقد أرسلنا لك للتو رمز إعادة تعيين كلمة المرور"
+        "ar": "لقد أرسلنا لك للتو رمز لإعادة تعيين كلمة المرور"
     },
     "code": {
         "en": "Code",
@@ -461,7 +461,7 @@
     },
     "emailVerificationSubtitle": {
         "en": "We have just sent you a verification code",
-        "ar": "لقد أرسلنا لك للتو رمز التحقق"
+        "ar": "لقد أرسلنا لك للتو رمز تحقق"
     },
     "phoneVerificationTitle": {
         "en": "Verify your phone",
@@ -469,7 +469,7 @@
     },
     "phoneVerificationSubtitle": {
         "en": "We have just sent you a verification code",
-        "ar": "لقد أرسلنا لك للتو رمز التحقق"
+        "ar": "لقد أرسلنا لك للتو رمز تحقق"
     },
     "didntReceiveCode": {
         "en": "Didn't receive a code?",
@@ -493,11 +493,11 @@
     },
     "rentNow": {
         "en": "Rent now",
-        "ar": "استأجر الآن"
+        "ar": "إستأجر الآن"
     },
     "filters": {
         "en": "Filters",
-        "ar": "الفلاتر"
+        "ar": "فلاتر البحث"
     },
     "price": {
         "en": "Price",
@@ -505,7 +505,7 @@
     },
     "brands": {
         "en": "Brands",
-        "ar": "شركات السيارات"
+        "ar": "شركات السيّارات"
     },
     "colors": {
         "en": "Colors",
@@ -613,11 +613,11 @@
     },
     "latestPurchaseCars": {
         "en": "Latest cars for sale",
-        "ar": "أحدث السيارات المعروضة للبيع"
+        "ar": "أحدث السيّارات المعروضة للبيع"
     },
     "latestRentalCars": {
         "en": "Latest cars for rent",
-        "ar": "أحدث السيارات المعروضة للإيجار"
+        "ar": "أحدث السيّارات المعروضة للإيجار"
     },
     "itemOverview": {
         "en": "Item overview",
@@ -641,19 +641,19 @@
     },
     "operationSucceeded": {
         "en": "operation accomplished successfully",
-        "ar": "تمت العملية بنجاح"
+        "ar": "تمت العمليّة بنجاح"
     },
     "done": {
         "en": "Done",
-        "ar": "تمت العملية"
+        "ar": "تمت العمليّة"
     },
     "backToHome": {
         "en": "Back to home",
-        "ar": "الرجوع للرئيسية"
+        "ar": "الرجوع للرئيسيّة"
     },
     "carName": {
         "en": "Car name",
-        "ar": "إسم السيارة"
+        "ar": "إسم السيّارة"
     },
     "vinNumber": {
         "en": "VIN Number",
@@ -673,7 +673,7 @@
     },
     "addCarFormTitle": {
         "en": "Tell us about your car",
-        "ar": "أخبرنا عن سيارتك"
+        "ar": "أخبرنا عن سيّارتك"
     },
     "yearModel": {
         "en": "Year model",
@@ -681,15 +681,15 @@
     },
     "optional": {
         "en": "Optional",
-        "ar": "إختياري"
+        "ar": "إختياريّ"
     },
     "descriptionPlaceholder": {
-        "en": "Describe your car (0-1024 letters)",
-        "ar": "أكتب وصفًا لسيارتك (0-1024 حرفًا)"
+        "en": "Describe your car in 0-1024 letters",
+        "ar": "أكتب وصفًا لسيّارتك بين 0-1024 حرفًا"
     },
     "uploadCarImages": {
-        "en": "Upload car images",
-        "ar": "أضف صور لسيارتك"
+        "en": "Upload special car images",
+        "ar": "أضف صور مُميزة لسيّارتك"
     },
     "paymentFormTitle": {
         "en": "Payment",
@@ -701,7 +701,7 @@
     },
     "debitOrCredit": {
         "en": "Debit/credit card",
-        "ar": "بطاقة الخصم أو الائتمان"
+        "ar": "بطاقة الخصم أو الإئتمان"
     },
     "paypal": {
         "en": "Paypal",
@@ -717,7 +717,7 @@
     },
     "paymentFees": {
         "en": "Payment fees",
-        "ar": "رسوم الدفع"
+        "ar": "رسوم الدّفع"
     },
     "total": {
         "en": "Total",
@@ -753,7 +753,7 @@
     },
     "waitingForApproval": {
         "en": "Waiting for approval",
-        "ar": "بانتظار الموافقة"
+        "ar": "بإنتظار الموافقة"
     },
     "cancelOrderTitle": {
         "en": "Cancel order",

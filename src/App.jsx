@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Home from "pages/user/Home";
 import Navigation from "components/common/navigation";
 import Footer from "components/common/footer";
@@ -41,6 +41,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [lang, setLang] = useState(authStorage.getLanguage());
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const startDate = Date.now();
@@ -48,7 +49,13 @@ const App = () => {
 
     usersApi.common
       .isAuth()
-      .then((res) => setUser(res.data))
+      .then((res) => {
+        const user = res.data;
+        setUser(user);
+        if (!user.verified.email) {
+          navigate(routes.verify.navigate("email"));
+        }
+      })
       .catch((err) => {})
       .finally(() => {
         const endDate = Date.now();

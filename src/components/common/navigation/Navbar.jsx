@@ -543,7 +543,8 @@ const NavItem = styled.li`
 const SubMenu = styled(NavMenu)`
   position: absolute;
   top: 80px;
-  left: -50%;
+  left: 50%;
+  transform: translateX(-50%);
   color: #010606;
   background-color: #fff;
   display: none;
@@ -553,6 +554,7 @@ const SubMenu = styled(NavMenu)`
 
   ${NavItem} {
     height: fit-content;
+    width: 150px;
 
     > * {
       font-size: 15px;
