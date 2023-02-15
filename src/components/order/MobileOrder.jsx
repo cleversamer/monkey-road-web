@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "utils/parseDate";
+import useLocale from "hooks/useLocale";
+import { serverURL } from "api/client";
 
 const MobileOrder = ({
   order,
@@ -9,6 +11,7 @@ const MobileOrder = ({
   onDelete,
   onViewDetails,
 }) => {
+  const { i18n } = useLocale();
   const [time, setTime] = useState(parseDate(order.date));
 
   useEffect(() => {
@@ -21,42 +24,48 @@ const MobileOrder = ({
     };
   }, []);
 
+  const mapImage = (url) => `${serverURL}${url}`;
+
   return (
     <Container>
       <Row1>
-        <Status status={order.status}>{order.status}</Status>
+        <Status status={order.status}>{i18n(order.status)}</Status>
       </Row1>
 
       <Row2>
         <Image
-          src={order.rentCar.photos[0]}
+          src={mapImage(order.rentCar.photos[0])}
           alt={order.rentCar.name}
           onClick={() => onViewDetails(order)}
         />
 
         <Row2Left>
-          <Price>Total: {order.totalPrice} AED</Price>
+          <Price>
+            {i18n("total")}: {order.totalPrice} {i18n("aed")}
+          </Price>
 
           <ButtonsContainer>
             {order.status === "approved" && (
               <FilledButton onClick={() => onComplete(order)}>
-                complete
+                {i18n("payNow")}
               </FilledButton>
             )}
 
             {["pending", "approved"].includes(order.status) && (
-              <OutlineButton onClick={onCancel}>cancel</OutlineButton>
+              <OutlineButton onClick={onCancel}>{i18n("cancel")}</OutlineButton>
             )}
 
             {["rejected", "closed"].includes(order.status) && (
-              <OutlineButton onClick={onDelete}>delete</OutlineButton>
+              <OutlineButton onClick={onDelete}>{i18n("delete")}</OutlineButton>
             )}
           </ButtonsContainer>
         </Row2Left>
       </Row2>
 
       <Row3>
-        <OrderDate>{time} ago</OrderDate>
+        <OrderDate>
+          {time} {i18n("ago")}
+        </OrderDate>
       </Row3>
     </Container>
   );
@@ -100,7 +109,7 @@ const Status = styled.h4`
   text-transform: capitalize;
   color: ${({ status }) =>
     status === "pending"
-      ? "#fe7777"
+      ? "orange"
       : ["rejected", "closed"].includes(status)
       ? "red"
       : status === "approved"

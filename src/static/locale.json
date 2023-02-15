@@ -790,5 +790,61 @@
     "upToDate": {
         "en": "You are up to date",
         "ar": "أنت قيد التحديث"
+    },
+    "payNow": {
+        "en": "Pay now",
+        "ar": "إدفع الآن"
+    },
+    "delete": {
+        "en": "Delete",
+        "ar": "حذف"
+    },
+    "products": {
+        "en": "Products",
+        "ar": "المنتجات"
+    },
+    "status": {
+        "en": "Status",
+        "ar": "الحالة"
+    },
+    "date": {
+        "en": "Date",
+        "ar": "التاريخ"
+    },
+    "operations": {
+        "en": "Operations",
+        "ar": "العمليات"
+    },
+    "all": {
+        "en": "All",
+        "ar": "الكل"
+    },
+    "pending": {
+        "en": "Pending",
+        "ar": "قيد الإنتظار"
+    },
+    "approved": {
+        "en": "Approved",
+        "ar": "مقبول"
+    },
+    "rejected": {
+        "en": "Rejected",
+        "ar": "مرفوض"
+    },
+    "closed": {
+        "en": "Cancelled",
+        "ar": "مُغلق"
+    },
+    "viewDetails": {
+        "en": "View details",
+        "ar": "عرض التفاصيل"
+    },
+    "deletePost": {
+        "en": "Delete post",
+        "ar": "حذف المنشور"
+    },
+    "location": {
+        "en": "Location",
+        "ar": "الموقع"
     }
 }

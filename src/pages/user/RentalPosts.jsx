@@ -21,8 +21,6 @@ const RentalPosts = () => {
       .catch((err) => setRentalPosts({ loading: false, list: [] }));
   }, []);
 
-  const handleDeletePost = (carId) => {};
-
   const handleViewDetails = (carId) => {
     navigate(routes.rentCarDetails.navigate(carId));
   };
@@ -48,7 +46,6 @@ const RentalPosts = () => {
               <PostCar
                 key={postCar._id}
                 data={postCar}
-                onDelete={() => handleDeletePost(postCar._id)}
                 onViewDetails={() => handleViewDetails(postCar._id)}
               />
             ))}

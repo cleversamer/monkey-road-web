@@ -40,10 +40,13 @@ const MyOrders = () => {
   useEffect(() => {
     rentOrdersApi.common
       .getMyOrders(0)
-      .then((res) =>
-        setOrders({ ...orders, loading: false, all: res.data.orders })
-      )
-      .catch((err) => setOrders({ ...orders, loading: false }));
+      .then((res) => {
+        const { orders } = res.data;
+        setOrders({ ...orders, loading: false, all: orders, view: orders });
+      })
+      .catch((err) => {
+        setOrders({ ...orders, loading: false });
+      });
   }, []);
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
@@ -65,8 +68,8 @@ const MyOrders = () => {
     setOrders({ ...orders, selectedOrder: null });
   };
 
-  const handleCompleteOrder = (order) => {
-    navigate(routes.completeOrder.navigate(order._id));
+  const handleCompleteOrder = (orderId) => {
+    navigate(routes.completeOrder.navigate(orderId));
   };
 
   const handleCancelOrder = (orderId) => {
@@ -75,9 +78,25 @@ const MyOrders = () => {
     handleHideOrderDetails();
 
     const cancelOrder = () => {
-      // TODO: write cancel order code
+      rentOrdersApi.common
+        .cancelOrder(orderId)
+        .then((res) => {
+          const { orders: newOrders } = res.data;
 
-      setPopupConfirm({ visible: false, handler: null });
+          setOrders({
+            ...orders,
+            all: newOrders,
+            view: newOrders,
+            selectedStatus: "all",
+          });
+        })
+        .catch((err) => {
+          //
+        })
+        .finally(() => {
+          setPopupConfirm({ visible: false, handler: null });
+          handleHideOrderDetails();
+        });
     };
 
     setPopupConfirm({
@@ -95,9 +114,25 @@ const MyOrders = () => {
     handleHideOrderDetails();
 
     const deleteOrder = () => {
-      // TODO: write cancel order code
+      rentOrdersApi.common
+        .deleteOrder(orderId)
+        .then((res) => {
+          const { orders: newOrders } = res.data;
 
-      setPopupConfirm({ visible: false, handler: null });
+          setOrders({
+            ...orders,
+            all: newOrders,
+            view: newOrders,
+            selectedStatus: "all",
+          });
+        })
+        .catch((err) => {
+          //
+        })
+        .finally(() => {
+          setPopupConfirm({ visible: false, handler: null });
+          handleHideOrderDetails();
+        });
     };
 
     setPopupConfirm({
@@ -116,18 +151,18 @@ const MyOrders = () => {
     switch (status) {
       case "pending":
         title = i18n("cancelOrderTitle");
-        onClick = handleCancelOrder;
+        onClick = () => handleCancelOrder(orders.selectedOrder._id);
         break;
 
       case "rejected":
       case "closed":
         title = i18n("deleteOrderTitle");
-        onClick = handleDeleteOrder;
+        onClick = () => handleDeleteOrder(orders.selectedOrder._id);
         break;
 
       case "approved":
         title = i18n("completeOrderTitle");
-        onClick = handleCompleteOrder;
+        onClick = () => handleCompleteOrder(orders.selectedOrder._id);
         break;
 
       default:

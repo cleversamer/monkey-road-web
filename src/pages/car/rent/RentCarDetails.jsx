@@ -28,7 +28,9 @@ const RentCarDetails = () => {
     // fetch similar products
   }, []);
 
-  const handleRentCar = () => {};
+  const handleRentCar = () => {
+    alert("rent");
+  };
 
   const handleNext = () => {
     if (pages.current === pages.count) return;
@@ -53,15 +55,17 @@ const RentCarDetails = () => {
         ) : pages.current == "2" ? (
           <Details2 car={car} onNext={handleNext} onPrev={handlePrev} />
         ) : pages.current == "3" ? (
-          <Details3 car={car} onPrev={handlePrev} />
+          <Details3 car={car} onPrev={handlePrev} onComplete={handleRentCar} />
         ) : null}
       </Content>
 
-      <ItemsSection type="slider" title={i18n("similarProducts")}>
-        {similarCars.map((car) => (
-          <RentCar key={car._id} data={car} />
-        ))}
-      </ItemsSection>
+      {!!similarCars.length && (
+        <ItemsSection type="slider" title={i18n("similarProducts")}>
+          {similarCars.map((car) => (
+            <RentCar key={car._id} data={car} />
+          ))}
+        </ItemsSection>
+      )}
     </Container>
   );
 };

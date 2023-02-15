@@ -1,6 +1,10 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
+import FilterItem from "./FilterItem";
 
 const FiltersSection = ({ orders, onSelectItem }) => {
+  const { i18n, lang } = useLocale();
+
   const ordersCount = orders.all.length;
   const pendingOrdersCount = getOrdersCount("pending");
   const approvedOrdersCount = getOrdersCount("approved");
@@ -19,41 +23,41 @@ const FiltersSection = ({ orders, onSelectItem }) => {
 
   return (
     <Container>
-      <StatusFilters>
-        <Item
+      <StatusFilters lang={lang}>
+        <FilterItem
+          title={i18n("all")}
+          count={ordersCount}
           active={checkItemSelected("all")}
           onClick={() => onSelectItem("all")}
-        >
-          all ({ordersCount})
-        </Item>
+        />
 
-        <Item
+        <FilterItem
+          title={i18n("pending")}
+          count={pendingOrdersCount}
           active={checkItemSelected("pending")}
           onClick={() => onSelectItem("pending")}
-        >
-          pending ({pendingOrdersCount})
-        </Item>
+        />
 
-        <Item
+        <FilterItem
+          title={i18n("approved")}
+          count={approvedOrdersCount}
           active={checkItemSelected("approved")}
           onClick={() => onSelectItem("approved")}
-        >
-          approved ({approvedOrdersCount})
-        </Item>
+        />
 
-        <Item
+        <FilterItem
+          title={i18n("rejected")}
+          count={rejectedOrdersCount}
           active={checkItemSelected("rejected")}
           onClick={() => onSelectItem("rejected")}
-        >
-          rejected ({rejectedOrdersCount})
-        </Item>
+        />
 
-        <Item
+        <FilterItem
+          title={i18n("closed")}
+          count={cancelledOrdersCount}
           active={checkItemSelected("closed")}
           onClick={() => onSelectItem("closed")}
-        >
-          cancelled ({cancelledOrdersCount})
-        </Item>
+        />
       </StatusFilters>
     </Container>
   );
@@ -68,29 +72,13 @@ const Container = styled.div`
 `;
 
 const StatusFilters = styled.ul`
+  width: 100%;
   list-style: none;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   min-width: max-content;
-`;
-
-const Item = styled.li`
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: capitalize;
-  text-align: center;
-  color: ${({ active }) => (active ? "#fe7777" : "#000")};
-  transition-duration: 176ms;
-  cursor: pointer;
-
-  :hover {
-    color: #fe7777;
-  }
-
-  :active {
-    transform: scale(0.97);
-  }
 `;
 
 export default FiltersSection;

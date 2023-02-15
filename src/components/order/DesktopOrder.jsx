@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "utils/parseDate";
+import { serverURL } from "api/client";
+import useLocale from "hooks/useLocale";
 
 const DesktopOrder = ({
   order,
@@ -9,6 +11,7 @@ const DesktopOrder = ({
   onDelete,
   onViewDetails,
 }) => {
+  const { i18n } = useLocale();
   const [time, setTime] = useState(parseDate(order.date));
 
   useEffect(() => {
@@ -21,40 +24,51 @@ const DesktopOrder = ({
     };
   }, []);
 
+  const mapImage = (url) => `${serverURL}${url}`;
+
   return (
     <Container>
       <Desktop>
         <ItemContainer>
-          <Image src={order.rentCar.photos[0]} alt={order.rentCar.name} />
+          <Image
+            src={mapImage(order.rentCar.photos[0])}
+            alt={order.rentCar.name}
+          />
         </ItemContainer>
 
         <ItemContainer bold primary>
-          {order.totalPrice} AED
+          {order.totalPrice} {i18n("aed")}
         </ItemContainer>
 
         <ItemContainer>
-          <OrderStatus status={order.status}>{order.status}</OrderStatus>
+          <OrderStatus status={order.status}>{i18n(order.status)}</OrderStatus>
         </ItemContainer>
 
         <ItemContainer link onClick={() => onViewDetails(order)}>
-          details
+          {i18n("details")}
         </ItemContainer>
 
-        <ItemContainer lowercase>{time} ago</ItemContainer>
+        <ItemContainer lowercase>
+          {time} {i18n("ago")}
+        </ItemContainer>
 
         <ItemContainer>
           {order.status === "approved" && (
-            <CompleteButton onClick={() => onComplete(order)}>
-              complete
+            <CompleteButton onClick={() => onComplete(order._id)}>
+              {i18n("payNow")}
             </CompleteButton>
           )}
 
           {["pending", "approved"].includes(order.status) && (
-            <CancelButton onClick={onCancel}>cancel</CancelButton>
+            <CancelButton onClick={() => onCancel(order._id)}>
+              {i18n("cancel")}
+            </CancelButton>
           )}
 
           {["rejected", "closed"].includes(order.status) && (
-            <DeleteButton onClick={onDelete}>delete</DeleteButton>
+            <DeleteButton onClick={() => onDelete(order._id)}>
+              {i18n("delete")}
+            </DeleteButton>
           )}
         </ItemContainer>
       </Desktop>
@@ -104,7 +118,7 @@ const ItemContainer = styled.span`
 const OrderStatus = styled.span`
   color: ${({ status }) =>
     status === "pending"
-      ? "#fe7777"
+      ? "orange"
       : ["rejected", "closed"].includes(status)
       ? "red"
       : status === "approved"
@@ -139,7 +153,7 @@ const CompleteButton = styled(Button)`
 `;
 
 const CancelButton = styled(Button)`
-  color: #001aff;
+  color: #f00;
 `;
 
 const DeleteButton = styled(Button)`

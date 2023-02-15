@@ -3,8 +3,16 @@ import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import useLocale from "hooks/useLocale";
+import Loader from "components/loader";
 
-const PopupConfirm = ({ onHide, onConfirm, title, subtitle, hint }) => {
+const PopupConfirm = ({
+  onHide,
+  onConfirm,
+  title,
+  subtitle,
+  hint,
+  loading,
+}) => {
   const { i18n } = useLocale();
 
   useEffect(() => {
@@ -27,10 +35,14 @@ const PopupConfirm = ({ onHide, onConfirm, title, subtitle, hint }) => {
 
         <Hint>{hint}</Hint>
 
-        <CTAContainer>
-          <CancelButton onClick={onHide}>{i18n("cancel")}</CancelButton>
-          <ConfirmButton onClick={onConfirm}>{i18n("ok")}</ConfirmButton>
-        </CTAContainer>
+        {loading ? (
+          <Loader />
+        ) : (
+          <CTAContainer>
+            <CancelButton onClick={onHide}>{i18n("cancel")}</CancelButton>
+            <ConfirmButton onClick={onConfirm}>{i18n("ok")}</ConfirmButton>
+          </CTAContainer>
+        )}
       </Container>
     </PopupContainer>
   );

@@ -1,18 +1,26 @@
 import styled from "styled-components";
 import CustomButton from "components/common/custom-button";
 import ReusableCar from "../car";
+import useLocale from "hooks/useLocale";
 
 const PostCar = ({ data, onDelete, onViewDetails }) => {
-  return (
-    <ReusableCar data={data}>
-      <CTAContainer>
-        <CustomButton type="primary" onClick={onDelete} title="delete post" />
+  const { i18n, lang } = useLocale();
 
+  return (
+    <ReusableCar
+      brandName={data.brand.name[lang]}
+      imageURL={data.photos[0]}
+      model={data.model}
+      name={data.name}
+      price={data.price.daily}
+      year={data.year}
+    >
+      <CTAContainer>
         {data.accepted && (
           <CustomButton
             type="primary"
             onClick={onViewDetails}
-            title="view details"
+            title={i18n("viewDetails")}
           />
         )}
       </CTAContainer>

@@ -7,9 +7,10 @@
   "version": "1.0",
   "private": true,
   "dependencies": {
-    "@react-google-maps/api": "^2.18.1",
+    "@ubilabs/google-maps-react-hooks": "^2.0.2",
     "axios": "^1.3.0",
     "firebase": "^9.9.4",
+    "google-maps-react": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-elastic-carousel": "^0.11.5",
