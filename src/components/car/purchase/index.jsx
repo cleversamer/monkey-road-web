@@ -57,9 +57,11 @@ const PurchaseCar = ({ data }) => {
           type="primary"
           onClick={handleMakeCall}
           title={
-            <CallContainer lang={lang}>
-              <BiPhone /> {i18n("callSeller")}
-            </CallContainer>
+            <a href={`tel:${data.phoneNumber}`}>
+              <CallContainer lang={lang}>
+                <BiPhone /> {i18n("callSeller")}
+              </CallContainer>
+            </a>
           }
         />
 
@@ -67,9 +69,11 @@ const PurchaseCar = ({ data }) => {
           type="primary"
           color="#1A8331"
           title={
-            <CallContainer lang={lang}>
-              <AiOutlineWhatsApp /> {i18n("whatsApp")}
-            </CallContainer>
+            <a href={`https://wa.me/${data.phoneNumber}`} target="_blank">
+              <CallContainer lang={lang}>
+                <AiOutlineWhatsApp /> {i18n("whatsApp")}
+              </CallContainer>
+            </a>
           }
           onClick={handleWhatsAppCall}
         />

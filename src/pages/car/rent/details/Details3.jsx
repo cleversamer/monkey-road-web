@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GoogleMap from "components/google-map";
+// import GoogleMap from "components/google-map";
 import CustomButton from "components/common/custom-button";
 import useLocale from "hooks/useLocale";
 import CustomInput from "components/common/custom-input";
@@ -18,7 +18,7 @@ const Details3 = ({ car, onPrev, onComplete }) => {
 
       <BreakLine />
 
-      <GoogleMap />
+      {/* <GoogleMap /> */}
 
       <CustomInput
         type="text"

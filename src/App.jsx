@@ -77,22 +77,28 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ user, setUser, socket, lang, setLang }}>
-      <Navigation />
+      {(!user || (user && user.role !== "admin")) && <Navigation />}
 
       <Routes>
         {/* user routes */}
-        {user && (
+        {user && user.role !== "admin" && (
           <>
-            <Route path={routes.alerts.route} element={<Alerts />} />
-            <Route
-              path={routes.changePassword.route}
-              element={<ChangePassword />}
-            />
-            <Route path={routes.salesPosts.route} element={<SalesPosts />} />
             <Route
               path={routes.personalInfo.route}
               element={<PersonalInfo />}
             />
+            <Route
+              path={routes.changePassword.route}
+              element={<ChangePassword />}
+            />
+            <Route path={routes.alerts.route} element={<Alerts />} />
+          </>
+        )}
+
+        {/* verified user routes */}
+        {user && user.role !== "admin" && user.verified.email && (
+          <>
+            <Route path={routes.salesPosts.route} element={<SalesPosts />} />
             <Route
               path={routes.completeOrder.route}
               element={<CompleteOrder />}
@@ -107,21 +113,29 @@ const App = () => {
         )}
 
         {/* unverified user routes */}
-        {user && (!user.verified.email || !user.verified.phone) && (
-          <Route path={routes.verify.route} element={<Verify />} />
-        )}
+        {user &&
+          user.role !== "admin" &&
+          (!user.verified.email || !user.verified.phone) && (
+            <Route path={routes.verify.route} element={<Verify />} />
+          )}
 
         {/* office routes */}
-        {user && user.role === "office" && (
-          <>
-            <Route
-              path={routes.myReceivedOrders.route}
-              element={<MyReceivedOrders />}
-            />
-            <Route path={routes.rentalPosts.route} element={<RentalPosts />} />
-            <Route path={routes.addRentCar.route} element={<AddRentCar />} />
-          </>
-        )}
+        {user &&
+          user.role !== "admin" &&
+          user.verified.email &&
+          user.role === "office" && (
+            <>
+              <Route
+                path={routes.myReceivedOrders.route}
+                element={<MyReceivedOrders />}
+              />
+              <Route
+                path={routes.rentalPosts.route}
+                element={<RentalPosts />}
+              />
+              <Route path={routes.addRentCar.route} element={<AddRentCar />} />
+            </>
+          )}
 
         {/* only visitor routes */}
         {!user && (
@@ -143,37 +157,71 @@ const App = () => {
           </>
         )}
 
-        <Route path={routes.resetPassword.route} element={<ResetPassword />} />
-        <Route path={routes.popularBrands.route} element={<Brands />} />
-        <Route path={routes.purchaseCars.route} element={<PurchaseCars />} />
-        <Route
-          path={routes.purchaseCarDetails.route}
-          element={<PurchaseCarDetails />}
-        />
-        <Route
-          path={routes.bestPurchaseCarSellers.route}
-          element={<BestSellerPurchaseCars />}
-        />
-        <Route
-          path={routes.recentlyArrivedPurchaseCars.route}
-          element={<RecentlyArrivedPurchaseCars />}
-        />
-        <Route
-          path={routes.latestPurchaseCarModels.route}
-          element={<LatestModelsPurchaseCars />}
-        />
-        <Route path={routes.rentCars.route} element={<RentCars />} />
-        <Route
-          path={routes.rentCarDetails.route}
-          element={<RentCarDetails />}
-        />
-        {/* <Route path={routes.notFound.route} element={<NotFound />} /> */}
-        <Route path={routes.home.route} element={<Home />} />
-        <Route path="/" element={<Navigate to={routes.home.route} replace />} />
-        <Route path="*" element={<Navigate to={routes.home.route} replace />} />
+        {(!user || (user && user.role !== "admin")) && (
+          <>
+            <Route
+              path={routes.resetPassword.route}
+              element={<ResetPassword />}
+            />
+            <Route path={routes.popularBrands.route} element={<Brands />} />
+            <Route
+              path={routes.purchaseCars.route}
+              element={<PurchaseCars />}
+            />
+            <Route
+              path={routes.purchaseCarDetails.route}
+              element={<PurchaseCarDetails />}
+            />
+            <Route
+              path={routes.bestPurchaseCarSellers.route}
+              element={<BestSellerPurchaseCars />}
+            />
+            <Route
+              path={routes.recentlyArrivedPurchaseCars.route}
+              element={<RecentlyArrivedPurchaseCars />}
+            />
+            <Route
+              path={routes.latestPurchaseCarModels.route}
+              element={<LatestModelsPurchaseCars />}
+            />
+            <Route path={routes.rentCars.route} element={<RentCars />} />
+            <Route
+              path={routes.rentCarDetails.route}
+              element={<RentCarDetails />}
+            />
+            {/* <Route path={routes.notFound.route} element={<NotFound />} /> */}
+            <Route path={routes.home.route} element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={
+                    user && !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.home.route
+                  }
+                  replace
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={
+                    user && !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.home.route
+                  }
+                  replace
+                />
+              }
+            />
+          </>
+        )}
       </Routes>
 
-      <Footer />
+      {(!user || (user && user.role !== "admin")) && <Footer />}
     </AuthContext.Provider>
   );
 };

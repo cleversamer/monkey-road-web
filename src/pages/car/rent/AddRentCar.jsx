@@ -26,6 +26,12 @@ const AddRentCar = () => {
     scroll.scrollToTop();
   };
 
+  const handleSelectLevel = (number) => {
+    if (levels.active === number) return;
+    setLevels({ ...levels, active: number });
+    scroll.scrollToTop();
+  };
+
   const handleViewPopup = () => {
     setShowPopup(true);
   };
@@ -52,9 +58,10 @@ const AddRentCar = () => {
       )}
 
       <AddCar
-        pageTitles={[i18n("home"), i18n("arrow"), i18n("postPurchaseCar")]}
+        pageTitles={[i18n("home"), i18n("arrow"), i18n("postRentCar")]}
         noOfLevels={levels.count}
         activeLevel={levels.active}
+        onSelectLevel={handleSelectLevel}
       >
         <PostRentCarForm
           onNext={handleNext}

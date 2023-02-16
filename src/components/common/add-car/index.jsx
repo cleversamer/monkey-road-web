@@ -3,13 +3,23 @@ import Location from "../search-page/Location";
 import LevelsTracker from "../levels-tracker";
 import useLocale from "hooks/useLocale";
 
-const AddCar = ({ noOfLevels, activeLevel, pageTitles, children }) => {
+const AddCar = ({
+  noOfLevels,
+  activeLevel,
+  pageTitles,
+  onSelectLevel,
+  children,
+}) => {
   const { lang } = useLocale();
 
   return (
     <Container>
       <Location pageTitles={pageTitles} />
-      <LevelsTracker noOfLevels={noOfLevels} activeLevel={activeLevel} />
+      <LevelsTracker
+        onSelectLevel={onSelectLevel}
+        noOfLevels={noOfLevels}
+        activeLevel={activeLevel}
+      />
       <FormContainer lang={lang}>
         <CarClip lang={lang} src="/assets/images/car-clip.svg" alt="" />
         {children}

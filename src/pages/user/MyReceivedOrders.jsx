@@ -17,8 +17,10 @@ import purchaseApi from "api/car/purchase";
 import rentOrdersApi from "api/car/rentOrders";
 import Loader from "components/loader";
 import useLocale from "hooks/useLocale";
+import useAutoScroll from "hooks/useAutoScroll";
 
 const MyReceivedOrders = () => {
+  useAutoScroll();
   const { i18n } = useLocale();
   const navigate = useNavigate();
   const [popupConfirm, setPopupConfirm] = useState({

@@ -7,6 +7,7 @@ import Loader from "components/loader";
 import { routes } from "client";
 import rentApi from "api/car/rent";
 import useLocale from "hooks/useLocale";
+import EmptyList from "components/common/empty-list";
 
 const priceConfig = {
   price: {
@@ -23,42 +24,49 @@ const RentCars = () => {
   const [rentCars, setRentCars] = useState({ list: [], loading: true });
   const [searchContext, setSearchContext] = useState({
     term: searchTerm,
-    price: {
-      min: priceConfig.price.minValue,
-      max: priceConfig.price.maxValue,
-    },
     brands: [],
     colors: [],
     years: [],
+  });
+  const [price, setPrice] = useState({
+    min: priceConfig.price.minValue,
+    max: priceConfig.price.maxValue,
   });
 
   useEffect(() => {
     setRentCars({ list: [], loading: true });
 
+    const { brands, colors, years } = searchContext;
+    const searchBrands = brands.map((brand) => brand._id).join(",");
+    const searchColors = colors.map((color) => color.en).join(",");
+    const searchYears = years.map((year) => year.value).join(",");
+
     rentApi.common
-      .searchRentCars(searchTerm, 0)
+      .searchRentCars(
+        searchTerm,
+        0,
+        price.min,
+        price.max,
+        searchBrands,
+        searchColors,
+        searchYears
+      )
       .then((res) => setRentCars({ list: res.data.cars, loading: false }))
-      .catch((err) => setRentCars({ list: [], loading: false }));
-  }, [searchTerm]);
+      .catch((err) => {
+        setRentCars({ list: [], loading: false });
+      });
+  }, [searchTerm, searchContext]);
 
   const handlePriceChange = (key) => (e) => {
-    const isCollision =
-      searchContext.price.min === searchContext.price.max ||
-      searchContext.price.max < searchContext.price.min;
+    const isCollision = price.min === price.max || price.max < price.min;
 
     if (isCollision) {
-      setSearchContext({
-        ...searchContext,
-        price: {
-          min: priceConfig.price.minValue,
-          max: priceConfig.price.maxValue,
-        },
+      setPrice({
+        min: priceConfig.price.minValue,
+        max: priceConfig.price.maxValue,
       });
     } else {
-      setSearchContext({
-        ...searchContext,
-        price: { ...searchContext.price, [key]: parseInt(e.target.value) },
-      });
+      setPrice({ ...price, [key]: parseInt(e.target.value) });
     }
   };
 
@@ -81,6 +89,7 @@ const RentCars = () => {
     <SearchPage
       cars={rentCars}
       searchContext={searchContext}
+      price={price}
       priceConfig={priceConfig}
       onListChange={handleListChange}
       onPriceChange={handlePriceChange}
@@ -90,10 +99,15 @@ const RentCars = () => {
     >
       {rentCars.loading ? (
         <Loader />
-      ) : (
+      ) : rentCars.list.length ? (
         rentCars.list.map((rentCar) => (
           <RentCar key={rentCar._id} data={rentCar} />
         ))
+      ) : (
+        <EmptyList
+          imageURL="/assets/images/empty-1.svg"
+          title={i18n("noSearchResults")}
+        />
       )}
     </SearchPage>
   );

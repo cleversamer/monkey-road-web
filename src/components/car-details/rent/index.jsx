@@ -3,8 +3,10 @@ import CustomButton from "components/common/custom-button";
 import useLocale from "hooks/useLocale";
 import DetailsItem from "./DetailsItem";
 import DetailsTitle from "./DetailsTitle";
+import useAuth from "auth/useAuth";
 
 const RentCarDetails = ({ car, onNext }) => {
+  const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
   return (
@@ -85,9 +87,15 @@ const RentCarDetails = ({ car, onNext }) => {
         <BreakLine />
       </DetailsList>
 
-      <RentButtonContainer>
-        <CustomButton type="primary" title={i18n("rentNow")} onClick={onNext} />
-      </RentButtonContainer>
+      {user && user.verified.email && (
+        <RentButtonContainer>
+          <CustomButton
+            type="primary"
+            title={i18n("rentNow")}
+            onClick={onNext}
+          />
+        </RentButtonContainer>
+      )}
     </Container>
   );
 };

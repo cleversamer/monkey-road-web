@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 const SearchPage = ({
   priceConfig,
   searchContext,
+  price,
   onListChange,
   onPriceChange,
   onSearchChange,
@@ -27,6 +28,7 @@ const SearchPage = ({
         <FilterContainer open={filtersOpen}>
           <Filter
             searchContext={searchContext}
+            price={price}
             priceConfig={priceConfig}
             onListChange={onListChange}
             onPriceChange={onPriceChange}

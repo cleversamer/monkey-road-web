@@ -4,8 +4,10 @@ import CustomButton from "components/common/custom-button";
 import ReusableCar from "..";
 import { routes } from "client";
 import useLocale from "hooks/useLocale";
+import useAuth from "auth/useAuth";
 
 const RentCar = ({ data }) => {
+  const { user } = useAuth();
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
 
@@ -21,13 +23,15 @@ const RentCar = ({ data }) => {
       year={data.year}
       onClick={handleRent}
     >
-      <CTAContainer>
-        <CustomButton
-          type="primary"
-          title={i18n("rentNow")}
-          onClick={handleRent}
-        />
-      </CTAContainer>
+      {user && user.verified.email && (
+        <CTAContainer>
+          <CustomButton
+            type="primary"
+            title={i18n("rentNow")}
+            onClick={handleRent}
+          />
+        </CTAContainer>
+      )}
     </ReusableCar>
   );
 };

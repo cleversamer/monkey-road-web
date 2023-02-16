@@ -9,6 +9,7 @@ import useLocale from "hooks/useLocale";
 const Filter = ({
   priceConfig,
   searchContext,
+  price,
   onListChange,
   onPriceChange,
 }) => {
@@ -20,9 +21,9 @@ const Filter = ({
 
       <FilterSection title={i18n("price")}>
         <PriceFilter
-          min={searchContext.price.min}
+          min={price.min}
           minValue={priceConfig.price.minValue}
-          max={searchContext.price.max}
+          max={price.max}
           maxValue={priceConfig.price.maxValue}
           onChange={onPriceChange}
         />

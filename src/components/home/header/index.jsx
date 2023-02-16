@@ -6,6 +6,7 @@ import { FiMail } from "react-icons/fi";
 import { BsWhatsapp } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { FaInstagram } from "react-icons/fa";
+import useLocale from "hooks/useLocale";
 
 const Header = ({
   search,
@@ -15,9 +16,11 @@ const Header = ({
   onSaleSelect,
   onSearchChange,
 }) => {
+  const { lang } = useLocale();
+
   return (
     <Container>
-      <Content>
+      <Content lang={lang}>
         <HeaderLeft
           onSubmit={onSubmit}
           placeholder={placeholder}
@@ -41,14 +44,14 @@ const Header = ({
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink target="_blank" href="https://wa.me/+972597367603">
+            <SocialLink target="_blank" href="https://wa.me/+971585641444">
               <BsWhatsapp />
             </SocialLink>
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink target="_blank" href="https://">
-              <IoCallSharp href="https://wa.me/+972597367603" />
+            <SocialLink target="_blank" href="tel:+971585641444">
+              <IoCallSharp />
             </SocialLink>
           </SocialIcon>
 
@@ -82,14 +85,21 @@ const Container = styled.header`
 const Content = styled(ContentWrapper)`
   padding: 70px;
   padding-bottom: 100px;
+  /* ${({ lang }) => (lang === "en" ? "" : "padding-right: 0;")} */
   max-width: 1366px;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   background-color: #333;
   position: relative;
 
   @media screen and (max-width: 820px) {
     flex-direction: column;
+  }
+
+  @media screen and (max-width: 540px) {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 
   @media screen and (max-width: 480px) {

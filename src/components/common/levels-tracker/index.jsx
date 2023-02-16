@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useLocale from "hooks/useLocale";
 
-const LevelsTracker = ({ noOfLevels, activeLevel }) => {
+const LevelsTracker = ({ noOfLevels, activeLevel, onSelectLevel }) => {
   const { lang } = useLocale();
 
   const levels = [];
@@ -10,7 +10,9 @@ const LevelsTracker = ({ noOfLevels, activeLevel }) => {
 
     const item = () => (
       <>
-        <Level active={isActive}>{i}</Level>
+        <Level active={isActive} onClick={() => onSelectLevel(i)}>
+          {i}
+        </Level>
         {i < noOfLevels && <BreakLine />}
       </>
     );
@@ -48,6 +50,7 @@ const Level = styled.div`
   text-align: center;
   font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 
   @media screen and (max-width: 480px) {
     width: 40px;

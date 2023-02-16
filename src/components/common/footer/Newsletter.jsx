@@ -61,31 +61,31 @@ const Newsletter = () => {
         <SocialTitle>{i18n("followUs")}</SocialTitle>
         <SocialIcons lang={lang}>
           <SocialIcon>
-            <SocialLink color="#fe7777">
+            <SocialLink color="#fe7777" href="" target="_blank">
               <FaFacebookF />
             </SocialLink>
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink>
+            <SocialLink href="" target="_blank">
               <FaPinterestP />
             </SocialLink>
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink>
+            <SocialLink href="" target="_blank">
               <FaTwitter />
             </SocialLink>
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink>
+            <SocialLink href="" target="_blank">
               <FaInstagram />
             </SocialLink>
           </SocialIcon>
 
           <SocialIcon>
-            <SocialLink>
+            <SocialLink href="" target="_blank">
               <FaLinkedinIn />
             </SocialLink>
           </SocialIcon>

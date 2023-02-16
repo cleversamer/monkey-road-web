@@ -10,7 +10,7 @@ const HeaderSearch = ({
   const { i18n, lang } = useLocale();
 
   return (
-    <Container onSubmit={onSubmit}>
+    <Container onSubmit={onSubmit} lang={lang}>
       <HeaderSearchInput
         lang={lang}
         value={searchTerm}
@@ -30,6 +30,12 @@ const Container = styled.form`
   max-width: 400px;
   position: relative;
   height: 40px;
+  align-self: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+
+  @media screen and (max-width: 540px) {
+    width: 80vw;
+    max-width: 280px;
+  }
 `;
 
 const HeaderSearchInput = styled.input`

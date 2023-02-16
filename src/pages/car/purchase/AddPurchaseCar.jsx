@@ -29,6 +29,12 @@ const AddPurchaseCar = () => {
     scroll.scrollToTop();
   };
 
+  const handleSelectLevel = (number) => {
+    if (levels.active === number) return;
+    setLevels({ ...levels, active: number });
+    scroll.scrollToTop();
+  };
+
   const handleBackToHome = () => {
     navigate(routes.home.navigate());
   };
@@ -58,6 +64,7 @@ const AddPurchaseCar = () => {
         pageTitles={[i18n("home"), i18n("arrow"), i18n("postPurchaseCar")]}
         noOfLevels={levels.count}
         activeLevel={levels.active}
+        onSelectLevel={handleSelectLevel}
       >
         <PostPurchaseCarForm
           onNext={handleNext}

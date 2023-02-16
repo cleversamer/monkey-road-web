@@ -14,9 +14,12 @@ const PopularBrands = () => {
   });
 
   useEffect(() => {
-    brandsApi.common.getPopularBrands(0).then((res) => {
-      setContext({ brands: res.data.brands, loading: false });
-    });
+    brandsApi.common
+      .getPopularBrands(0)
+      .then((res) => {
+        setContext({ brands: res.data.brands, loading: false });
+      })
+      .catch((err) => {});
   }, []);
 
   return (

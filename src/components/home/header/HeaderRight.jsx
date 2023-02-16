@@ -1,8 +1,11 @@
 import styled from "styled-components";
+import useLocale from "hooks/useLocale";
 
 const HeaderRight = () => {
+  const { lang } = useLocale();
+
   return (
-    <Container>
+    <Container lang={lang}>
       <Image
         src="/assets/images/header/image-1.svg"
         alt="a man holds a debit card"
@@ -14,7 +17,7 @@ const HeaderRight = () => {
 const Container = styled.div`
   position: absolute;
   top: 20px;
-  right: 60px;
+  ${({ lang }) => (lang === "en" ? "right: 60px;" : "left: 60px;")}
   color: #fff;
 
   @media screen and (max-width: 960px) {

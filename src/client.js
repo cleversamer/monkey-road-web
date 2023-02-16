@@ -41,7 +41,7 @@ export const routes = {
   },
   rentCars: {
     route: "/cars/rent",
-    navigate: (searchTerm = "car") => `/cars/rent?term=${searchTerm}`,
+    navigate: (searchTerm = "مرسيدس") => `/cars/rent?term=${searchTerm}`,
   },
   rentCarDetails: {
     route: "/cars/rent/:carId/details",
@@ -53,17 +53,18 @@ export const routes = {
   },
   recentlyArrivedPurchaseCars: {
     route: "/cars/purchase/recent",
-    navigate: (searchTerm = "car") =>
+    navigate: (searchTerm = "مرسيدس") =>
       `/cars/purchase/recent?term=${searchTerm}`,
   },
   latestPurchaseCarModels: {
     route: "/cars/purchase/latest",
-    navigate: (searchTerm = "car") =>
+    navigate: (searchTerm = "مرسيدس") =>
       `/cars/purchase/latest?term=${searchTerm}`,
   },
   bestPurchaseCarSellers: {
     route: "/cars/purchase/best",
-    navigate: (searchTerm = "car") => `/cars/purchase/best?term=${searchTerm}`,
+    navigate: (searchTerm = "مرسيدس") =>
+      `/cars/purchase/best?term=${searchTerm}`,
   },
   purchaseCarDetails: {
     route: "/cars/purchase/:carId/details",

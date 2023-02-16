@@ -119,9 +119,11 @@ const PurchaseCarDetails = ({ car }) => {
           type="primary"
           onClick={handleMakeCall}
           title={
-            <CallContainer>
-              <BiPhone /> {i18n("callSeller")}
-            </CallContainer>
+            <a href={`tel:${car.phoneNumber}`}>
+              <CallContainer>
+                <BiPhone /> {i18n("callSeller")}
+              </CallContainer>
+            </a>
           }
         />
 
@@ -129,9 +131,11 @@ const PurchaseCarDetails = ({ car }) => {
           type="primary"
           color="#1A8331"
           title={
-            <CallContainer>
-              <AiOutlineWhatsApp /> {i18n("whatsApp")}
-            </CallContainer>
+            <a href={`https://wa.me/${car.phoneNumber}`} target="_blank">
+              <CallContainer>
+                <AiOutlineWhatsApp /> {i18n("whatsApp")}
+              </CallContainer>
+            </a>
           }
           onClick={handleWhatsAppCall}
         />

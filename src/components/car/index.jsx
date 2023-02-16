@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { serverURL } from "api/client";
 import useLocale from "hooks/useLocale";
+import useAuth from "auth/useAuth";
 
 const ReusableCar = ({
   imageURL,
@@ -12,6 +13,7 @@ const ReusableCar = ({
   onClick,
   children,
 }) => {
+  const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
   const mapImage = (url) => `${serverURL}${url}`;
@@ -20,7 +22,7 @@ const ReusableCar = ({
     <Container>
       <Image url={mapImage(imageURL)} onClick={onClick} />
 
-      <InfoContaier>
+      <InfoContaier border={user && user.verified.email}>
         <Row1 lang={lang}>
           <CarName>{name}</CarName>
           <CarPriceContainer lang={lang}>
@@ -29,7 +31,7 @@ const ReusableCar = ({
           </CarPriceContainer>
         </Row1>
 
-        <Row2>
+        <Row2 lang={lang}>
           <CarBrand>{brandName}</CarBrand>
           <CarModel>{model}</CarModel>
           <CarYear>{year}</CarYear>
@@ -77,18 +79,17 @@ const InfoContaier = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  border-bottom: 1px solid #ababab;
+  ${({ border }) => (border ? "border-bottom: 1px solid #ababab;" : "")}
 `;
 
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const Row1 = styled(Row)`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
 `;
+
+const Row1 = styled(Row)``;
 
 const CarName = styled.h5`
   font-weight: 700;

@@ -846,5 +846,9 @@
     "location": {
         "en": "Location",
         "ar": "الموقع"
+    },
+    "noSearchResults": {
+        "en": "No results were found for your search",
+        "ar": "لم يتم العثور على نتائج بحثك"
     }
 }

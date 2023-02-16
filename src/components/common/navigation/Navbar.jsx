@@ -80,7 +80,7 @@ const Navbar = ({ onOpenMenu }) => {
             <FaBars />
           </MobileIcon>
 
-          <NavMenu>
+          <NavMenu lang={lang}>
             <NavItem>
               <NavLink
                 to="app"
@@ -96,8 +96,8 @@ const Navbar = ({ onOpenMenu }) => {
             </NavItem>
 
             <NavItem>
-              <NavLink to="app">
-                <IoIosArrowDown /> {i18n("viewCars")}
+              <NavLink to="app" lang={lang}>
+                <span>{i18n("viewCars")}</span> <IoIosArrowDown />
               </NavLink>
 
               <SubMenu>
@@ -522,6 +522,7 @@ const MobileIcon = styled.div`
 
 const NavMenu = styled.ul`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   list-style: none;
   text-align: center;
@@ -568,6 +569,7 @@ const NavLink = styled(ScrollLink)`
   font-weight: 500;
   color: inherit;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 5px;
   text-decoration: none;
@@ -583,7 +585,11 @@ const NavLink = styled(ScrollLink)`
 
   :hover {
     transition: 0.2s ease-out;
-    color: #fe7777;
+
+    &,
+    * {
+      color: #fe7777;
+    }
 
     svg {
       color: #fe7777 !important;

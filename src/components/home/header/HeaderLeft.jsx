@@ -18,7 +18,7 @@ const HeaderLeft = ({
       <HeaderTitle lang={lang}>{i18n("headerTitle")}</HeaderTitle>
 
       <SearchContainer>
-        <HeaderSearchFilters>
+        <HeaderSearchFilters lang={lang}>
           <HeaderSearchFilter onClick={onRentSelect}>
             {search.type === "rent" && <IoIosArrowForward />}
             {i18n("rentCars")}
@@ -59,6 +59,7 @@ const HeaderTitle = styled.h1`
   font-weight: 600;
   color: #fff;
   max-width: 420px;
+  align-self: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
   @media screen and (max-width: 480px) {
@@ -74,6 +75,7 @@ const SearchContainer = styled.div`
 
 const HeaderSearchFilters = styled.ul`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 20px;
 `;
