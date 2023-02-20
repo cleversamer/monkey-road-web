@@ -25,7 +25,6 @@ const Navbar = ({ onOpenMenu }) => {
 
   useEffect(() => {
     socket.on("notification received", (notification) => {
-      console.log("notification", notification);
       setUser({
         ...user,
         notifications: [notification, ...user.notifications],

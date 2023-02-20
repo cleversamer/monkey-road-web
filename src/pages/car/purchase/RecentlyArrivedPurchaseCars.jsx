@@ -52,10 +52,7 @@ const RecentlyArrivedPurchaseCars = () => {
         searchYears
       )
       .then((res) => setPurchaseCars({ list: res.data.cars, loading: false }))
-      .catch((err) => {
-        console.log("err", err.response.data.message);
-        setPurchaseCars({ list: [], loading: false });
-      });
+      .catch((err) => setPurchaseCars({ list: [], loading: false }));
   }, [searchTerm, searchContext]);
 
   const handlePriceChange = (key) => (e) => {
