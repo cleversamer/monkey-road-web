@@ -24,8 +24,6 @@ const MobileOrder = ({
     };
   }, []);
 
-  const mapImage = (url) => `${serverURL}${url}`;
-
   return (
     <Container>
       <Row1>
@@ -34,7 +32,7 @@ const MobileOrder = ({
 
       <Row2>
         <Image
-          src={mapImage(order.rentCar.photos[0])}
+          src={order.rentCar.photos[0]}
           alt={order.rentCar.name}
           onClick={() => onViewDetails(order)}
         />

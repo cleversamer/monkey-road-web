@@ -16,11 +16,9 @@ const ReusableCar = ({
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
-  const mapImage = (url) => `${serverURL}${url}`;
-
   return (
     <Container>
-      <Image url={mapImage(imageURL)} onClick={onClick} />
+      <Image url={imageURL} onClick={onClick} />
 
       <InfoContaier border={user && user.verified.email}>
         <Row1 lang={lang}>

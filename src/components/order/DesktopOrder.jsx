@@ -24,16 +24,11 @@ const DesktopOrder = ({
     };
   }, []);
 
-  const mapImage = (url) => `${serverURL}${url}`;
-
   return (
     <Container>
       <Desktop>
         <ItemContainer>
-          <Image
-            src={mapImage(order.rentCar.photos[0])}
-            alt={order.rentCar.name}
-          />
+          <Image src={order.rentCar.photos[0]} alt={order.rentCar.name} />
         </ItemContainer>
 
         <ItemContainer bold primary>

@@ -2,11 +2,9 @@ import styled from "styled-components";
 import { serverURL } from "api/client";
 
 const Brand = ({ title = "", imageURL = "" }) => {
-  const mapImage = (url) => `${serverURL}${url}`;
-
   return (
     <Container>
-      <Image url={mapImage(imageURL)} />
+      <Image url={imageURL} />
       <Title>{title}</Title>
     </Container>
   );

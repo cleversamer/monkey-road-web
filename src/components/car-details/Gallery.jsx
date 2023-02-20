@@ -7,8 +7,6 @@ const Gallery = ({ images: imageURLs = [] }) => {
     imageURLs.map((img, index) => ({ url: img, selected: index === 0 }))
   );
 
-  const mapImage = (url) => `${serverURL}${url}`;
-
   const getSelectedImage = () => {
     const index = images.findIndex((img) => img.selected);
     return images[index];
@@ -28,13 +26,13 @@ const Gallery = ({ images: imageURLs = [] }) => {
 
   return (
     <Container>
-      <SelectedImage src={mapImage(getSelectedImage().url)} alt="a red car" />
+      <SelectedImage src={getSelectedImage().url} alt="a red car" />
 
       <ImagesBar>
         {getUnselectedImages().map((img, index) => (
           <BarImage
             key={index}
-            src={mapImage(img.url)}
+            src={img.url}
             alt="a red car"
             onClick={() => handleSelectImage(img.url)}
           />

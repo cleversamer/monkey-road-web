@@ -41,7 +41,7 @@ const AdminSidebar = () => {
     usersApi.admin
       .exportUsersToExcel()
       .then((res) => {
-        const url = `${serverURL}${res.data.path}`;
+        const url = res.data.path;
         setExcelUsers({ loading: false, url });
       })
       .catch((err) => setExcelUsers({ loading: false, url: "" }));
