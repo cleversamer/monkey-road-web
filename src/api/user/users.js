@@ -1,8 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import client from "../client";
 import authStorage from "auth/storage";
-import fileDownload from "js-file-download";
-import { serverURL } from "../client";
 
 ////////////////////////////// Common APIs //////////////////////////////
 const isAuth = async () => {

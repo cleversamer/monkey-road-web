@@ -9,7 +9,6 @@ import useLocale from "hooks/useLocale";
 import NavItem from "./NavItem";
 import PopupConfirm from "hoc/PopupConfirm";
 import usersApi from "api/user/users";
-import { serverURL } from "api/client";
 
 const AdminSidebar = () => {
   const { switchLang, i18n, lang } = useLocale();
