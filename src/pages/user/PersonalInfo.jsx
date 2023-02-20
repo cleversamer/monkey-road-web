@@ -18,7 +18,7 @@ const PersonalInfo = () => {
   const navigate = useNavigate();
   const [lastLogin, setLastLogin] = useState(parseDate(user.lastLogin, lang));
   const [context, setContext] = useState({
-    lang: "en",
+    lang: lang,
     name: user.name,
     email: user.email,
     phoneICC: user.phone.icc,
@@ -126,6 +126,7 @@ const PersonalInfo = () => {
             <CustomInput
               type="email"
               title={i18n("email")}
+              subtitle={i18n("compulsory")}
               placeholder={i18n("email")}
               verified={user.verified.email}
               onVerify={handleVerifyEmail}
@@ -137,6 +138,7 @@ const PersonalInfo = () => {
             <CustomInput
               type="phone"
               title={i18n("phoneNumber")}
+              subtitle={i18n("optional")}
               placeholder={i18n("phoneNumber")}
               verified={user.verified.phone}
               onVerify={handleVerifyPhone}

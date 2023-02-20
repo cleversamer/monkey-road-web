@@ -14,7 +14,7 @@ const RegisterForm = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
-    lang: "en",
+    lang: lang,
     authType: "email",
     name: "",
     email: "",

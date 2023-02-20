@@ -2,11 +2,6 @@
 import client from "../client";
 import authStorage from "auth/storage";
 
-const getAllPurchaseCars = async (skip = 0) => {
-  const cacheMins = 0;
-  return await client.get(`/cars/purchase/get?skip=${skip}`, {}, cacheMins);
-};
-
 const getRecentlyArrivedPurchaseCars = async (skip = 0) => {
   const cacheMins = 0;
   return await client.get(
@@ -72,7 +67,6 @@ const getMyPurchaseCars = async (skip = 0) => {
 
 export default {
   common: {
-    getAllPurchaseCars,
     getRecentlyArrivedPurchaseCars,
     getLatestModelsPurchaseCars,
     getBestSellerPurchaseCars,

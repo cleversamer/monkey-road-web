@@ -1,6 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import client from "../client";
 import authStorage from "auth/storage";
+import fileDownload from "js-file-download";
+import { serverURL } from "../client";
 
 ////////////////////////////// Common APIs //////////////////////////////
 const isAuth = async () => {
@@ -85,7 +87,20 @@ const deleteFromFavorites = async (purchaseCarId) => {
 const seeNotifications = async () => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/users/notifications/see`, config, cacheMins);
+  return await client.get("/users/notifications/see", config, cacheMins);
+};
+
+////////////////////////////// Admin APIs //////////////////////////////
+const getCarsStatus = async () => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get("/users/admin/cars/status", config, cacheMins);
+};
+
+const exportUsersToExcel = async () => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get("/users/export", config, cacheMins);
 };
 
 export default {
@@ -103,5 +118,8 @@ export default {
     seeNotifications,
   },
   office: {},
-  admin: {},
+  admin: {
+    getCarsStatus,
+    exportUsersToExcel,
+  },
 };

@@ -5,6 +5,7 @@ import Brand from "./Brand";
 import Loader from "components/loader";
 import brandsApi from "api/car/brands";
 import useLocale from "hooks/useLocale";
+import EmptyList from "components/common/empty-list";
 
 const PopularBrands = () => {
   const { i18n, lang } = useLocale();
@@ -16,10 +17,8 @@ const PopularBrands = () => {
   useEffect(() => {
     brandsApi.common
       .getPopularBrands(0)
-      .then((res) => {
-        setContext({ brands: res.data.brands, loading: false });
-      })
-      .catch((err) => {});
+      .then((res) => setContext({ brands: res.data.brands, loading: false }))
+      .catch((err) => setContext({ brands: [], loading: false }));
   }, []);
 
   return (
@@ -29,7 +28,7 @@ const PopularBrands = () => {
       <Content>
         {context.loading ? (
           <Loader />
-        ) : (
+        ) : context.brands.length ? (
           context.brands.map((brand) => (
             <Brand
               key={brand._id}
@@ -37,6 +36,11 @@ const PopularBrands = () => {
               imageURL={brand.photoURL}
             />
           ))
+        ) : (
+          <EmptyList
+            imageURL="/assets/images/empty-1.svg"
+            title={i18n("noBrands")}
+          />
         )}
       </Content>
     </Container>

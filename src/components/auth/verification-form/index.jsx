@@ -17,7 +17,7 @@ const PhoneForm = () => {
   const { subject } = useParams(); // email or phone
   const { user, setUser } = useAuth();
   const [context, setContext] = useState({
-    lang: "en",
+    lang: lang,
     code: "",
     error: "",
     submitting: false,

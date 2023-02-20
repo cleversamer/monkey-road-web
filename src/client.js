@@ -118,4 +118,8 @@ export const routes = {
     route: "/alerts/my",
     navigate: () => "/alerts/my",
   },
+  adminMain: {
+    route: "/admin/main",
+    navigate: () => "/admin/main",
+  },
 };

@@ -36,6 +36,7 @@ import { useEffect, useState } from "react";
 import Splash from "pages/user/Splash";
 import socket from "socket/client";
 import authStorage from "auth/storage";
+import MainScreen from "pages/admin/MainScreen";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -80,6 +81,44 @@ const App = () => {
       {(!user || (user && user.role !== "admin")) && <Navigation />}
 
       <Routes>
+        {/* admin routes */}
+        {user && user.role === "admin" && (
+          <>
+            <Route path={routes.adminMain.route} element={<MainScreen />} />
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={
+                    !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.adminMain.route
+                  }
+                  replace
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={
+                    !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.adminMain.route
+                  }
+                  replace
+                />
+              }
+            />
+          </>
+        )}
+
+        {/* unverified user routes */}
+        {user && (!user.verified.email || !user.verified.phone) && (
+          <Route path={routes.verify.route} element={<Verify />} />
+        )}
+
         {/* user routes */}
         {user && user.role !== "admin" && (
           <>
@@ -111,13 +150,6 @@ const App = () => {
             />
           </>
         )}
-
-        {/* unverified user routes */}
-        {user &&
-          user.role !== "admin" &&
-          (!user.verified.email || !user.verified.phone) && (
-            <Route path={routes.verify.route} element={<Verify />} />
-          )}
 
         {/* office routes */}
         {user &&

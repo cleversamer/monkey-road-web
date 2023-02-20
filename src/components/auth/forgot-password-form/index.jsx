@@ -10,10 +10,10 @@ import { routes } from "client";
 import useLocale from "hooks/useLocale";
 
 const ForgotPasswordForm = () => {
-  const { i18n } = useLocale();
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const [context, setContext] = useState({
-    lang: "en",
+    lang: lang,
     sendTo: "email",
     emailOrPhone: "",
     error: "",
@@ -38,7 +38,7 @@ const ForgotPasswordForm = () => {
       await usersApi.common.getForgotPasswordCode(lang, sendTo, emailOrPhone);
       navigate(routes.resetPassword.navigate(context.emailOrPhone));
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("etworkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }

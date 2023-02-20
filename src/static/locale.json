@@ -683,6 +683,10 @@
         "en": "Optional",
         "ar": "إختياريّ"
     },
+    "compulsory": {
+        "en": "Compulsory",
+        "ar": "إجباريّ"
+    },
     "descriptionPlaceholder": {
         "en": "Describe your car in 0-1024 letters",
         "ar": "أكتب وصفًا لسيّارتك بين 0-1024 حرفًا"
@@ -850,5 +854,69 @@
     "noSearchResults": {
         "en": "No results were found for your search",
         "ar": "لم يتم العثور على نتائج بحثك"
+    },
+    "mainScreen": {
+        "en": "Main screen",
+        "ar": "الشاشة الرئيسيّة"
+    },
+    "addBrandButton": {
+        "en": "+ Add brand",
+        "ar": "إضافة شركة سيّارات +"
+    },
+    "pendingRentalPosts": {
+        "en": "Pending rental posts",
+        "ar": "سيّارات الإيجار المعلّقة"
+    },
+    "pendingPosts": {
+        "en": "Pending posts",
+        "ar": "المنشورات المعلّقة"
+    },
+    "users": {
+        "en": "Users",
+        "ar": "المستخدمين"
+    },
+    "searchUsers": {
+        "en": "Search users",
+        "ar": "البحث عن المستخدمين"
+    },
+    "exportToExcel": {
+        "en": "Export to excel",
+        "ar": "تصدير ملف إكسل"
+    },
+    "notifications": {
+        "en": "Notifications",
+        "ar": "الإشعارات"
+    },
+    "addBrand": {
+        "en": "Add brand",
+        "ar": "إضافة شركة سيّارات"
+    },
+    "viewBrands": {
+        "en": "View brands",
+        "ar": "عرض شركات السيّارات"
+    },
+    "posts": {
+        "en": "Posts",
+        "ar": "المنشورات"
+    },
+    "language": {
+        "en": "Language",
+        "ar": "اللغة"
+    },
+    "logout": {
+        "en": "Logout",
+        "ar": "تسجيل خروج"
+    },
+    "accept": {
+        "en": "Accept",
+        "ar": "قبول"
+    },
+    "noBrands": {
+        "en": "No brands registered yet",
+        "ar": "لا يوجد شركات سيّارات مسجّلة بعد"
+    },
+    "officesOrders": {
+        "en": "Offices orders",
+        "ar": "طلبات مكاتب التأجير"
     }
 }

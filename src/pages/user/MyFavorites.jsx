@@ -30,7 +30,7 @@ const MyFavorites = () => {
 
     // fetch latest purchase cars
     purchaseApi.common
-      .getAllPurchaseCars()
+      .getRecentlyArrivedPurchaseCars()
       .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
       .catch((err) => {});
   }, []);

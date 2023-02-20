@@ -12,7 +12,7 @@ import { routes } from "client";
 import useLocale from "hooks/useLocale";
 
 const ResetPasswordForm = () => {
-  const { i18n } = useLocale();
+  const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const { login } = useAuth();
   const { emailOrPhone } = useQueryParams();
@@ -64,7 +64,7 @@ const ResetPasswordForm = () => {
 
       navigate(routes.home.navigate());
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }

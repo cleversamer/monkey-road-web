@@ -12,7 +12,7 @@ const EmailOrPhoneInput = (props) => {
       </LeftIcon>
 
       <Input
-        type="email"
+        type="text"
         placeholder="example@example.com"
         autoComplete="true"
         lang={lang}

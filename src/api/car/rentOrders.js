@@ -30,9 +30,18 @@ const cancelOrder = async (orderId) => {
 };
 
 const deleteOrder = async (orderId) => {
-  console.log("delete order", orderId);
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.delete(`/orders/rent/${orderId}/delete`, config);
+};
+
+const getAllOrders = async (skip = 0) => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get(
+    `/orders/rent/admin/all?skip=${skip}`,
+    config,
+    cacheMins
+  );
 };
 
 export default {
@@ -44,5 +53,8 @@ export default {
   },
   office: {
     getMyReceivedOrders,
+  },
+  admin: {
+    getAllOrders,
   },
 };
