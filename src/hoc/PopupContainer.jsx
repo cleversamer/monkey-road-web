@@ -1,6 +1,8 @@
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-const PopupContainer = ({ children }) => {
+const PopupContainer = ({ onHide, children }) => {
+  const ref = useRef(null);
   const body = document.body;
   const html = document.documentElement;
 
@@ -12,9 +14,33 @@ const PopupContainer = ({ children }) => {
     html.offsetHeight
   );
 
+  useEffect(() => {
+    window.onkeydown = function (event) {
+      if (event.keyCode == 27) {
+        onHide();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      onHide();
+    }
+  };
+
   return (
     <Container height={height}>
-      <Content>{children}</Content>
+      <Content ref={ref}>{children}</Content>
     </Container>
   );
 };

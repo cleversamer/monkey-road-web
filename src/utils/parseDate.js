@@ -1,5 +1,3 @@
-import useLocale from "hooks/useLocale";
-
 export default function (strDate, lang) {
   const day = lang === "ar" ? "يوم" : "day";
   const days = lang === "ar" ? "أيام" : "days";

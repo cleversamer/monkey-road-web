@@ -1,19 +1,10 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 
 const PopupMessage = ({ onHide, imageURL, title, subtitle, children }) => {
-  useEffect(() => {
-    window.onkeydown = function (event) {
-      if (event.keyCode == 27) {
-        onHide();
-      }
-    };
-  }, []);
-
   return (
-    <PopupContainer>
+    <PopupContainer onHide={onHide}>
       <Container>
         <TopRow>
           <Title>{title}</Title>
