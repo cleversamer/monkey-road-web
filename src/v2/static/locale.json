@@ -1,0 +1,922 @@
+{
+    "home": {
+        "en": "Home",
+        "ar": "الرئيسيّة"
+    },
+    "logoutTitle": {
+        "en": "Logout",
+        "ar": "تسجيل الخروج"
+    },
+    "logoutSubtitle": {
+        "en": "Do you really want to logout?",
+        "ar": "هل تريد حقًا تسجيل الخروج؟"
+    },
+    "logoutHint": {
+        "en": "If you logout, you will have to retype your email and password again",
+        "ar": "إذا قمت بتسجيل الخروج، يجب عليك إعادة كتابة بريدك الإلكتروني وكلمة المرور مرة أخرى"
+    },
+    "ok": {
+        "en": "Ok",
+        "ar": "حسنًا"
+    },
+    "cancel": {
+        "en": "Cancel",
+        "ar": "إلغاء"
+    },
+    "viewCars": {
+        "en": "View cars",
+        "ar": "عرض السيّارات"
+    },
+    "rentCars": {
+        "en": "Cars for rent",
+        "ar": "سيّارات للإيجار"
+    },
+    "purchaseCars": {
+        "en": "Cars for sale",
+        "ar": "سيّارات للبيع"
+    },
+    "whyUs": {
+        "en": "Why us?",
+        "ar": "لماذا نحن؟"
+    },
+    "whyUsDescription": {
+        "en": "Lorem ipsum dolor sit amet consectetur Arcu pellentesque sit in nisi nunc justo vel nascetur Id massa commodo diam eget in arcu faucibus So",
+        "ar": "Lorem ipsum dolor sit amet consectetur Arcu pellentesque sit in nisi nunc justo vel nascetur Id massa commodo diam eget in arcu faucibus So"
+    },
+    "aboutUs": {
+        "en": "About us",
+        "ar": "من نحن"
+    },
+    "post": {
+        "en": "Post",
+        "ar": "نشر"
+    },
+    "postRent": {
+        "en": "Post rent",
+        "ar": "نشر للإيجار"
+    },
+    "postRentCar": {
+        "en": "Post car for rent",
+        "ar": "نشر سيّارة للإيجار"
+    },
+    "postSale": {
+        "en": "Post sale",
+        "ar": "نشر للبيع"
+    },
+    "postPurchaseCar": {
+        "en": "Post car for sale",
+        "ar": "نشر سيّارة للبيع"    
+    },
+    "forRent": {
+        "en": "For rent",
+        "ar": "للإيجار"
+    },
+    "forSale": {
+        "en": "For sale",
+        "ar": "للبيع"
+    },
+    "orders": {
+        "en": "Orders",
+        "ar": "الطّلبات"
+    },
+    "favorites": {
+        "en": "Favorites",
+        "ar": "المفضّلة"
+    },
+    "alerts": {
+        "en": "Alerts",
+        "ar": "الإشعارات"
+    },
+    "login": {
+        "en": "Login",
+        "ar": "دخول"
+    },
+    "loginTitle": {
+        "en": "Login",
+        "ar": "تسجيل دخول"
+    },
+    "profile": {
+        "en": "Profile",
+        "ar": "حسابي"
+    },
+    "personalInfo": {
+        "en": "Personal info",
+        "ar": "المعلومات الشخصيّة"
+    },
+    "salesPosts": {
+        "en": "Sales posts",
+        "ar": "سيّارات البيع"
+    },
+    "rentalPosts": {
+        "en": "Rental posts",
+        "ar": "سيّارات الإيجار"
+    },
+    "receivedOrders": {
+        "en": "Received orders",
+        "ar": "الطّلبات المستلمة"
+    },
+    "changePassword": {
+        "en": "Change password",
+        "ar": "تغيير كلمة المرور"
+    },
+    "lastLogin": {
+        "en": "Last login",
+        "ar": "آخر دخول"
+    },
+    "ago": {
+        "en": "ago",
+        "ar": "منذ"
+    },
+    "fullName": {
+        "en": "Full name",
+        "ar": "الإسم الكامل"
+    },
+    "samerAlsaadawi": {
+        "en": "Samer Alsaadawi",
+        "ar": "سامر السعداوي"
+    },
+    "email": {
+        "en": "Email",
+        "ar": "البريد الإلكتروني"
+    },
+    "verified": {
+        "en": "Verified",
+        "ar": "مفعّل"
+    },
+    "notVerified": {
+        "en": "Not verified",
+        "ar": "غير مفعّل"
+    },
+    "verify": {
+        "en": "Verify",
+        "ar": "تفعيل"
+    },
+    "phoneNumber": {
+        "en": "Phone number",
+        "ar": "رقم الهاتف"
+    },
+    "role": {
+        "en": "Role",
+        "ar": "نوع الحساب"
+    },
+    "user": {
+        "en": "User",
+        "ar": "مستخدم"
+    },
+    "office": {
+        "en": "Office",
+        "ar": "مكتب تأجير"
+    },
+    "admin": {
+        "en": "Admin",
+        "ar": "مسؤول"
+    },
+    "edit": {
+        "en": "Edit",
+        "ar": "تعديل"
+    },
+    "save": {
+        "en": "Save",
+        "ar": "حفظ"
+    },
+    "myAccount": {
+        "en": "My account",
+        "ar": "حسابي"
+    },
+    "arrow": {
+        "en": ">",
+        "ar": "<"
+    },
+    "networkError": {
+        "en": "Network error",
+        "ar": "خطأ في الشبكة"
+    },
+    "empty": {
+        "en": "It's empty here",
+        "ar": "لا يوجد شيء هنا"
+    },
+    "noPosts": {
+        "en": "No posts have been added yet",
+        "ar": "لا يوجد منشورات مُضافة بعد"
+    },
+    "callSeller": {
+        "en": "Call seller",
+        "ar": "إتصل بالبائع"
+    },
+    "whatsApp": {
+        "en": "WhatsApp",
+        "ar": "واتساب"
+    },
+    "aed": {
+        "en": "AED",
+        "ar": "درهم إماراتي"
+    },
+    "goShopping": {
+        "en": "Go shopping",
+        "ar": "متابعة التسوق"
+    },
+    "password": {
+        "en": "Password",
+        "ar": "كلمة المرور"
+    },
+    "oldPassword": {
+        "en": "Old password",
+        "ar": "كلمة المرور القديمة"
+    },
+    "newPassword": {
+        "en": "New password",
+        "ar": "كلمة المرور الجديدة"
+    },
+    "confirmPassword": {
+        "en": "Confirm password",
+        "ar": "تأكيد كلمة المرور"
+    },
+    "letters": {
+        "en": "Letters",
+        "ar": "حرفًا"
+    },
+    "welcome": {
+        "en": "Welcome",
+        "ar": "أهلاً بك"
+    },
+    "loginFormSubtitle": {
+        "en": "Sign in to continue",
+        "ar": "قم بتسجيل الدخول للمتابعة"
+    },
+    "emailOrPhone": {
+        "en": "Email or phone number",
+        "ar": "البريد الإلكتروني أو رقم الهاتف"
+    },
+    "rememberMe": {
+        "en": "Remember me",
+        "ar": "تذكّرني"
+    },
+    "loginForgotPassword": {
+        "en": "Forgot password?",
+        "ar": "نسيت كلمة المرور؟"
+    },
+    "or": {
+        "en": "OR",
+        "ar": "أو"
+    },
+    "continueWithGoogle": {
+        "en": "Continue with google",
+        "ar": "المتابعة بإستخدام جوجل"
+    },
+    "dontHaveAcc": {
+        "en": "Don't have an account?",
+        "ar": "ليس لديك حساب؟"
+    },
+    "register": {
+        "en": "Register",
+        "ar": "إنضمام"
+    },
+    "registerFormSubtitle": {
+        "en": "Sign up to continue",
+        "ar": "قم بتسجيل حساب للمتابعة"
+    },
+    "registrHint1": {
+        "en": "By clicking “Register“, I agree to",
+        "ar": "بالضغط على كلمة تسجيل، أوافق على"
+    },
+    "registrHint2": {
+        "en": "terms of condition & privacy policy",
+        "ar": "شروط الإستخدام وسياسة الخصوصيّة"
+    },
+    "headerTitle": {
+        "en": "High-quality cars, reasonable prices, and within everyone's reach",
+        "ar": "سيّارات عالية الجودة وأسعار مناسبة وفي متناول الجميع"
+    },
+    "headerSearchPlaceholder": {
+        "en": "Find your favorite car",
+        "ar": "إبحث عن سيّارتك المفضّلة"
+    },
+    "popularBrands": {
+        "en": "Popular brands",
+        "ar": "شركات السيّارات الأكثر شهرة"
+    },
+    "whyUs1Title": {
+        "en": "Better experience",
+        "ar": "تجربة أفضل"
+    },
+    "whyUs1Description": {
+        "en": "We believe in fairness and transparency",
+        "ar": "نحن نؤمن بالعدالة والشفافيّة"
+    },
+    "whyUs2Title": {
+        "en": "Better cars",
+        "ar": "سيّارات أفضل"
+    },
+    "whyUs2Description": {
+        "en": "Like-new cars at like-wow prices",
+        "ar": "مثل السيّارات الجديدة بأسعار مماثلة"
+    },
+    "whyUs3Title": {
+        "en": "Better guarantees",
+        "ar": "ضمانات أفضل"
+    },
+    "whyUs3Description": {
+        "en": "our vehicles are guaranteed like no place else",
+        "ar": "سيّاراتنا مضمونة لا مثيل لها في أيّ مكان آخر"
+    },
+    "whyUs4Title": {
+        "en": "Better than anywhere",
+        "ar": "أفضل من أيّ مكان"
+    },
+    "whyUs4Description": {
+        "en": "Compare and you will find no other choice makes sense",
+        "ar": "قارن ولن تجد أيّ خيار آخر منطقي"
+    },
+    "aboutUs1Title": {
+        "en": "Always available",
+        "ar": "متاح دائمًا"
+    },
+    "aboutUs1Paragraph": {
+        "en": "Lorem ipsum dolor sit amet consectetur Arcu pellentesque sit in nisi nunc justo vel nascetur",
+        "ar": "Lorem ipsum dolor sit amet consectetur Arcu pellentesque sit in nisi nunc justo vel nascetur"
+    },
+    "featuresSectionTitle": {
+        "en": "Here comfort and safety",
+        "ar": "هنا الراحة والأمان"
+    },
+    "feature1Title": {
+        "en": "Latest models",
+        "ar": "أحدث الموديلات"
+    },
+    "feature1Description": {
+        "en": "Here we provide you with the best and latest car models",
+        "ar": "نقدم لكم هنا أفضل وأحدث موديلات السيّارات"
+    },
+    "feature2Title": {
+        "en": "No bargaining, no pressure",
+        "ar": "لا مساومة ولا ضغط"
+    },
+    "feature2Description": {
+        "en": "We publish the best cars at the best prices and the most quality",
+        "ar": "ننشر أفضل السيّارات بأفضل الأسعار والجودة"
+    },
+    "feature3Title": {
+        "en": "Post your car",
+        "ar": "أنشر سيّارتك"
+    },
+    "feature3Description": {
+        "en": "Hurry up and post your own car in our store",
+        "ar": "أسرع وأنشر سيّارتك الخاصّة في متجرنا"
+    },
+    "feature4Title": {
+        "en": "Complete deals",
+        "ar": "صفقات كاملة"
+    },
+    "feature4Description": {
+        "en": "Get the best deal and avoid all scams and scams",
+        "ar": "أحصل على أفضل صفقة وتجنب كل الحيل والخداع"
+    },
+    "newsletterTitle": {
+        "en": "Our newsletter",
+        "ar": "نشرتنا الإخباريّة"
+    },
+    "newsletterSubtitle": {
+        "en": "Subscribe to receive all new",
+        "ar": "إشترك ليصلك كل جديد"
+    },
+    "enterEmail": {
+        "en": "Enter your email",
+        "ar": "أدخل بريدك الإلكتروني"
+    },
+    "enterPhone": {
+        "en": "Enter your phone",
+        "ar": "أدخل رقم هاتفك"
+    },
+    "subscribe": {
+        "en": "Subscribe",
+        "ar": "إشترك"
+    },
+    "successfullySubscribed": {
+        "en": "You're now subscribed",
+        "ar": "أنت مشترك الآن"
+    },
+    "followUs": {
+        "en": "Follow us",
+        "ar": "تابعنا"
+    },
+    "website": {
+        "en": "Website",
+        "ar": "موقعنا الإلكتروني"
+    },
+    "faq": {
+        "en": "FAQ",
+        "ar": "التعليمات"
+    },
+    "privacyPolicy": {
+        "en": "Privacy policy",
+        "ar": "سياسة الخصوصيّة"
+    },
+    "terms": {
+        "en": "Terms of condition",
+        "ar": "شروط الإستخدام"
+    },
+    "app": {
+        "en": "App",
+        "ar": "التطبيق"
+    },
+    "forgotPasswordTitle": {
+        "en": "Forgot your password?",
+        "ar": "نسيت كلمة المرور؟"
+    },
+    "forgotPasswordSubtitle": {
+        "en": "We will send you a verification code",
+        "ar": "سنرسل لك رمز تحقق"
+    },
+    "sendCode": {
+        "en": "Send code",
+        "ar": "أرسل الرمز"
+    },
+    "resetPasswordTitle": {
+        "en": "Reset your password",
+        "ar": "إستعادة كلمة المرور"
+    },
+    "resetPasswordSubtitle": {
+        "en": "We have just sent you a password reset code",
+        "ar": "لقد أرسلنا لك للتو رمز لإعادة تعيين كلمة المرور"
+    },
+    "code": {
+        "en": "Code",
+        "ar": "الرمز"
+    },
+    "digit": {
+        "en": "Digit",
+        "ar": "رقم"
+    },
+    "digits": {
+        "en": "Digits",
+        "ar": "أرقام"
+    },
+    "resetPassword": {
+        "en": "Reset password",
+        "ar": "إستعادة كلمة المرور"
+    },
+    "emailVerificationTitle": {
+        "en": "Verify your email",
+        "ar": "تفعيل البريد الإلكتروني"
+    },
+    "emailVerificationSubtitle": {
+        "en": "We have just sent you a verification code",
+        "ar": "لقد أرسلنا لك للتو رمز تحقق"
+    },
+    "phoneVerificationTitle": {
+        "en": "Verify your phone",
+        "ar": "تفعيل رقم الهاتف"
+    },
+    "phoneVerificationSubtitle": {
+        "en": "We have just sent you a verification code",
+        "ar": "لقد أرسلنا لك للتو رمز تحقق"
+    },
+    "didntReceiveCode": {
+        "en": "Didn't receive a code?",
+        "ar": "لم يصلك الرمز؟"
+    },
+    "resendAfter": {
+        "en": "Resend after",
+        "ar": "أعد الإرسال بعد"
+    },
+    "resendCode": {
+        "en": "Resend code",
+        "ar": "أعد إرسال الكود"
+    },
+    "alreadyHaveAcc": {
+        "en": "Already have an account?",
+        "ar": "لديك حساب بالفعل؟"
+    },
+    "fastRegisterSubtitle": {
+        "en": "Phone number is required before register",
+        "ar": "رقم الهاتف مطلوب قبل الإنضمام"
+    },
+    "rentNow": {
+        "en": "Rent now",
+        "ar": "إستأجر الآن"
+    },
+    "filters": {
+        "en": "Filters",
+        "ar": "فلاتر البحث"
+    },
+    "price": {
+        "en": "Price",
+        "ar": "السعر"
+    },
+    "brands": {
+        "en": "Brands",
+        "ar": "شركات السيّارات"
+    },
+    "colors": {
+        "en": "Colors",
+        "ar": "الألوان"
+    },
+    "Vehicle": {
+        "en": "Year model",
+        "ar": "موديل السنة"
+    },
+    "viewMore": {
+        "en": "View more",
+        "ar": "عرض المزيد"
+    },
+    "similarProducts": {
+        "en": "Similar products",
+        "ar": "منتجات مشابهة"
+    },
+    "dailyPrice": {
+        "en": "Daily price",
+        "ar": "السعر اليومي"
+    },
+    "weeklyPrice": {
+        "en": "Weekly price",
+        "ar": "السعر الأسبوعي"
+    },
+    "monthlyPrice": {
+        "en": "Monthly price",
+        "ar": "السعر الشهري"
+    },
+    "deposit": {
+        "en": "Deposit",
+        "ar": "التأمين"
+    },
+    "description": {
+        "en": "Description",
+        "ar": "الوصف"
+    },
+    "details": {
+        "en": "Details",
+        "ar": "التفاصيل"
+    },
+    "carModel": {
+        "en": "Model",
+        "ar": "الموديل"
+    },
+    "brand": {
+        "en": "Brand",
+        "ar": "شركة التصنيع"
+    },
+    "color": {
+        "en": "Color",
+        "ar": "اللون"
+    },
+    "deliveryInfo": {
+        "en": "Delivery information",
+        "ar": "معلومات التوصيل"
+    },
+    "from": {
+        "en": "from",
+        "ar": "من"
+    },
+    "noOfDays": {
+        "en": "NO. of days",
+        "ar": "عدد الأيام"
+    },
+    "time": {
+        "en": "Time",
+        "ar": "الوقت"
+    },
+    "prev": {
+        "en": "prev",
+        "ar": "السابق"
+    },
+    "next": {
+        "en": "next",
+        "ar": "التالي"
+    },
+    "continue": {
+        "en": "Continue",
+        "ar": "متابعة"
+    },
+    "complete": {
+        "en": "Complete",
+        "ar": "إكمال العمليّة"
+    },
+    "day": {
+        "en": "Day",
+        "ar": "يوم"
+    },
+    "recentlyArrived": {
+        "en": "Recently arrived",
+        "ar": "وصل حديثًا"
+    },
+    "seeMore": {
+        "en": "See more",
+        "ar": "رؤية المزيد"
+    },
+    "latestModels": {
+        "en": "Latest models",
+        "ar": "أحدث الموديلات"
+    },
+    "bestSeller": {
+        "en": "Best seller",
+        "ar": "أفضل البائعين"
+    },
+    "latestPurchaseCars": {
+        "en": "Latest cars for sale",
+        "ar": "أحدث السيّارات المعروضة للبيع"
+    },
+    "latestRentalCars": {
+        "en": "Latest cars for rent",
+        "ar": "أحدث السيّارات المعروضة للإيجار"
+    },
+    "itemOverview": {
+        "en": "Item overview",
+        "ar": "نظرة عامة على العنصر"
+    },
+    "kmph": {
+        "en": "km/h",
+        "ar": "كم/س"
+    },
+    "seats": {
+        "en": "Seats",
+        "ar": "مقاعد"
+    },
+    "trimLevel": {
+        "en": "Trim level",
+        "ar": "مستوى القطع"
+    },
+    "kiloPerHour": {
+        "en": "Kilo per hour",
+        "ar": "كيلومتر في الساعة"
+    },
+    "operationSucceeded": {
+        "en": "operation accomplished successfully",
+        "ar": "تمت العمليّة بنجاح"
+    },
+    "done": {
+        "en": "Done",
+        "ar": "تمت العمليّة"
+    },
+    "backToHome": {
+        "en": "Back to home",
+        "ar": "الرجوع للرئيسيّة"
+    },
+    "carName": {
+        "en": "Car name",
+        "ar": "إسم السيّارة"
+    },
+    "vinNumber": {
+        "en": "VIN Number",
+        "ar": "رقم المركبة"
+    },
+    "vehicleType": {
+        "en": "Vehicle type",
+        "ar": "نوع المركبة"
+    },
+    "fuelType": {
+        "en": "Fuel type",
+        "ar": "نوع الوقود"
+    },
+    "noOfSeats": {
+        "en": "NO. of seats",
+        "ar": "عدد المقاعد"
+    },
+    "addCarFormTitle": {
+        "en": "Tell us about your car",
+        "ar": "أخبرنا عن سيّارتك"
+    },
+    "yearModel": {
+        "en": "Year model",
+        "ar": "موديل السنة"
+    },
+    "optional": {
+        "en": "Optional",
+        "ar": "إختياريّ"
+    },
+    "compulsory": {
+        "en": "Compulsory",
+        "ar": "إجباريّ"
+    },
+    "descriptionPlaceholder": {
+        "en": "Describe your car in 0-1024 letters",
+        "ar": "أكتب وصفًا لسيّارتك بين 0-1024 حرفًا"
+    },
+    "uploadCarImages": {
+        "en": "Upload special car images",
+        "ar": "أضف صور مُميزة لسيّارتك"
+    },
+    "paymentFormTitle": {
+        "en": "Payment",
+        "ar": "الدفع"
+    },
+    "paymentMethods": {
+        "en": "Payment methods",
+        "ar": "طرق الدفع"
+    },
+    "debitOrCredit": {
+        "en": "Debit/credit card",
+        "ar": "بطاقة الخصم أو الإئتمان"
+    },
+    "paypal": {
+        "en": "Paypal",
+        "ar": "بايبال"
+    },
+    "invoice": {
+        "en": "Invoice",
+        "ar": "الفاتورة"
+    },
+    "postCost": {
+        "en": "Post cost",
+        "ar": "رسوم المنشور"
+    },
+    "paymentFees": {
+        "en": "Payment fees",
+        "ar": "رسوم الدّفع"
+    },
+    "total": {
+        "en": "Total",
+        "ar": "الإجمالي"
+    },
+    "cardInfo": {
+        "en": "Card information",
+        "ar": "معلومات البطاقة"
+    },
+    "nameOnCard": {
+        "en": "Name on card",
+        "ar": "الإسم على البطاقة"
+    },
+    "cardNumber": {
+        "en": "Card number",
+        "ar": "رقم البطاقة"
+    },
+    "cvv": {
+        "en": "CVV/CVC code",
+        "ar": "CVV/CVC رمز "
+    },
+    "postalCode": {
+        "en": "Postal code",
+        "ar": "الرمز البريدي"
+    },
+    "month": {
+        "en": "Month",
+        "ar": "الشهر"
+    },
+    "year": {
+        "en": "Year",
+        "ar": "السنة"
+    },
+    "waitingForApproval": {
+        "en": "Waiting for approval",
+        "ar": "بإنتظار الموافقة"
+    },
+    "cancelOrderTitle": {
+        "en": "Cancel order",
+        "ar": "إغلاق الطلب"
+    },
+    "cancelOrderSubtitle": {
+        "en": "Do you really want to cancel order?",
+        "ar": "هل تريد حقًا إغلاق الطلب؟"
+    },
+    "cancelOrderHint": {
+        "en": "You can only cancel your order while it is pending",
+        "ar": "يمكنك فقط إغلاق الطلبات التي هي قيد الإنتظار"
+    },
+    "deleteOrderTitle": {
+        "en": "Delete order",
+        "ar": "حذف الطلب"
+    },
+    "deleteOrderSubtitle": {
+        "en": "Do you really want to delete order?",
+        "ar": "هل تريد حقًا حذف الطلب؟"
+    },
+    "deleteOrderHint": {
+        "en": "You can only delete your order while it is pending",
+        "ar": "يمكنك فقط حذف الطلبات التي هي قيد الإنتظار"
+    },
+    "completeOrderTitle": {
+        "en": "Pay now",
+        "ar": "إدفع الآن"
+    },
+    "noAlerts": {
+        "en": "No alerts right now!",
+        "ar": "ليس لديك إشعارات"
+    },
+    "upToDate": {
+        "en": "You are up to date",
+        "ar": "أنت قيد التحديث"
+    },
+    "payNow": {
+        "en": "Pay now",
+        "ar": "إدفع الآن"
+    },
+    "delete": {
+        "en": "Delete",
+        "ar": "حذف"
+    },
+    "products": {
+        "en": "Products",
+        "ar": "المنتجات"
+    },
+    "status": {
+        "en": "Status",
+        "ar": "الحالة"
+    },
+    "date": {
+        "en": "Date",
+        "ar": "التاريخ"
+    },
+    "operations": {
+        "en": "Operations",
+        "ar": "العمليات"
+    },
+    "all": {
+        "en": "All",
+        "ar": "الكل"
+    },
+    "pending": {
+        "en": "Pending",
+        "ar": "قيد الإنتظار"
+    },
+    "approved": {
+        "en": "Approved",
+        "ar": "مقبول"
+    },
+    "rejected": {
+        "en": "Rejected",
+        "ar": "مرفوض"
+    },
+    "closed": {
+        "en": "Cancelled",
+        "ar": "مُغلق"
+    },
+    "viewDetails": {
+        "en": "View details",
+        "ar": "عرض التفاصيل"
+    },
+    "deletePost": {
+        "en": "Delete post",
+        "ar": "حذف المنشور"
+    },
+    "location": {
+        "en": "Location",
+        "ar": "الموقع"
+    },
+    "noSearchResults": {
+        "en": "No results were found for your search",
+        "ar": "لم يتم العثور على نتائج بحثك"
+    },
+    "mainScreen": {
+        "en": "Main screen",
+        "ar": "الشاشة الرئيسيّة"
+    },
+    "addBrandButton": {
+        "en": "+ Add brand",
+        "ar": "إضافة شركة سيّارات +"
+    },
+    "pendingRentalPosts": {
+        "en": "Pending rental posts",
+        "ar": "سيّارات الإيجار المعلّقة"
+    },
+    "pendingPosts": {
+        "en": "Pending posts",
+        "ar": "المنشورات المعلّقة"
+    },
+    "users": {
+        "en": "Users",
+        "ar": "المستخدمين"
+    },
+    "searchUsers": {
+        "en": "Search users",
+        "ar": "البحث عن المستخدمين"
+    },
+    "exportToExcel": {
+        "en": "Export to excel",
+        "ar": "تصدير ملف إكسل"
+    },
+    "notifications": {
+        "en": "Notifications",
+        "ar": "الإشعارات"
+    },
+    "addBrand": {
+        "en": "Add brand",
+        "ar": "إضافة شركة سيّارات"
+    },
+    "viewBrands": {
+        "en": "View brands",
+        "ar": "عرض شركات السيّارات"
+    },
+    "posts": {
+        "en": "Posts",
+        "ar": "المنشورات"
+    },
+    "language": {
+        "en": "Language",
+        "ar": "اللغة"
+    },
+    "logout": {
+        "en": "Logout",
+        "ar": "تسجيل خروج"
+    },
+    "accept": {
+        "en": "Accept",
+        "ar": "قبول"
+    },
+    "noBrands": {
+        "en": "No brands registered yet",
+        "ar": "لا يوجد شركات سيّارات مسجّلة بعد"
+    },
+    "officesOrders": {
+        "en": "Offices orders",
+        "ar": "طلبات مكاتب التأجير"
+    }
+}
