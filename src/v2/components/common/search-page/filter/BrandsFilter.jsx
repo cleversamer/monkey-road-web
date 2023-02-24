@@ -6,21 +6,25 @@ import brandsApi from "v2/api/car/brands";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 
+const pageSize = 2;
+
 const BrandsFilter = ({ selectedBrands, onChange }) => {
   const { lang } = useLocale();
-  const [brands, setBrands] = useState({ loading: true, list: [] });
+  const [brands, setBrands] = useState({ loading: true, list: [], end: false });
+  const [lastPage, setLastPage] = useState(1);
 
   useEffect(() => {
     brandsApi.common
-      .getPopularBrands(0)
+      .getPopularBrands(lastPage, pageSize)
       .then((res) => {
         setBrands({
           loading: false,
-          list: res.data.brands,
+          list: [...brands.list, ...res.data.brands],
+          end: res.data.totalPages === lastPage,
         });
       })
-      .catch((err) => setBrands({ loading: false, list: [] }));
-  }, []);
+      .catch((err) => setBrands({ loading: false, list: brands.list }));
+  }, [lastPage]);
 
   const handleChange = (e, brand) => {
     const brandsList = [...brands.list];
@@ -32,7 +36,10 @@ const BrandsFilter = ({ selectedBrands, onChange }) => {
     onChange(selectedBrands);
   };
 
-  const handleViewMore = () => {};
+  const handleViewMore = () => {
+    setBrands({ ...brands, loading: true });
+    setLastPage(lastPage + 1);
+  };
 
   const checkBrandSelected = (brand) => {
     const index = selectedBrands.findIndex((b) => b._id === brand._id);
@@ -56,7 +63,7 @@ const BrandsFilter = ({ selectedBrands, onChange }) => {
         ))
       )}
 
-      <ViewMore onClick={handleViewMore} />
+      {!brands.end && <ViewMore onClick={handleViewMore} />}
     </Container>
   );
 };
