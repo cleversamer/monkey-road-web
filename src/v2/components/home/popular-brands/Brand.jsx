@@ -11,7 +11,7 @@ const Brand = ({ title = "", imageURL = "" }) => {
 };
 
 const Container = styled.span`
-  background-color: rgba(254, 119, 119, 0.2);
+  background: #ffcece;
   box-shadow: 0px 1px 3px 3px rgba(254, 119, 119, 0.35);
   width: 100%;
   max-width: 150px;
@@ -25,7 +25,6 @@ const Container = styled.span`
   text-align: center;
   transition-duration: 176ms;
   margin: 0 20px;
-  border-radius: 8px;
   cursor: pointer;
 
   :hover {

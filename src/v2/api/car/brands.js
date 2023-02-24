@@ -1,9 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
 import client from "../client";
 
-const getPopularBrands = async (skip = 0) => {
+const getPopularBrands = async (page = 1, limit = 10) => {
   const cacheMins = 0; // 1 day
-  return await client.get(`/brands/popular?skip=${skip}`, {}, cacheMins);
+  return await client.get(
+    `/brands/popular?page=${page}&limit=${limit}`,
+    {},
+    cacheMins
+  );
 };
 
 export default {
