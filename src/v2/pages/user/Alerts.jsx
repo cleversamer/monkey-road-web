@@ -35,7 +35,7 @@ const Alerts = () => {
         {!!user?.notifications?.length && (
           <AlertsContainer lang={lang}>
             {user.notifications.map((alert, index) => (
-              <Alert key={alert.title + index} alert={alert} />
+              <Alert key={index} alert={alert} />
             ))}
           </AlertsContainer>
         )}
@@ -48,7 +48,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;

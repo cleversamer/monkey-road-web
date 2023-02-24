@@ -19,12 +19,20 @@ const Alert = ({ alert }) => {
 
   return (
     <Container lang={lang}>
-      <AlertTitle primary={!alert.seen}>{alert.title}</AlertTitle>
-      <AlertBody bold={!alert.seen}>{alert.body}</AlertBody>
-      <AlertDate bold={!alert.seen}>
-        {lang === "ar" && i18n("ago")} {time} {lang === "en" && i18n("ago")}
-      </AlertDate>
       {!alert.seen && <NewAlertBadge lang={lang} />}
+
+      <AlertImage
+        src={alert.photoURL || "/assets/images/alert.svg"}
+        alt="alert photo"
+      />
+
+      <Content lang={lang}>
+        <AlertTitle primary={!alert.seen}>{alert.title[lang]}</AlertTitle>
+        <AlertBody bold={!alert.seen}>{alert.body[lang]}</AlertBody>
+        <AlertDate bold={!alert.seen}>
+          {lang === "ar" && i18n("ago")} {time} {lang === "en" && i18n("ago")}
+        </AlertDate>
+      </Content>
     </Container>
   );
 };
@@ -33,14 +41,26 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   max-width: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
-  gap: 12px;
   padding: 20px;
   border-radius: 8px;
   background-color: #fff;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  gap: 15px;
+`;
+
+const AlertImage = styled.img`
+  width: 100px;
+  object-fit: contain;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+  gap: 12px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const AlertTitle = styled.h5`
