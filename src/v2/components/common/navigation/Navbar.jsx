@@ -85,12 +85,12 @@ const Navbar = ({ onOpenMenu }) => {
             <NavItem>
               <NavLink
                 to="app"
-                onClick={() => navigateAndScrollToTop(routes.home.route)}
                 smooth={true}
                 duration={500}
                 spy={true}
                 exact="true"
                 offset={-80}
+                onClick={() => navigateAndScrollToTop(routes.home.route)}
               >
                 {i18n("home")}
               </NavLink>
@@ -575,7 +575,7 @@ const NavLink = styled(ScrollLink)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  color: #010606;
+  color: "#010606";
   text-transform: capitalize;
 
   svg {
