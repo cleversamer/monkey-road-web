@@ -159,6 +159,7 @@ const Container = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
 `;
 
 const Content = styled.div`

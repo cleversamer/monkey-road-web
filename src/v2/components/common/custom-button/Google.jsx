@@ -25,6 +25,8 @@ const Container = styled.button`
   outline: none;
   transition-duration: 176ms;
   cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #fe7777;
 
   :active {
     transform: scale(0.97);
