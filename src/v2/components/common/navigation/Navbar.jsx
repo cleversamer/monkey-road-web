@@ -480,10 +480,8 @@ const Nav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 999999;
-  background: #fafafa;
-  box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-  -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
-  -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 1px rgba(51, 51, 51, 0.3);
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
