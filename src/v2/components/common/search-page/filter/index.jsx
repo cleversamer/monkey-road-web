@@ -60,6 +60,7 @@ const Container = styled.aside`
   border-radius: 16px;
   padding: 20px 0;
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.25);
 `;
 
 const Title = styled.h3`

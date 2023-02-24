@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { serverURL } from "v2/api/client";
 import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
 
@@ -23,10 +22,12 @@ const ReusableCar = ({
       <InfoContaier border={user && user.verified.email}>
         <Row1 lang={lang}>
           <CarName>{name}</CarName>
-          <CarPriceContainer lang={lang}>
-            <CarPrice>{parseInt(price).toLocaleString()}</CarPrice>
-            <Currency>{i18n("aed")}</Currency>
-          </CarPriceContainer>
+          {!!price && (
+            <CarPriceContainer lang={lang}>
+              <CarPrice>{parseInt(price).toLocaleString()}</CarPrice>
+              <Currency>{i18n("aed")}</Currency>
+            </CarPriceContainer>
+          )}
         </Row1>
 
         <Row2 lang={lang}>
@@ -44,11 +45,10 @@ const ReusableCar = ({
 const Container = styled.div`
   position: relative;
   background: #fff;
-  box-shadow: 0px 5px 7px rgba(254, 119, 119, 0.25);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-radius: 16px;
   width: 100%;
   max-width: 350px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
 `;
 
 const Image = styled.div`
@@ -58,8 +58,8 @@ const Image = styled.div`
   background-size: cover;
   width: 100%;
   height: 178px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   transition-duration: 176ms;
   cursor: pointer;
 

@@ -10,7 +10,8 @@ const getAllRentCars = async (skip = 0) => {
 
 const searchRentCars = async (
   searchTerm,
-  skip = 0,
+  page,
+  limit,
   minPrice,
   maxPrice,
   brands,
@@ -19,7 +20,7 @@ const searchRentCars = async (
 ) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/rent/search?searchTerm=${searchTerm}&skip=${skip}&minPrice=${minPrice}&maxPrice=${maxPrice}&brands=${brands}&colors=${colors}&years=${years}`,
+    `/cars/rent/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}&minPrice=${minPrice}&maxPrice=${maxPrice}&brands=${brands}&colors=${colors}&years=${years}`,
     {},
     cacheMins
   );

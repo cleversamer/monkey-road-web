@@ -4,6 +4,7 @@ import Filter from "./filter";
 import SearchBox from "../search-box";
 import Location from "./Location";
 import { IoClose } from "react-icons/io5";
+import Pagination from "v2/components/pagination";
 
 const SearchPage = ({
   priceConfig,
@@ -15,6 +16,11 @@ const SearchPage = ({
   onSubmit,
   pageTitles,
   children,
+  currentPage,
+  totalPages,
+  onNext,
+  onPrev,
+  onSelectPage,
 }) => {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -52,7 +58,19 @@ const SearchPage = ({
             />
           </SearchBoxContainer>
 
-          <SearchResults visible={!filtersOpen}>{children}</SearchResults>
+          <SearchResultsContainer>
+            <SearchResults visible={!filtersOpen}>{children}</SearchResults>
+
+            {!!totalPages && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onNext={onNext}
+                onPrev={onPrev}
+                onSelectPage={onSelectPage}
+              />
+            )}
+          </SearchResultsContainer>
         </SearchContainer>
       </Content>
     </Container>
@@ -67,7 +85,7 @@ const Container = styled.main`
   margin: 0 auto;
   padding: 40px 20px;
   padding-bottom: 100px;
-  background: #fafafa;
+  background: #fff;
 `;
 
 const LocationContainer = styled.div`
@@ -162,6 +180,13 @@ const FilterIcon = styled.img`
       transform: scale(0.97);
     }
   }
+`;
+
+const SearchResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 `;
 
 const SearchResults = styled.ul`
