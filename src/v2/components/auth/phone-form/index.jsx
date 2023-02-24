@@ -43,6 +43,7 @@ const PhoneForm = () => {
       setContext({ ...context, submitting: true });
 
       const body = {
+        lang,
         phoneICC: context.icc,
         phoneNSN: context.nsn,
       };
