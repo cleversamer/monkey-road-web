@@ -235,8 +235,8 @@ const RegisterPhrase = styled.p`
 `;
 
 const RegisterRoute = styled(Link)`
-  color: #fe7777;
-  text-decoration: underline;
+  color: #000aff;
+  font-weight: 600;
 `;
 
 const ErrorWrapper = styled.div`
