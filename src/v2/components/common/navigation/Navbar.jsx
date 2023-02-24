@@ -24,12 +24,14 @@ const Navbar = ({ onOpenMenu }) => {
   });
 
   useEffect(() => {
-    socket.on("notification received", (notification) => {
-      setUser({
-        ...user,
-        notifications: [notification, ...user.notifications],
+    if (user) {
+      socket.on("notification received", (notification) => {
+        setUser({
+          ...user,
+          notifications: [notification, ...user.notifications],
+        });
       });
-    });
+    }
   }, [user]);
 
   const navigateAndScrollToTop = (route) => {
