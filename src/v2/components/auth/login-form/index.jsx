@@ -46,7 +46,7 @@ const LoginForm = () => {
         : routes.verify.navigate();
       navigate(nextPage);
     } catch (err) {
-      error = err?.response?.data?.message[lang] || i18n("networkError");
+      navigate(routes.fastRegister.navigate("google"));
     } finally {
       setContext({ ...context, submitting: false, error });
     }
