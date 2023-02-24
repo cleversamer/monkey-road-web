@@ -184,7 +184,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;
@@ -216,6 +216,7 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
 `;
 
 const SubmitContainer = styled.div`

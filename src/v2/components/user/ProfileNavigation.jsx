@@ -110,6 +110,7 @@ const Container = styled.div`
   background-color: #fff;
   padding: 20px;
   border-radius: 12px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
 
   @media screen and (max-width: 540px) {
     max-width: 100%;
