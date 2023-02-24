@@ -28,8 +28,6 @@ const RegisterForm = () => {
   const handleKeyChange = (key) => (e) =>
     setContext({ ...context, [key]: e.target.value, error: "" });
 
-  const handleRegisterWithEmailAndPhone = () => {};
-
   const handleSubmit = async (e) => {
     let error = "";
     try {
@@ -113,11 +111,7 @@ const RegisterForm = () => {
         {context.submitting ? (
           <Loader />
         ) : (
-          <CustomButton
-            type="primary"
-            title={i18n("register")}
-            onClick={handleRegisterWithEmailAndPhone}
-          />
+          <CustomButton type="primary" title={i18n("register")} />
         )}
 
         <BreakLineContainer>
@@ -129,17 +123,6 @@ const RegisterForm = () => {
         <RouterLink to={routes.fastRegister.navigate("google")}>
           <CustomButton type="google" />
         </RouterLink>
-
-        {/* <RouterLink to={routes.fastRegister.navigate("facebook")}>
-          <CustomButton type="facebook" />
-        </RouterLink> */}
-
-        <RegisterContainer lang={lang}>
-          <RegisterPhrase>{i18n("alreadyHaveAcc")}</RegisterPhrase>
-          <RegisterRoute to={routes.login.navigate()}>
-            {i18n("login")}
-          </RegisterRoute>
-        </RegisterContainer>
       </Content>
     </Container>
   );
@@ -155,6 +138,7 @@ const Container = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
 `;
 
 const Content = styled.div`
@@ -214,24 +198,6 @@ const BreakLineWord = styled.span`
   text-transform: uppercase;
   font-weight: 600;
   font-size: 18px;
-`;
-
-const RegisterContainer = styled.div`
-  display: flex;
-  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
-  justify-content: center;
-  gap: 5px;
-  font-size: 15px;
-  margin-top: 5px;
-`;
-
-const RegisterPhrase = styled.p`
-  text-align: center;
-`;
-
-const RegisterRoute = styled(RouterLink)`
-  color: #fe7777;
-  text-decoration: underline;
 `;
 
 const ErrorWrapper = styled.div`
