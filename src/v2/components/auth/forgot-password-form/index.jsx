@@ -60,12 +60,6 @@ const ForgotPasswordForm = () => {
 
       {!!context.error && <ErrorText>{context.error}</ErrorText>}
 
-      {/* <ReceiverTypes>
-        <ReceiverTitle>Send to:</ReceiverTitle>
-        <CustomInput type="radio" title="Email" />
-        <CustomInput type="radio" title="Phone" />
-      </ReceiverTypes> */}
-
       {context.submitting ? (
         <Loader />
       ) : (
@@ -78,21 +72,6 @@ const ForgotPasswordForm = () => {
     </SharedForm>
   );
 };
-
-const ReceiverTitle = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-`;
-
-const ReceiverTypes = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  label {
-    font-size: 13px;
-  }
-`;
 
 const ErrorText = styled.span`
   color: #f00;
