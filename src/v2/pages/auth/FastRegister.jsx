@@ -11,7 +11,7 @@ const FastRegister = () => {
 
 const Container = styled.main`
   padding: 80px 0;
-  background: #f7f7f7;
+  background: #fff;
   max-width: 1366px;
   margin: 0 auto;
 `;
