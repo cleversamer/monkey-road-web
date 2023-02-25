@@ -9,6 +9,8 @@ import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import EmptyList from "v2/components/common/empty-list";
 
+const pageSize = 9;
+
 const priceConfig = {
   price: {
     minValue: 0,
@@ -21,12 +23,17 @@ const BestSellerPurchaseCars = () => {
   const navigate = useNavigate();
   const searchTerm = useQueryParams()?.term?.trim() || "Latest cars";
 
-  const [purchaseCars, setPurchaseCars] = useState({ loading: true, list: [] });
+  const [purchaseCars, setPurchaseCars] = useState({
+    loading: true,
+    list: [],
+    totalPages: 0,
+  });
   const [searchContext, setSearchContext] = useState({
     term: searchTerm,
     brands: [],
     colors: [],
     years: [],
+    pageNumber: 1,
   });
   const [price, setPrice] = useState({
     min: priceConfig.price.minValue,
@@ -36,7 +43,7 @@ const BestSellerPurchaseCars = () => {
   useEffect(() => {
     setPurchaseCars({ list: [], loading: true });
 
-    const { brands, colors, years } = searchContext;
+    const { brands, colors, years, pageNumber } = searchContext;
     const searchBrands = brands.map((brand) => brand._id).join(",");
     const searchColors = colors.map((color) => color.en).join(",");
     const searchYears = years.map((year) => year.value).join(",");
@@ -44,14 +51,18 @@ const BestSellerPurchaseCars = () => {
     purchaseApi.common
       .searchPurchaseCars(
         searchTerm,
-        0,
+        pageNumber,
+        pageSize,
         price.min,
         price.max,
         searchBrands,
         searchColors,
         searchYears
       )
-      .then((res) => setPurchaseCars({ list: res.data.cars, loading: false }))
+      .then((res) => {
+        const { purchaseCars, totalPages } = res.data;
+        setPurchaseCars({ list: purchaseCars, loading: false, totalPages });
+      })
       .catch((err) => setPurchaseCars({ list: [], loading: false }));
   }, [searchTerm, searchContext]);
 
@@ -73,6 +84,28 @@ const BestSellerPurchaseCars = () => {
 
   const handleSearchChange = (e) =>
     setSearchContext({ ...searchContext, term: e.target.value });
+
+  const handleNextPage = () => {
+    if (searchContext.pageNumber === purchaseCars.totalPages) return;
+    setSearchContext({
+      ...searchContext,
+      pageNumber: searchContext.pageNumber + 1,
+    });
+  };
+
+  const handlePrevPage = () => {
+    if (searchContext.pageNumber === 1) return;
+    setSearchContext({
+      ...searchContext,
+      pageNumber: searchContext.pageNumber - 1,
+    });
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    if (searchContext.pageNumber === pageNumber) return;
+    if (pageNumber === "…") return;
+    setSearchContext({ ...searchContext, pageNumber });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -100,6 +133,11 @@ const BestSellerPurchaseCars = () => {
         i18n("arrow"),
         i18n("bestSeller"),
       ]}
+      currentPage={searchContext.pageNumber}
+      totalPages={purchaseCars.totalPages}
+      onNext={handleNextPage}
+      onPrev={handlePrevPage}
+      onSelectPage={handleSelectPage}
     >
       {purchaseCars.loading ? (
         <Loader />
