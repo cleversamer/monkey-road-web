@@ -966,5 +966,17 @@
     "recipientName": {
         "en": "Recipient name",
         "ar": "اسم المستلم"
+    },
+    "carInfo": {
+        "en": "Car info",
+        "ar": "بيانات السيّارة"
+    },
+    "enterPrice": {
+        "en": "Enter price",
+        "ar": "أدخل السعر"
+    },
+    "uploadsImages": {
+        "en": "Upload images",
+        "ar": "أضِف صور"
     }
 }

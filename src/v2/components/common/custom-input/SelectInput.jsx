@@ -37,7 +37,7 @@ const Container = styled.select`
   height: 35px;
   border: none;
   outline: none;
-  border: 1px solid #fe7777;
+  border: 1px solid #ababab;
   border-radius: 8px;
   padding: 0 15px;
   cursor: pointer;

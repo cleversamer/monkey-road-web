@@ -7,57 +7,72 @@ const Form2 = ({ context, onKeyChange }) => {
 
   return (
     <>
-      <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
+      <TitleContainer>
+        <Title>{i18n("addCarFormTitle")}</Title>
+        <BreakLine />
+      </TitleContainer>
 
-      <CustomInput
-        type="text"
-        title={i18n("dailyPrice")}
-        subtitle={`3-100,000 ${i18n("aed")}`}
-        placeholder={i18n("dailyPrice")}
-        value={context.dailyPrice}
-        onChange={onKeyChange("dailyPrice")}
-      />
+      <InputsContainer>
+        <InputsRow>
+          <CustomInput
+            type="text"
+            title={i18n("dailyPrice")}
+            subtitle={`3-100K ${i18n("aed")}`}
+            placeholder={i18n("dailyPrice")}
+            value={context.dailyPrice}
+            onChange={onKeyChange("dailyPrice")}
+          />
 
-      <CustomInput
-        type="text"
-        title={i18n("weeklyPrice")}
-        subtitle={`3-100,000 ${i18n("aed")}`}
-        placeholder={i18n("weeklyPrice")}
-        value={context.weeklyPrice}
-        onChange={onKeyChange("weeklyPrice")}
-      />
+          <CustomInput
+            type="text"
+            title={i18n("weeklyPrice")}
+            subtitle={`3-100K ${i18n("aed")}`}
+            placeholder={i18n("weeklyPrice")}
+            value={context.weeklyPrice}
+            onChange={onKeyChange("weeklyPrice")}
+          />
 
-      <CustomInput
-        type="text"
-        title={i18n("monthlyPrice")}
-        subtitle={`3-100,000 ${i18n("aed")}`}
-        placeholder={i18n("monthlyPrice")}
-        value={context.monthlyPrice}
-        onChange={onKeyChange("monthlyPrice")}
-      />
+          <CustomInput
+            type="text"
+            title={i18n("monthlyPrice")}
+            subtitle={`3-100K ${i18n("aed")}`}
+            placeholder={i18n("monthlyPrice")}
+            value={context.monthlyPrice}
+            onChange={onKeyChange("monthlyPrice")}
+          />
 
-      <CustomInput
-        type="text"
-        title={i18n("deposit")}
-        subtitle={`0-100,000 ${i18n("aed")}`}
-        placeholder={i18n("deposit")}
-        value={context.deposit}
-        onChange={onKeyChange("deposit")}
-      />
+          <CustomInput
+            type="text"
+            title={i18n("deposit")}
+            subtitle={`Up To 100K ${i18n("aed")}`}
+            placeholder={i18n("deposit")}
+            value={context.deposit}
+            onChange={onKeyChange("deposit")}
+          />
+        </InputsRow>
 
-      <CustomInput
-        type="description"
-        title={i18n("description")}
-        subtitle={i18n("optional")}
-        placeholder={i18n("descriptionPlaceholder")}
-        value={context.description}
-        onChange={onKeyChange("description")}
-      />
+        <InputsRow>
+          <CustomInput
+            type="description"
+            title={i18n("description")}
+            subtitle={i18n("optional")}
+            placeholder={i18n("descriptionPlaceholder")}
+            value={context.description}
+            onChange={onKeyChange("description")}
+          />
+        </InputsRow>
+      </InputsContainer>
     </>
   );
 };
 
-const FormTitle = styled.h3`
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Title = styled.h3`
   text-transform: capitalize;
   font-size: 28px;
   font-weight: 600;
@@ -67,6 +82,25 @@ const FormTitle = styled.h3`
     font-size: 24px;
     text-align: center;
   }
+`;
+
+const BreakLine = styled.span`
+  display: inline-block;
+  width: 100%;
+  height: 0px;
+  border: 1px solid #aaa;
+`;
+
+const InputsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+const InputsRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
 `;
 
 export default Form2;

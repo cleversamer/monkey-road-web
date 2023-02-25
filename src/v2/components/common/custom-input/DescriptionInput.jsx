@@ -23,7 +23,7 @@ const Container = styled.textarea`
   border-radius: 6px;
   padding: 12px;
   background-color: transparent;
-  border: 1px solid #fe7777;
+  border: 1px solid #ababab;
   border-radius: 8px;
   resize: none;
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};

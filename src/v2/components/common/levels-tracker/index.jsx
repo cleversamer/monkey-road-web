@@ -1,29 +1,20 @@
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
-const LevelsTracker = ({ noOfLevels, activeLevel, onSelectLevel }) => {
+const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
   const { lang } = useLocale();
-
-  const levels = [];
-  for (let i = 1; i <= noOfLevels; i++) {
-    const isActive = i <= activeLevel;
-
-    const item = () => (
-      <>
-        <Level active={isActive} onClick={() => onSelectLevel(i)}>
-          {i}
-        </Level>
-        {i < noOfLevels && <BreakLine />}
-      </>
-    );
-
-    levels.push(item);
-  }
 
   return (
     <Container lang={lang}>
-      {levels.map((Item, index) => (
-        <Item key={index} />
+      {levels.map((level, index) => (
+        <>
+          <LevelContainer onClick={() => onSelectLevel(index)}>
+            <LevelCircle active={index < activeLevel}>{index + 1}</LevelCircle>
+            <LevelTitle>{level.title}</LevelTitle>
+          </LevelContainer>
+
+          {index + 1 < levels.length && <BreakLine />}
+        </>
       ))}
     </Container>
   );
@@ -38,7 +29,21 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Level = styled.div`
+const LevelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  transition-duration: 176ms;
+  cursor: pointer;
+
+  :active {
+    transform: scale(0.97);
+  }
+`;
+
+const LevelCircle = styled.div`
   width: 45px;
   height: 45px;
   border-radius: 50%;
@@ -50,7 +55,6 @@ const Level = styled.div`
   text-align: center;
   font-size: 20px;
   font-weight: 500;
-  cursor: pointer;
 
   @media screen and (max-width: 480px) {
     width: 40px;
@@ -63,11 +67,18 @@ const Level = styled.div`
   }
 `;
 
+const LevelTitle = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+`;
+
 const BreakLine = styled.span`
   display: inline-block;
   width: 80px;
   height: 0px;
   border: 1px solid #aaa;
+  margin-top: -10px;
 
   @media screen and (max-width: 480px) {
     width: 40px;

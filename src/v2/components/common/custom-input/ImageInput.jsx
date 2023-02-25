@@ -25,7 +25,7 @@ const ImageInput = ({ onChange }) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 200px;
+  height: 340px;
   background-color: #f4f4f4;
   border: 1.5px dashed #fe7777;
   display: flex;

@@ -4,10 +4,10 @@ import LevelsTracker from "../levels-tracker";
 import useLocale from "v2/hooks/useLocale";
 
 const AddCar = ({
-  noOfLevels,
+  levels,
   activeLevel,
-  pageTitles,
   onSelectLevel,
+  pageTitles,
   children,
 }) => {
   const { lang } = useLocale();
@@ -17,19 +17,16 @@ const AddCar = ({
       <Location pageTitles={pageTitles} />
       <LevelsTracker
         onSelectLevel={onSelectLevel}
-        noOfLevels={noOfLevels}
+        levels={levels}
         activeLevel={activeLevel}
       />
-      <FormContainer lang={lang}>
-        <CarClip lang={lang} src="/assets/images/car-clip.svg" alt="" />
-        {children}
-      </FormContainer>
+      <FormContainer lang={lang}>{children}</FormContainer>
     </Container>
   );
 };
 
 const Container = styled.main`
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;
@@ -49,20 +46,6 @@ const FormContainer = styled.div`
   display: flex;
   justify-content: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
-`;
-
-const CarClip = styled.img`
-  position: absolute;
-  top: 0;
-  ${({ lang }) => (lang === "en" ? "right: -60px;" : "left: -60px;")}
-  ${({ lang }) =>
-    lang === "ar" ? "transform: rotate(360deg) scaleX(-1);" : ""}
-  width: 35vw;
-  max-width: 478px;
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 export default AddCar;
