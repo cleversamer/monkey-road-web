@@ -2,7 +2,7 @@ import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
 const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
-  const { lang } = useLocale();
+  const { i18n, lang } = useLocale();
 
   return (
     <Container lang={lang}>
@@ -10,7 +10,7 @@ const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
         <>
           <LevelContainer onClick={() => onSelectLevel(index)}>
             <LevelCircle active={index < activeLevel}>{index + 1}</LevelCircle>
-            <LevelTitle>{level.title}</LevelTitle>
+            <LevelTitle>{i18n(level.title)}</LevelTitle>
           </LevelContainer>
 
           {index + 1 < levels.length && <BreakLine />}

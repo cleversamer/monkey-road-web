@@ -3,7 +3,7 @@ import CustomInput from "v2/components/common/custom-input";
 import useLocale from "v2/hooks/useLocale";
 
 const Form3 = ({ context, onImagesChange, onDeleteImage }) => {
-  const { i18n } = useLocale();
+  const { lang, i18n } = useLocale();
 
   return (
     <>
@@ -13,7 +13,7 @@ const Form3 = ({ context, onImagesChange, onDeleteImage }) => {
       </TitleContainer>
 
       <InputsContainer>
-        <InputsRow>
+        <InputsRow lang={lang}>
           <ImageInputContainer>
             <CustomInput type="image" onChange={onImagesChange} />
           </ImageInputContainer>
@@ -67,6 +67,7 @@ const InputsContainer = styled.div`
 
 const InputsRow = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
 `;

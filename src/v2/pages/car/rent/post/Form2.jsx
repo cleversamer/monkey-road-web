@@ -3,7 +3,7 @@ import CustomInput from "v2/components/common/custom-input";
 import useLocale from "v2/hooks/useLocale";
 
 const Form2 = ({ context, onKeyChange }) => {
-  const { i18n } = useLocale();
+  const { lang, i18n } = useLocale();
 
   return (
     <>
@@ -13,7 +13,7 @@ const Form2 = ({ context, onKeyChange }) => {
       </TitleContainer>
 
       <InputsContainer>
-        <InputsRow>
+        <InputsRow lang={lang}>
           <CustomInput
             type="text"
             title={i18n("dailyPrice")}
@@ -51,7 +51,7 @@ const Form2 = ({ context, onKeyChange }) => {
           />
         </InputsRow>
 
-        <InputsRow>
+        <InputsRow lang={lang}>
           <CustomInput
             type="description"
             title={i18n("description")}
@@ -99,6 +99,7 @@ const InputsContainer = styled.div`
 
 const InputsRow = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
 `;

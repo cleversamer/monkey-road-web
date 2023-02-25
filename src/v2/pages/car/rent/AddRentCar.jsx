@@ -13,9 +13,9 @@ const AddRentCar = () => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [levels, setLevels] = useState([
-    { title: i18n("carInfo"), active: true },
-    { title: i18n("enterPrice"), active: false },
-    { title: i18n("uploadsImages"), active: false },
+    { title: "carInfo", active: true },
+    { title: "enterPrice", active: false },
+    { title: "uploadsImages", active: false },
   ]);
 
   const handleNext = () => {

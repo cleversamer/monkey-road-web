@@ -10,7 +10,7 @@ const Form1 = ({
   brandParser,
   yearParser,
 }) => {
-  const { i18n } = useLocale();
+  const { lang, i18n } = useLocale();
 
   return (
     <>
@@ -20,7 +20,7 @@ const Form1 = ({
       </TitleContainer>
 
       <InputsContainer>
-        <InputsRow>
+        <InputsRow lang={lang}>
           <CustomInput
             type="text"
             title={i18n("carName")}
@@ -40,7 +40,7 @@ const Form1 = ({
           />
         </InputsRow>
 
-        <InputsRow>
+        <InputsRow lang={lang}>
           <CustomInput
             type="select"
             title={i18n("color")}
@@ -112,6 +112,7 @@ const InputsContainer = styled.div`
 
 const InputsRow = styled.div`
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
 `;
