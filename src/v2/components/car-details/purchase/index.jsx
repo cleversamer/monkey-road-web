@@ -5,6 +5,8 @@ import { AiOutlineWhatsApp } from "react-icons/ai";
 import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
 import usersApi from "v2/api/user/users";
+import DetailsItem from "./DetailsItem";
+import DetailsTitle from "./DetailsTitle";
 
 const PurchaseCarDetails = ({ car }) => {
   const { user, setUser } = useAuth();
@@ -53,66 +55,80 @@ const PurchaseCarDetails = ({ car }) => {
         </CarPrice>
       </TitleContainer>
 
-      <BreakLine />
-
       {!!car.description && (
         <>
-          <DetailsList>
-            <DetailsTitle>{i18n("description")}</DetailsTitle>
-            <CarDescription>{car.description}</CarDescription>
-          </DetailsList>
-
-          <BreakLine />
+          <RowContainer lang={lang}>
+            <DetailsTitle title={i18n("description")} />
+            <CarDescription lang={lang}>{car.description}</CarDescription>
+          </RowContainer>
         </>
       )}
 
-      <DetailsList>
-        <DetailsTitle>{i18n("details")}</DetailsTitle>
+      <RowContainer lang={lang}>
+        <DetailsTitle title={i18n("details")} />
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("carModel")}</DetailsItemLeft>
-          <DetailsItemRight>{car.model}</DetailsItemRight>
-        </DetailsItem>
+        <DetailsList lang={lang}>
+          <DetailsItem title={i18n("carModel")} value={car.model} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("brand")} value={car.brand.name[lang]} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("yearModel")} value={car.year} />
+        </DetailsList>
 
-        <BreakLine />
+        <DetailsList lang={lang}>
+          <DetailsItem title={i18n("trimLevel")} value={car.trimLevel} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("kiloPerHour")} value={car.kiloPerHour} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("color")} value={car.color[lang]} />
+        </DetailsList>
+      </RowContainer>
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("trimLevel")}</DetailsItemLeft>
-          <DetailsItemRight>{car.trimLevel}</DetailsItemRight>
-        </DetailsItem>
+      <ItemOverview>
+        <ItemOverviewTitle>{i18n("itemOverview")}</ItemOverviewTitle>
 
-        <BreakLine />
+        <ItemContainer>
+          <Item>
+            <ItemImage
+              src="/assets/images/purchase-car/kmph.svg"
+              alt="kilometers per hour icon"
+            />
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("kiloPerHour")}</DetailsItemLeft>
-          <DetailsItemRight>
-            {car.kiloPerHour} {i18n("kmph")}
-          </DetailsItemRight>
-        </DetailsItem>
+            <ItemTitle>
+              {car.kiloPerHour} {i18n("kmph")}
+            </ItemTitle>
+          </Item>
 
-        <BreakLine />
+          <Item>
+            <ItemImage
+              src="/assets/images/purchase-car/automatic.svg"
+              alt="kilometers per hour icon"
+            />
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("brand")}</DetailsItemLeft>
-          <DetailsItemRight>{car.brand.name[lang]}</DetailsItemRight>
-        </DetailsItem>
+            <ItemTitle>{car.vehicleType[lang]}</ItemTitle>
+          </Item>
 
-        <BreakLine />
+          <Item>
+            <ItemImage
+              src="/assets/images/purchase-car/diesel.svg"
+              alt="kilometers per hour icon"
+            />
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("yearModel")}</DetailsItemLeft>
-          <DetailsItemRight>{car.year}</DetailsItemRight>
-        </DetailsItem>
+            <ItemTitle>{car.fuelType[lang]}</ItemTitle>
+          </Item>
 
-        <BreakLine />
+          <Item>
+            <ItemImage
+              src="/assets/images/purchase-car/seats.svg"
+              alt="kilometers per hour icon"
+            />
 
-        <DetailsItem>
-          <DetailsItemLeft>{i18n("color")}</DetailsItemLeft>
-          <DetailsItemRight>{car.color[lang]}</DetailsItemRight>
-        </DetailsItem>
-
-        <BreakLine />
-      </DetailsList>
+            <ItemTitle>
+              {car.noOfSeats} {i18n("seats")}
+            </ItemTitle>
+          </Item>
+        </ItemContainer>
+      </ItemOverview>
 
       <ButtonsContainer>
         <CustomButton
@@ -148,13 +164,32 @@ const Container = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 
   @media screen and (max-width: 870px) {
     width: 100%;
     max-width: 550px;
     margin: 0 auto;
   }
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const CarTitle = styled.h3`
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: capitalize;
+`;
+
+const CarPrice = styled.h3`
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: capitalize;
 `;
 
 const IconsContainer = styled.div`
@@ -172,62 +207,12 @@ const IconsContainer = styled.div`
   }
 `;
 
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const CarTitle = styled.h3`
-  font-weight: 600;
-  font-size: 28px;
-  text-transform: capitalize;
-`;
-
-const CarPrice = styled.h3`
-  font-weight: 600;
-  font-size: 22px;
-  text-transform: capitalize;
-`;
-
-const BreakLine = styled.span`
-  display: inline-block;
-  width: 100%;
-  height: 0px;
-  border: 1px solid #aaa;
-`;
-
-const DetailsList = styled.ul`
+const RowContainer = styled.ul`
   list-style: none;
   display: flex;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   flex-direction: column;
   gap: 12px;
-`;
-
-const DetailsTitle = styled.h4`
-  font-weight: 700;
-  font-size: 18px;
-  color: #000000;
-`;
-
-const DetailsItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const DetailsItemLeft = styled.span`
-  font-weight: 500;
-  font-size: 15px;
-  text-transform: capitalize;
-  color: #000000;
-`;
-
-const DetailsItemRight = styled.span`
-  font-weight: 400;
-  font-size: 15px;
-  color: #333333;
-  text-transform: capitalize;
 `;
 
 const CarDescription = styled.p`
@@ -236,6 +221,24 @@ const CarDescription = styled.p`
   line-height: 1.4;
   text-align: justify;
   color: #000000;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
+`;
+
+const DetailsList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  justify-content: space-between;
+  gap: 22px;
+  background-color: #fe7777;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 8px;
+`;
+
+const HorizontalLine = styled.span`
+  border: 1px solid #fff;
 `;
 
 const ButtonsContainer = styled.div`
@@ -253,11 +256,61 @@ const CallContainer = styled.span`
   align-items: center;
   gap: 5px;
   color: #fff;
-
   svg {
     fill: #fff;
     font-size: 20px;
   }
+`;
+
+const ItemOverview = styled.section`
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+
+  @media screen and (max-width: 540px) {
+    gap: 30px;
+  }
+`;
+
+const ItemOverviewTitle = styled.h4`
+  @media screen and (max-width: 540px) {
+    margin: 0 auto;
+  }
+`;
+
+const ItemContainer = styled.ul`
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 540px;
+
+  @media screen and (max-width: 540px) {
+    margin: 0 auto;
+    justify-items: center;
+  }
+`;
+
+const Item = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 120px;
+  height: 100px;
+  background-color: #ffcece;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+`;
+
+const ItemImage = styled.img``;
+
+const ItemTitle = styled.h5`
+  text-transform: capitalize;
 `;
 
 export default PurchaseCarDetails;

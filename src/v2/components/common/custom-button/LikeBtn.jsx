@@ -14,9 +14,10 @@ const Container = styled.span`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  padding: 4px;
+  padding: 6px;
   transition-duration: 176ms;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: #fff;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.25);
   cursor: pointer;
 
   svg {

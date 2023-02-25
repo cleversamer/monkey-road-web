@@ -23,62 +23,14 @@ const PurchaseCarDetails = () => {
     // fetch similar products
   }, []);
 
-  const handleRentCar = () => {};
-
   if (!car) return null;
 
   return (
     <Container>
-      <Content>
+      <Content lang={lang}>
         <Gallery images={car.photos} />
         <Details car={car} />
       </Content>
-
-      <DetailsSection>
-        <DetailsTitle>{i18n("itemOverview")}</DetailsTitle>
-
-        <DetailsList>
-          <DetailsItem>
-            <ItemImage
-              src="/assets/images/purchase-car/kmph.svg"
-              alt="kilometers per hour icon"
-            />
-
-            <ItemTitle>
-              {car.kiloPerHour} {i18n("kmph")}
-            </ItemTitle>
-          </DetailsItem>
-
-          <DetailsItem>
-            <ItemImage
-              src="/assets/images/purchase-car/automatic.svg"
-              alt="kilometers per hour icon"
-            />
-
-            <ItemTitle>{car.vehicleType[lang]}</ItemTitle>
-          </DetailsItem>
-
-          <DetailsItem>
-            <ItemImage
-              src="/assets/images/purchase-car/diesel.svg"
-              alt="kilometers per hour icon"
-            />
-
-            <ItemTitle>{car.fuelType[lang]}</ItemTitle>
-          </DetailsItem>
-
-          <DetailsItem>
-            <ItemImage
-              src="/assets/images/purchase-car/seats.svg"
-              alt="kilometers per hour icon"
-            />
-
-            <ItemTitle>
-              {car.noOfSeats} {i18n("seats")}
-            </ItemTitle>
-          </DetailsItem>
-        </DetailsList>
-      </DetailsSection>
 
       {!!similarCars.length && (
         <ItemsSection type="slider" title={i18n("similarProducts")}>
@@ -95,12 +47,11 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fafafa;
+  background: #fff;
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
   padding: 60px;
-  /* gap: 40px; */
 
   @media screen and (max-width: 480px) {
     padding: 30px;
@@ -111,6 +62,8 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
   gap: 40px;
   max-height: max-content;
 
