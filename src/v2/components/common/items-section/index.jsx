@@ -30,7 +30,7 @@ const ItemsSection = ({ type, title, onSeeMore, brands, children }) => {
 };
 
 const Container = styled.div`
-  background-color: #fafafa;
+  background-color: #fff;
   margin-top: ${({ type }) => (type === "slider" ? "50px" : "0")};
   display: flex;
   flex-direction: column;

@@ -17,7 +17,7 @@ const initialState = {
 };
 
 const PurchaseCars = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const [recentlyArrivedCars, setRecentlyArrivedCars] = useState(initialState);
   const [popularBrands, setPopularBrands] = useState(initialState);
@@ -27,32 +27,38 @@ const PurchaseCars = () => {
   useEffect(() => {
     // fetch recentlyArrivedCars
     purchaseApi.common
-      .getRecentlyArrivedPurchaseCars(0)
-      .then((res) =>
-        setRecentlyArrivedCars({ list: res.data.cars, loading: false })
-      )
+      .getRecentlyArrivedPurchaseCars()
+      .then((res) => {
+        const { purchaseCars } = res.data;
+        setRecentlyArrivedCars({ list: purchaseCars, loading: false });
+      })
       .catch((err) => setRecentlyArrivedCars({ list: [], loading: false }));
 
     // fetch popularBrands
     brandsApi.common
-      .getPopularBrands(0)
+      .getPopularBrands(1, 7)
       .then((res) => {
-        setPopularBrands({ list: res.data.brands, loading: false });
+        const { brands } = res.data;
+        setPopularBrands({ list: brands, loading: false });
       })
       .catch((err) => setPopularBrands({ list: [], loading: false }));
 
     // fetch latestModelsCars
     purchaseApi.common
-      .getLatestModelsPurchaseCars(0)
-      .then((res) =>
-        setLatestModelsCars({ list: res.data.cars, loading: false })
-      )
+      .getLatestModelsPurchaseCars()
+      .then((res) => {
+        const { purchaseCars } = res.data;
+        setLatestModelsCars({ list: purchaseCars, loading: false });
+      })
       .catch((err) => setLatestModelsCars({ list: [], loading: false }));
 
     // fetch bestSellerCars
     purchaseApi.common
-      .getBestSellerPurchaseCars(0)
-      .then((res) => setBestSellerCars({ list: res.data.cars, loading: false }))
+      .getBestSellerPurchaseCars()
+      .then((res) => {
+        const { purchaseCars } = res.data;
+        setBestSellerCars({ list: purchaseCars, loading: false });
+      })
       .catch((err) => setBestSellerCars({ list: [], loading: false }));
   }, []);
 
@@ -134,7 +140,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;

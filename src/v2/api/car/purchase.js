@@ -2,28 +2,28 @@
 import client from "../client";
 import authStorage from "v2/auth/storage";
 
-const getRecentlyArrivedPurchaseCars = async (skip = 0) => {
+const getRecentlyArrivedPurchaseCars = async (page = 1, limit = 4) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/purchase/recently-arrived?skip=${skip}`,
+    `/cars/purchase/recently-arrived?page=${page}&limit=${limit}`,
     {},
     cacheMins
   );
 };
 
-const getLatestModelsPurchaseCars = async (skip = 0) => {
+const getLatestModelsPurchaseCars = async (page = 1, limit = 4) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/purchase/latest-models?skip=${skip}`,
+    `/cars/purchase/latest-models?page=${page}&limit=${limit}`,
     {},
     cacheMins
   );
 };
 
-const getBestSellerPurchaseCars = async (skip = 0) => {
+const getBestSellerPurchaseCars = async (page = 1, limit = 4) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/purchase/best-seller?skip=${skip}`,
+    `/cars/purchase/best-seller?page=${page}&limit=${limit}`,
     {},
     cacheMins
   );
