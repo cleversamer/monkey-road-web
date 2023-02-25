@@ -29,10 +29,10 @@ const getBestSellerPurchaseCars = async (page = 1, limit = 4) => {
   );
 };
 
-const searchPurchaseCars = async (searchTerm, skip = 0) => {
+const searchPurchaseCars = async (searchTerm, page, limit) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/purchase/search?searchTerm=${searchTerm}&skip=${skip}`,
+    `/cars/purchase/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}`,
     {},
     cacheMins
   );

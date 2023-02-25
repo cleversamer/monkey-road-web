@@ -41,7 +41,7 @@ const RentCars = () => {
   });
 
   useEffect(() => {
-    setRentCars({ list: [], loading: true });
+    setRentCars({ list: [], loading: true, totalPages: 0 });
 
     const { brands, colors, years, pageNumber } = searchContext;
     const searchBrands = brands.map((brand) => brand._id).join(",");
