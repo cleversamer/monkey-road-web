@@ -1,38 +1,47 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
-import ItemsSection from "v2/components/common/items-section";
-import PurchaseCar from "v2/components/car/purchase";
 import Brand from "v2/components/home/popular-brands/Brand";
 import brandsApi from "v2/api/car/brands";
-import purchaseApi from "v2/api/car/purchase";
 import useLocale from "v2/hooks/useLocale";
+import Pagination from "v2/components/pagination";
+import Loader from "v1/components/loader";
 
 const initialState = {
   list: [],
   loading: true,
+  totalPages: 0,
 };
 
 const Brands = () => {
   const { i18n } = useLocale();
   const [brands, setBrands] = useState(initialState);
-  const [latestPurchaseCars, setLatestPurchaseCars] = useState(initialState);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     // fetch brands
     brandsApi.common
-      .getPopularBrands(0)
-      .then((res) => setBrands({ list: res.data.brands, loading: false }))
+      .getPopularBrands(currentPage, 28)
+      .then((res) => {
+        const { brands, totalPages } = res.data;
+        setBrands({ list: brands, loading: false, totalPages });
+      })
       .catch((err) => setBrands({ list: [], loading: false }));
+  }, [currentPage]);
 
-    // fetch similar cars
-    purchaseApi.common
-      .getRecentlyArrivedPurchaseCars(0)
-      .then((res) =>
-        setLatestPurchaseCars({ list: res.data.cars, loading: false })
-      )
-      .catch((err) => setLatestPurchaseCars({ list: [], loading: false }));
-  }, []);
+  const handleNextPage = () => {
+    if (currentPage === brands.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <Container>
@@ -48,23 +57,27 @@ const Brands = () => {
 
       <Content>
         <GridItems>
-          {brands.list.map((brand) => (
-            <Brand
-              key={brand._id}
-              title={brand.name.en}
-              imageURL={brand.photoURL}
-            />
-          ))}
+          {brands.loading ? (
+            <Loader />
+          ) : (
+            brands.list.map((brand) => (
+              <Brand
+                key={brand._id}
+                title={brand.name.en}
+                imageURL={brand.photoURL}
+              />
+            ))
+          )}
         </GridItems>
-
-        {!!latestPurchaseCars.list.length && (
-          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
-            {latestPurchaseCars.list.map((car) => (
-              <PurchaseCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
       </Content>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={brands.totalPages}
+        onNext={handleNextPage}
+        onPrev={handlePrevPage}
+        onSelectPage={handleSelectPage}
+      />
     </Container>
   );
 };
@@ -74,7 +87,7 @@ const Container = styled.main`
   max-width: 1366px;
   margin: 0 auto;
   padding: 60px;
-  background-color: #fafafa;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 30px;
