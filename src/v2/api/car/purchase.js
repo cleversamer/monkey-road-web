@@ -29,10 +29,19 @@ const getBestSellerPurchaseCars = async (page = 1, limit = 4) => {
   );
 };
 
-const searchPurchaseCars = async (searchTerm, page, limit) => {
+const searchPurchaseCars = async (
+  searchTerm,
+  page,
+  limit,
+  minPrice,
+  maxPrice,
+  brands,
+  colors,
+  years
+) => {
   const cacheMins = 0;
   return await client.get(
-    `/cars/purchase/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}`,
+    `/cars/purchase/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}&minPrice=${minPrice}&maxPrice=${maxPrice}&brands=${brands}&colors=${colors}&years=${years}`,
     {},
     cacheMins
   );
