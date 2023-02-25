@@ -12,8 +12,8 @@ const Container = styled.input`
   border-radius: 6px;
   padding-left: 40px;
   padding-right: 10px;
-  background-color: #fafafa;
-  border: 1px solid #fe7777;
+  background-color: #fff;
+  border: 1px solid #ababab;
   font-family: inherit;
   font-size: 14px;
   padding-left: 10px;

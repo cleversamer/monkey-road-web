@@ -4,6 +4,7 @@ import useLocale from "v2/hooks/useLocale";
 import DetailsItem from "./DetailsItem";
 import DetailsTitle from "./DetailsTitle";
 import useAuth from "v2/auth/useAuth";
+import Price from "./Price";
 
 const RentCarDetails = ({ car, onNext }) => {
   const { user } = useAuth();
@@ -19,73 +20,39 @@ const RentCarDetails = ({ car, onNext }) => {
         </IconsContainer>
       </TitleContainer>
 
-      <BreakLine />
+      <RowContainer>
+        <DetailsTitle title={i18n("prices")} />
 
-      <DetailsList>
-        <DetailsTitle title={i18n("price")} />
-
-        <DetailsItem
-          leftTitle={i18n("dailyPrice")}
-          rightTitle={`${car.price.daily} ${i18n("aed")}`}
-        />
-
-        <BreakLine />
-
-        <DetailsItem
-          leftTitle={i18n("weeklyPrice")}
-          rightTitle={`${car.price.weekly} ${i18n("aed")}`}
-        />
-
-        <BreakLine />
-
-        <DetailsItem
-          leftTitle={i18n("monthlyPrice")}
-          rightTitle={`${i18n("aed")} ${car.price.monthly}`}
-        />
-
-        <BreakLine />
-
-        <DetailsItem
-          leftTitle={i18n("deposit")}
-          rightTitle={`${car.price.deposit} ${i18n("aed")}`}
-        />
-      </DetailsList>
-
-      <BreakLine />
+        <PricesList lang={lang}>
+          <Price period={i18n("day")} amount={car.price.daily} />
+          <Price period={i18n("week")} amount={car.price.weekly} />
+          <Price period={i18n("month2")} amount={car.price.monthly} />
+          <Price period={i18n("deposit")} amount={car.price.deposit} />
+        </PricesList>
+      </RowContainer>
 
       {!!car.description && (
         <>
-          <DetailsList>
+          <RowContainer>
             <DetailsTitle title={i18n("description")} />
-            <CarDescription>{car.description}</CarDescription>
-          </DetailsList>
-
-          <BreakLine />
+            <CarDescription lang={lang}>{car.description}</CarDescription>
+          </RowContainer>
         </>
       )}
 
-      <DetailsList>
+      <RowContainer>
         <DetailsTitle title={i18n("details")} />
 
-        <DetailsItem leftTitle={i18n("carModel")} rightTitle={car.model} />
-
-        <BreakLine />
-
-        <DetailsItem leftTitle={i18n("yearModel")} rightTitle={car.year} />
-
-        <BreakLine />
-
-        <DetailsItem
-          leftTitle={i18n("brand")}
-          rightTitle={car.brand.name[lang]}
-        />
-
-        <BreakLine />
-
-        <DetailsItem leftTitle={i18n("color")} rightTitle={car.color[lang]} />
-
-        <BreakLine />
-      </DetailsList>
+        <DetailsList lang={lang}>
+          <DetailsItem title={i18n("carModel")} value={car.model} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("yearModel")} value={car.year} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("brand")} value={car.brand.name[lang]} />
+          <HorizontalLine />
+          <DetailsItem title={i18n("color")} value={car.color[lang]} />
+        </DetailsList>
+      </RowContainer>
 
       {user && user.verified.email && (
         <RentButtonContainer>
@@ -104,7 +71,7 @@ const Container = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 
   @media screen and (max-width: 870px) {
     width: 100%;
@@ -140,14 +107,14 @@ const IconsContainer = styled.div`
   }
 `;
 
-const BreakLine = styled.span`
-  display: inline-block;
-  width: 100%;
-  height: 0px;
-  border: 1px solid #aaa;
+const PricesList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  gap: 25px;
 `;
 
-const DetailsList = styled.ul`
+const RowContainer = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -160,12 +127,27 @@ const CarDescription = styled.p`
   line-height: 1.4;
   text-align: justify;
   color: #000000;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
+`;
+
+const DetailsList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  gap: 22px;
+  background-color: #fe7777;
+  width: fit-content;
+  padding: 20px;
+  border-radius: 8px;
+`;
+
+const HorizontalLine = styled.span`
+  border: 1px solid #fff;
 `;
 
 const RentButtonContainer = styled.div`
-  padding-top: 20px;
   width: 100%;
-  margin: 0 auto;
+  max-width: 170px;
   display: flex;
   align-items: center;
   gap: 15px;

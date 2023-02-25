@@ -12,7 +12,7 @@ import rentApi from "v2/api/car/rent";
 import useLocale from "v2/hooks/useLocale";
 
 const RentCarDetails = () => {
-  const { i18n } = useLocale();
+  const { i18n, lang } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [pages, setPages] = useState({ count: 3, current: 1 });
@@ -48,7 +48,7 @@ const RentCarDetails = () => {
 
   return (
     <Container>
-      <Content>
+      <Content lang={lang}>
         <Gallery images={car.photos} />
         {pages.current == "1" ? (
           <Details1 car={car} onNext={handleNext} />
@@ -74,7 +74,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fafafa;
+  background: #fff;
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
@@ -90,6 +90,7 @@ const Container = styled.main`
 const Content = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 40px;
 
   @media screen and (max-width: 870px) {

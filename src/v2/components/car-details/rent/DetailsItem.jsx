@@ -1,35 +1,37 @@
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
-const DetailsItem = ({ leftTitle, rightTitle }) => {
+const DetailsItem = ({ title, value }) => {
   const { lang } = useLocale();
 
   return (
     <Container lang={lang}>
-      <DetailsItemLeft>{leftTitle}</DetailsItemLeft>
-      <DetailsItemRight>{rightTitle}</DetailsItemRight>
+      <Title>{title}</Title>
+      <Value>{value}</Value>
     </Container>
   );
 };
 
 const Container = styled.li`
   display: flex;
-  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 7px;
+  background-color: #fe7777;
 `;
 
-const DetailsItemLeft = styled.span`
-  font-weight: 500;
+const Title = styled.span`
+  font-weight: 600;
   font-size: 15px;
   text-transform: capitalize;
-  color: #000000;
+  color: #fff;
 `;
 
-const DetailsItemRight = styled.span`
-  font-weight: 400;
-  font-size: 15px;
-  color: #333333;
+const Value = styled.span`
+  font-weight: 300;
+  font-size: 14px;
+  color: #fff;
 `;
 
 export default DetailsItem;

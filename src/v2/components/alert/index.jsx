@@ -18,7 +18,7 @@ const Alert = ({ alert }) => {
   }, [lang]);
 
   return (
-    <Container lang={lang}>
+    <Container lang={lang} seen={alert.seen}>
       {!alert.seen && <NewAlertBadge lang={lang} />}
 
       <AlertImage
@@ -44,7 +44,10 @@ const Container = styled.div`
   padding: 20px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  box-shadow: ${({ seen }) =>
+    seen
+      ? "0px 1px 3px 2px rgba(51, 51, 51, 0.3)"
+      : "0px 1px 3px 2px #fe777780"};
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 15px;
@@ -66,6 +69,7 @@ const Content = styled.div`
 const AlertTitle = styled.h5`
   font-size: 18px;
   font-weight: 600;
+  width: calc(100% - 10px);
   color: ${({ primary }) => (primary ? "#fe7777" : "#000")};
 `;
 

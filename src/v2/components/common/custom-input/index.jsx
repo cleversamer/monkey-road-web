@@ -16,6 +16,7 @@ import CardExpiryInput from "./CardExpiryInput";
 import DateInput from "./DateInput";
 import TimeInput from "./TimeInput";
 import useLocale from "v2/hooks/useLocale";
+import PriceInput from "./PriceInput";
 
 const CustomInput = ({
   value,
@@ -44,6 +45,7 @@ const CustomInput = ({
   verified,
   onVerify,
   profile,
+  disabled,
   ...props
 }) => {
   const { i18n, lang } = useLocale();
@@ -112,6 +114,7 @@ const CustomInput = ({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          disabled={disabled}
           {...props}
         />
       ) : type === "select" ? (
@@ -144,6 +147,8 @@ const CustomInput = ({
         <DateInput onChange={onChange} />
       ) : type === "time" ? (
         <TimeInput />
+      ) : type === "price" ? (
+        <PriceInput value={value} />
       ) : null}
     </Container>
   );

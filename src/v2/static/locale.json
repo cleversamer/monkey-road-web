@@ -503,6 +503,10 @@
         "en": "Price",
         "ar": "السعر"
     },
+    "prices": {
+        "en": "Prices",
+        "ar": "الأسعار"
+    },
     "brands": {
         "en": "Brands",
         "ar": "شركات السيّارات"
@@ -594,6 +598,14 @@
     "day": {
         "en": "Day",
         "ar": "يوم"
+    },
+    "week": {
+        "en": "Week",
+        "ar": "أسبوع"
+    },
+    "month2": {
+        "en": "Month",
+        "ar": "شهر"
     },
     "recentlyArrived": {
         "en": "Recently arrived",
@@ -918,5 +930,41 @@
     "officesOrders": {
         "en": "Offices orders",
         "ar": "طلبات مكاتب التأجير"
+    },
+    "rentInfo": {
+        "en": "Rent Information",
+        "ar": "معلومات الاستئجار"
+    },
+    "startRent":{
+        "en": "Start rent",
+        "ar": "بداية الاستئجار"
+    },
+    "startTime": {
+        "en": "Start time",
+        "ar": "وقت البداية"
+    },
+    "endRent":{
+        "en": "End rent",
+        "ar": "نهاية الاستئجار"
+    },
+    "endTime": {
+        "en": "End time",
+        "ar": "وقت النهاية"
+    },
+    "rentDays": {
+        "en": "Rent days",
+        "ar": "أيام التأجير"
+    },
+    "totalPrice": {
+        "en": "Total price",
+        "ar": "المجموع الكلّي"
+    },
+    "placeOrder": {
+        "en": "Place order",
+        "ar": "إرسال الطلب"
+    },
+    "recipientName": {
+        "en": "Recipient name",
+        "ar": "اسم المستلم"
     }
 }

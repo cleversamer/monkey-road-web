@@ -11,12 +11,7 @@ const Details3 = ({ car, onPrev, onComplete }) => {
     <Container>
       <TitleContainer lang={lang}>
         <CarTitle>{car.name}</CarTitle>
-        <CarPricePerDay>
-          {car.price.daily} {i18n("aed")} / {i18n("day")}
-        </CarPricePerDay>
       </TitleContainer>
-
-      <BreakLine />
 
       {/* <GoogleMap /> */}
 
@@ -30,9 +25,8 @@ const Details3 = ({ car, onPrev, onComplete }) => {
       <InputsRow>
         <CustomInput
           type="text"
-          title={i18n("fullName")}
-          placeholder={i18n("fullName")}
-          disabled
+          title={i18n("recipientName")}
+          placeholder={i18n("recipientName")}
         />
 
         <CustomInput type="phone" title={i18n("phoneNumber")} />
@@ -42,7 +36,7 @@ const Details3 = ({ car, onPrev, onComplete }) => {
         <CustomButton title={i18n("prev")} type="primary" onClick={onPrev} />
 
         <CustomButton
-          title={i18n("complete")}
+          title={i18n("placeOrder")}
           type="primary"
           onClick={onComplete}
         />
@@ -55,7 +49,7 @@ const Container = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 
   @media screen and (max-width: 870px) {
     width: 100%;
@@ -75,19 +69,6 @@ const CarTitle = styled.h3`
   font-weight: 600;
   font-size: 20px;
   text-transform: capitalize;
-`;
-
-const CarPricePerDay = styled.h3`
-  font-weight: 600;
-  font-size: 20px;
-  text-transform: capitalize;
-`;
-
-const BreakLine = styled.span`
-  display: inline-block;
-  width: 100%;
-  height: 0px;
-  border: 1px solid #aaa;
 `;
 
 const InputsRow = styled.div`

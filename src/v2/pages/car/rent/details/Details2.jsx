@@ -10,29 +10,36 @@ const Details2 = ({ car, order, onPrev, onNext }) => {
     <Container lang={lang}>
       <TitleContainer lang={lang}>
         <CarTitle>{car.name}</CarTitle>
-        <CarPricePerDay>
-          {car.price.daily} {i18n("aed")} / {i18n("day")}
-        </CarPricePerDay>
       </TitleContainer>
 
-      <BreakLine />
-
       <InputsContainer lang={lang}>
-        <InputsTitle>{i18n("deliveryInfo")}</InputsTitle>
+        <InputsTitle>{i18n("rentInfo")}</InputsTitle>
 
         <InputsRow1 lang={lang}>
-          <CustomInput type="date" title={i18n("from")} />
-
-          <CustomInput
-            type="text"
-            title={i18n("noOfDays")}
-            placeholder={i18n("noOfDays")}
-          />
+          <CustomInput type="date" title={i18n("startRent")} />
+          <CustomInput type="time" title={i18n("startTime")} />
         </InputsRow1>
 
         <InputsRow2 lang={lang}>
-          <CustomInput type="time" title={i18n("time")} />
+          <CustomInput type="date" title={i18n("endRent")} />
+          <CustomInput type="time" title={i18n("endTime")} />
         </InputsRow2>
+
+        <InputsRow3 lang={lang}>
+          <CustomInput
+            type="text"
+            disabled
+            title={i18n("rentDays")}
+            value="1"
+          />
+
+          <CustomInput
+            type="price"
+            disabled
+            title={i18n("totalPrice")}
+            value="1"
+          />
+        </InputsRow3>
       </InputsContainer>
 
       <CTAContainer lang={lang}>
@@ -75,20 +82,8 @@ const CarTitle = styled.h3`
   text-transform: capitalize;
 `;
 
-const CarPricePerDay = styled.h3`
-  font-weight: 600;
-  font-size: 20px;
-  text-transform: capitalize;
-`;
-
-const BreakLine = styled.span`
-  display: inline-block;
-  width: 100%;
-  height: 0px;
-  border: 1px solid #aaa;
-`;
-
 const InputsContainer = styled.div`
+  width: 100%;
   margin: 10px 0;
   display: flex;
   flex-direction: column;
@@ -100,8 +95,9 @@ const InputsTitle = styled.h4`
 `;
 
 const InputsRow = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 20px;
 
   > * {
@@ -112,6 +108,8 @@ const InputsRow = styled.div`
 const InputsRow1 = styled(InputsRow)``;
 
 const InputsRow2 = styled(InputsRow)``;
+
+const InputsRow3 = styled(InputsRow)``;
 
 const CTAContainer = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
-const TextInput = ({ placeholder, value, onChange, ...props }) => {
+const TextInput = ({ placeholder, value, disabled, onChange, ...props }) => {
   const { lang } = useLocale();
 
   return (
@@ -11,6 +11,7 @@ const TextInput = ({ placeholder, value, onChange, ...props }) => {
       value={value}
       onChange={onChange}
       lang={lang}
+      disabled={disabled}
       {...props}
     />
   );
@@ -23,8 +24,8 @@ const Container = styled.input`
   outline: none;
   border-radius: 6px;
   padding: 0 15px;
-  background-color: transparent;
-  border: 1px solid #fe7777;
+  background-color: ${({ disabled }) => (disabled ? "#EBEBEB" : "#fff")};
+  ${({ disabled }) => (disabled ? "" : "border: 1px solid #ababab;")}
   border-radius: 8px;
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 
