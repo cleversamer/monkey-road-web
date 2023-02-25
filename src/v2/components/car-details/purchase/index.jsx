@@ -130,32 +130,34 @@ const PurchaseCarDetails = ({ car }) => {
         </ItemContainer>
       </ItemOverview>
 
-      <ButtonsContainer>
-        <CustomButton
-          type="primary"
-          onClick={handleMakeCall}
-          title={
-            <a href={`tel:${car.phoneNumber}`}>
-              <CallContainer>
-                <BiPhone /> {i18n("callSeller")}
-              </CallContainer>
-            </a>
-          }
-        />
+      {!car.sold && (
+        <ButtonsContainer>
+          <CustomButton
+            type="primary"
+            onClick={handleMakeCall}
+            title={
+              <a href={`tel:${car.phoneNumber}`}>
+                <CallContainer>
+                  <BiPhone /> {i18n("callSeller")}
+                </CallContainer>
+              </a>
+            }
+          />
 
-        <CustomButton
-          type="primary"
-          color="#1A8331"
-          title={
-            <a href={`https://wa.me/${car.phoneNumber}`} target="_blank">
-              <CallContainer>
-                <AiOutlineWhatsApp /> {i18n("whatsApp")}
-              </CallContainer>
-            </a>
-          }
-          onClick={handleWhatsAppCall}
-        />
-      </ButtonsContainer>
+          <CustomButton
+            type="primary"
+            color="#1A8331"
+            title={
+              <a href={`https://wa.me/${car.phoneNumber}`} target="_blank">
+                <CallContainer>
+                  <AiOutlineWhatsApp /> {i18n("whatsApp")}
+                </CallContainer>
+              </a>
+            }
+            onClick={handleWhatsAppCall}
+          />
+        </ButtonsContainer>
+      )}
     </Container>
   );
 };
