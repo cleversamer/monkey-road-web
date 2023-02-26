@@ -47,8 +47,10 @@ const LevelCircle = styled.div`
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: ${({ active }) => (active ? "#fe7777" : "#ccc")};
-  color: #fff;
+  background-color: ${({ active }) => (active ? "#fe7777" : "#fff")};
+  color: ${({ active }) => (active ? "#fff" : "#303030")};
+  ${({ active }) =>
+    active ? "" : "box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);"};
   display: flex;
   justify-content: center;
   align-items: center;
