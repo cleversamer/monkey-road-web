@@ -231,7 +231,6 @@ const DetailsList = styled.ul`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
-  gap: 22px;
   background-color: #fe7777;
   width: 100%;
   max-width: 450px;
@@ -305,14 +304,15 @@ const Item = styled.li`
   gap: 10px;
   width: 120px;
   height: 100px;
-  background-color: #ffcece;
-  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  background-color: #fe7777;
+  border-radius: 8px;
 `;
 
 const ItemImage = styled.img``;
 
 const ItemTitle = styled.h5`
   text-transform: capitalize;
+  color: #fff;
 `;
 
 export default PurchaseCarDetails;

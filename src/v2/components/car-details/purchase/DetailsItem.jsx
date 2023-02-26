@@ -21,6 +21,7 @@ const Container = styled.li`
   background-color: #fe7777;
   width: 100%;
   max-width: 100px;
+  padding: 0 15px;
 `;
 
 const Title = styled.span`
