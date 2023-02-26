@@ -26,8 +26,7 @@ const HeaderSearch = ({
 };
 
 const Container = styled.form`
-  width: 120%;
-  max-width: 400px;
+  width: 100%;
   position: relative;
   height: 40px;
   align-self: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};

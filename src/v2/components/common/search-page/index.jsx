@@ -152,6 +152,8 @@ const SearchContainer = styled.div`
 `;
 
 const SearchBoxContainer = styled.div`
+  width: 100%;
+
   @media screen and (max-width: 680px) {
     display: flex;
     align-items: center;
