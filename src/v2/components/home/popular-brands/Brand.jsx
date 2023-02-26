@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { serverURL } from "v2/api/client";
 
 const Brand = ({ title = "", imageURL = "" }) => {
   return (
@@ -11,8 +10,9 @@ const Brand = ({ title = "", imageURL = "" }) => {
 };
 
 const Container = styled.span`
-  background: #ffcece;
-  box-shadow: 0px 1px 3px 3px rgba(254, 119, 119, 0.35);
+  background: #fff;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  border-radius: 8px;
   width: 100%;
   max-width: 150px;
   height: 120px;

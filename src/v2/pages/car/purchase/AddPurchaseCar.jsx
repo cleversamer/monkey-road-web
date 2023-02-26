@@ -12,27 +12,47 @@ const AddPurchaseCar = () => {
   const { i18n } = useLocale();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
-  const [levels, setLevels] = useState({ count: 4, active: 1 });
+  const [levels, setLevels] = useState([
+    { title: "carInfo", active: true },
+    { title: "enterPrice", active: false },
+    { title: "uploadsImages", active: false },
+    { title: "payment", active: false },
+  ]);
 
   const handleNext = () => {
-    if (levels.active === levels.count) {
-      return setShowPopup(true);
-    }
-
-    setLevels({ ...levels, active: levels.active + 1 });
+    if (levels[levels.length - 1].active) return;
+    const newIndex = levels.findIndex((level) => level.active) + 1;
+    const newLevels = levels.map((level, index) => ({
+      ...level,
+      active: index === newIndex,
+    }));
+    setLevels(newLevels);
     scroll.scrollToTop();
   };
 
   const handlePrev = () => {
-    if (levels.active === 1) return;
-    setLevels({ ...levels, active: levels.active - 1 });
+    if (levels[0].active) return;
+    const newIndex = levels.findIndex((level) => level.active) - 1;
+    const newLevels = levels.map((level, index) => ({
+      ...level,
+      active: index === newIndex,
+    }));
+    setLevels(newLevels);
     scroll.scrollToTop();
   };
 
-  const handleSelectLevel = (number) => {
-    if (levels.active === number) return;
-    setLevels({ ...levels, active: number });
+  const handleSelectLevel = (levelIndex) => {
+    const newLevels = levels.map((level, index) => ({
+      ...level,
+      active: index === levelIndex,
+    }));
+    setLevels(newLevels);
     scroll.scrollToTop();
+  };
+
+  const getActiveLevel = () => {
+    const index = levels.findIndex((level) => level.active);
+    return index + 1;
   };
 
   const handleBackToHome = () => {
@@ -62,16 +82,16 @@ const AddPurchaseCar = () => {
 
       <AddCar
         pageTitles={[i18n("home"), i18n("arrow"), i18n("postPurchaseCar")]}
-        noOfLevels={levels.count}
-        activeLevel={levels.active}
+        levels={levels}
         onSelectLevel={handleSelectLevel}
+        activeLevel={getActiveLevel()}
       >
         <PostPurchaseCarForm
           onNext={handleNext}
           onPrev={handlePrev}
           onViewPopup={handleViewPopup}
-          activeLevel={levels.active}
-          noOfLevels={levels.count}
+          activeLevel={getActiveLevel()}
+          noOfLevels={levels.length}
         />
       </AddCar>
     </>

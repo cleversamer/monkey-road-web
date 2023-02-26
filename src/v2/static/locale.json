@@ -47,6 +47,10 @@
         "en": "About us",
         "ar": "من نحن"
     },
+    "about": {
+        "en": "About",
+        "ar": "من نحن"
+    },
     "post": {
         "en": "Post",
         "ar": "نشر"
@@ -418,6 +422,10 @@
     "app": {
         "en": "App",
         "ar": "التطبيق"
+    },
+    "downloadApp": {
+        "en": "Download app",
+        "ar": "حمّل التطبيق"
     },
     "forgotPasswordTitle": {
         "en": "Forgot your password?",
@@ -978,5 +986,9 @@
     "uploadsImages": {
         "en": "Upload images",
         "ar": "أضِف صور"
+    },
+    "payment": {
+        "en": "payment",
+        "ar": "الدفع"
     }
 }

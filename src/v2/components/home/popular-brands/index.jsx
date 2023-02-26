@@ -16,7 +16,7 @@ const PopularBrands = () => {
 
   useEffect(() => {
     brandsApi.common
-      .getPopularBrands()
+      .getPopularBrands(1, 7)
       .then((res) => setContext({ brands: res.data.brands, loading: false }))
       .catch((err) => setContext({ brands: [], loading: false }));
   }, []);

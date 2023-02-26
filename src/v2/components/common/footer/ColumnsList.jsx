@@ -29,7 +29,7 @@ const ColumnsList = () => {
       </ColumnItem>
 
       <ColumnItem>
-        <ColumnTitle>{i18n("aboutUs")}</ColumnTitle>
+        <ColumnTitle>{i18n("about")}</ColumnTitle>
 
         <ColumnScrollLink
           to="about-us"
@@ -51,7 +51,7 @@ const ColumnsList = () => {
       </ColumnItem>
 
       <ColumnItem>
-        <ColumnTitle>{i18n("app")}</ColumnTitle>
+        <ColumnTitle>{i18n("downloadApp")}</ColumnTitle>
 
         <ColumnLink target="_blank" href="https://play.google.com">
           <StoreImage
@@ -91,7 +91,7 @@ const Container = styled.ul`
 const ColumnItem = styled.li`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   color: #fff;
   width: 250px;
 
