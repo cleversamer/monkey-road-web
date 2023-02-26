@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
@@ -7,14 +8,14 @@ const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
   return (
     <Container lang={lang}>
       {levels.map((level, index) => (
-        <>
+        <Fragment key={index}>
           <LevelContainer onClick={() => onSelectLevel(index)}>
             <LevelCircle active={index < activeLevel}>{index + 1}</LevelCircle>
             <LevelTitle>{i18n(level.title)}</LevelTitle>
           </LevelContainer>
 
           {index + 1 < levels.length && <BreakLine />}
-        </>
+        </Fragment>
       ))}
     </Container>
   );
