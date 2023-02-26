@@ -47,12 +47,14 @@ const Title = styled.h4`
   font-weight: 600;
   text-transform: capitalize;
   margin-bottom: 5px;
+  text-align: center;
 `;
 
 const Subtitle = styled.p`
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 20px;
+  text-align: center;
 `;
 
 const Children = styled.div`
