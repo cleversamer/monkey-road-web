@@ -155,6 +155,11 @@ const PersonalInfo = () => {
               placeholder={i18n("role")}
               disabled
               value={i18n(user.role)}
+              // Below line to avoid a bug
+              // where all inputs that have
+              // value prop should also have
+              // an onChange handler.
+              onChange={() => {}}
             />
           </InputsContainer>
 
