@@ -126,9 +126,8 @@ const Car = styled.img`
   transform: translate(-50%, -50%);
   display: block;
   margin: 0 auto;
-  margin-top: -300px;
   width: 90vw;
-  max-width: 550px;
+  max-width: 650px;
 
   @media screen and (max-width: 480px) {
     bottom: -100px;
