@@ -63,10 +63,14 @@ const resendVerificationCode = async (subject, lang) => {
   );
 };
 
-const getMyFavorites = async () => {
+const getMyFavorites = async (page = 1, limit = 10) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/users/favorites/my`, config, cacheMins);
+  return await client.get(
+    `/users/favorites/my?page=${page}&limit=${limit}`,
+    config,
+    cacheMins
+  );
 };
 
 const addToFavorites = async (purchaseCarId) => {

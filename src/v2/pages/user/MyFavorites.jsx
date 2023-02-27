@@ -13,42 +13,69 @@ import purchaseApi from "v2/api/car/purchase";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
+import Pagination from "v2/components/pagination";
+
+const pageSize = 9;
 
 const MyFavorites = () => {
   const { user } = useAuth();
   const { i18n } = useLocale();
   const navigate = useNavigate();
-  const [favorites, setFavorites] = useState({ loading: true, list: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [favorites, setFavorites] = useState({
+    loading: true,
+    list: [],
+    totalPages: 0,
+  });
   const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
     // fetch latest rent cars
     rentApi.common
-      .getAllRentCars()
-      .then((res) => setLatestCars({ ...latestCars, forRent: res.data.cars }))
+      .getAllRentCars(1, 10)
+      .then((res) =>
+        setLatestCars({ ...latestCars, forRent: res.data.rentCars })
+      )
       .catch((err) => {});
 
     // fetch latest purchase cars
     purchaseApi.common
-      .getRecentlyArrivedPurchaseCars()
-      .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
+      .getRecentlyArrivedPurchaseCars(1, 10)
+      .then((res) =>
+        setLatestCars({ ...latestCars, forSale: res.data.purchaseCars })
+      )
       .catch((err) => {});
   }, []);
 
   useEffect(() => {
     // fetch favorites
     usersApi.common
-      .getMyFavorites()
+      .getMyFavorites(currentPage, pageSize)
       .then((res) => {
-        setFavorites({ loading: false, list: res.data.favorites });
+        const { purchaseCars, totalPages } = res.data;
+        setFavorites({ loading: false, list: purchaseCars, totalPages });
       })
-      .catch((err) => {
-        setFavorites({ loading: false, list: [] });
-      });
-  }, [user]);
+      .catch((err) =>
+        setFavorites({ loading: false, list: [], totalPages: 0 })
+      );
+  }, [user, currentPage]);
 
   const handleGoShopping = () =>
     navigate(routes.latestPurchaseCarModels.navigate());
+
+  const handleNextPage = () => {
+    if (currentPage === favorites.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <Container>
@@ -70,6 +97,18 @@ const MyFavorites = () => {
             imageURL="/assets/images/empty-1.svg"
             onClick={handleGoShopping}
           />
+        )}
+
+        {!!favorites.list.length && (
+          <PaginationContainer>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={favorites.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          </PaginationContainer>
         )}
       </FavoritesContainer>
 
@@ -98,7 +137,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
 
   @media screen and (max-width: 768px) {
@@ -127,6 +166,11 @@ const LatestCarsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 80px;
+`;
+
+const PaginationContainer = styled.div`
+  margin: 0 auto;
+  width: fit-content;
 `;
 
 export default MyFavorites;

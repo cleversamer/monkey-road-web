@@ -3,9 +3,13 @@ import client from "../client";
 import authStorage from "v2/auth/storage";
 
 ////////////////////////////// Common APIs //////////////////////////////
-const getAllRentCars = async (skip = 0) => {
+const getAllRentCars = async (page = 1, limit = 10) => {
   const cacheMins = 0;
-  return await client.get(`/cars/rent/get?skip=${skip}`, {}, cacheMins);
+  return await client.get(
+    `/cars/rent/get?page=${page}&limit=${limit}`,
+    {},
+    cacheMins
+  );
 };
 
 const searchRentCars = async (
