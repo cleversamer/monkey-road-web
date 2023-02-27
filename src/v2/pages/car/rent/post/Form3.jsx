@@ -70,14 +70,23 @@ const InputsRow = styled.div`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
+
+  @media screen and (max-width: 660px) {
+    flex-direction: column;
+  }
 `;
 
 const ImageInputContainer = styled.div`
-  flex: 0.25;
+  flex: 0.3;
+
+  @media screen and (max-width: 660px) {
+    flex: 1;
+    width: 100%;
+  }
 `;
 
 const SelectedImages = styled.ul`
-  flex: 0.75;
+  flex: 0.7;
   width: 100%;
   height: 340px;
   list-style: none;
@@ -90,6 +99,11 @@ const SelectedImages = styled.ul`
   align-content: center;
   border-radius: 8px;
   border: 1px solid #fe7777;
+
+  @media screen and (max-width: 660px) {
+    flex: 1;
+    width: 100%;
+  }
 `;
 
 const Image = styled.img`
@@ -98,6 +112,10 @@ const Image = styled.img`
   object-fit: contain;
   cursor: pointer;
   border: 1px solid #fe7777;
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+  }
 `;
 
 export default Form3;

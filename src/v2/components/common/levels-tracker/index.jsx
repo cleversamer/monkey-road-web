@@ -28,6 +28,7 @@ const Container = styled.div`
   gap: 10px;
   width: fit-content;
   margin: 0 auto;
+  text-align: center;
 `;
 
 const LevelContainer = styled.div`

@@ -203,13 +203,14 @@ const Container = styled.form`
   padding: 20px;
 
   button {
-    width: 300px;
+    width: 45vw;
+    max-width: 300px;
     margin: 0 auto;
     margin-top: 10px;
   }
 
   @media screen and (max-width: 480px) {
-    max-width: 300px;
+    width: calc(100vw - 40px);
   }
 `;
 
@@ -220,6 +221,15 @@ const ButtonsContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 const ErrorText = styled.span`

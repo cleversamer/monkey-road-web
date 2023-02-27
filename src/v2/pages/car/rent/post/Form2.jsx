@@ -102,6 +102,10 @@ const InputsRow = styled.div`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+  }
 `;
 
 export default Form2;

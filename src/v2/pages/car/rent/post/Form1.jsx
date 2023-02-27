@@ -20,7 +20,7 @@ const Form1 = ({
       </TitleContainer>
 
       <InputsContainer>
-        <InputsRow lang={lang}>
+        <InputsRow2 lang={lang}>
           <CustomInput
             type="text"
             title={i18n("carName")}
@@ -38,9 +38,9 @@ const Form1 = ({
             value={context.model}
             onChange={onKeyChange("model")}
           />
-        </InputsRow>
+        </InputsRow2>
 
-        <InputsRow lang={lang}>
+        <InputsRow3 lang={lang}>
           <CustomInput
             type="select"
             title={i18n("color")}
@@ -73,7 +73,7 @@ const Form1 = ({
             selectedIndex={context.yearIndex}
             onChange={onKeyChange("yearIndex")}
           />
-        </InputsRow>
+        </InputsRow3>
       </InputsContainer>
     </>
   );
@@ -110,11 +110,26 @@ const InputsContainer = styled.div`
   gap: 15px;
 `;
 
-const InputsRow = styled.div`
+const InputsRow2 = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+  }
+`;
+
+const InputsRow3 = styled.div`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  align-items: center;
+  gap: 12px;
+
+  @media screen and (max-width: 560px) {
+    flex-direction: column;
+  }
 `;
 
 export default Form1;
