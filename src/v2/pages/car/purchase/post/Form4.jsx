@@ -11,27 +11,38 @@ const Form4 = ({ context, onKeyChange }) => {
 
   return (
     <>
-      <FormTitle>{i18n("paymentFormTitle")}</FormTitle>
+      <TitleContainer>
+        <Title>{i18n("paymentFormTitle")}</Title>
+        <BreakLine />
+      </TitleContainer>
 
-      <PaymentMethods
-        paymentMethod={context.paymentMethod}
-        onChange={onKeyChange("paymentMethod")}
-      />
-
-      {context.paymentMethod === "debit" ? (
-        <StripeForm
-          items={invoiceItems}
-          onKeyChange={onKeyChange}
-          context={context}
+      <InputsContainer>
+        <PaymentMethods
+          paymentMethod={context.paymentMethod}
+          onChange={onKeyChange("paymentMethod")}
         />
-      ) : (
-        <PaypalForm items={invoiceItems} />
-      )}
+
+        {context.paymentMethod === "debit" ? (
+          <StripeForm
+            items={invoiceItems}
+            onKeyChange={onKeyChange}
+            context={context}
+          />
+        ) : (
+          <PaypalForm items={invoiceItems} />
+        )}
+      </InputsContainer>
     </>
   );
 };
 
-const FormTitle = styled.h3`
+const TitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Title = styled.h3`
   text-transform: capitalize;
   font-size: 28px;
   font-weight: 600;
@@ -41,6 +52,18 @@ const FormTitle = styled.h3`
     font-size: 24px;
     text-align: center;
   }
+`;
+
+const BreakLine = styled.span`
+  display: inline-block;
+  width: 100%;
+  height: 0px;
+  border: 1px solid #aaa;
+`;
+
+const InputsContainer = styled.div`
+  display: flex;
+  gap: 15px;
 `;
 
 export default Form4;

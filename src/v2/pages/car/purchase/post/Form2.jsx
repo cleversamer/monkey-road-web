@@ -9,33 +9,39 @@ const Form2 = ({ context, onKeyChange }) => {
     <>
       <FormTitle>{i18n("addCarFormTitle")}</FormTitle>
 
-      <CustomInput
-        type="text"
-        title={i18n("price")}
-        subtitle={`1-1M ${i18n("aed")}`}
-        placeholder={i18n("price")}
-        value={context.price}
-        onChange={onKeyChange("price")}
-      />
+      <InputsContainer>
+        <InputsColumn>
+          <CustomInput
+            type="text"
+            title={i18n("price")}
+            subtitle={`1-1M ${i18n("aed")}`}
+            placeholder={i18n("price")}
+            value={context.price}
+            onChange={onKeyChange("price")}
+          />
 
-      <CustomInput
-        type="phone"
-        title={i18n("phoneNumber")}
-        primary
-        onICCChange={onKeyChange("phoneICC")}
-        onNSNChange={onKeyChange("phoneNSN")}
-        icc={context.phoneICC}
-        nsn={context.phoneNSN}
-      />
+          <CustomInput
+            type="phone"
+            title={i18n("phoneNumber")}
+            primary
+            onICCChange={onKeyChange("phoneICC")}
+            onNSNChange={onKeyChange("phoneNSN")}
+            icc={context.phoneICC}
+            nsn={context.phoneNSN}
+          />
+        </InputsColumn>
 
-      <CustomInput
-        type="description"
-        title={i18n("description")}
-        subtitle={i18n("optional")}
-        placeholder={i18n("descriptionPlaceholder")}
-        value={context.description}
-        onChange={onKeyChange("description")}
-      />
+        <DescriptionColumn>
+          <CustomInput
+            type="description"
+            title={i18n("description")}
+            subtitle={i18n("optional")}
+            placeholder={i18n("descriptionPlaceholder")}
+            value={context.description}
+            onChange={onKeyChange("description")}
+          />
+        </DescriptionColumn>
+      </InputsContainer>
     </>
   );
 };
@@ -49,6 +55,34 @@ const FormTitle = styled.h3`
   @media screen and (max-width: 480px) {
     font-size: 24px;
     text-align: center;
+  }
+`;
+
+const InputsContainer = styled.div`
+  display: flex;
+  gap: 15px;
+
+  @media screen and (max-width: 660px) {
+    flex-direction: column;
+  }
+`;
+
+const InputsColumn = styled.div`
+  flex: 0.3;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @media screen and (max-width: 960px) {
+    flex: 0.4;
+  }
+`;
+
+const DescriptionColumn = styled.div`
+  flex: 0.7;
+
+  @media screen and (max-width: 960px) {
+    flex: 0.6;
   }
 `;
 

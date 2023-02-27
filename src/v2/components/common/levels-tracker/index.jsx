@@ -24,7 +24,7 @@ const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
 const Container = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   width: fit-content;
   margin: 0 auto;
@@ -78,18 +78,20 @@ const LevelTitle = styled.span`
 `;
 
 const BreakLine = styled.span`
+  align-self: center;
   display: inline-block;
   width: 80px;
   height: 0px;
   border: 1px solid #aaa;
   margin-top: -10px;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 550px) {
     width: 40px;
   }
 
   @media screen and (max-width: 420px) {
-    width: 30px;
+    width: 0px;
+    display: none;
   }
 `;
 

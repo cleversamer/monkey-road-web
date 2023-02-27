@@ -14,7 +14,7 @@ const Form1 = ({
   fuelTypeParser,
   seatsNumberPaeser,
 }) => {
-  const { i18n } = useLocale();
+  const { lang, i18n } = useLocale();
 
   return (
     <>
@@ -24,7 +24,7 @@ const Form1 = ({
       </TitleContainer>
 
       <InputsContainer>
-        <InputsRow>
+        <InputsRow3 lang={lang}>
           <CustomInput
             type="text"
             title={i18n("carName")}
@@ -51,7 +51,9 @@ const Form1 = ({
             value={context.model}
             onChange={onKeyChange("model")}
           />
+        </InputsRow3>
 
+        <InputsRow4 lang={lang}>
           <CustomInput
             type="select"
             title={i18n("brand")}
@@ -62,9 +64,7 @@ const Form1 = ({
             selectedIndex={context.brandIndex}
             onChange={onKeyChange("brandIndex")}
           />
-        </InputsRow>
 
-        <InputsRow>
           <CustomInput
             type="select"
             title={i18n("yearModel")}
@@ -97,7 +97,9 @@ const Form1 = ({
             selectedIndex={context.trimLevelIndex}
             onChange={onKeyChange("trimLevelIndex")}
           />
+        </InputsRow4>
 
+        <InputsRow4 lang={lang}>
           <CustomInput
             type="select"
             title={i18n("vehicleType")}
@@ -108,9 +110,7 @@ const Form1 = ({
             selectedIndex={context.vehicleTypeIndex}
             onChange={onKeyChange("vehicleTypeIndex")}
           />
-        </InputsRow>
 
-        <InputsRow>
           <CustomInput
             type="select"
             title={i18n("fuelType")}
@@ -141,7 +141,7 @@ const Form1 = ({
             value={context.kiloPerHour}
             onChange={onKeyChange("kiloPerHour")}
           />
-        </InputsRow>
+        </InputsRow4>
       </InputsContainer>
     </>
   );
@@ -178,11 +178,26 @@ const InputsContainer = styled.div`
   gap: 15px;
 `;
 
-const InputsRow = styled.div`
+const InputsRow3 = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 12px;
+
+  @media screen and (max-width: 660px) {
+    flex-direction: column;
+  }
+`;
+
+const InputsRow4 = styled.div`
+  display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
+  align-items: center;
+  gap: 12px;
+
+  @media screen and (max-width: 660px) {
+    flex-direction: column;
+  }
 `;
 
 export default Form1;

@@ -42,9 +42,9 @@ const Container = styled.div`
 const SelectMenu = styled.select`
   flex: 0.22;
   width: 22%;
-  background-color: ${({ primary }) => (primary ? "#fafafa" : "#f4f4f4")};
+  background-color: #fff;
   height: 35px;
-  border: ${({ primary }) => (primary ? "1px solid #fe7777" : "none")};
+  border: ${({ primary }) => (primary ? "1px solid #ababab" : "none")};
   outline: none;
   border-radius: 6px;
   cursor: pointer;
@@ -58,11 +58,11 @@ const Input = styled.input`
   flex: 0.78;
   width: 78%;
   height: 35px;
-  border: ${({ primary }) => (primary ? "1px solid #fe7777" : "none")};
+  border: ${({ primary }) => (primary ? "1px solid #ababab" : "none")};
   outline: none;
   border-radius: 6px;
   padding: 0 10px;
-  background-color: ${({ primary }) => (primary ? "#fafafa" : "#f4f4f4")};
+  background-color: #fff;
 `;
 
 export default PhoneInput;

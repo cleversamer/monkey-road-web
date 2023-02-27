@@ -35,6 +35,11 @@ const Container = styled.main`
   max-width: 1366px;
   margin: 0 auto;
 
+  @media screen and (max-width: 960px) {
+    padding: 30px;
+    align-items: center;
+  }
+
   @media screen and (max-width: 768px) {
     padding: 30px;
     align-items: center;

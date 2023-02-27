@@ -238,28 +238,40 @@ const PostPurchaseCarForm = ({
 
 const Container = styled.form`
   width: 100vw;
-  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  padding: 20px;
 
   button {
-    width: 300px;
+    width: 45vw;
+    max-width: 300px;
     margin: 0 auto;
     margin-top: 10px;
   }
 
   @media screen and (max-width: 480px) {
-    max-width: 300px;
+    width: calc(100vw - 40px);
   }
 `;
 
 const ButtonsContainer = styled.div`
+  align-self: flex-start;
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    width: 100%;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 const ErrorText = styled.span`
