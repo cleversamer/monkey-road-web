@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
@@ -14,7 +14,7 @@ import useLocale from "v2/hooks/useLocale";
 
 const PersonalInfo = () => {
   const { i18n, lang } = useLocale();
-  const { user, login } = useAuth();
+  const { user, login, setUser } = useAuth();
   const navigate = useNavigate();
   const [lastLogin, setLastLogin] = useState(parseDate(user.lastLogin, lang));
   const [context, setContext] = useState({
@@ -149,18 +149,20 @@ const PersonalInfo = () => {
               onNSNChange={handleKeyChange("phoneNSN")}
             />
 
-            <CustomInput
-              type="name"
-              title={i18n("role")}
-              placeholder={i18n("role")}
-              disabled
-              value={i18n(user.role)}
-              // Below line to avoid a bug
-              // where all inputs that have
-              // value prop should also have
-              // an onChange handler.
-              onChange={() => {}}
-            />
+            {user.role === "office" && (
+              <CustomInput
+                type="price"
+                title={i18n("balance")}
+                placeholder={i18n("balance")}
+                disabled
+                value={user.balance.toLocaleString()}
+                // Below line to avoid a bug
+                // where all inputs that have
+                // value prop should also have
+                // an onChange handler.
+                onChange={() => {}}
+              />
+            )}
           </InputsContainer>
 
           {!!context.error && (
@@ -222,6 +224,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   gap: 15px;
   box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  height: fit-content;
 `;
 
 const SubmitContainer = styled.div`

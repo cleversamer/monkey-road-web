@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 import { FaRegUser, FaCarAlt } from "react-icons/fa";
@@ -8,10 +8,14 @@ import PopupConfirm from "v2/hoc/PopupConfirm";
 import { routes } from "v2/client";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import usersApi from "v2/api/user/users";
 
 const ProfileNavigation = ({ activeItem }) => {
+  const imageInputRef = useRef(null);
   const { i18n, lang } = useLocale();
-  const { user, logout } = useAuth();
+  const { user, logout, setUser } = useAuth();
+  const [avatar, setAvatar] = useState({ url: "", value: null });
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
@@ -32,6 +36,37 @@ const ProfileNavigation = ({ activeItem }) => {
     setPopupWindow({ visible: true, handler: logoutHander });
   };
 
+  const handleAvatarChange = async (e) => {
+    const image = e.target.files[0];
+    if (!image) {
+      // Show warning
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => {
+      setAvatar({ value: image, url: reader.result });
+      handleChangeAvatar(image);
+    };
+  };
+
+  const handleChangeAvatar = async (image) => {
+    let error = "";
+
+    try {
+      const body = { avatar: image };
+      const res = await usersApi.common.updateProfile(body);
+      const { user } = res.data;
+      setUser(user);
+    } catch (err) {
+      error = err?.response?.data?.message[lang] || i18n("networkError");
+      setUser(user);
+    } finally {
+      setAvatar({ url: "", value: null });
+    }
+  };
+
   return (
     <>
       {popupWindow.visible && (
@@ -50,6 +85,25 @@ const ProfileNavigation = ({ activeItem }) => {
         <BreakLine />
 
         <NavItems lang={lang}>
+          <AvatarContainer onClick={() => imageInputRef.current.click()}>
+            <Avatar
+              src={
+                avatar.url ||
+                user.avatarURL ||
+                "/assets/images/default_avatar.svg"
+              }
+              alt={user.name}
+            />
+            <AvatarIcon />
+            <AvatarInput
+              ref={imageInputRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleAvatarChange}
+            />
+          </AvatarContainer>
+
           <NavItem active={activeItem === "personal info"}>
             <NavRoute to={routes.personalInfo.navigate()} lang={lang}>
               <FaRegUser />
@@ -202,6 +256,35 @@ const NavButton = styled.span`
   :active {
     transform: scale(0.99);
   }
+`;
+
+const AvatarContainer = styled.div`
+  align-self: center;
+  position: relative;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  cursor: pointer;
+  margin: 15px 0;
+`;
+
+const Avatar = styled.img`
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+`;
+
+const AvatarIcon = styled(AiOutlinePlusCircle)`
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  font-size: 20px;
+`;
+
+const AvatarInput = styled.input`
+  display: none;
 `;
 
 export default ProfileNavigation;

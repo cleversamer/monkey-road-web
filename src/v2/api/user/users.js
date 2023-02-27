@@ -10,6 +10,7 @@ const isAuth = async () => {
 };
 
 const updateProfile = async (profileData) => {
+  console.log("profileData", profileData);
   const formData = new FormData();
   for (let key in profileData) {
     formData.append(key, profileData[key]);

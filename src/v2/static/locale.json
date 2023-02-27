@@ -990,5 +990,9 @@
     "payment": {
         "en": "payment",
         "ar": "الدفع"
+    },
+    "balance": {
+        "en": "Balance",
+        "ar": "الرصيد"
     }
 }
