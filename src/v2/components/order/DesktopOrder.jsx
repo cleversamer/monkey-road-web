@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "v2/utils/parseDate";
-import { serverURL } from "v2/api/client";
 import useLocale from "v2/hooks/useLocale";
 
 const DesktopOrder = ({

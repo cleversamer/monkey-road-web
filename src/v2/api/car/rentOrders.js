@@ -2,10 +2,14 @@
 import client from "../client";
 import authStorage from "v2/auth/storage";
 
-const getMyOrders = async (skip = 0) => {
+const getMyOrders = async (page = 1, limit = 10) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/orders/rent/my?skip=${skip}`, config, cacheMins);
+  return await client.get(
+    `/orders/rent/my?page=${page}&limit=${limit}`,
+    config,
+    cacheMins
+  );
 };
 
 const getMyReceivedOrders = async (skip = 0) => {

@@ -39,7 +39,7 @@ const MyOrders = () => {
 
   useEffect(() => {
     rentOrdersApi.common
-      .getMyOrders(0)
+      .getMyOrders(1, 10)
       .then((res) => {
         const { orders } = res.data;
         setOrders({ ...orders, loading: false, all: orders, view: orders });
@@ -251,7 +251,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
 
   @media screen and (max-width: 768px) {
