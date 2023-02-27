@@ -59,6 +59,7 @@ const AlertImage = styled.img`
 `;
 
 const Content = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
