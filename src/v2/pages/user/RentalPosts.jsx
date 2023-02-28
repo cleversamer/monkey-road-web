@@ -8,21 +8,48 @@ import { routes } from "v2/client";
 import rentApi from "v2/api/car/rent";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
+import Pagination from "v2/components/pagination";
+
+const pageSize = 9;
 
 const RentalPosts = () => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
-  const [rentalPosts, setRentalPosts] = useState({ loading: true, list: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rentalPosts, setRentalPosts] = useState({
+    loading: true,
+    list: [],
+    totalPages: 0,
+  });
 
   useEffect(() => {
     rentApi.office
-      .getMyRentCars(0)
-      .then((res) => setRentalPosts({ loading: false, list: res.data.cars }))
-      .catch((err) => setRentalPosts({ loading: false, list: [] }));
+      .getMyRentCars(currentPage, pageSize)
+      .then((res) => {
+        const { rentCars, totalPages } = res.data;
+        setRentalPosts({ loading: false, list: rentCars, totalPages });
+      })
+      .catch((err) =>
+        setRentalPosts({ loading: false, list: [], totalPages: 0 })
+      );
   }, []);
 
   const handleViewDetails = (carId) => {
     navigate(routes.rentCarDetails.navigate(carId));
+  };
+
+  const handleNextPage = () => {
+    if (currentPage === rentalPosts.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -60,6 +87,18 @@ const RentalPosts = () => {
           </EmptyPosts>
         )}
       </Content>
+
+      {!!rentalPosts.totalPages && (
+        <PaginationContainer>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={rentalPosts.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        </PaginationContainer>
+      )}
     </Container>
   );
 };
@@ -68,7 +107,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;
@@ -122,6 +161,11 @@ const PostsContainer = styled.div`
   > * {
     margin: 0 auto;
   }
+`;
+
+const PaginationContainer = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 export default RentalPosts;

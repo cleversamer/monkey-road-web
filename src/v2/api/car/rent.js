@@ -52,10 +52,14 @@ const postRentCar = async (profileData) => {
   return await client.post("/cars/rent/add", formData, config);
 };
 
-const getMyRentCars = async (skip = 0) => {
+const getMyRentCars = async (page = 1, limit = 9) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/cars/rent/my?skip=${skip}`, config, cacheMins);
+  return await client.get(
+    `/cars/rent/my?page=${page}&limit=${limit}`,
+    config,
+    cacheMins
+  );
 };
 
 ////////////////////////////// Admin APIs //////////////////////////////

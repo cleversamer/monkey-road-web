@@ -87,13 +87,15 @@ const SalesPosts = () => {
       </Content>
 
       {!!salesPosts.totalPages && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={salesPosts.totalPages}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onSelectPage={handleSelectPage}
-        />
+        <PaginationContainer>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={salesPosts.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        </PaginationContainer>
       )}
     </Container>
   );
@@ -157,6 +159,11 @@ const PostsContainer = styled.div`
   > * {
     margin: 0 auto;
   }
+`;
+
+const PaginationContainer = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 export default SalesPosts;
