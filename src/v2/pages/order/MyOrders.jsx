@@ -15,6 +15,9 @@ import PopupConfirm from "v2/hoc/PopupConfirm";
 import rentOrdersApi from "v2/api/car/rentOrders";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
+import Pagination from "v2/components/pagination";
+
+const pageSize = 10;
 
 const MyOrders = () => {
   const { i18n } = useLocale();
@@ -26,6 +29,7 @@ const MyOrders = () => {
     subtitle: "",
     hint: "",
   });
+  const [currentPage, setCurrentPage] = useState(1);
   const [orders, setOrders] = useState({
     all: [],
     view: [],
@@ -34,18 +38,25 @@ const MyOrders = () => {
     selectedStatus: "all",
     selectedOrder: null,
     loading: true,
+    totalPages: 0,
   });
   const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
     rentOrdersApi.common
-      .getMyOrders(1, 10)
+      .getMyOrders(currentPage, pageSize)
       .then((res) => {
-        const { orders } = res.data;
-        setOrders({ ...orders, loading: false, all: orders, view: orders });
+        const { orders, totalPages } = res.data;
+        setOrders({
+          ...orders,
+          loading: false,
+          all: orders,
+          view: orders,
+          totalPages,
+        });
       })
       .catch((err) => {
-        setOrders({ ...orders, loading: false });
+        setOrders({ ...orders, loading: false, totalPages: 0 });
       });
   }, []);
 
@@ -173,6 +184,20 @@ const MyOrders = () => {
     return { title, onClick };
   };
 
+  const handleNextPage = () => {
+    if (currentPage === orders.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <Container>
       {orders.selectedOrder && (
@@ -224,6 +249,18 @@ const MyOrders = () => {
             onClick={handleGoShopping}
           />
         )}
+
+        {!!orders.all.length && (
+          <PaginationContainer>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={orders.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          </PaginationContainer>
+        )}
       </OrdersContainer>
 
       <LatestCarsContainer>
@@ -263,6 +300,11 @@ const Container = styled.main`
 const OrdersContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 80px;
+`;
+
+const PaginationContainer = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 const LatestCarsContainer = styled.div`
