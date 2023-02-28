@@ -3,22 +3,24 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
 import ProfileNavigation from "v2/components/user/ProfileNavigation";
-import PurchaseCar from "v2/components/car/purchase";
 import { routes } from "v2/client";
 import purchaseApi from "v2/api/car/purchase";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import Pagination from "v2/components/pagination";
+import FiltersSection from "v2/components/sales-post/FiltersSection";
+import SalesPost from "v2/components/sales-post";
 
 const pageSize = 9;
 
 const SalesPosts = () => {
   const { i18n, lang } = useLocale();
-  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [salesPosts, setSalesPosts] = useState({
     loading: true,
     list: [],
+    view: [],
+    selectedStatus: "all",
     totalPages: 0,
   });
 
@@ -27,17 +29,52 @@ const SalesPosts = () => {
       .getMyPurchaseCars(currentPage, pageSize)
       .then((res) => {
         const { purchaseCars, totalPages } = res.data;
-        setSalesPosts({ loading: false, list: purchaseCars, totalPages });
+        setSalesPosts({
+          loading: false,
+          list: purchaseCars,
+          view: purchaseCars,
+          selectedStatus: "all",
+          totalPages,
+        });
       })
-      .catch((err) => {
-        setSalesPosts({ loading: false, list: [], totalPages: 0 });
+      .catch(() => {
+        setSalesPosts({
+          loading: false,
+          list: [],
+          view: [],
+          totalPages: 0,
+          selectedStatus: "all",
+        });
       });
-  }, []);
+  }, [currentPage]);
 
-  const handleDeletePost = (carId) => {};
+  const handleFilterItems = (title) => {
+    const viewList =
+      title === "all"
+        ? [...salesPosts.list]
+        : title === "sold"
+        ? salesPosts.list.filter((i) => i.sold)
+        : salesPosts.list.filter((i) => !i.sold);
 
-  const handleViewDetails = (carId) => {
-    navigate(routes.rentCarDetails.navigate(carId));
+    setSalesPosts({ ...salesPosts, selectedStatus: title, view: viewList });
+  };
+
+  const handleMarkCarAsSold = (carId) => {
+    purchaseApi.common
+      .markPurchaseCarAsSold(carId)
+      .then(() => {
+        const newSalesPosts = [...salesPosts.list];
+        const carIndex = newSalesPosts.findIndex((i) => i._id === carId);
+        newSalesPosts[carIndex].sold = true;
+        setSalesPosts({
+          ...salesPosts,
+          list: newSalesPosts,
+          view: newSalesPosts,
+          selectedStatus: "all",
+        });
+        setCurrentPage(1);
+      })
+      .catch(() => {});
   };
 
   const handleNextPage = () => {
@@ -71,9 +108,21 @@ const SalesPosts = () => {
 
         {!!salesPosts.list.length ? (
           <PostsContainer>
-            {salesPosts.list.map((postCar) => (
-              <PurchaseCar key={postCar._id} data={postCar} />
-            ))}
+            <FiltersSection
+              salesPosts={salesPosts}
+              selectedItem={salesPosts.selectedStatus}
+              onSelectItem={handleFilterItems}
+            />
+
+            <PostsList>
+              {salesPosts.view.map((postCar) => (
+                <SalesPost
+                  key={postCar._id}
+                  data={postCar}
+                  onMarkCarAsSold={() => handleMarkCarAsSold(postCar._id)}
+                />
+              ))}
+            </PostsList>
           </PostsContainer>
         ) : salesPosts.loading ? (
           <Loader />
@@ -150,6 +199,13 @@ const EmptyPostsSubtitle = styled.h5`
 `;
 
 const PostsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+const PostsList = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

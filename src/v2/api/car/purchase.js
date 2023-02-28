@@ -78,6 +78,15 @@ const getMyPurchaseCars = async (page = 1, limit = 9) => {
   );
 };
 
+const markPurchaseCarAsSold = async (purchaseCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(
+    `/cars/purchase/${purchaseCarId}/mark-sold`,
+    {},
+    config
+  );
+};
+
 export default {
   common: {
     getRecentlyArrivedPurchaseCars,
@@ -87,6 +96,7 @@ export default {
     getPurchaseCarDetails,
     postPurchaseCar,
     getMyPurchaseCars,
+    markPurchaseCarAsSold,
   },
   admin: {},
 };

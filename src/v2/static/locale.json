@@ -1014,5 +1014,17 @@
     "recipientAddress": {
         "en": "Recipient address",
         "ar": "عنوان الاستلام"
+    },
+    "markAsSold": {
+        "en": "Mark as sold",
+        "ar": "تعليم كمُباعة"
+    },
+    "sold": {
+        "en": "Sold",
+        "ar": "مُباعة"
+    },
+    "notSold": {
+        "en": "Not sold",
+        "ar": "غير مُباعة"
     }
 }
