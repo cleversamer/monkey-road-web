@@ -130,7 +130,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;
@@ -155,11 +155,11 @@ const Content = styled.div`
 `;
 
 const FormContainer = styled.div`
-  max-width: 400px;
   width: 100%;
   background-color: #fff;
   padding: 20px 40px;
   border-radius: 12px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.3);
   display: flex;
   flex-direction: column;
   gap: 15px;
