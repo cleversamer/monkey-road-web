@@ -3,11 +3,16 @@ import PaymentMethods from "v2/components/common/payment-form/PaymentMethods";
 import StripeForm from "v2/components/common/payment-form/StripeForm";
 import PaypalForm from "v2/components/common/payment-form/PaypalForm";
 import useLocale from "v2/hooks/useLocale";
+import Invoice from "v2/components/common/payment-form/Invoice";
+
+const paypal = { fixedFee: 0.49, percentageFee: 0.0349 };
+const visa = { fixedFee: 0.29, percentageFee: 0.0229 };
 
 const Form4 = ({ context, onKeyChange }) => {
   const { i18n } = useLocale();
 
   const invoiceItems = [{ title: i18n("postCost"), cost: 100 }];
+  const paymentData = context.paymentMethod === "debit" ? visa : paypal;
 
   return (
     <>
@@ -17,19 +22,19 @@ const Form4 = ({ context, onKeyChange }) => {
       </TitleContainer>
 
       <InputsContainer>
-        <PaymentMethods
-          paymentMethod={context.paymentMethod}
-          onChange={onKeyChange("paymentMethod")}
-        />
+        <InputsRow>
+          <PaymentMethods
+            paymentMethod={context.paymentMethod}
+            onChange={onKeyChange("paymentMethod")}
+          />
+
+          <Invoice items={invoiceItems} {...paymentData} />
+        </InputsRow>
 
         {context.paymentMethod === "debit" ? (
-          <StripeForm
-            items={invoiceItems}
-            onKeyChange={onKeyChange}
-            context={context}
-          />
+          <StripeForm onKeyChange={onKeyChange} context={context} />
         ) : (
-          <PaypalForm items={invoiceItems} />
+          <PaypalForm />
         )}
       </InputsContainer>
     </>
@@ -63,7 +68,19 @@ const BreakLine = styled.span`
 
 const InputsContainer = styled.div`
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const InputsRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+
+  @media screen and (max-width: 680px) {
+    flex-direction: column;
+    gap: 15px;
+  }
 `;
 
 export default Form4;

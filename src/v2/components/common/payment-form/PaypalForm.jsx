@@ -1,23 +1,7 @@
 import styled from "styled-components";
-import Invoice from "./Invoice";
 
-const percentageFee = 0.0349;
-const fixedFee = 0.49;
-
-const PaypalForm = ({ items }) => {
-  return (
-    <Container>
-      <BreakLine />
-
-      <Invoice
-        percentageFee={percentageFee}
-        fixedFee={fixedFee}
-        items={items}
-      />
-
-      <BreakLine />
-    </Container>
-  );
+const PaypalForm = () => {
+  return <Container></Container>;
 };
 
 const Container = styled.div`

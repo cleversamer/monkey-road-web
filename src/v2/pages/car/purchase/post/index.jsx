@@ -265,7 +265,7 @@ const ButtonsContainer = styled.div`
   gap: 20px;
 
   @media screen and (max-width: 480px) {
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
 
     button {

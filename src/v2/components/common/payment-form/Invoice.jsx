@@ -52,9 +52,13 @@ const Invoice = ({ items = [], percentageFee, fixedFee }) => {
 };
 
 const Container = styled.div`
+  flex: 1;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
 `;
 
 const Title = styled.h4``;

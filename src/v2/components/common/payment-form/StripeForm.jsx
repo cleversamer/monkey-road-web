@@ -1,23 +1,9 @@
 import styled from "styled-components";
-import Invoice from "./Invoice";
 import CardInfo from "./CardInfo";
 
-const percentageFee = 0.0229;
-const fixedFee = 0.29;
-
-const StripeForm = ({ context, items, onKeyChange }) => {
+const StripeForm = ({ context, onKeyChange }) => {
   return (
     <Container>
-      <BreakLine />
-
-      <Invoice
-        items={items}
-        fixedFee={fixedFee}
-        percentageFee={percentageFee}
-      />
-
-      <BreakLine />
-
       <CardInfo context={context} onKeyChange={onKeyChange} />
     </Container>
   );
@@ -27,6 +13,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  padding: 20px;
 `;
 
 const BreakLine = styled.span`
