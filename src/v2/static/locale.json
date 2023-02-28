@@ -848,15 +848,23 @@
         "ar": "قيد الإنتظار"
     },
     "approved": {
-        "en": "Approved",
-        "ar": "مقبول"
+        "en": "Waiting for payment",
+        "ar": "بانتظار الدفع"
+    },
+    "paid": {
+        "en": "Waiting for delivery",
+        "ar": "بانتظار التسليم"
+    },
+    "delivered": {
+        "en": "Delivered",
+        "ar": "مسلّم"
     },
     "rejected": {
         "en": "Rejected",
         "ar": "مرفوض"
     },
     "closed": {
-        "en": "Cancelled",
+        "en": "Closed",
         "ar": "مُغلق"
     },
     "viewDetails": {
@@ -994,5 +1002,17 @@
     "balance": {
         "en": "Balance",
         "ar": "الرصيد"
+    },
+    "orderDetails": {
+        "en": "Order details",
+        "ar": "تفاصيل الطلب"
+    },
+    "order": {
+        "en": "Order",
+        "ar": "طلب"
+    },
+    "recipientAddress": {
+        "en": "Recipient address",
+        "ar": "عنوان الاستلام"
     }
 }

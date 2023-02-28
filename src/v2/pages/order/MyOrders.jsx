@@ -53,12 +53,13 @@ const MyOrders = () => {
           all: orders,
           view: orders,
           totalPages,
+          selectedStatus: "all",
         });
       })
       .catch((err) => {
         setOrders({ ...orders, loading: false, totalPages: 0 });
       });
-  }, []);
+  }, [currentPage]);
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
 

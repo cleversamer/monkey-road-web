@@ -2,8 +2,11 @@ import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
+import useLocale from "v2/hooks/useLocale";
 
 const OrderDetails = ({ order, onHide, children }) => {
+  const { i18n } = useLocale();
+
   useEffect(() => {
     window.onkeydown = function (event) {
       if (event.keyCode == 27) {
@@ -13,33 +16,15 @@ const OrderDetails = ({ order, onHide, children }) => {
   }, []);
 
   return (
-    <PopupContainer>
+    <PopupContainer onHide={onHide}>
       <Container>
         <TopRow>
           <IoClose onClick={onHide} />
-          <Title>order details</Title>
+          <Title>{i18n("orderDetails")}</Title>
         </TopRow>
 
-        <OrderStatus status={order.status}>{order.status} order</OrderStatus>
-
-        {!!order.rentCar.description && (
-          <RentCarDescription>{order.rentCar.description}</RentCarDescription>
-        )}
-
-        <RentCarInfo>
-          <RentCarImage
-            src={order.rentCar.photos[0]}
-            alt={order.rentCar.name}
-          />
-
-          <RentCarDetails>
-            <RentCarName>{order.rentCar.name}</RentCarName>
-            <OrderPrice>{order.totalPrice} AED</OrderPrice>
-          </RentCarDetails>
-        </RentCarInfo>
-
         <ReceptionLocation>
-          <Title>Shipping address</Title>
+          <Title>{i18n("recipientAddress")}</Title>
 
           <ReceptionLocationName>
             {order.receptionLocation.title}

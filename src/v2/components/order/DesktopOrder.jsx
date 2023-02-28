@@ -30,19 +30,21 @@ const DesktopOrder = ({
           <Image src={order.rentCar.photos[0]} alt={order.rentCar.name} />
         </ItemContainer>
 
-        <ItemContainer bold primary>
-          {order.totalPrice} {i18n("aed")}
+        <ItemContainer>
+          <OrderPrice>
+            {order.totalPrice.toLocaleString()} {i18n("aed")}
+          </OrderPrice>
         </ItemContainer>
 
         <ItemContainer>
           <OrderStatus status={order.status}>{i18n(order.status)}</OrderStatus>
         </ItemContainer>
 
-        <ItemContainer link onClick={() => onViewDetails(order)}>
-          {i18n("details")}
+        <ItemContainer onClick={() => onViewDetails(order)}>
+          <OrderDetails>{i18n("details")}</OrderDetails>
         </ItemContainer>
 
-        <ItemContainer lowercase>
+        <ItemContainer>
           {time} {i18n("ago")}
         </ItemContainer>
 
@@ -89,28 +91,23 @@ const ItemContainer = styled.span`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
-  font-weight: ${({ bold }) => (bold ? "700" : "500")};
-  color: ${({ primary, link }) =>
-    primary ? "#fe7777" : link ? "#001aff" : "#000"};
-  text-transform: ${({ lowercase }) =>
-    lowercase ? "lowercase" : "capitalize"};
-  text-decoration: ${({ link }) => (link ? "underline" : "none")};
-  transition-duration: 176ms;
-  cursor: ${({ link }) => (link ? "pointer" : "")};
-
-  :hover {
-    color: ${({ link, primary }) =>
-      link ? "#fe7777" : primary ? "#fe7777" : "#000"};
-  }
 
   @media screen and (max-width: 960px) {
     flex-direction: column;
   }
 `;
 
+const OrderPrice = styled.span`
+  font-size: 15px;
+  font-weight: 500;
+  color: #303030;
+`;
+
 const OrderStatus = styled.span`
-  color: ${({ status }) =>
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+  background-color: ${({ status }) =>
     status === "pending"
       ? "orange"
       : ["rejected", "closed"].includes(status)
@@ -118,6 +115,12 @@ const OrderStatus = styled.span`
       : status === "approved"
       ? "green"
       : "#000"};
+`;
+
+const OrderDetails = styled.span`
+  color: #001aff;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -147,7 +150,7 @@ const CompleteButton = styled(Button)`
 `;
 
 const CancelButton = styled(Button)`
-  color: #f00;
+  color: #001aff;
 `;
 
 const DeleteButton = styled(Button)`

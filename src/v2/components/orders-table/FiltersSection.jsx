@@ -8,8 +8,10 @@ const FiltersSection = ({ orders, onSelectItem }) => {
   const ordersCount = orders.all.length;
   const pendingOrdersCount = getOrdersCount("pending");
   const approvedOrdersCount = getOrdersCount("approved");
-  const rejectedOrdersCount = getOrdersCount("rejected");
+  const paidOrdersCount = getOrdersCount("paid");
+  const deliveredOrdersCount = getOrdersCount("delivered");
   const cancelledOrdersCount = getOrdersCount("closed");
+  const rejectedOrdersCount = getOrdersCount("rejected");
 
   function getOrdersCount(status) {
     return orders.all.filter((order) => {
@@ -46,10 +48,17 @@ const FiltersSection = ({ orders, onSelectItem }) => {
         />
 
         <FilterItem
-          title={i18n("rejected")}
-          count={rejectedOrdersCount}
-          active={checkItemSelected("rejected")}
-          onClick={() => onSelectItem("rejected")}
+          title={i18n("paid")}
+          count={paidOrdersCount}
+          active={checkItemSelected("paid")}
+          onClick={() => onSelectItem("paid")}
+        />
+
+        <FilterItem
+          title={i18n("delivered")}
+          count={deliveredOrdersCount}
+          active={checkItemSelected("delivered")}
+          onClick={() => onSelectItem("delivered")}
         />
 
         <FilterItem
@@ -57,6 +66,13 @@ const FiltersSection = ({ orders, onSelectItem }) => {
           count={cancelledOrdersCount}
           active={checkItemSelected("closed")}
           onClick={() => onSelectItem("closed")}
+        />
+
+        <FilterItem
+          title={i18n("rejected")}
+          count={rejectedOrdersCount}
+          active={checkItemSelected("rejected")}
+          onClick={() => onSelectItem("rejected")}
         />
       </StatusFilters>
     </Container>

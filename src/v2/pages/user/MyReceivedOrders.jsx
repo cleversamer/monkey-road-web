@@ -18,6 +18,9 @@ import rentOrdersApi from "v2/api/car/rentOrders";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import useAutoScroll from "v2/hooks/useAutoScroll";
+import Pagination from "v2/components/pagination";
+
+const pageSize = 10;
 
 const MyReceivedOrders = () => {
   useAutoScroll();
@@ -30,6 +33,7 @@ const MyReceivedOrders = () => {
     subtitle: "",
     hint: "",
   });
+  const [currentPage, setCurrentPage] = useState(1);
   const [orders, setOrders] = useState({
     all: [],
     view: [],
@@ -38,18 +42,30 @@ const MyReceivedOrders = () => {
     selectedStatus: "all",
     selectedOrder: null,
     loading: true,
+    totalPages: 0,
   });
   const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
     // fetch orders
     rentOrdersApi.office
-      .getMyReceivedOrders(0)
-      .then((res) =>
-        setOrders({ ...orders, all: res.data.orders, loading: false })
-      )
-      .catch((err) => setOrders({ ...orders, loading: false }));
+      .getMyReceivedOrders(currentPage, pageSize)
+      .then((res) => {
+        const { orders, totalPages } = res.data;
+        setOrders({
+          ...orders,
+          loading: false,
+          all: orders,
+          view: orders,
+          totalPages,
+        });
+      })
+      .catch((err) => {
+        setOrders({ ...orders, loading: false, totalPages: 0 });
+      });
+  }, [currentPage]);
 
+  useEffect(() => {
     // fetch latest rent cars
     rentApi.common
       .getAllRentCars()
@@ -120,6 +136,20 @@ const MyReceivedOrders = () => {
       subtitle: "Do you really want to reject order?",
       hint: "You can only reject pending orders.",
     });
+  };
+
+  const handleNextPage = () => {
+    if (currentPage === orders.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -194,9 +224,21 @@ const MyReceivedOrders = () => {
             onClick={handleGoShopping}
           />
         )}
+
+        {!!orders.all.length && (
+          <PaginationContainer>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={orders.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          </PaginationContainer>
+        )}
       </OrdersContainer>
 
-      <LatestCarsContainer>
+      {/* <LatestCarsContainer>
         {!!latestCars.forRent.length && (
           <ItemsSection type="slider" title={i18n("latestRentalCars")}>
             {latestCars.forRent.map((car) => (
@@ -212,7 +254,7 @@ const MyReceivedOrders = () => {
             ))}
           </ItemsSection>
         )}
-      </LatestCarsContainer>
+      </LatestCarsContainer> */}
     </Container>
   );
 };
@@ -233,6 +275,11 @@ const Container = styled.main`
 const OrdersContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 80px;
+`;
+
+const PaginationContainer = styled.div`
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 const LatestCarsContainer = styled.div`

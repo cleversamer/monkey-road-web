@@ -12,11 +12,11 @@ const getMyOrders = async (page = 1, limit = 10) => {
   );
 };
 
-const getMyReceivedOrders = async (skip = 0) => {
+const getMyReceivedOrders = async (page = 1, limit = 10) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
-    `/orders/my-received?skip=${skip}`,
+    `/orders/rent/my-received?page=${page}&limit=${limit}`,
     config,
     cacheMins
   );
