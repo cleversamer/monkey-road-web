@@ -15,7 +15,7 @@ import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
 import Pagination from "v2/components/pagination";
 
-const pageSize = 9;
+const pageSize = 12;
 
 const MyFavorites = () => {
   const { user } = useAuth();

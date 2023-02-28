@@ -93,6 +93,11 @@ const CarName = styled.h5`
   font-weight: 700;
   font-size: 18px;
   text-transform: capitalize;
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 const CarPriceContainer = styled.h5`

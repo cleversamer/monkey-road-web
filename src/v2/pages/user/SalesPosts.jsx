@@ -16,9 +16,15 @@ const SalesPosts = () => {
 
   useEffect(() => {
     purchaseApi.common
-      .getMyPurchaseCars(0)
-      .then((res) => setSalesPosts({ loading: false, list: res.data.cars }))
-      .catch((err) => setSalesPosts({ loading: false, list: [] }));
+      .getMyPurchaseCars(1, 9)
+      .then((res) => {
+        console.log("res", res.data);
+        setSalesPosts({ loading: false, list: res.data.purchaseCars });
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setSalesPosts({ loading: false, list: [] });
+      });
   }, []);
 
   const handleDeletePost = (carId) => {};

@@ -68,10 +68,14 @@ const postPurchaseCar = async (profileData) => {
   return await client.post("/cars/purchase/add", formData, config);
 };
 
-const getMyPurchaseCars = async (skip = 0) => {
+const getMyPurchaseCars = async (page = 1, limit = 9) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/cars/purchase/my?skip=${skip}`, config, cacheMins);
+  return await client.get(
+    `/cars/purchase/my?page=${page}&limit=${limit}`,
+    config,
+    cacheMins
+  );
 };
 
 export default {
