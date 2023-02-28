@@ -8,22 +8,29 @@ import { routes } from "v2/client";
 import purchaseApi from "v2/api/car/purchase";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
+import Pagination from "v2/components/pagination";
+
+const pageSize = 9;
 
 const SalesPosts = () => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
-  const [salesPosts, setSalesPosts] = useState({ loading: true, list: [] });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [salesPosts, setSalesPosts] = useState({
+    loading: true,
+    list: [],
+    totalPages: 0,
+  });
 
   useEffect(() => {
     purchaseApi.common
-      .getMyPurchaseCars(1, 9)
+      .getMyPurchaseCars(currentPage, pageSize)
       .then((res) => {
-        console.log("res", res.data);
-        setSalesPosts({ loading: false, list: res.data.purchaseCars });
+        const { purchaseCars, totalPages } = res.data;
+        setSalesPosts({ loading: false, list: purchaseCars, totalPages });
       })
       .catch((err) => {
-        console.log("err", err);
-        setSalesPosts({ loading: false, list: [] });
+        setSalesPosts({ loading: false, list: [], totalPages: 0 });
       });
   }, []);
 
@@ -31,6 +38,20 @@ const SalesPosts = () => {
 
   const handleViewDetails = (carId) => {
     navigate(routes.rentCarDetails.navigate(carId));
+  };
+
+  const handleNextPage = () => {
+    if (currentPage === salesPosts.totalPages) return;
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage === 1) return;
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleSelectPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -64,6 +85,16 @@ const SalesPosts = () => {
           </EmptyPosts>
         )}
       </Content>
+
+      {!!salesPosts.totalPages && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={salesPosts.totalPages}
+          onNext={handleNextPage}
+          onPrev={handlePrevPage}
+          onSelectPage={handleSelectPage}
+        />
+      )}
     </Container>
   );
 };
@@ -72,7 +103,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
   display: flex;
   flex-direction: column;
