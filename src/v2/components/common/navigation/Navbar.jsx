@@ -13,6 +13,7 @@ import { routes } from "v2/client";
 import PopupConfirm from "v2/hoc/PopupConfirm";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
+import { GiSandsOfTime } from "react-icons/gi";
 
 const Navbar = ({ onOpenMenu }) => {
   const { i18n, switchLang, lang } = useLocale();
@@ -311,6 +312,16 @@ const Navbar = ({ onOpenMenu }) => {
                     </NavRoute>
                   </NavItem>
                 )}
+
+                <NavItem>
+                  <NavRoute
+                    lang={lang}
+                    onClick={() => scroll.scrollToTop()}
+                    to={routes.myTransactions.navigate()}
+                  >
+                    <GiSandsOfTime /> {i18n("transactions")}
+                  </NavRoute>
+                </NavItem>
 
                 <NavItem>
                   <NavRoute
