@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
-import { FaRegUser, FaCarAlt } from "react-icons/fa";
-import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
-import { MdCallReceived } from "react-icons/md";
 import PopupConfirm from "v2/hoc/PopupConfirm";
 import { routes } from "v2/client";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import usersApi from "v2/api/user/users";
+import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
+import { MdCallReceived } from "react-icons/md";
+import { FaRegUser, FaCarAlt } from "react-icons/fa";
+import { AiOutlinePlusCircle, AiOutlineDollar } from "react-icons/ai";
 
 const ProfileNavigation = ({ activeItem }) => {
   const imageInputRef = useRef(null);
@@ -123,6 +123,15 @@ const ProfileNavigation = ({ activeItem }) => {
               <NavRoute to={routes.rentalPosts.navigate()} lang={lang}>
                 <FaCarAlt />
                 <NavItemTitle>{i18n("rentalPosts")}</NavItemTitle>
+              </NavRoute>
+            </NavItem>
+          )}
+
+          {user.role !== "admin" && (
+            <NavItem active={activeItem === "transactions"}>
+              <NavRoute to={routes.myTransactions.navigate()} lang={lang}>
+                <AiOutlineDollar size={20} />
+                <NavItemTitle>{i18n("transactions")}</NavItemTitle>
               </NavRoute>
             </NavItem>
           )}

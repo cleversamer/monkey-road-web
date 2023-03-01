@@ -1054,5 +1054,13 @@
     "rejectionReason": {
         "en": "Rejection reason",
         "ar": "سبب الرفض"
+    },
+    "transactions": {
+        "en": "Transactions",
+        "ar": "المعاملات الماليّة"
+    },
+    "noTransactions": {
+        "en": "No transactions",
+        "ar": "ليس لديك معاملات ماليّة"
     }
 }

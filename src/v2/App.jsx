@@ -28,6 +28,7 @@ import RentalPosts from "v2/pages/user/RentalPosts";
 import ChangePassword from "v2/pages/user/ChangePassword";
 import MyReceivedOrders from "v2/pages/user/MyReceivedOrders";
 import Alerts from "v2/pages/user/Alerts";
+import MyTransactions from "v2/pages/user/MyTransactions";
 import { routes } from "v2/client";
 
 import AuthContext from "v2/auth/context";
@@ -131,6 +132,10 @@ const App = () => {
               element={<ChangePassword />}
             />
             <Route path={routes.alerts.route} element={<Alerts />} />
+            <Route
+              path={routes.myTransactions.route}
+              element={<MyTransactions />}
+            />
           </>
         )}
 
