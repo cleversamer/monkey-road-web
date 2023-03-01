@@ -9,6 +9,7 @@ import rentApi from "v2/api/car/rent";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import Pagination from "v2/components/pagination";
+import FiltersSection from "v2/components/rental-post/FiltersSection";
 
 const pageSize = 9;
 
@@ -19,6 +20,8 @@ const RentalPosts = () => {
   const [rentalPosts, setRentalPosts] = useState({
     loading: true,
     list: [],
+    view: [],
+    selectedStatus: "all",
     totalPages: 0,
   });
 
@@ -27,15 +30,40 @@ const RentalPosts = () => {
       .getMyRentCars(currentPage, pageSize)
       .then((res) => {
         const { rentCars, totalPages } = res.data;
-        setRentalPosts({ loading: false, list: rentCars, totalPages });
+        setRentalPosts({
+          loading: false,
+          list: rentCars,
+          view: rentCars,
+          selectedStatus: "all",
+          totalPages,
+        });
       })
       .catch((err) =>
-        setRentalPosts({ loading: false, list: [], totalPages: 0 })
+        setRentalPosts({
+          loading: false,
+          list: [],
+          view: [],
+          selectedStatus: "all",
+          totalPages: 0,
+        })
       );
   }, []);
 
   const handleViewDetails = (carId) => {
     navigate(routes.rentCarDetails.navigate(carId));
+  };
+
+  const handleFilterItems = (title) => {
+    const viewList =
+      title === "all"
+        ? [...rentalPosts.list]
+        : title === "active"
+        ? rentalPosts.list.filter((i) => i.accepted)
+        : title === "pending"
+        ? rentalPosts.list.filter((i) => !i.accepted)
+        : rentalPosts.list.filter((i) => i.archived);
+
+    setRentalPosts({ ...rentalPosts, selectedStatus: title, view: viewList });
   };
 
   const handleNextPage = () => {
@@ -69,13 +97,20 @@ const RentalPosts = () => {
 
         {!!rentalPosts.list.length ? (
           <PostsContainer>
-            {rentalPosts.list.map((postCar) => (
-              <PostCar
-                key={postCar._id}
-                data={postCar}
-                onViewDetails={() => handleViewDetails(postCar._id)}
-              />
-            ))}
+            <FiltersSection
+              rentalPosts={rentalPosts}
+              onSelectItem={handleFilterItems}
+            />
+
+            <PostsList>
+              {rentalPosts.list.map((postCar) => (
+                <PostCar
+                  key={postCar._id}
+                  data={postCar}
+                  onViewDetails={() => handleViewDetails(postCar._id)}
+                />
+              ))}
+            </PostsList>
           </PostsContainer>
         ) : rentalPosts.loading ? (
           <Loader />
@@ -153,6 +188,13 @@ const EmptyPostsSubtitle = styled.h5`
 
 const PostsContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+const PostsList = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   align-content: center;
@@ -162,7 +204,6 @@ const PostsContainer = styled.div`
     margin: 0 auto;
   }
 `;
-
 const PaginationContainer = styled.div`
   width: fit-content;
   margin: 0 auto;

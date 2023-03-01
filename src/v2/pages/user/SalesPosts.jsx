@@ -110,7 +110,6 @@ const SalesPosts = () => {
           <PostsContainer>
             <FiltersSection
               salesPosts={salesPosts}
-              selectedItem={salesPosts.selectedStatus}
               onSelectItem={handleFilterItems}
             />
 
