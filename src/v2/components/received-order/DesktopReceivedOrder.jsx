@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "v2/utils/parseDate";
+import useLocale from "v2/hooks/useLocale";
 
-const DesktopReceivedOrder = ({
+const DesktopOrder = ({
   order,
   onApprove,
   onReject,
+  onDeliver,
   onViewDetails,
 }) => {
+  const { i18n } = useLocale();
   const [time, setTime] = useState(parseDate(order.date));
 
   useEffect(() => {
@@ -28,33 +31,41 @@ const DesktopReceivedOrder = ({
         </ItemContainer>
 
         <ItemContainer>
-          <OrderPrice>{order.totalPrice.toLocaleString()} AED</OrderPrice>
+          <OrderPrice>
+            {order.totalPrice.toLocaleString()} {i18n("aed")}
+          </OrderPrice>
         </ItemContainer>
 
         <ItemContainer>
-          <OrderStatus status={order.status}>{order.status}</OrderStatus>
+          <OrderStatus status={order.status}>{i18n(order.status)}</OrderStatus>
         </ItemContainer>
 
-        <ItemContainer link onClick={() => onViewDetails(order)}>
-          details
+        <ItemContainer onClick={() => onViewDetails(order)}>
+          <OrderDetails>{i18n("details")}</OrderDetails>
         </ItemContainer>
 
-        <ItemContainer lowercase>{time} ago</ItemContainer>
+        <ItemContainer>
+          {time} {i18n("ago")}
+        </ItemContainer>
 
         <ItemContainer>
           {order.status === "pending" && (
-            <>
-              <ApproveButton onClick={() => onApprove(order)}>
-                approve
-              </ApproveButton>
-
-              <RejectButton onClick={() => onReject(order)}>
-                reject
-              </RejectButton>
-            </>
+            <ApproveButton onClick={() => onApprove(order._id)}>
+              {i18n("approve")}
+            </ApproveButton>
           )}
 
-          {order.status !== "pending" && <NoneButton>none</NoneButton>}
+          {["pending", "approved"].includes(order.status) && (
+            <RejectButton onClick={() => onReject(order._id)}>
+              {i18n("reject")}
+            </RejectButton>
+          )}
+
+          {order.status === "paid" && (
+            <DeliverButton onClick={() => onDeliver(order._id)}>
+              {i18n("deliver")}
+            </DeliverButton>
+          )}
         </ItemContainer>
       </Desktop>
 
@@ -89,18 +100,25 @@ const ItemContainer = styled.span`
 const OrderPrice = styled.span`
   font-size: 15px;
   font-weight: 500;
-  color: #000;
+  color: #303030;
 `;
 
 const OrderStatus = styled.span`
-  color: ${({ status }) =>
-    status === "pending"
-      ? "#fe7777"
-      : ["rejected", "closed"].includes(status)
-      ? "red"
-      : status === "approved"
-      ? "green"
-      : "#000"};
+  color: #fff;
+  padding: 5px;
+  border-radius: 6px;
+  background-color: ${({ status }) =>
+    ["pending", "approved", "paid"].includes(status)
+      ? "#FFA500"
+      : status === "deliverd"
+      ? "#1A8331"
+      : "#f00"};
+`;
+
+const OrderDetails = styled.span`
+  color: #001aff;
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -133,8 +151,8 @@ const RejectButton = styled(Button)`
   color: #f00;
 `;
 
-const NoneButton = styled(Button)`
-  color: #001aff;
+const DeliverButton = styled(Button)`
+  color: #38a34f;
 `;
 
 const BreakLine = styled.span`
@@ -149,4 +167,4 @@ const BreakLine = styled.span`
   }
 `;
 
-export default DesktopReceivedOrder;
+export default DesktopOrder;

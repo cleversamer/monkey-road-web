@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import ReceivedOrder from "v2/components/received-order";
 
-const TableBody = ({ orders, onApprove, onReject, onViewDetails }) => {
+const TableBody = ({
+  orders,
+  onApprove,
+  onReject,
+  onDeliver,
+  onViewDetails,
+}) => {
   return (
     <Container>
       {orders.map((order) => (
@@ -10,6 +16,7 @@ const TableBody = ({ orders, onApprove, onReject, onViewDetails }) => {
           order={order}
           onApprove={onApprove}
           onReject={onReject}
+          onDeliver={onDeliver}
           onViewDetails={onViewDetails}
         />
       ))}

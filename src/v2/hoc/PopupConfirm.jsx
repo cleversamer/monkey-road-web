@@ -1,8 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import useLocale from "v2/hooks/useLocale";
 import Loader from "v2/components/loader";
+import CustomInput from "v2/components/common/custom-input";
 
 const PopupConfirm = ({
   onHide,
@@ -11,27 +13,41 @@ const PopupConfirm = ({
   subtitle,
   hint,
   loading,
+  withValue = false,
 }) => {
   const { i18n } = useLocale();
+  const [value, setValue] = useState("");
 
   return (
     <PopupContainer onHide={onHide}>
       <Container>
         <TopRow>
           <IoClose onClick={onHide} />
-          <Title>{title}</Title>
+          {title && <Title>{title}</Title>}
         </TopRow>
 
-        <SubTitle>{subtitle}</SubTitle>
+        {subtitle && <SubTitle>{subtitle}</SubTitle>}
 
-        <Hint>{hint}</Hint>
+        {hint && <Hint>{hint}</Hint>}
+
+        {withValue && (
+          <CustomInput
+            type="description"
+            title="rejection reason"
+            placeholder="rejection reason"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+        )}
 
         {loading ? (
           <Loader />
         ) : (
           <CTAContainer>
             <CancelButton onClick={onHide}>{i18n("cancel")}</CancelButton>
-            <ConfirmButton onClick={onConfirm}>{i18n("ok")}</ConfirmButton>
+            <ConfirmButton onClick={() => onConfirm(value)}>
+              {i18n("ok")}
+            </ConfirmButton>
           </CTAContainer>
         )}
       </Container>

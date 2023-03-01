@@ -31,6 +31,16 @@ const OrderDetails = ({ order, onHide, children }) => {
           </ReceptionLocationName>
         </ReceptionLocation>
 
+        {!!order.reasonFor.rejection && (
+          <ReceptionLocation>
+            <Title>{i18n("rejectionReason")}</Title>
+
+            <ReceptionLocationName>
+              {order.reasonFor.rejection}
+            </ReceptionLocationName>
+          </ReceptionLocation>
+        )}
+
         <CTAContainer>{children}</CTAContainer>
       </Container>
     </PopupContainer>

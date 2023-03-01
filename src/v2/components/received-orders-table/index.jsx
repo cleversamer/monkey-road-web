@@ -2,23 +2,27 @@ import styled from "styled-components";
 import FiltersSection from "./FiltersSection";
 import TableBody from "./TableBody";
 import TableHeadings from "./TableHeadings";
-
-const headings = [
-  "products",
-  "total",
-  "status",
-  "details",
-  "date",
-  "operations",
-];
+import useLocale from "v2/hooks/useLocale";
 
 const OrdersTable = ({
   orders,
   onApprove,
   onReject,
+  onDeliver,
   onSelectItem,
   onViewDetails,
 }) => {
+  const { i18n } = useLocale();
+
+  const headings = [
+    i18n("products"),
+    i18n("total"),
+    i18n("status"),
+    i18n("details"),
+    i18n("date"),
+    i18n("operations"),
+  ];
+
   return (
     <Container>
       <FiltersSection orders={orders} onSelectItem={onSelectItem} />
@@ -28,6 +32,7 @@ const OrdersTable = ({
         orders={orders.view}
         onApprove={onApprove}
         onReject={onReject}
+        onDeliver={onDeliver}
         onViewDetails={onViewDetails}
       />
     </Container>

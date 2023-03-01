@@ -32,6 +32,7 @@ const MyReceivedOrders = () => {
     title: "",
     subtitle: "",
     hint: "",
+    withValue: false,
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [orders, setOrders] = useState({
@@ -58,6 +59,7 @@ const MyReceivedOrders = () => {
           all: orders,
           view: orders,
           totalPages,
+          selectedStatus: "all",
         });
       })
       .catch((err) => {
@@ -115,6 +117,7 @@ const MyReceivedOrders = () => {
       title: "approve order",
       subtitle: "Do you really want to approve order?",
       hint: "You can only approve pending orders.",
+      withValue: false,
     });
   };
 
@@ -123,8 +126,9 @@ const MyReceivedOrders = () => {
 
     handleHideOrderDetails();
 
-    const rejectOder = () => {
+    const rejectOder = (rejectionReason) => {
       // rejecr order code
+      console.log("rejectionReason", rejectionReason);
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -135,6 +139,27 @@ const MyReceivedOrders = () => {
       title: "reject order",
       subtitle: "Do you really want to reject order?",
       hint: "You can only reject pending orders.",
+      withValue: true,
+    });
+  };
+
+  const handleDeliverOrder = (order) => {
+    if (popupConfirm.visible) return;
+
+    handleHideOrderDetails();
+
+    const deliverOder = () => {
+      // rejecr order code
+
+      setPopupConfirm({ visible: false, handler: null });
+    };
+
+    setPopupConfirm({
+      visible: true,
+      onConfirm: deliverOder,
+      title: i18n("deliverOrderTitle"),
+      subtitle: i18n("deliverOrderSubtitle"),
+      hint: i18n("deliverOrderHint"),
     });
   };
 
@@ -183,6 +208,7 @@ const MyReceivedOrders = () => {
           subtitle={popupConfirm.subtitle}
           hint={popupConfirm.hint}
           onConfirm={popupConfirm.onConfirm}
+          withValue={popupConfirm.withValue}
           onHide={() =>
             setPopupConfirm({
               visible: false,
@@ -211,6 +237,7 @@ const MyReceivedOrders = () => {
             orders={orders}
             onApprove={handleApproveOrder}
             onReject={handleRejectOrder}
+            onDeliver={handleDeliverOrder}
             onSelectItem={handleFilterItems}
             onViewDetails={handleViewOrderDetails}
           />
@@ -263,7 +290,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 60px;
 
   @media screen and (max-width: 768px) {

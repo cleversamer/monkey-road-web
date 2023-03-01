@@ -779,6 +779,18 @@
         "en": "Waiting for approval",
         "ar": "بإنتظار الموافقة"
     },
+    "deliverOrderTitle": {
+        "en": "Deliver order",
+        "ar": "تسليم الطلب"
+    },
+    "deliverOrderSubtitle": {
+        "en": "Do you really want to deliver order?",
+        "ar": "هل تريد حقًا تسليم الطلب؟"
+    },
+    "deliverOrderHint": {
+        "en": "You can only cancel your order while it is pending",
+        "ar": "يمكنك فقط إغلاق الطلبات التي هي قيد الإنتظار"
+    },
     "cancelOrderTitle": {
         "en": "Cancel order",
         "ar": "إغلاق الطلب"
@@ -1026,5 +1038,21 @@
     "notSold": {
         "en": "Not sold",
         "ar": "غير مُباعة"
+    },
+    "approve": {
+        "en": "Approve",
+        "ar": "قبول"
+    },
+    "reject": {
+        "en": "Reject",
+        "ar": "رفض"
+    },
+    "deliver": {
+        "en": "Deliver",
+        "ar": "تسليم"
+    },
+    "rejectionReason": {
+        "en": "Rejection reason",
+        "ar": "سبب الرفض"
     }
 }
