@@ -40,6 +40,7 @@ import authStorage from "v2/auth/storage";
 import MainScreen from "v2/pages/admin/MainScreen";
 import PendingRentalPosts from "v2/pages/admin/PendingRentalPosts";
 import AdminRentCars from "v2/pages/admin/AdminRentCars";
+import AdminPurchaseCars from "v2/pages/admin/AdminPurchaseCars";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -87,6 +88,10 @@ const App = () => {
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
+            <Route
+              path={routes.allPurchaseCars.route}
+              element={<AdminPurchaseCars />}
+            />
             <Route
               path={routes.allRentCars.route}
               element={<AdminRentCars />}

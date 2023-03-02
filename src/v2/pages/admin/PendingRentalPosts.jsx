@@ -15,7 +15,7 @@ const PendingRentalPosts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState({
     list: [],
-    loading: false,
+    loading: true,
     totalPages: 0,
   });
 

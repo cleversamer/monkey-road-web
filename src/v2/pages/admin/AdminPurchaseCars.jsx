@@ -4,13 +4,13 @@ import useLocale from "v2/hooks/useLocale";
 import AdminSidebar from "v2/components/admin/sidebar";
 import Loader from "v2/components/loader";
 import EmptyList from "v2/components/common/empty-list";
-import rentApi from "v2/api/car/rent";
+import purchaseApi from "v2/api/car/purchase";
 import Pagination from "v2/components/pagination";
-import AdminRentCar from "v2/components/admin-rent-car";
+import PurchaseCar from "v2/components/admin/purchase-car";
 
 const pageSize = 9;
 
-const AdminRentCars = () => {
+const AdminPurchaseCars = () => {
   const { lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState({
@@ -20,13 +20,13 @@ const AdminRentCars = () => {
   });
 
   useEffect(() => {
-    rentApi.common
-      .getAllRentCars(currentPage, pageSize)
+    purchaseApi.common
+      .getBestSellerPurchaseCars(currentPage, pageSize)
       .then((res) => {
-        const { rentCars, totalPages } = res.data;
-        setPosts({ ...posts, list: rentCars, totalPages });
+        const { purchaseCars, totalPages } = res.data;
+        setPosts({ list: purchaseCars, loading: false, totalPages });
       })
-      .catch(() => setPosts({ ...posts, list: [], totalPages: 0 }));
+      .catch(() => setPosts({ list: [], loading: false, totalPages: 0 }));
   }, [currentPage]);
 
   const handleNextPage = () => {
@@ -55,7 +55,7 @@ const AdminRentCars = () => {
             <EmptyList />
           ) : (
             posts.list.map((rentCar) => (
-              <AdminRentCar key={rentCar._id} data={rentCar} />
+              <PurchaseCar key={rentCar._id} data={rentCar} />
             ))
           )}
         </RentCarsContainer>
@@ -101,4 +101,4 @@ const RentCarsContainer = styled.ul`
   }
 `;
 
-export default AdminRentCars;
+export default AdminPurchaseCars;

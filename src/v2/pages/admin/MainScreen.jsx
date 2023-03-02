@@ -73,7 +73,7 @@ const MainScreen = () => {
   };
 
   const handleSeeMorePurcahseCars = () => {
-    //
+    navigate(routes.allPurchaseCars.navigate());
   };
 
   const handleSeeMoreOfficeOrders = () => {

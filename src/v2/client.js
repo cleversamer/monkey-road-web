@@ -135,4 +135,8 @@ export const routes = {
     route: "/admin/cars/rent/all",
     navigate: () => "/admin/cars/rent/all",
   },
+  allPurchaseCars: {
+    route: "/admin/cars/purchase/all",
+    navigate: () => "/admin/cars/purchase/all",
+  },
 };
