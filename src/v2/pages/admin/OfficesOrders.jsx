@@ -4,19 +4,21 @@ import useLocale from "v2/hooks/useLocale";
 import AdminSidebar from "v2/components/admin/sidebar";
 import Loader from "v2/components/loader";
 import EmptyList from "v2/components/common/empty-list";
-import rentApi from "v2/api/car/rent";
 import rentOrdersApi from "v2/api/car/rentOrders";
 import Pagination from "v2/components/pagination";
 import OfficeOrder from "v2/components/admin/office-order";
+import FiltersSection from "v2/components/orders-table/FiltersSection";
 
 const pageSize = 9;
 
 const OfficesOrders = () => {
   const { lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
-  const [posts, setPosts] = useState({
-    list: [],
+  const [orders, setOrders] = useState({
+    all: [],
+    view: [],
     loading: true,
+    selectedStatus: "all",
     totalPages: 0,
   });
 
@@ -25,15 +27,37 @@ const OfficesOrders = () => {
       .getAllOrders(currentPage, pageSize)
       .then((res) => {
         const { orders, totalPages } = res.data;
-        setPosts({ ...posts, list: orders, loading: false, totalPages });
+        setOrders({
+          ...orders,
+          all: orders,
+          view: orders,
+          selectedStatus: "all",
+          loading: false,
+          totalPages,
+        });
       })
       .catch(() =>
-        setPosts({ ...posts, list: [], loading: false, totalPages: 0 })
+        setOrders({
+          ...orders,
+          all: [],
+          view: [],
+          loading: false,
+          totalPages: 0,
+        })
       );
   }, [currentPage]);
 
+  const handleFilterItems = (title) => {
+    const viewList =
+      title === "all"
+        ? [...orders.all]
+        : orders.all.filter((order) => order.status === title);
+
+    setOrders({ ...orders, selectedStatus: title, view: viewList });
+  };
+
   const handleNextPage = () => {
-    if (currentPage === posts.totalPages) return;
+    if (currentPage === orders.totalPages) return;
     setCurrentPage(currentPage + 1);
   };
 
@@ -51,13 +75,14 @@ const OfficesOrders = () => {
       <AdminSidebar />
 
       <Content>
+        <FiltersSection orders={orders} onSelectItem={handleFilterItems} />
         <RentCarsContainer>
-          {posts.loading ? (
+          {orders.loading ? (
             <Loader />
-          ) : !posts.list.length ? (
+          ) : !orders.all.length ? (
             <EmptyList />
           ) : (
-            posts.list.map((rentCar) => (
+            orders.view.map((rentCar) => (
               <OfficeOrder key={rentCar._id} data={rentCar} />
             ))
           )}
@@ -65,7 +90,7 @@ const OfficesOrders = () => {
 
         <Pagination
           currentPage={currentPage}
-          totalPages={posts.totalPages}
+          totalPages={orders.totalPages}
           onNext={handleNextPage}
           onPrev={handlePrevPage}
           onSelectPage={handleSelectPage}
