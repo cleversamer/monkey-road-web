@@ -8,7 +8,6 @@ import useAuth from "v2/auth/useAuth";
 const PendingRentCar = ({ data }) => {
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
-  const navigate = useNavigate();
 
   const handleAccept = () => {
     //
@@ -51,6 +50,9 @@ const CTAContainer = styled.div`
   padding: 10px 5px;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
   > * {
     height: 32px;

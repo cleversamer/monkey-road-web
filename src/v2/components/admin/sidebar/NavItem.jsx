@@ -30,12 +30,14 @@ const NavItem = ({ title, Icon, onClick, subItems = [] }) => {
 };
 
 const Container = styled.li`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
 const NavItemTitleContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   ${({ lang }) => (lang === "en" ? "" : "align-items: center;")}

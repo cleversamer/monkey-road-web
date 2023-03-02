@@ -38,11 +38,11 @@ const deleteOrder = async (orderId) => {
   return await client.delete(`/orders/rent/${orderId}/delete`, config);
 };
 
-const getAllOrders = async (skip = 0) => {
+const getAllOrders = async (page = 1, limit = 3) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
-    `/orders/rent/admin/all?skip=${skip}`,
+    `/orders/rent/admin/all?page=${page}&limit=${limit}`,
     config,
     cacheMins
   );

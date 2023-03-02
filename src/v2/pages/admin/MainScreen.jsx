@@ -9,18 +9,19 @@ import useLocale from "v2/hooks/useLocale";
 import Card from "v2/components/admin/card";
 import PendingRentCar from "v2/components/car/pending-rental";
 import AdminRentCar from "v2/components/admin-rent-car";
-import PurchaseCar from "v2/components/car/purchase";
+import PurchaseCar from "v2/components/admin/purchase-car";
 import Loader from "v2/components/loader";
 import usersApi from "v2/api/user/users";
 import rentApi from "v2/api/car/rent";
 import rentOrders from "v2/api/car/rentOrders";
 import purchaseApi from "v2/api/car/purchase";
+import OfficeOrder from "v2/components/admin/office-order";
 
 const MainScreen = () => {
   const { i18n, lang } = useLocale();
   const [status, setStatus] = useState({ loading: true, value: {} });
   const [rentCars, setRentCars] = useState({ list: [], loading: true });
-  const [purcahseCars, setPurchaseCars] = useState({ list: [], loading: true });
+  const [purchaseCars, setPurchaseCars] = useState({ list: [], loading: true });
   const [officeOrders, setOfficeOrders] = useState({ list: [], loading: true });
   const [pendingRentalPosts, setPendingRentalPosts] = useState({
     list: [],
@@ -36,46 +37,34 @@ const MainScreen = () => {
       .catch((err) => setStatus({ loading: false, value: {} }));
 
     rentApi.admin
-      .getNotAcceptedRentCars(0)
+      .getNotAcceptedRentCars(1, 3)
       .then((res) => {
-        const cars = [];
-        for (let i = 0; i < res.data.cars.length && i < 3; i++) {
-          cars.unshift(res.data.cars[i]);
-        }
-        setPendingRentalPosts({ loading: false, list: cars });
+        console.log("getNotAcceptedRentCars", res.data);
+        setPendingRentalPosts({ loading: false, list: res.data.rentCars });
       })
       .catch((err) => setPendingRentalPosts({ loading: false, list: [] }));
 
     rentApi.common
-      .getAllRentCars(0)
+      .getAllRentCars(1, 3)
       .then((res) => {
-        const cars = [];
-        for (let i = 0; i < res.data.cars.length && i < 3; i++) {
-          cars.unshift(res.data.cars[i]);
-        }
-        setRentCars({ loading: false, list: cars });
+        console.log("getAllRentCars", res.data);
+        setRentCars({ loading: false, list: res.data.rentCars });
       })
       .catch((err) => setRentCars({ loading: false, list: [] }));
 
     purchaseApi.common
-      .getRecentlyArrivedPurchaseCars(0)
+      .getRecentlyArrivedPurchaseCars(1, 3)
       .then((res) => {
-        const cars = [];
-        for (let i = 0; i < res.data.cars.length && i < 3; i++) {
-          cars.unshift(res.data.cars[i]);
-        }
-        setPurchaseCars({ loading: false, list: cars });
+        console.log("getRecentlyArrivedPurchaseCars", res.data);
+        setPurchaseCars({ loading: false, list: res.data.purchaseCars });
       })
       .catch((err) => setPurchaseCars({ loading: false, list: [] }));
 
     rentOrders.admin
-      .getAllOrders(0)
+      .getAllOrders(1, 3)
       .then((res) => {
-        const orders = [];
-        for (let i = 0; i < res.data.orders.length && i < 3; i++) {
-          orders.unshift(res.data.orders[i]);
-        }
-        setOfficeOrders({ loading: false, list: orders });
+        console.log("getAllOrders", res.data);
+        setOfficeOrders({ loading: false, list: res.data.orders });
       })
       .catch((err) => setOfficeOrders({ loading: false, list: [] }));
   }, []);
@@ -102,7 +91,7 @@ const MainScreen = () => {
 
       <Content>
         <TopContainer lang={lang}>
-          <PageTitle>{i18n("mainScreen")}</PageTitle>
+          <PageTitle>{i18n("home")}</PageTitle>
 
           <CustomButton
             type="primary"
@@ -117,7 +106,7 @@ const MainScreen = () => {
           ) : (
             <Card
               title={i18n("rentCars")}
-              value={status?.value?.rent?.total || 0}
+              value={status?.value?.rent?.total?.toLocaleString() || 0}
               Icon={AiFillCar}
             />
           )}
@@ -127,7 +116,7 @@ const MainScreen = () => {
           ) : (
             <Card
               title={i18n("purchaseCars")}
-              value={status?.value?.purchase?.total || 0}
+              value={status?.value?.purchase?.total?.toLocaleString() || 0}
               Icon={AiFillCar}
             />
           )}
@@ -137,7 +126,7 @@ const MainScreen = () => {
           ) : (
             <Card
               title={i18n("pendingRentalPosts")}
-              value={status?.value?.rent?.inactive || 0}
+              value={status?.value?.rent?.inactive?.toLocaleString() || 0}
               Icon={GiSandsOfTime}
             />
           )}
@@ -147,7 +136,7 @@ const MainScreen = () => {
           ) : (
             <Card
               title={i18n("officesOrders")}
-              value={status?.value?.order?.total || 0}
+              value={status?.value?.order?.total?.toLocaleString() || 0}
               Icon={GiSandsOfTime}
             />
           )}
@@ -185,33 +174,33 @@ const MainScreen = () => {
           </ItemsSection>
         )}
 
-        {!!purcahseCars.list.length && (
+        {!!purchaseCars.list.length && (
           <ItemsSection
             title={i18n("purchaseCars")}
             type="section"
             onSeeMore={handleSeeMorePurcahseCars}
           >
-            {purcahseCars.loading ? (
+            {purchaseCars.loading ? (
               <Loader />
             ) : (
-              purcahseCars.list.map((purchaseCar) => (
+              purchaseCars.list.map((purchaseCar) => (
                 <PurchaseCar key={purchaseCar._id} data={purchaseCar} />
               ))
             )}
           </ItemsSection>
         )}
 
-        {!!purcahseCars.list.length && (
+        {!!purchaseCars.list.length && (
           <ItemsSection
             title={i18n("officesOrders")}
             type="section"
             onSeeMore={handleSeeMoreOfficeOrders}
           >
-            {purcahseCars.loading ? (
+            {purchaseCars.loading ? (
               <Loader />
             ) : (
-              purcahseCars.list.map((purchaseCar) => (
-                <PurchaseCar key={purchaseCar._id} data={purchaseCar} />
+              officeOrders.list.map((purchaseCar) => (
+                <OfficeOrder key={purchaseCar._id} data={purchaseCar} />
               ))
             )}
           </ItemsSection>
@@ -225,7 +214,7 @@ const Container = styled.main`
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
-  background-color: #fafafa;
+  background-color: #fff;
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};

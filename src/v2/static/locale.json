@@ -895,10 +895,6 @@
         "en": "No results were found for your search",
         "ar": "لم يتم العثور على نتائج بحثك"
     },
-    "mainScreen": {
-        "en": "Main screen",
-        "ar": "الشاشة الرئيسيّة"
-    },
     "addBrandButton": {
         "en": "+ Add brand",
         "ar": "إضافة شركة سيّارات +"
@@ -918,6 +914,10 @@
     "searchUsers": {
         "en": "Search users",
         "ar": "البحث عن المستخدمين"
+    },
+    "searchOffices": {
+        "en": "Search offices",
+        "ar": "البحث عن المكاتب"
     },
     "exportToExcel": {
         "en": "Export to excel",
@@ -1062,5 +1062,13 @@
     "noTransactions": {
         "en": "No transactions",
         "ar": "ليس لديك معاملات ماليّة"
+    },
+    "salesPostPrice": {
+        "en": "Sales posts price",
+        "ar": "سعر منشور البيع"
+    },
+    "officeDetails": {
+        "en": "Office details",
+        "ar": "تفاصيل المكتب"
     }
 }

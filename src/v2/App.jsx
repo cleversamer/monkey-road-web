@@ -79,7 +79,7 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ user, setUser, socket, lang, setLang }}>
-      {(!user || (user && user.role !== "admin")) && <Navigation />}
+      <Navigation />
 
       <Routes>
         {/* admin routes */}
@@ -120,18 +120,19 @@ const App = () => {
           <Route path={routes.verify.route} element={<Verify />} />
         )}
 
+        {/* all users routes */}
+        <>
+          <Route path={routes.alerts.route} element={<Alerts />} />
+          <Route path={routes.personalInfo.route} element={<PersonalInfo />} />
+          <Route
+            path={routes.changePassword.route}
+            element={<ChangePassword />}
+          />
+        </>
+
         {/* user routes */}
         {user && user.role !== "admin" && (
           <>
-            <Route
-              path={routes.personalInfo.route}
-              element={<PersonalInfo />}
-            />
-            <Route
-              path={routes.changePassword.route}
-              element={<ChangePassword />}
-            />
-            <Route path={routes.alerts.route} element={<Alerts />} />
             <Route
               path={routes.myTransactions.route}
               element={<MyTransactions />}
@@ -226,7 +227,6 @@ const App = () => {
               path={routes.rentCarDetails.route}
               element={<RentCarDetails />}
             />
-            {/* <Route path={routes.notFound.route} element={<NotFound />} /> */}
             <Route path={routes.home.route} element={<Home />} />
             <Route
               path="/"

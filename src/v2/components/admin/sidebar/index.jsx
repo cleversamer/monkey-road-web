@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GrHomeRounded, GrAppsRounded, GrLanguage } from "react-icons/gr";
-import { FiUsers, FiFolder } from "react-icons/fi";
-import { AiFillCar } from "react-icons/ai";
-import { HiOutlineLogout } from "react-icons/hi";
+import { FiUsers, FiFolder, FiDollarSign } from "react-icons/fi";
+import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
 import NavItem from "./NavItem";
 import PopupConfirm from "v2/hoc/PopupConfirm";
 import usersApi from "v2/api/user/users";
+import { routes } from "v2/client";
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
   const { switchLang, i18n, lang } = useLocale();
   const { user, logout } = useAuth();
   const [excelUsers, setExcelUsers] = useState({ loading: false, url: "" });
@@ -46,6 +48,10 @@ const AdminSidebar = () => {
       .catch((err) => setExcelUsers({ loading: false, url: "" }));
   };
 
+  const handleChangePassword = () => {
+    navigate(routes.changePassword.navigate());
+  };
+
   return (
     <>
       {popupWindow.visible && (
@@ -78,46 +84,62 @@ const AdminSidebar = () => {
         </AccountInfo>
 
         <NavItems>
-          <NavItem title={i18n("mainScreen")} Icon={GrHomeRounded} />
+          <NavItem title={i18n("home")} Icon={GrHomeRounded} />
+
           <NavItem
-            title={i18n("pendingPosts")}
+            title={i18n("posts")}
             Icon={GrAppsRounded}
-            subItems={[{ title: i18n("rentalPosts"), onClick: () => {} }]}
+            subItems={[
+              { title: i18n("pendingRentalPosts"), onClick: () => {} },
+              { title: i18n("rentCars"), onClick: () => {} },
+              { title: i18n("purchaseCars"), onClick: () => {} },
+              { title: i18n("officesOrders"), onClick: () => {} },
+            ]}
           />
+
           <NavItem
             title={i18n("users")}
             Icon={FiUsers}
             subItems={[
               { title: i18n("searchUsers"), onClick: () => {} },
+              { title: i18n("searchOffices"), onClick: () => {} },
               {
                 title: i18n("exportToExcel"),
                 onClick: handleExportUsersToExcel,
                 loading: excelUsers.loading,
               },
-              { title: i18n("notifications"), onClick: () => {} },
+              { title: i18n("alerts"), onClick: () => {} },
             ]}
           />
+
           <NavItem
             title={i18n("brands")}
             Icon={FiFolder}
             subItems={[
-              { title: i18n("viewBrands"), onClick: () => {} },
               { title: i18n("addBrand"), onClick: () => {} },
+              { title: i18n("viewBrands"), onClick: () => {} },
             ]}
           />
+
           <NavItem
-            title={i18n("posts")}
-            Icon={AiFillCar}
-            subItems={[
-              { title: i18n("rentCars"), onClick: () => {} },
-              { title: i18n("purchaseCars"), onClick: () => {} },
-            ]}
+            title={i18n("salesPostPrice")}
+            Icon={FiDollarSign}
+            subItems={[]}
           />
+
+          <NavItem
+            title={i18n("changePassword")}
+            Icon={HiOutlineKey}
+            subItems={[]}
+            onClick={handleChangePassword}
+          />
+
           <NavItem
             title={i18n("language")}
             Icon={GrLanguage}
             onClick={switchLang}
           />
+
           <NavItem
             title={i18n("logout")}
             Icon={HiOutlineLogout}
@@ -135,9 +157,10 @@ const Container = styled.aside`
   gap: 20px;
   text-transform: capitalize;
   background-color: #fff;
-  width: fit-content;
-  padding: 20px 60px;
-  height: 100vh;
+  min-width: max-content;
+  padding: 20px 40px;
+  height: fit-content;
+  box-shadow: 1px 1px 3px 2px rgba(51, 51, 51, 0.2);
 `;
 
 const AccountInfo = styled.div`
@@ -197,7 +220,7 @@ const NavItems = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 `;
 
 const IFrameDownload = styled.iframe`

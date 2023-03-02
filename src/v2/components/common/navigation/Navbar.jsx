@@ -82,77 +82,79 @@ const Navbar = ({ onOpenMenu }) => {
             <FaBars />
           </MobileIcon>
 
-          <NavMenu lang={lang}>
-            <NavItem>
-              <NavLink
-                to="app"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                offset={-80}
-                onClick={() => navigateAndScrollToTop(routes.home.route)}
-              >
-                {i18n("home")}
-              </NavLink>
-            </NavItem>
+          {(!user || (user && user.role !== "admin")) && (
+            <NavMenu lang={lang}>
+              <NavItem>
+                <NavLink
+                  to="app"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  offset={-80}
+                  onClick={() => navigateAndScrollToTop(routes.home.route)}
+                >
+                  {i18n("home")}
+                </NavLink>
+              </NavItem>
 
-            <NavItem>
-              <NavLink to="app" lang={lang}>
-                <span>{i18n("viewCars")}</span> <IoIosArrowDown />
-              </NavLink>
+              <NavItem>
+                <NavLink to="app" lang={lang}>
+                  <span>{i18n("viewCars")}</span> <IoIosArrowDown />
+                </NavLink>
 
-              <SubMenu>
-                <NavItem>
-                  <NavRoute
-                    onClick={() => scroll.scrollToTop()}
-                    to={routes.rentCars.navigate()}
-                  >
-                    {i18n("rentCars")}
-                  </NavRoute>
-                </NavItem>
+                <SubMenu>
+                  <NavItem>
+                    <NavRoute
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.rentCars.navigate()}
+                    >
+                      {i18n("rentCars")}
+                    </NavRoute>
+                  </NavItem>
 
-                <NavItem>
-                  <NavRoute
-                    onClick={() => scroll.scrollToTop()}
-                    to={routes.purchaseCars.navigate()}
-                  >
-                    {i18n("purchaseCars")}
-                  </NavRoute>
-                </NavItem>
-              </SubMenu>
-            </NavItem>
+                  <NavItem>
+                    <NavRoute
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.purchaseCars.navigate()}
+                    >
+                      {i18n("purchaseCars")}
+                    </NavRoute>
+                  </NavItem>
+                </SubMenu>
+              </NavItem>
 
-            <NavItem>
-              <NavLink
-                to="why-us"
-                smooth={true}
-                duration={500}
-                offset={-100}
-                spy={true}
-                exact="true"
-                onClick={() => navigate(routes.home.route)}
-              >
-                {i18n("whyUs")}
-              </NavLink>
-            </NavItem>
+              <NavItem>
+                <NavLink
+                  to="why-us"
+                  smooth={true}
+                  duration={500}
+                  offset={-100}
+                  spy={true}
+                  exact="true"
+                  onClick={() => navigate(routes.home.route)}
+                >
+                  {i18n("whyUs")}
+                </NavLink>
+              </NavItem>
 
-            <NavItem>
-              <NavLink
-                to="about-us"
-                smooth={true}
-                duration={500}
-                spy={true}
-                exact="true"
-                onClick={() => navigate(routes.home.route)}
-              >
-                {i18n("aboutUs")}
-              </NavLink>
-            </NavItem>
-          </NavMenu>
+              <NavItem>
+                <NavLink
+                  to="about-us"
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  exact="true"
+                  onClick={() => navigate(routes.home.route)}
+                >
+                  {i18n("aboutUs")}
+                </NavLink>
+              </NavItem>
+            </NavMenu>
+          )}
 
           <DesktopNavButtons>
-            {user && (
+            {user && user.role !== "admin" && (
               <NavButton
                 title={i18n("post")}
                 iconPath="/assets/icons/post.svg"
@@ -206,7 +208,7 @@ const Navbar = ({ onOpenMenu }) => {
               </ButtonRouteContainer>
             )}
 
-            {user && (
+            {user && user.role !== "admin" && (
               <ButtonRouteContainer
                 to={routes.myOrders.navigate()}
                 mobile="true"
@@ -219,7 +221,7 @@ const Navbar = ({ onOpenMenu }) => {
               </ButtonRouteContainer>
             )}
 
-            {user && (
+            {user && user.role !== "admin" && (
               <ButtonRouteContainer
                 to={routes.myFavorites.navigate()}
                 desktop="true"
@@ -279,15 +281,17 @@ const Navbar = ({ onOpenMenu }) => {
                   </NavRoute>
                 </NavItem>
 
-                <NavItem>
-                  <NavRoute
-                    lang={lang}
-                    onClick={() => scroll.scrollToTop()}
-                    to={routes.salesPosts.navigate()}
-                  >
-                    <FaCarAlt /> {i18n("salesPosts")}
-                  </NavRoute>
-                </NavItem>
+                {user.role !== "admin" && (
+                  <NavItem>
+                    <NavRoute
+                      lang={lang}
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.salesPosts.navigate()}
+                    >
+                      <FaCarAlt /> {i18n("salesPosts")}
+                    </NavRoute>
+                  </NavItem>
+                )}
 
                 {user && user.role === "office" && (
                   <NavItem>
@@ -313,15 +317,17 @@ const Navbar = ({ onOpenMenu }) => {
                   </NavItem>
                 )}
 
-                <NavItem>
-                  <NavRoute
-                    lang={lang}
-                    onClick={() => scroll.scrollToTop()}
-                    to={routes.myTransactions.navigate()}
-                  >
-                    <GiSandsOfTime /> {i18n("transactions")}
-                  </NavRoute>
-                </NavItem>
+                {user && user.role !== "admin" && (
+                  <NavItem>
+                    <NavRoute
+                      lang={lang}
+                      onClick={() => scroll.scrollToTop()}
+                      to={routes.myTransactions.navigate()}
+                    >
+                      <GiSandsOfTime /> {i18n("transactions")}
+                    </NavRoute>
+                  </NavItem>
+                )}
 
                 <NavItem>
                   <NavRoute

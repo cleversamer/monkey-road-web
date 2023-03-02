@@ -111,12 +111,14 @@ const ProfileNavigation = ({ activeItem }) => {
             </NavRoute>
           </NavItem>
 
-          <NavItem active={activeItem === "sales posts"}>
-            <NavRoute to={routes.salesPosts.navigate()} lang={lang}>
-              <FaCarAlt />
-              <NavItemTitle>{i18n("salesPosts")}</NavItemTitle>
-            </NavRoute>
-          </NavItem>
+          {user.role !== "admin" && (
+            <NavItem active={activeItem === "sales posts"}>
+              <NavRoute to={routes.salesPosts.navigate()} lang={lang}>
+                <FaCarAlt />
+                <NavItemTitle>{i18n("salesPosts")}</NavItemTitle>
+              </NavRoute>
+            </NavItem>
+          )}
 
           {user.role === "office" && (
             <NavItem active={activeItem === "rental posts"}>

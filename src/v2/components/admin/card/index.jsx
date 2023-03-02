@@ -16,7 +16,7 @@ const Card = ({ title, value, Icon }) => {
 const Container = styled.div`
   flex: 1;
   position: relative;
-  background-color: #fff;
+  background-color: #fe7777;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@ const Container = styled.div`
     position: absolute;
     bottom: 13px;
     ${({ lang }) => (lang === "en" ? "right: 13px;" : "left: 13px;")}
-    fill: #fe7777;
+    fill: #fff;
   }
 
   :hover {
@@ -48,12 +48,13 @@ const Container = styled.div`
 
 const CardTitle = styled.h6`
   font-size: 16px;
-  color: #fe7777;
+  color: #fff;
 `;
 
 const CardValue = styled.p`
   font-size: 15px;
   font-weight: 600;
+  color: #fff;
 `;
 
 export default Card;

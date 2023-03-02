@@ -63,11 +63,11 @@ const getMyRentCars = async (page = 1, limit = 9) => {
 };
 
 ////////////////////////////// Admin APIs //////////////////////////////
-const getNotAcceptedRentCars = async (skip = 0) => {
+const getNotAcceptedRentCars = async (page = 1, limit = 3) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
-    `/cars/rent/not-accepted?skip=${skip}`,
+    `/cars/rent/not-accepted?page=${page}&limit=${limit}`,
     config,
     cacheMins
   );
