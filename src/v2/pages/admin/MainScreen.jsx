@@ -28,46 +28,38 @@ const MainScreen = () => {
     loading: true,
   });
 
-  const handleAddBrand = () => {};
-
   useEffect(() => {
     usersApi.admin
       .getCarsStatus()
       .then((res) => setStatus({ loading: false, value: res.data }))
-      .catch((err) => setStatus({ loading: false, value: {} }));
+      .catch(() => setStatus({ loading: false, value: {} }));
 
     rentApi.admin
       .getNotAcceptedRentCars(1, 3)
-      .then((res) => {
-        console.log("getNotAcceptedRentCars", res.data);
-        setPendingRentalPosts({ loading: false, list: res.data.rentCars });
-      })
-      .catch((err) => setPendingRentalPosts({ loading: false, list: [] }));
+      .then((res) =>
+        setPendingRentalPosts({ loading: false, list: res.data.rentCars })
+      )
+      .catch(() => setPendingRentalPosts({ loading: false, list: [] }));
 
     rentApi.common
       .getAllRentCars(1, 3)
-      .then((res) => {
-        console.log("getAllRentCars", res.data);
-        setRentCars({ loading: false, list: res.data.rentCars });
-      })
-      .catch((err) => setRentCars({ loading: false, list: [] }));
+      .then((res) => setRentCars({ loading: false, list: res.data.rentCars }))
+      .catch(() => setRentCars({ loading: false, list: [] }));
 
     purchaseApi.common
       .getRecentlyArrivedPurchaseCars(1, 3)
-      .then((res) => {
-        console.log("getRecentlyArrivedPurchaseCars", res.data);
-        setPurchaseCars({ loading: false, list: res.data.purchaseCars });
-      })
-      .catch((err) => setPurchaseCars({ loading: false, list: [] }));
+      .then((res) =>
+        setPurchaseCars({ loading: false, list: res.data.purchaseCars })
+      )
+      .catch(() => setPurchaseCars({ loading: false, list: [] }));
 
     rentOrders.admin
       .getAllOrders(1, 3)
-      .then((res) => {
-        console.log("getAllOrders", res.data);
-        setOfficeOrders({ loading: false, list: res.data.orders });
-      })
-      .catch((err) => setOfficeOrders({ loading: false, list: [] }));
+      .then((res) => setOfficeOrders({ loading: false, list: res.data.orders }))
+      .catch(() => setOfficeOrders({ loading: false, list: [] }));
   }, []);
+
+  const handleAddBrand = () => {};
 
   const handleSeeMoreRentCars = () => {
     //
