@@ -77,7 +77,7 @@ const MainScreen = () => {
   };
 
   const handleSeeMoreOfficeOrders = () => {
-    //
+    navigate(routes.allOfficesOrders.navigate());
   };
 
   return (

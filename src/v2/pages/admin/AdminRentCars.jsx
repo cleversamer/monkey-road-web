@@ -24,9 +24,11 @@ const AdminRentCars = () => {
       .getAllRentCars(currentPage, pageSize)
       .then((res) => {
         const { rentCars, totalPages } = res.data;
-        setPosts({ ...posts, list: rentCars, totalPages });
+        setPosts({ ...posts, list: rentCars, loading: false, totalPages });
       })
-      .catch(() => setPosts({ ...posts, list: [], totalPages: 0 }));
+      .catch(() =>
+        setPosts({ ...posts, list: [], loading: false, totalPages: 0 })
+      );
   }, [currentPage]);
 
   const handleNextPage = () => {
