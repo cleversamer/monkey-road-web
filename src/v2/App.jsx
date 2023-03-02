@@ -38,6 +38,7 @@ import Splash from "v2/pages/user/Splash";
 import socket from "v2/socket/client";
 import authStorage from "v2/auth/storage";
 import MainScreen from "v2/pages/admin/MainScreen";
+import PendingRentalPosts from "v2/pages/admin/PendingRentalPosts";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -85,6 +86,10 @@ const App = () => {
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
+            <Route
+              path={routes.pendingRentalPosts.route}
+              element={<PendingRentalPosts />}
+            />
             <Route path={routes.adminMain.route} element={<MainScreen />} />
             <Route
               path="/"

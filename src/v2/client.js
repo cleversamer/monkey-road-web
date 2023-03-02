@@ -122,8 +122,13 @@ export const routes = {
     route: "/transactions/my",
     navigate: () => "/transactions/my",
   },
+  // ADMIN PAGES
   adminMain: {
     route: "/admin/main",
     navigate: () => "/admin/main",
+  },
+  pendingRentalPosts: {
+    route: "/admin/cars/rent/pending",
+    navigate: () => "/admin/cars/rent/pending",
   },
 };

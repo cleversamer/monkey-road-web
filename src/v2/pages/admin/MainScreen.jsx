@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import AdminSidebar from "v2/components/admin/sidebar";
 import CustomButton from "v2/components/common/custom-button";
@@ -16,8 +17,10 @@ import rentApi from "v2/api/car/rent";
 import rentOrders from "v2/api/car/rentOrders";
 import purchaseApi from "v2/api/car/purchase";
 import OfficeOrder from "v2/components/admin/office-order";
+import { routes } from "v2/client";
 
 const MainScreen = () => {
+  const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const [status, setStatus] = useState({ loading: true, value: {} });
   const [rentCars, setRentCars] = useState({ list: [], loading: true });
@@ -61,15 +64,15 @@ const MainScreen = () => {
 
   const handleAddBrand = () => {};
 
+  const handleSeeMorePendingRentalPosts = () => {
+    navigate(routes.pendingRentalPosts.navigate());
+  };
+
   const handleSeeMoreRentCars = () => {
     //
   };
 
   const handleSeeMorePurcahseCars = () => {
-    //
-  };
-
-  const handleSeeMorePendingRentalPosts = () => {
     //
   };
 
