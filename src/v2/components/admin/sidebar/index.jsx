@@ -67,8 +67,6 @@ const AdminSidebar = () => {
       <Container>
         {!!excelUsers.url && <IFrameDownload src={excelUsers.url} />}
 
-        <Logo src="/assets/images/nav-logo.svg" alt="logo" />
-
         <AccountInfo lang={lang}>
           <AvatarContainer>
             <Avatar
@@ -167,20 +165,6 @@ const AccountInfo = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 7px;
-`;
-
-const Logo = styled.img`
-  cursor: pointer;
-  transition-duration: 176ms;
-  margin-bottom: -20px;
-
-  :hover {
-    transform: scale(0.97);
-  }
-
-  :active {
-    transform: scale(0.95);
-  }
 `;
 
 const AvatarContainer = styled.div``;
