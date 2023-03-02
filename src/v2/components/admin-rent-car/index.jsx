@@ -20,7 +20,6 @@ const AdminRentCar = ({ data }) => {
       imageURL={data.photos[0]}
       model={data.model}
       name={data.name}
-      price={data.price.daily}
       year={data.year}
       onClick={handleViewDetails}
     >

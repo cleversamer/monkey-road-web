@@ -69,7 +69,7 @@ const MainScreen = () => {
   };
 
   const handleSeeMoreRentCars = () => {
-    //
+    navigate(routes.allRentCars.navigate());
   };
 
   const handleSeeMorePurcahseCars = () => {

@@ -131,4 +131,8 @@ export const routes = {
     route: "/admin/cars/rent/pending",
     navigate: () => "/admin/cars/rent/pending",
   },
+  allRentCars: {
+    route: "/admin/cars/rent/all",
+    navigate: () => "/admin/cars/rent/all",
+  },
 };
