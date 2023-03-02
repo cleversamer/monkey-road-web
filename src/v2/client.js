@@ -143,4 +143,8 @@ export const routes = {
     route: "/admin/orders/all",
     navigate: () => "/admin/orders/all",
   },
+  allBrands: {
+    route: "/admin/brands/all",
+    navigate: () => "/admin/brands/all",
+  },
 };
