@@ -2,23 +2,28 @@ import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 import Loader from "v2/components/loader";
 
-const NavItem = ({ title, Icon, onClick, subItems = [] }) => {
+const NavItem = ({ active, title, Icon, onClick, subItems = [] }) => {
   const { lang } = useLocale();
 
   return (
     <Container>
-      <NavItemTitleContainer onClick={onClick} lang={lang}>
+      <NavItemTitleContainer onClick={onClick} active={active} lang={lang}>
         <Icon />
         <NavItemTitle>{title}</NavItemTitle>
       </NavItemTitleContainer>
 
       {!!subItems.length && (
         <SubNavItems lang={lang}>
-          {subItems.map(({ title, onClick, loading }, index) =>
+          {subItems.map(({ title, onClick, loading, active }, index) =>
             loading ? (
               <Loader key={index} />
             ) : (
-              <SubNavItem key={title} onClick={onClick} lang={lang}>
+              <SubNavItem
+                key={title}
+                onClick={onClick}
+                lang={lang}
+                active={active}
+              >
                 {title}
               </SubNavItem>
             )
@@ -44,6 +49,11 @@ const NavItemTitleContainer = styled.div`
   gap: 7px;
   transition-duration: 176ms;
   cursor: pointer;
+
+  * {
+    ${({ active }) => (active ? "color: #fe7777;" : "")};
+    ${({ active }) => (active ? "fill: #fe7777;" : "")};
+  }
 
   :hover {
     &,
@@ -83,6 +93,7 @@ const SubNavItem = styled.li`
   font-size: 14px;
   font-weight: 500;
   transition-duration: 176ms;
+  color: ${({ active }) => (active ? "#fe7777" : "#303030")};
   cursor: pointer;
 
   :hover {

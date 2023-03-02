@@ -72,7 +72,7 @@ const OfficesOrders = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar />
+      <AdminSidebar activeItem="offices orders" />
 
       <Content>
         <FiltersSection orders={orders} onSelectItem={handleFilterItems} />

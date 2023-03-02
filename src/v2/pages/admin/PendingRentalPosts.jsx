@@ -47,7 +47,7 @@ const PendingRentalPosts = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar />
+      <AdminSidebar activeItem="pending rental posts" />
 
       <Content>
         <PostsContainer>

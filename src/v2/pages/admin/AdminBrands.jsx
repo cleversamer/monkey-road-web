@@ -45,7 +45,7 @@ const AdminBrands = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar />
+      <AdminSidebar activeItem="brands" />
 
       <Content>
         <RentCarsContainer>

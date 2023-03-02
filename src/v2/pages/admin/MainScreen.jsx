@@ -82,7 +82,7 @@ const MainScreen = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar />
+      <AdminSidebar activeItem="home" />
 
       <Content>
         <TopContainer lang={lang}>

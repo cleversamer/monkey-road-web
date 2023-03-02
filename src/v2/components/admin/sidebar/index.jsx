@@ -11,7 +11,7 @@ import PopupConfirm from "v2/hoc/PopupConfirm";
 import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ activeItem }) => {
   const navigate = useNavigate();
   const { switchLang, i18n, lang } = useLocale();
   const { user, logout } = useAuth();
@@ -45,11 +45,7 @@ const AdminSidebar = () => {
         const url = res.data.path;
         setExcelUsers({ loading: false, url });
       })
-      .catch((err) => setExcelUsers({ loading: false, url: "" }));
-  };
-
-  const handleChangePassword = () => {
-    navigate(routes.changePassword.navigate());
+      .catch(() => setExcelUsers({ loading: false, url: "" }));
   };
 
   return (
@@ -82,16 +78,44 @@ const AdminSidebar = () => {
         </AccountInfo>
 
         <NavItems>
-          <NavItem title={i18n("home")} Icon={GrHomeRounded} />
+          <NavItem
+            title={i18n("home")}
+            Icon={GrHomeRounded}
+            onClick={() => navigate(routes.adminMain.navigate())}
+            active={activeItem === "home"}
+          />
 
           <NavItem
             title={i18n("posts")}
             Icon={GrAppsRounded}
+            onClick={() => navigate(routes.pendingRentalPosts.navigate())}
+            active={[
+              "pending rental posts",
+              "rent cars",
+              "purchase cars",
+              "offices orders",
+            ].includes(activeItem)}
             subItems={[
-              { title: i18n("pendingRentalPosts"), onClick: () => {} },
-              { title: i18n("rentCars"), onClick: () => {} },
-              { title: i18n("purchaseCars"), onClick: () => {} },
-              { title: i18n("officesOrders"), onClick: () => {} },
+              {
+                title: i18n("pendingRentalPosts"),
+                active: activeItem === "pending rental posts",
+                onClick: () => navigate(routes.pendingRentalPosts.navigate()),
+              },
+              {
+                title: i18n("rentCars"),
+                active: activeItem === "rent cars",
+                onClick: () => navigate(routes.allRentCars.navigate()),
+              },
+              {
+                title: i18n("purchaseCars"),
+                active: activeItem === "purchase cars",
+                onClick: () => navigate(routes.allPurchaseCars.navigate()),
+              },
+              {
+                title: i18n("officesOrders"),
+                active: activeItem === "offices orders",
+                onClick: () => navigate(routes.allOfficesOrders.navigate()),
+              },
             ]}
           />
 
@@ -113,9 +137,18 @@ const AdminSidebar = () => {
           <NavItem
             title={i18n("brands")}
             Icon={FiFolder}
+            active={["brands", "add brand"].includes(activeItem)}
+            onClick={() => navigate(routes.allBrands.navigate())}
             subItems={[
-              { title: i18n("addBrand"), onClick: () => {} },
-              { title: i18n("viewBrands"), onClick: () => {} },
+              {
+                title: i18n("viewBrands"),
+                active: activeItem === "brands",
+                onClick: () => {},
+              },
+              {
+                title: i18n("addBrand"),
+                onClick: () => navigate(routes.allBrands.navigate()),
+              },
             ]}
           />
 
@@ -129,7 +162,7 @@ const AdminSidebar = () => {
             title={i18n("changePassword")}
             Icon={HiOutlineKey}
             subItems={[]}
-            onClick={handleChangePassword}
+            onClick={() => navigate(routes.changePassword.navigate())}
           />
 
           <NavItem
