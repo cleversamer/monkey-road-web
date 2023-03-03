@@ -1,20 +1,18 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "v2/components/car";
-import { routes } from "v2/client";
 import useLocale from "v2/hooks/useLocale";
 
 const OfficeOrder = ({ data }) => {
   const { i18n, lang } = useLocale();
-  const navigate = useNavigate();
 
-  const navigateToDetails = () =>
-    navigate(routes.purchaseCarDetails.navigate(data.rentCar._id));
+  const handleViewPopupDetails = () => {
+    //
+  };
 
   return (
     <ReusableCar
-      onClick={navigateToDetails}
+      onClick={handleViewPopupDetails}
       brandName={data.rentCar.brand.name[lang]}
       imageURL={data.rentCar.photos[0]}
       model={data.rentCar.model}
@@ -24,13 +22,13 @@ const OfficeOrder = ({ data }) => {
       <CTAContainer>
         <CustomButton
           type="primary"
-          onClick={navigateToDetails}
+          onClick={handleViewPopupDetails}
           title={i18n("officeDetails")}
         />
 
         <CustomButton
           type="primary"
-          onClick={navigateToDetails}
+          onClick={handleViewPopupDetails}
           title={i18n("viewDetails")}
         />
       </CTAContainer>

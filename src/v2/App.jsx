@@ -87,6 +87,18 @@ const App = () => {
       <Navigation />
 
       <Routes>
+        {/* visitors routes */}
+        <>
+          <Route
+            path={routes.rentCarDetails.route}
+            element={<RentCarDetails />}
+          />
+          <Route
+            path={routes.purchaseCarDetails.route}
+            element={<PurchaseCarDetails />}
+          />
+        </>
+
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
@@ -143,14 +155,19 @@ const App = () => {
         )}
 
         {/* all users routes */}
-        <>
-          <Route path={routes.alerts.route} element={<Alerts />} />
-          <Route path={routes.personalInfo.route} element={<PersonalInfo />} />
-          <Route
-            path={routes.changePassword.route}
-            element={<ChangePassword />}
-          />
-        </>
+        {user && (
+          <>
+            <Route path={routes.alerts.route} element={<Alerts />} />
+            <Route
+              path={routes.personalInfo.route}
+              element={<PersonalInfo />}
+            />
+            <Route
+              path={routes.changePassword.route}
+              element={<ChangePassword />}
+            />
+          </>
+        )}
 
         {/* user routes */}
         {user && user.role !== "admin" && (
@@ -229,10 +246,6 @@ const App = () => {
               element={<PurchaseCars />}
             />
             <Route
-              path={routes.purchaseCarDetails.route}
-              element={<PurchaseCarDetails />}
-            />
-            <Route
               path={routes.bestPurchaseCarSellers.route}
               element={<BestSellerPurchaseCars />}
             />
@@ -245,10 +258,6 @@ const App = () => {
               element={<LatestModelsPurchaseCars />}
             />
             <Route path={routes.rentCars.route} element={<RentCars />} />
-            <Route
-              path={routes.rentCarDetails.route}
-              element={<RentCarDetails />}
-            />
             <Route path={routes.home.route} element={<Home />} />
             <Route
               path="/"

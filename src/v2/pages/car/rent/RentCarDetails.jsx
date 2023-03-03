@@ -44,6 +44,14 @@ const RentCarDetails = () => {
     scroll.scrollToTop();
   };
 
+  const handleAccept = () => {
+    alert("accept");
+  };
+
+  const handleReject = () => {
+    alert("reject");
+  };
+
   if (!car) return null;
 
   return (
@@ -51,7 +59,12 @@ const RentCarDetails = () => {
       <Content lang={lang}>
         <Gallery images={car.photos} />
         {pages.current == "1" ? (
-          <Details1 car={car} onNext={handleNext} />
+          <Details1
+            car={car}
+            onNext={handleNext}
+            onAccept={handleAccept}
+            onReject={handleReject}
+          />
         ) : pages.current == "2" ? (
           <Details2 car={car} onNext={handleNext} onPrev={handlePrev} />
         ) : pages.current == "3" ? (

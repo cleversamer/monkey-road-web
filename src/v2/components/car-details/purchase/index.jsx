@@ -130,7 +130,7 @@ const PurchaseCarDetails = ({ car }) => {
         </ItemContainer>
       </ItemOverview>
 
-      {!car.sold && (
+      {!car.sold && user?.role !== "admin" && (
         <ButtonsContainer>
           <CustomButton
             type="primary"

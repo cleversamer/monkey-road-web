@@ -4,6 +4,7 @@ import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "v2/components/car";
 import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
+import { routes } from "v2/client";
 
 const AdminRentCar = ({ data }) => {
   const { user } = useAuth();
@@ -11,7 +12,7 @@ const AdminRentCar = ({ data }) => {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    //
+    navigate(routes.rentCarDetails.navigate(data._id));
   };
 
   return (

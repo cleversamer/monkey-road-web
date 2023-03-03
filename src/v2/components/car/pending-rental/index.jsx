@@ -4,8 +4,10 @@ import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "../index";
 import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
+import { routes } from "v2/client";
 
 const PendingRentCar = ({ data }) => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
@@ -14,7 +16,7 @@ const PendingRentCar = ({ data }) => {
   };
 
   const handleViewDetails = () => {
-    //
+    navigate(routes.rentCarDetails.navigate(data._id));
   };
 
   return (

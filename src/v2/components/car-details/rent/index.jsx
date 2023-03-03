@@ -6,7 +6,7 @@ import DetailsTitle from "./DetailsTitle";
 import useAuth from "v2/auth/useAuth";
 import Price from "./Price";
 
-const RentCarDetails = ({ car, onNext }) => {
+const RentCarDetails = ({ car, onNext, onAccept, onReject }) => {
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
@@ -56,11 +56,29 @@ const RentCarDetails = ({ car, onNext }) => {
 
       {user && user.verified.email && (
         <RentButtonContainer>
-          <CustomButton
-            type="primary"
-            title={i18n("rentNow")}
-            onClick={onNext}
-          />
+          {user.role !== "admin" && (
+            <CustomButton
+              type="primary"
+              title={i18n("rentNow")}
+              onClick={onNext}
+            />
+          )}
+
+          {user.role === "admin" && !car.accepted && (
+            <>
+              <CustomButton
+                type="primary"
+                title={i18n("accept")}
+                onClick={onAccept}
+              />
+
+              <CustomButton
+                type="primary"
+                title={i18n("reject")}
+                onClick={onReject}
+              />
+            </>
+          )}
         </RentButtonContainer>
       )}
     </Container>
@@ -147,10 +165,13 @@ const HorizontalLine = styled.span`
 
 const RentButtonContainer = styled.div`
   width: 100%;
-  max-width: 170px;
   display: flex;
   align-items: center;
   gap: 15px;
+
+  button {
+    max-width: 170px;
+  }
 `;
 
 export default RentCarDetails;
