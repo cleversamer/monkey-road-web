@@ -58,6 +58,8 @@ const AdminSidebar = ({ activeItem }) => {
     if (popupInput.visible) return;
 
     const handler = (price) => {
+      // TODO: call the backend
+
       setPopupInput({
         visible: false,
         handler: null,

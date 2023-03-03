@@ -137,8 +137,6 @@ const LoginForm = () => {
 
         <CustomButton type="google" onClick={handleLoginWithGoogle} />
 
-        {/* <CustomButton type="facebook" onClick={handleLoginWithFacebook} /> */}
-
         <RegisterContainer lang={lang}>
           <RegisterPhrase>{i18n("dontHaveAcc")}</RegisterPhrase>
           <RegisterRoute to={routes.register.navigate()}>

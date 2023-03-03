@@ -80,7 +80,7 @@ const OfficesOrders = () => {
   };
 
   const handleViewOfficeInSearch = (officeId) => {
-    console.log("navigate to", officeId);
+    // TODO
   };
 
   return (

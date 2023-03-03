@@ -63,7 +63,7 @@ const App = () => {
           navigate(routes.verify.navigate("email"));
         }
       })
-      .catch((err) => {})
+      .catch(() => {})
       .finally(() => {
         const endDate = Date.now();
         const timeElapsed = endDate - startDate;

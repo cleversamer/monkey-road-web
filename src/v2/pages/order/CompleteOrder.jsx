@@ -33,7 +33,7 @@ const CompleteOrder = () => {
       .then((res) =>
         setContext({ ...context, loading: false, order: res.data })
       )
-      .catch((err) => setContext({ ...context, loading: false, order: null }));
+      .catch(() => setContext({ ...context, loading: false, order: null }));
   }, []);
 
   const invoiceItems = [

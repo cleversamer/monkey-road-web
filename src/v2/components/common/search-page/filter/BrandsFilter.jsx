@@ -6,7 +6,7 @@ import brandsApi from "v2/api/car/brands";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 
-const pageSize = 2;
+const pageSize = 4;
 
 const BrandsFilter = ({ selectedBrands, onChange }) => {
   const { lang } = useLocale();

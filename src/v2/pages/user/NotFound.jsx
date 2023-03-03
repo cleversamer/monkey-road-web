@@ -4,14 +4,9 @@ import { routes } from "v2/client";
 
 const NotFound = () => {
   return (
-    <Container className="notfound-container">
-      <Heading className="heading">
-        The requested URL was not found on this server.
-      </Heading>
-
-      <Link to={routes.home.navigate()} className="link">
-        Back to the home page
-      </Link>
+    <Container>
+      <Heading>The requested URL was not found on this server.</Heading>
+      <Link to={routes.home.navigate()}>Back to the home page</Link>
     </Container>
   );
 };

@@ -18,12 +18,7 @@ const SelectInput = ({
       lang={lang}
     >
       {values.map((value, index) => (
-        <Option
-          key={value + index}
-          // defaultValue={selectedIndex === index}
-          value={index}
-          title={value}
-        >
+        <Option key={value + index} value={index} title={value}>
           {valueParser(value)}
         </Option>
       ))}

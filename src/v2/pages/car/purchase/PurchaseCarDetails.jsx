@@ -21,9 +21,13 @@ const PurchaseCarDetails = () => {
       .then((res) => setCar(res.data));
 
     // fetch similar products
+    // TODO
   }, []);
 
-  if (!car) return null;
+  if (!car) {
+    // TODO
+    return null;
+  }
 
   return (
     <Container>
@@ -70,57 +74,6 @@ const Content = styled.div`
   @media screen and (max-width: 870px) {
     flex-direction: column;
   }
-`;
-
-const DetailsSection = styled.section`
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 100%;
-
-  @media screen and (max-width: 540px) {
-    gap: 30px;
-  }
-`;
-
-const DetailsTitle = styled.h4`
-  @media screen and (max-width: 540px) {
-    margin: 0 auto;
-  }
-`;
-
-const DetailsList = styled.ul`
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
-  grid-gap: 20px;
-  width: 100%;
-  max-width: 540px;
-
-  @media screen and (max-width: 540px) {
-    margin: 0 auto;
-    justify-items: center;
-  }
-`;
-
-const DetailsItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 120px;
-  height: 100px;
-  background-color: #fff;
-  box-shadow: 0px 1px 3px 3px rgba(254, 119, 119, 0.35);
-`;
-
-const ItemImage = styled.img``;
-
-const ItemTitle = styled.h5`
-  text-transform: capitalize;
 `;
 
 export default PurchaseCarDetails;

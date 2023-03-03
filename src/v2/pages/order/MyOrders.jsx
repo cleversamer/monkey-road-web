@@ -56,9 +56,7 @@ const MyOrders = () => {
           selectedStatus: "all",
         });
       })
-      .catch((err) => {
-        setOrders({ ...orders, loading: false, totalPages: 0 });
-      });
+      .catch(() => setOrders({ ...orders, loading: false, totalPages: 0 }));
   }, [currentPage]);
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
@@ -100,10 +98,11 @@ const MyOrders = () => {
             all: newOrders,
             view: newOrders,
             selectedStatus: "all",
+            loading: false,
           });
         })
-        .catch((err) => {
-          //
+        .catch(() => {
+          // TODO
         })
         .finally(() => {
           setPopupConfirm({ visible: false, handler: null });

@@ -16,10 +16,7 @@ export default function (strDate, lang) {
 
     // Calc difference in milliseconds
     let diffInMs = new Date() - new Date(strDate);
-
-    if (diffInMs < 0) {
-      return "";
-    }
+    if (diffInMs < 0) return "";
 
     const times = [];
 
@@ -66,6 +63,6 @@ export default function (strDate, lang) {
 
     return result.join(" ");
   } catch (err) {
-    return "time-ended";
+    return "";
   }
 }

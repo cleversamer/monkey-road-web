@@ -1,4 +1,4 @@
-const prefix = "cache";
+const prefix = process.env["CACHE_PREFIX_VALUE"];
 
 const store = (key, value, expiryInMins) => {
   try {
@@ -8,9 +8,7 @@ const store = (key, value, expiryInMins) => {
     };
 
     localStorage.setItem(prefix + key, JSON.stringify(item));
-  } catch (err) {
-    //
-  }
+  } catch (err) {}
 };
 
 const get = (key) => {
@@ -28,9 +26,7 @@ const get = (key) => {
     }
 
     return item.value;
-  } catch (err) {
-    //
-  }
+  } catch (err) {}
 };
 
 const isExpired = (item) => {

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-// import GoogleMap from "components/google-map";
 import CustomButton from "v2/components/common/custom-button";
 import useLocale from "v2/hooks/useLocale";
 import CustomInput from "v2/components/common/custom-input";
@@ -12,8 +11,6 @@ const Details3 = ({ car, onPrev, onComplete }) => {
       <TitleContainer lang={lang}>
         <CarTitle>{car.name}</CarTitle>
       </TitleContainer>
-
-      {/* <GoogleMap /> */}
 
       <CustomInput
         type="text"

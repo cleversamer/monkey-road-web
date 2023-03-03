@@ -12,10 +12,6 @@ const PurchaseCarDetails = ({ car }) => {
   const { user, setUser } = useAuth();
   const { i18n, lang } = useLocale();
 
-  const handleMakeCall = () => {};
-
-  const handleWhatsAppCall = () => {};
-
   const handleLikeClick = async () => {
     try {
       const isLiked = checkIsLiked();
@@ -30,9 +26,7 @@ const PurchaseCarDetails = ({ car }) => {
       const res = await usersApi.common.addToFavorites(car._id);
       const { favorites } = res.data;
       setUser({ ...user, favorites });
-    } catch (err) {
-      //
-    }
+    } catch (err) {}
   };
 
   const checkIsLiked = () => user?.favorites?.includes(car._id);
@@ -134,7 +128,6 @@ const PurchaseCarDetails = ({ car }) => {
         <ButtonsContainer>
           <CustomButton
             type="primary"
-            onClick={handleMakeCall}
             title={
               <a href={`tel:${car.phoneNumber}`}>
                 <CallContainer>
@@ -154,7 +147,6 @@ const PurchaseCarDetails = ({ car }) => {
                 </CallContainer>
               </a>
             }
-            onClick={handleWhatsAppCall}
           />
         </ButtonsContainer>
       )}

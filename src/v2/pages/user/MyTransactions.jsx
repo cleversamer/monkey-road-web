@@ -24,13 +24,11 @@ const MyTransactions = () => {
       .getMyTransactions(currentPage, pageSize)
       .then((res) => {
         const { transactions, totalPages } = res.data;
-        console.log("transactions", transactions);
         setTransactions({ list: transactions, totalPages, loading: false });
       })
-      .catch((err) => {
-        console.log("err", err);
-        setTransactions({ list: [], totalPages: 0, loading: false });
-      });
+      .catch(() =>
+        setTransactions({ list: [], totalPages: 0, loading: false })
+      );
   }, []);
 
   const handleNextPage = () => {

@@ -5,28 +5,27 @@ import Brand from "v2/components/home/popular-brands/Brand";
 import brandsApi from "v2/api/car/brands";
 import useLocale from "v2/hooks/useLocale";
 import Pagination from "v2/components/pagination";
-import Loader from "v1/components/loader";
+import Loader from "v2/components/loader";
 
-const initialState = {
-  list: [],
-  loading: true,
-  totalPages: 0,
-};
+const pageSize = 28;
 
 const Brands = () => {
   const { i18n } = useLocale();
-  const [brands, setBrands] = useState(initialState);
   const [currentPage, setCurrentPage] = useState(1);
+  const [brands, setBrands] = useState({
+    list: [],
+    loading: true,
+    totalPages: 0,
+  });
 
   useEffect(() => {
-    // fetch brands
     brandsApi.common
-      .getPopularBrands(currentPage, 28)
+      .getPopularBrands(currentPage, pageSize)
       .then((res) => {
         const { brands, totalPages } = res.data;
         setBrands({ list: brands, loading: false, totalPages });
       })
-      .catch((err) => setBrands({ list: [], loading: false }));
+      .catch(() => setBrands({ list: [], loading: false }));
   }, [currentPage]);
 
   const handleNextPage = () => {

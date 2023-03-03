@@ -6,8 +6,6 @@ import useLocale from "v2/hooks/useLocale";
 const OfficeOrder = ({ data, onViewOfficeDetails }) => {
   const { i18n, lang } = useLocale();
 
-  console.log("data", data);
-
   return (
     <ReusableCar
       onClick={onViewOfficeDetails}

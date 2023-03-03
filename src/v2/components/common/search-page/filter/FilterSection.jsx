@@ -7,16 +7,18 @@ const FilterSection = ({ title, withIcon, children }) => {
   const { lang } = useLocale();
   const [showContent, setShowContent] = useState(true);
 
-  const handleShowContent = () => setShowContent(true);
-
-  const handleHideContent = () => setShowContent(false);
-
   return (
     <Container>
       <TopRow lang={lang}>
         <SectionTitle>{title}</SectionTitle>
-        {withIcon && !showContent && <BiPlus onClick={handleShowContent} />}
-        {withIcon && showContent && <BiMinus onClick={handleHideContent} />}
+
+        {withIcon && !showContent && (
+          <BiPlus onClick={() => setShowContent(true)} />
+        )}
+
+        {withIcon && showContent && (
+          <BiMinus onClick={() => setShowContent(false)} />
+        )}
       </TopRow>
 
       {showContent && children}

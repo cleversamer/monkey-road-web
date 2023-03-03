@@ -85,7 +85,6 @@ const Container = styled.header`
 const Content = styled(ContentWrapper)`
   padding: 70px;
   padding-bottom: 100px;
-  /* ${({ lang }) => (lang === "en" ? "" : "padding-right: 0;")} */
   max-width: 1366px;
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};

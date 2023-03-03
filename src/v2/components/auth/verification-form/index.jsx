@@ -82,7 +82,7 @@ const PhoneForm = () => {
 
       await usersApi.common.resendVerificationCode(subject, context.lang);
     } catch (err) {
-      error = err?.response?.data?.message?.en || "Network error";
+      error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
       setContext({ ...context, submitting: false, error });
     }

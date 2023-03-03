@@ -66,10 +66,7 @@ const PostRentCarForm = ({
 
   const handleImagesChange = (e) => {
     const image = e.target.files[0];
-    if (!image || context.images.length === 6) {
-      // Show warning
-      return;
-    }
+    if (!image || context.images.length === 6) return;
 
     const reader = new FileReader();
     reader.readAsDataURL(image);

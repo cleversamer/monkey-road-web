@@ -11,6 +11,8 @@ import brandsApi from "v2//api/car/brands";
 import purchaseApi from "v2//api/car/purchase";
 import useLocale from "v2//hooks/useLocale";
 
+const pageSize = 1000;
+
 const PostPurchaseCarForm = ({
   activeLevel,
   noOfLevels,
@@ -59,7 +61,7 @@ const PostPurchaseCarForm = ({
 
   useEffect(() => {
     brandsApi.common
-      .getPopularBrands()
+      .getPopularBrands(1, pageSize)
       .then((res) => {
         setEntries({ ...entries, brands: res.data.brands });
       })
@@ -83,10 +85,7 @@ const PostPurchaseCarForm = ({
 
   const handleImagesChange = (e) => {
     const image = e.target.files[0];
-    if (!image || context.images.length === 6) {
-      // Show warning
-      return;
-    }
+    if (!image || context.images.length === 6) return;
 
     const reader = new FileReader();
     reader.readAsDataURL(image);

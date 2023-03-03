@@ -23,13 +23,13 @@ const RentCarDetails = () => {
     rentApi.common
       .getRentCarDetails(carId)
       .then((res) => setCar(res.data))
-      .catch((err) => {});
+      .catch(() => {});
 
     // fetch similar products
   }, []);
 
   const handleRentCar = () => {
-    alert("rent");
+    // TODO
   };
 
   const handleNext = () => {
@@ -45,11 +45,11 @@ const RentCarDetails = () => {
   };
 
   const handleAccept = () => {
-    alert("accept");
+    // TODO
   };
 
   const handleReject = () => {
-    alert("reject");
+    // TODO
   };
 
   if (!car) return null;

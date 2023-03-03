@@ -32,7 +32,7 @@ const PurchaseCars = () => {
         const { purchaseCars } = res.data;
         setRecentlyArrivedCars({ list: purchaseCars, loading: false });
       })
-      .catch((err) => setRecentlyArrivedCars({ list: [], loading: false }));
+      .catch(() => setRecentlyArrivedCars({ list: [], loading: false }));
 
     // fetch popularBrands
     brandsApi.common
@@ -41,7 +41,7 @@ const PurchaseCars = () => {
         const { brands } = res.data;
         setPopularBrands({ list: brands, loading: false });
       })
-      .catch((err) => setPopularBrands({ list: [], loading: false }));
+      .catch(() => setPopularBrands({ list: [], loading: false }));
 
     // fetch latestModelsCars
     purchaseApi.common

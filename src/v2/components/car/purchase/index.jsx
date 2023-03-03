@@ -35,9 +35,7 @@ const PurchaseCar = ({ data }) => {
       const res = await usersApi.common.addToFavorites(data._id);
       const { favorites } = res.data;
       setUser({ ...user, favorites });
-    } catch (err) {
-      //
-    }
+    } catch (err) {}
   };
 
   const checkIsLiked = () => user?.favorites?.includes(data._id);

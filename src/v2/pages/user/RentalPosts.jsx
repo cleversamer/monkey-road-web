@@ -38,7 +38,7 @@ const RentalPosts = () => {
           totalPages,
         });
       })
-      .catch((err) =>
+      .catch(() =>
         setRentalPosts({
           loading: false,
           list: [],

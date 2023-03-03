@@ -12,7 +12,7 @@ const PendingRentCar = ({ data }) => {
   const { i18n, lang } = useLocale();
 
   const handleAccept = () => {
-    //
+    // TODO: call the backend
   };
 
   const handleViewDetails = () => {

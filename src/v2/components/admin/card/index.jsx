@@ -23,8 +23,6 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 20px;
   box-sizing: border-box;
-  /* width: 90vw;
-  max-width: 270px; */
   height: 100px;
   text-transform: capitalize;
   transition-duration: 176ms;

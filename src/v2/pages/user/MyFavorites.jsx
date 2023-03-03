@@ -36,7 +36,7 @@ const MyFavorites = () => {
       .then((res) =>
         setLatestCars({ ...latestCars, forRent: res.data.rentCars })
       )
-      .catch((err) => {});
+      .catch(() => {});
 
     // fetch latest purchase cars
     purchaseApi.common
@@ -44,7 +44,7 @@ const MyFavorites = () => {
       .then((res) =>
         setLatestCars({ ...latestCars, forSale: res.data.purchaseCars })
       )
-      .catch((err) => {});
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -55,9 +55,7 @@ const MyFavorites = () => {
         const { purchaseCars, totalPages } = res.data;
         setFavorites({ loading: false, list: purchaseCars, totalPages });
       })
-      .catch((err) =>
-        setFavorites({ loading: false, list: [], totalPages: 0 })
-      );
+      .catch(() => setFavorites({ loading: false, list: [], totalPages: 0 }));
   }, [user, currentPage]);
 
   const handleGoShopping = () =>

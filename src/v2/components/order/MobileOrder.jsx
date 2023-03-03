@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import parseDate from "v2/utils/parseDate";
 import useLocale from "v2/hooks/useLocale";
-import { serverURL } from "v2/api/client";
 
 const MobileOrder = ({
   order,

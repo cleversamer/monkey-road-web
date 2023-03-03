@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
-import ItemsSection from "v2/components/common/items-section";
-import RentCar from "v2/components/car/rent";
-import PurchaseCar from "v2/components/car/purchase";
 import EmptyList from "v2/components/common/empty-list";
 import { routes } from "v2/client";
 import OrdersTable from "v2/components/received-orders-table";
@@ -62,9 +59,7 @@ const MyReceivedOrders = () => {
           selectedStatus: "all",
         });
       })
-      .catch((err) => {
-        setOrders({ ...orders, loading: false, totalPages: 0 });
-      });
+      .catch(() => setOrders({ ...orders, loading: false, totalPages: 0 }));
   }, [currentPage]);
 
   useEffect(() => {
@@ -72,13 +67,13 @@ const MyReceivedOrders = () => {
     rentApi.common
       .getAllRentCars()
       .then((res) => setLatestCars({ ...latestCars, forRent: res.data.cars }))
-      .catch((err) => {});
+      .catch(() => {});
 
     // fetch latest purchase cars
     purchaseApi.common
       .getRecentlyArrivedPurchaseCars()
       .then((res) => setLatestCars({ ...latestCars, forSale: res.data.cars }))
-      .catch((err) => {});
+      .catch(() => {});
   }, []);
 
   const handleGoShopping = () => navigate(routes.rentCars.navigate());
@@ -106,7 +101,7 @@ const MyReceivedOrders = () => {
     handleHideOrderDetails();
 
     const approveOder = () => {
-      // approve order code
+      // TODO
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -127,8 +122,7 @@ const MyReceivedOrders = () => {
     handleHideOrderDetails();
 
     const rejectOder = (rejectionReason) => {
-      // rejecr order code
-      console.log("rejectionReason", rejectionReason);
+      // TODO
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -149,7 +143,7 @@ const MyReceivedOrders = () => {
     handleHideOrderDetails();
 
     const deliverOder = () => {
-      // rejecr order code
+      // TODO
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -264,24 +258,6 @@ const MyReceivedOrders = () => {
           </PaginationContainer>
         )}
       </OrdersContainer>
-
-      {/* <LatestCarsContainer>
-        {!!latestCars.forRent.length && (
-          <ItemsSection type="slider" title={i18n("latestRentalCars")}>
-            {latestCars.forRent.map((car) => (
-              <RentCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
-
-        {!!latestCars.forSale.length && (
-          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
-            {latestCars.forSale.map((car) => (
-              <PurchaseCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
-      </LatestCarsContainer> */}
     </Container>
   );
 };
@@ -307,12 +283,6 @@ const OrdersContainer = styled.div`
 const PaginationContainer = styled.div`
   width: fit-content;
   margin: 0 auto;
-`;
-
-const LatestCarsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
 `;
 
 export default MyReceivedOrders;

@@ -38,10 +38,7 @@ const ProfileNavigation = ({ activeItem }) => {
 
   const handleAvatarChange = async (e) => {
     const image = e.target.files[0];
-    if (!image) {
-      // Show warning
-      return;
-    }
+    if (!image) return;
 
     const reader = new FileReader();
     reader.readAsDataURL(image);

@@ -3,7 +3,7 @@ import CustomInput from "v2/components/common/custom-input";
 import CustomButton from "v2/components/common/custom-button";
 import useLocale from "v2/hooks/useLocale";
 
-const Details2 = ({ car, order, onPrev, onNext }) => {
+const Details2 = ({ car, onPrev, onNext }) => {
   const { i18n, lang } = useLocale();
 
   return (

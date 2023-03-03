@@ -88,31 +88,4 @@ const CTAContainer = styled.div`
   }
 `;
 
-const Button = styled.button`
-  text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  outline: none;
-  padding: 5px 10px;
-  width: 120px;
-  border-radius: 6px;
-  transition-duration: 176ms;
-  cursor: pointer;
-
-  :active {
-    transform: scale(0.97);
-  }
-`;
-
-const CancelButton = styled(Button)`
-  background-color: #fff;
-  border: 1px solid #fe7777;
-`;
-
-const ConfirmButton = styled(Button)`
-  background-color: #fe7777;
-  color: #fff;
-`;
-
 export default PopupMessage;

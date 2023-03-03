@@ -119,10 +119,6 @@ const ItemsContainer = styled.div`
 `;
 
 const ItemsList = styled.div`
-  /* display: flex;
-  align-items: center;
-  gap: 20px; */
-
   display: grid;
   grid-template-columns: ${({ brands }) =>
     brands

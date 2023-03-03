@@ -63,7 +63,7 @@ const RecentlyArrivedPurchaseCars = () => {
         const { purchaseCars, totalPages } = res.data;
         setPurchaseCars({ list: purchaseCars, loading: false, totalPages });
       })
-      .catch((err) => setPurchaseCars({ list: [], loading: false }));
+      .catch(() => setPurchaseCars({ list: [], loading: false }));
   }, [searchTerm, searchContext]);
 
   const handlePriceChange = (key) => (e) => {
