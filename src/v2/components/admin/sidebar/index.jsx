@@ -143,7 +143,7 @@ const AdminSidebar = ({ activeItem }) => {
               {
                 title: i18n("viewBrands"),
                 active: activeItem === "brands",
-                onClick: () => {},
+                onClick: () => navigate(routes.allBrands.navigate()),
               },
               {
                 title: i18n("addBrand"),
