@@ -13,7 +13,7 @@ const api = axios.create({
 });
 
 const get = api.get;
-api.get = async (url, axiosConfig, expiryTimeInSecs) => {
+api.get = async (url, axiosConfig, expiryInMins) => {
   const value = cache.get(url);
   if (value) {
     return { ok: true, data: value };
@@ -21,7 +21,7 @@ api.get = async (url, axiosConfig, expiryTimeInSecs) => {
 
   const response = await get(url, axiosConfig);
 
-  cache.store(url, response.data, expiryTimeInSecs);
+  cache.store(url, response.data, expiryInMins);
   return response;
 };
 

@@ -1,10 +1,10 @@
 const prefix = "cache";
 
-const store = (key, value, expireyInMins) => {
+const store = (key, value, expiryInMins) => {
   try {
     const item = {
       value,
-      expiryDate: Date.now() + expireyInMins * 60 * 1000,
+      expiryDate: Date.now() + expiryInMins * 60 * 1000,
     };
 
     localStorage.setItem(prefix + key, JSON.stringify(item));
