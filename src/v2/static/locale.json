@@ -1070,5 +1070,9 @@
     "officeDetails": {
         "en": "Office details",
         "ar": "تفاصيل المكتب"
+    },
+    "postPrice": {
+        "en": "Post price",
+        "ar": "سعر المنشور"
     }
 }

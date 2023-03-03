@@ -10,6 +10,7 @@ import NavItem from "./NavItem";
 import PopupConfirm from "v2/hoc/PopupConfirm";
 import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
+import PopupInput from "v2/hoc/PopupInput";
 
 const AdminSidebar = ({ activeItem }) => {
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ const AdminSidebar = ({ activeItem }) => {
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
+  });
+  const [popupInput, setPopupInput] = useState({
+    visible: false,
+    handler: null,
+    loading: false,
   });
 
   const handleLogout = () => {
@@ -48,6 +54,20 @@ const AdminSidebar = ({ activeItem }) => {
       .catch(() => setExcelUsers({ loading: false, url: "" }));
   };
 
+  const changeSalesPostPriceHandler = () => {
+    if (popupInput.visible) return;
+
+    const handler = (price) => {
+      setPopupInput({
+        visible: false,
+        handler: null,
+        loading: false,
+      });
+    };
+
+    setPopupInput({ visible: true, handler, loading: false });
+  };
+
   return (
     <>
       {popupWindow.visible && (
@@ -55,8 +75,19 @@ const AdminSidebar = ({ activeItem }) => {
           title={i18n("logoutTitle")}
           subtitle={i18n("logoutSubtitle")}
           hint={i18n("logoutHint")}
-          onHide={() => setPopupWindow(false)}
+          onHide={() => setPopupWindow({ handler: null, visible: false })}
           onConfirm={popupWindow.handler}
+        />
+      )}
+
+      {popupInput.visible && (
+        <PopupInput
+          title={i18n("salesPostPrice")}
+          onSave={popupInput.handler}
+          loading={popupInput.loading}
+          onHide={() =>
+            setPopupInput({ handler: null, loading: false, visible: false })
+          }
         />
       )}
 
@@ -156,6 +187,7 @@ const AdminSidebar = ({ activeItem }) => {
             title={i18n("salesPostPrice")}
             Icon={FiDollarSign}
             subItems={[]}
+            onClick={changeSalesPostPriceHandler}
           />
 
           <NavItem
