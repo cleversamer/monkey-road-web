@@ -37,6 +37,7 @@ const isExpired = (item) => {
   return Date.now() > item.expiryDate;
 };
 
+// eslint-disable-next-line
 export default {
   store,
   get,
