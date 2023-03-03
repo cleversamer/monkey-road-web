@@ -8,12 +8,17 @@ import rentOrdersApi from "v2/api/car/rentOrders";
 import Pagination from "v2/components/pagination";
 import OfficeOrder from "v2/components/admin/office-order";
 import FiltersSection from "v2/components/orders-table/FiltersSection";
+import PopupOffice from "v2/hoc/PopupOffice";
 
 const pageSize = 9;
 
 const OfficesOrders = () => {
   const { lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
+  const [popupOffice, setPopupOffice] = useState({
+    office: null,
+    visible: false,
+  });
   const [orders, setOrders] = useState({
     all: [],
     view: [],
@@ -70,33 +75,57 @@ const OfficesOrders = () => {
     setCurrentPage(pageNumber);
   };
 
+  const handleViewOfficeDetails = (office) => {
+    setPopupOffice({ office, visible: true });
+  };
+
+  const handleViewOfficeInSearch = (officeId) => {
+    console.log("navigate to", officeId);
+  };
+
   return (
-    <Container lang={lang}>
-      <AdminSidebar activeItem="offices orders" />
-
-      <Content>
-        <FiltersSection orders={orders} onSelectItem={handleFilterItems} />
-        <RentCarsContainer>
-          {orders.loading ? (
-            <Loader />
-          ) : !orders.all.length ? (
-            <EmptyList />
-          ) : (
-            orders.view.map((rentCar) => (
-              <OfficeOrder key={rentCar._id} data={rentCar} />
-            ))
-          )}
-        </RentCarsContainer>
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={orders.totalPages}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onSelectPage={handleSelectPage}
+    <>
+      {popupOffice.visible && (
+        <PopupOffice
+          office={popupOffice.office}
+          onHide={() => setPopupOffice({ office: null, visible: false })}
+          onViewInSearch={handleViewOfficeInSearch}
         />
-      </Content>
-    </Container>
+      )}
+
+      <Container lang={lang}>
+        <AdminSidebar activeItem="offices orders" />
+
+        <Content>
+          <FiltersSection orders={orders} onSelectItem={handleFilterItems} />
+          <RentCarsContainer>
+            {orders.loading ? (
+              <Loader />
+            ) : !orders.all.length ? (
+              <EmptyList />
+            ) : (
+              orders.view.map((order) => (
+                <OfficeOrder
+                  key={order._id}
+                  data={order}
+                  onViewOfficeDetails={() =>
+                    handleViewOfficeDetails(order.office[0])
+                  }
+                />
+              ))
+            )}
+          </RentCarsContainer>
+
+          <Pagination
+            currentPage={currentPage}
+            totalPages={orders.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        </Content>
+      </Container>
+    </>
   );
 };
 

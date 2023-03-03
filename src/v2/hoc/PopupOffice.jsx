@@ -3,8 +3,9 @@ import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
 import useLocale from "v2/hooks/useLocale";
+import CustomButton from "v2/components/common/custom-button";
 
-const OrderDetails = ({ order, onHide, children }) => {
+const PopupOffice = ({ office, onHide, onViewInSearch }) => {
   const { i18n } = useLocale();
 
   useEffect(() => {
@@ -20,28 +21,29 @@ const OrderDetails = ({ order, onHide, children }) => {
       <Container>
         <TopRow>
           <IoClose onClick={onHide} />
-          <Title>{i18n("orderDetails")}</Title>
+          <Title>{i18n("receiverOffice")}</Title>
         </TopRow>
 
-        <ReceptionLocation>
-          <Title>{i18n("recipientAddress")}</Title>
+        <Content>
+          <OfficeImage
+            src={office.avatarURL || "/assets/images/default_avatar.svg"}
+            alt={office.name}
+          />
 
-          <ReceptionLocationName>
-            {order.receptionLocation.title}
-          </ReceptionLocationName>
-        </ReceptionLocation>
+          <OfficeInfoContainer>
+            <OfficeName>{office.name}</OfficeName>
+            <OfficeEmail>{office.email}</OfficeEmail>
+            <OfficePhone>{office.phone.full}</OfficePhone>
+          </OfficeInfoContainer>
+        </Content>
 
-        {!!order.reasonFor.rejection && (
-          <ReceptionLocation>
-            <Title>{i18n("rejectionReason")}</Title>
-
-            <ReceptionLocationName>
-              {order.reasonFor.rejection}
-            </ReceptionLocationName>
-          </ReceptionLocation>
-        )}
-
-        <CTAContainer>{children}</CTAContainer>
+        <CTAContainer>
+          <CustomButton
+            type="primary"
+            title={i18n("viewInSearch")}
+            onClick={() => onViewInSearch(office._id)}
+          />
+        </CTAContainer>
       </Container>
     </PopupContainer>
   );
@@ -86,15 +88,36 @@ const Title = styled.h5`
   font-size: 16px;
 `;
 
-const ReceptionLocation = styled.div`
-  width: 100%;
+const Content = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  align-items: stretch;
+  gap: 15px;
 `;
 
-const ReceptionLocationName = styled.p`
+const OfficeImage = styled.img`
+  width: 50%;
+  border-radius: 8px;
+`;
+
+const OfficeInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const OfficeName = styled.h5`
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+const OfficeEmail = styled.h5`
   font-size: 13px;
+  font-weight: 500;
+`;
+
+const OfficePhone = styled.h5`
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 const CTAContainer = styled.div`
@@ -109,4 +132,4 @@ const CTAContainer = styled.div`
   }
 `;
 
-export default OrderDetails;
+export default PopupOffice;

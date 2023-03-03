@@ -3,16 +3,14 @@ import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "v2/components/car";
 import useLocale from "v2/hooks/useLocale";
 
-const OfficeOrder = ({ data }) => {
+const OfficeOrder = ({ data, onViewOfficeDetails }) => {
   const { i18n, lang } = useLocale();
 
-  const handleViewPopupDetails = () => {
-    //
-  };
+  console.log("data", data);
 
   return (
     <ReusableCar
-      onClick={handleViewPopupDetails}
+      onClick={onViewOfficeDetails}
       brandName={data.rentCar.brand.name[lang]}
       imageURL={data.rentCar.photos[0]}
       model={data.rentCar.model}
@@ -22,14 +20,8 @@ const OfficeOrder = ({ data }) => {
       <CTAContainer>
         <CustomButton
           type="primary"
-          onClick={handleViewPopupDetails}
+          onClick={onViewOfficeDetails}
           title={i18n("officeDetails")}
-        />
-
-        <CustomButton
-          type="primary"
-          onClick={handleViewPopupDetails}
-          title={i18n("viewDetails")}
         />
       </CTAContainer>
 

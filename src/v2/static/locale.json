@@ -1074,5 +1074,13 @@
     "postPrice": {
         "en": "Post price",
         "ar": "سعر المنشور"
+    },
+    "viewInSearch": {
+        "en": "View in search",
+        "ar": "عرض في البحث"
+    },
+    "receiverOffice": {
+        "en": "Receiver office",
+        "ar": "المكتب المستلم"
     }
 }
