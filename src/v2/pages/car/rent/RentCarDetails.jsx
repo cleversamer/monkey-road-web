@@ -44,8 +44,11 @@ const RentCarDetails = () => {
     scroll.scrollToTop();
   };
 
-  const handleAccept = () => {
-    // TODO
+  const handleAccept = async () => {
+    try {
+      const res = await rentApi.admin.acceptRentCar(car._id);
+      setCar(res.data);
+    } catch (err) {}
   };
 
   const handleReject = () => {
