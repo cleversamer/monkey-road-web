@@ -18,6 +18,7 @@ import TimeInput from "./TimeInput";
 import useLocale from "v2/hooks/useLocale";
 import PriceInput from "./PriceInput";
 import CardExpiryMonth from "./CardExpiryMonth";
+import DateTimeInput from "./DateTimeInput";
 
 const CustomInput = ({
   value,
@@ -147,7 +148,9 @@ const CustomInput = ({
       ) : type === "date" ? (
         <DateInput onChange={onChange} />
       ) : type === "time" ? (
-        <TimeInput />
+        <TimeInput onChange={onChange} />
+      ) : type === "datetime" ? (
+        <DateTimeInput onChange={onChange} value={value} />
       ) : type === "price" ? (
         <PriceInput value={value} />
       ) : null}

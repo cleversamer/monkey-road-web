@@ -2,8 +2,16 @@ import styled from "styled-components";
 import CustomButton from "v2/components/common/custom-button";
 import useLocale from "v2/hooks/useLocale";
 import CustomInput from "v2/components/common/custom-input";
+import GoogleMap from "v2/components/google-map";
 
-const Details3 = ({ car, onPrev, onComplete }) => {
+const Details3 = ({
+  car,
+  context,
+  onPrev,
+  onComplete,
+  onCoordinatesChange,
+  onKeyChange,
+}) => {
   const { i18n, lang } = useLocale();
 
   return (
@@ -12,11 +20,18 @@ const Details3 = ({ car, onPrev, onComplete }) => {
         <CarTitle>{car.name}</CarTitle>
       </TitleContainer>
 
+      <GoogleMap
+        onCoordinatesChange={onCoordinatesChange}
+        latitude={context.latitude}
+        longitude={context.longitude}
+      />
+
       <CustomInput
         type="text"
         title={i18n("location")}
         placeholder={i18n("location")}
-        disabled
+        value={context.locationTitle}
+        onChange={onKeyChange("locationTitle")}
       />
 
       <InputsRow>
@@ -24,9 +39,18 @@ const Details3 = ({ car, onPrev, onComplete }) => {
           type="text"
           title={i18n("recipientName")}
           placeholder={i18n("recipientName")}
+          value={context.fullName}
+          onChange={onKeyChange("fullName")}
         />
 
-        <CustomInput type="phone" title={i18n("phoneNumber")} />
+        <CustomInput
+          type="phone"
+          title={i18n("phoneNumber")}
+          icc={context.phoneICC}
+          nsn={context.nsn}
+          onICCChange={onKeyChange("phoneICC")}
+          onNSNChange={onKeyChange("phoneNSN")}
+        />
       </InputsRow>
 
       <CTAContainer lang={lang}>

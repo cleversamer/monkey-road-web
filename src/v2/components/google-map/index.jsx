@@ -1,33 +1,34 @@
-import styled from "styled-components";
-import { useState, useCallback } from "react";
-import { GoogleMapsProvider } from "@ubilabs/google-maps-react-hooks";
+import { useMemo } from "react";
+import {
+  GoogleMap as GMap,
+  useLoadScript,
+  Marker,
+} from "@react-google-maps/api";
+import Loader from "../loader";
 
-const GoogleMap = () => {
-  const [mapContainer, setMapContainer] = useState(null);
-  const mapRef = useCallback((node) => {
-    node && setMapContainer(node);
-  }, []);
+const googleMapsApiKey = process.env["REACT_APP_GOOGLE_MAPS_API_KEY"];
 
-  const mapOptions = {
-    // Add your map options here
-    // `center` and `zoom` are required for every map to be displayed
-    center: { lat: 25.2048, lng: 55.2708 },
-    zoom: 10,
-  };
+const GoogleMap = ({ latitude, longitude, onCoordinatesChange }) => {
+  const { isLoaded } = useLoadScript({ googleMapsApiKey });
+  const center = useMemo(() => ({ lat: latitude, lng: longitude }), []);
+
+  const handelClick = (e) =>
+    onCoordinatesChange(e.latLng.lat(), e.latLng.lng());
+
+  if (!isLoaded) {
+    return <Loader />;
+  }
 
   return (
-    <GoogleMapsProvider
-      googleMapsAPIKey="AIzaSyCjl0VJDO8ea-7pWcvEzo6p0R6LSYw38Zk"
-      mapContainer={mapContainer}
-      mapOptions={mapOptions}
+    <GMap
+      zoom={13}
+      center={center}
+      mapContainerStyle={{ width: "100%", height: "400px" }}
+      onClick={handelClick}
     >
-      <Map ref={mapRef} />
-    </GoogleMapsProvider>
+      <Marker position={{ lat: latitude, lng: longitude }} />
+    </GMap>
   );
 };
-
-const Map = styled.div`
-  height: 300px;
-`;
 
 export default GoogleMap;

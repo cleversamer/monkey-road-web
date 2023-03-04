@@ -3,8 +3,23 @@ import CustomInput from "v2/components/common/custom-input";
 import CustomButton from "v2/components/common/custom-button";
 import useLocale from "v2/hooks/useLocale";
 
-const Details2 = ({ car, onPrev, onNext }) => {
+const Details2 = ({ car, onPrev, onNext, context, onKeyChange }) => {
   const { i18n, lang } = useLocale();
+
+  const calcTotalPrice = () => {
+    const { daily, weekly, monthly, deposit } = car.price;
+    const noOfDays = calcNoOfDays();
+    const pricePerDay =
+      noOfDays < 7 ? daily : noOfDays < 30 ? weekly / 7 : monthly / 30;
+
+    return Math.ceil(noOfDays * pricePerDay + deposit);
+  };
+
+  const calcNoOfDays = () => {
+    const startDate = new Date(context.startDate);
+    const endDate = new Date(context.endDate);
+    return Math.round((endDate - startDate) / 1000 / 60 / 60 / 24) || 0;
+  };
 
   return (
     <Container lang={lang}>
@@ -16,13 +31,21 @@ const Details2 = ({ car, onPrev, onNext }) => {
         <InputsTitle>{i18n("rentInfo")}</InputsTitle>
 
         <InputsRow1 lang={lang}>
-          <CustomInput type="date" title={i18n("startRent")} />
-          <CustomInput type="time" title={i18n("startTime")} />
+          <CustomInput
+            type="datetime"
+            title={i18n("startRent")}
+            onChange={onKeyChange("startDate")}
+            value={context.startDate}
+          />
         </InputsRow1>
 
         <InputsRow2 lang={lang}>
-          <CustomInput type="date" title={i18n("endRent")} />
-          <CustomInput type="time" title={i18n("endTime")} />
+          <CustomInput
+            type="datetime"
+            title={i18n("endRent")}
+            onChange={onKeyChange("endDate")}
+            value={context.endDate}
+          />
         </InputsRow2>
 
         <InputsRow3 lang={lang}>
@@ -30,14 +53,14 @@ const Details2 = ({ car, onPrev, onNext }) => {
             type="text"
             disabled
             title={i18n("rentDays")}
-            value="1"
+            value={calcNoOfDays().toLocaleString()}
           />
 
           <CustomInput
             type="price"
             disabled
             title={i18n("totalPrice")}
-            value="1"
+            value={calcTotalPrice().toLocaleString()}
           />
         </InputsRow3>
       </InputsContainer>
@@ -99,10 +122,6 @@ const InputsRow = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 20px;
-
-  > * {
-    width: 30%;
-  }
 `;
 
 const InputsRow1 = styled(InputsRow)``;

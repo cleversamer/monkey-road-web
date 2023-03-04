@@ -25,6 +25,17 @@ const RentCarDetails = () => {
     handler: null,
     loading: false,
   });
+  const [context, setContext] = useState({
+    startDate: "",
+    endDate: "",
+    noOfDays: 0,
+    locationTitle: "",
+    longitude: 55.27159786283418,
+    latitude: 25.200711712376464,
+    fullName: "",
+    phoneICC: "",
+    phoneNSN: "",
+  });
 
   useEffect(() => {
     // fetch car details
@@ -36,9 +47,31 @@ const RentCarDetails = () => {
     // fetch similar products
   }, []);
 
-  const handleRentCar = () => {
-    // TODO
+  const handleRentCar = async () => {
+    try {
+      const body = {
+        ...context,
+        noOfDays: calcNoOfDays(),
+      };
+
+      const res = await rentApi.common.requestCarRental(carId, body);
+      console.log("res", res.data);
+    } catch (err) {
+      console.log("err", err.response.data.message);
+    }
   };
+
+  const calcNoOfDays = () => {
+    const startDate = new Date(context.startDate);
+    const endDate = new Date(context.endDate);
+    return Math.round((endDate - startDate) / 1000 / 60 / 60 / 24) || 0;
+  };
+
+  const handleKeyChange = (key) => (e) =>
+    setContext({ ...context, [key]: e.target.value });
+
+  const handleCoordinatesChange = (latitude, longitude) =>
+    setContext({ ...context, latitude, longitude });
 
   const handleNext = () => {
     if (pages.current === pages.count) return;
@@ -79,7 +112,6 @@ const RentCarDetails = () => {
   };
 
   if (!car) {
-    navigate(routes.home.navigate());
     return null;
   }
 
@@ -107,12 +139,21 @@ const RentCarDetails = () => {
               onReject={handleReject}
             />
           ) : pages.current == "2" ? (
-            <Details2 car={car} onNext={handleNext} onPrev={handlePrev} />
+            <Details2
+              car={car}
+              onNext={handleNext}
+              onPrev={handlePrev}
+              context={context}
+              onKeyChange={handleKeyChange}
+            />
           ) : pages.current == "3" ? (
             <Details3
               car={car}
               onPrev={handlePrev}
               onComplete={handleRentCar}
+              context={context}
+              onKeyChange={handleKeyChange}
+              onCoordinatesChange={handleCoordinatesChange}
             />
           ) : null}
         </Content>

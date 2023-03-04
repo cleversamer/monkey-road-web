@@ -35,6 +35,11 @@ const getRentCarDetails = async (carId) => {
   return await client.get(`/cars/rent/details/${carId}`, {}, cacheMins);
 };
 
+const requestCarRental = async (carId, data) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.post(`/cars/rent/${carId}/request`, data, config);
+};
+
 ////////////////////////////// Office APIs //////////////////////////////
 const postRentCar = async (profileData) => {
   const formData = new FormData();
@@ -92,6 +97,7 @@ export default {
     getAllRentCars,
     searchRentCars,
     getRentCarDetails,
+    requestCarRental,
   },
   office: {
     postRentCar,
