@@ -6,15 +6,16 @@ import useLocale from "v2/hooks/useLocale";
 import SearchBox from "v2/components/common/search-box";
 import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
-import UserSearchForm from "v2/components/admin/user-search-form";
+import OfficeSearchForm from "v2/components/admin/office-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
+import AdminOfficeOrders from "v2/components/admin/admin-office-orders";
 
-const SearchUsers = () => {
+const SearchOffices = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
-  const [user, setUser] = useState(null);
+  const [office, setOffice] = useState(null);
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -29,24 +30,23 @@ const SearchUsers = () => {
 
   useEffect(() => {
     usersApi.admin
-      .findUserByEmailOrPhone(emailOrPhone)
+      .findOfficeByEmailOrPhone(emailOrPhone)
       .then((res) => {
-        const user = res.data;
-        setUser(user);
+        const office = res.data;
+        setOffice(office);
         setContext({
           ...context,
-          name: user.name,
-          email: user.email,
-          phoneICC: user.phone.icc,
-          phoneNSN: user.phone.nsn,
+          name: office.name,
+          email: office.email,
+          phoneICC: office.phone.icc,
+          phoneNSN: office.phone.nsn,
           changes: [],
           error: "",
           submitting: false,
         });
       })
-      .catch((err) => {
-        console.log("err", err);
-        setUser(null);
+      .catch(() => {
+        setOffice(null);
         setContext({
           ...context,
           lang: lang,
@@ -98,16 +98,16 @@ const SearchUsers = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!context.searchTerm) return;
-    navigate(routes.searchUsers.navigate(context.searchTerm));
+    navigate(routes.searchOffices.navigate(context.searchTerm));
   };
 
   const handleVerifyUser = async () => {
     try {
-      if (!user) return;
+      if (!office) return;
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.verifyUser(emailOrPhone);
       const verifiedUser = res.data;
-      setUser(verifiedUser);
+      setOffice(verifiedUser);
       setContext({
         ...context,
         name: verifiedUser.name,
@@ -123,26 +123,13 @@ const SearchUsers = () => {
     }
   };
 
-  const handleUpdateUserRole = async (role) => {
-    try {
-      if (!user) return;
-      setContext({ ...context, submitting: true });
-      const res = await usersApi.admin.updateUserRole(emailOrPhone, role);
-      const verifiedUser = res.data;
-      setUser(verifiedUser);
-      setContext({ ...context, submitting: false });
-    } catch (err) {
-      setContext({ ...context, submitting: false });
-    }
-  };
-
   const handleSendAlert = async (alert) => {
     try {
       const { titleEN, bodyEN, titleAR, bodyAR } = alert;
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
       await usersApi.admin.sendNotificationToUsers(
-        [user._id],
+        [office._id],
         titleEN,
         titleAR,
         bodyEN,
@@ -153,32 +140,33 @@ const SearchUsers = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar activeItem="search users" />
+      <AdminSidebar activeItem="search offices" />
 
       <Content>
         <TopContainer lang={lang}>
-          <PageTitle>{i18n("searchUsers")}</PageTitle>
+          <PageTitle>{i18n("searchOffices")}</PageTitle>
 
           <SearchBox
             searchTerm={context.searchTerm}
             onSearchChange={handleKeyChange("searchTerm")}
-            placeholder={i18n("searchUserPlaceholder")}
+            placeholder={i18n("searchOfficePlaceholder")}
             onSubmit={handleSearch}
           />
         </TopContainer>
 
-        <UserSearchForm
+        <OfficeSearchForm
           context={context}
-          user={user}
+          user={office}
           onKeyChange={handleKeyChange}
-          onUpdateUserRole={handleUpdateUserRole}
           onVerifyUser={handleVerifyUser}
           onEditProfile={handleEditProfile}
         />
 
-        {user && <IncompleteTransactionForm userId={user._id} />}
+        {office && <IncompleteTransactionForm userId={office._id} />}
 
-        {user && (
+        {office && <AdminOfficeOrders officeId={office._id} />}
+
+        {office && (
           <AdminSendAlert
             title={i18n("sendAlertToUser")}
             onSendAlert={handleSendAlert}
@@ -227,4 +215,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default SearchUsers;
+export default SearchOffices;

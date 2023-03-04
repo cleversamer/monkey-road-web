@@ -1103,6 +1103,10 @@
         "en": "Find user by email or phone number",
         "ar": "ابحث عن مستخدم بواسطة البريد أو رقم الهاتف"
     },
+    "searchOfficePlaceholder": {
+        "en": "Find office by email or phone number",
+        "ar": "ابحث عن مكتب بواسطة البريد أو رقم الهاتف"
+    },
     "joinedBy": {
         "en": "Joined by",
         "ar": "منضم بواسطة"
@@ -1110,6 +1114,10 @@
     "verifyUser": {
         "en": "Verify user",
         "ar": "تفعيل المستخدم"
+    },
+    "verifyOffice": {
+        "en": "Verify office",
+        "ar": "تفعيل المكتب"
     },
     "transformToOffice": {
         "en": "Transform to office",
@@ -1127,6 +1135,10 @@
         "en": "User has no incomplete transactions",
         "ar": "المستخدم ليس لديه أيّ معاملات ماليّة غير مكتملة"
     },
+    "ordersNotFound": {
+        "en": "Office has no received orders", 
+        "ar": "المكتب ليس لديه طلبات مستلمة"
+    },
     "alertTitle": {
         "en": "Title of alert",
         "ar": "عنوان الإشعار"
@@ -1142,5 +1154,9 @@
     "send": {
         "en": "Send",
         "ar": "أرسل"
+    },
+    "officeReceivedOrders": {
+        "en": "Office's received orders",
+        "ar": "طلبات المكتب المستلمة"
     }
 }

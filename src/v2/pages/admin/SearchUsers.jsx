@@ -44,8 +44,7 @@ const SearchUsers = () => {
           submitting: false,
         });
       })
-      .catch((err) => {
-        console.log("err", err);
+      .catch(() => {
         setUser(null);
         setContext({
           ...context,
@@ -59,7 +58,7 @@ const SearchUsers = () => {
           submitting: false,
         });
       });
-  }, [emailOrPhone, context, lang]);
+  }, [emailOrPhone]);
 
   const handleKeyChange = (key) => (e) => {
     let newChanges = [...context.changes];

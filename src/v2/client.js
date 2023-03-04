@@ -151,4 +151,8 @@ export const routes = {
     route: "/admin/user/:emailOrPhone",
     navigate: (emailOrPhone = "*") => `/admin/user/${emailOrPhone}`,
   },
+  searchOffices: {
+    route: "/admin/office/:emailOrPhone",
+    navigate: (emailOrPhone = "*") => `/admin/office/${emailOrPhone}`,
+  },
 };

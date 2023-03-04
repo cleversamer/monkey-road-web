@@ -115,6 +115,16 @@ const findUserByEmailOrPhone = async (emailOrPhone) => {
   );
 };
 
+const findOfficeByEmailOrPhone = async (emailOrPhone) => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get(
+    `/users/admin/profile/find?emailOrPhone=${emailOrPhone}&role=office`,
+    config,
+    cacheMins
+  );
+};
+
 const updateUserProfile = async (profileData) => {
   const formData = new FormData();
   for (let key in profileData) {
@@ -180,6 +190,7 @@ export default {
     getCarsStatus,
     exportUsersToExcel,
     findUserByEmailOrPhone,
+    findOfficeByEmailOrPhone,
     updateUserProfile,
     verifyUser,
     updateUserRole,
