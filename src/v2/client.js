@@ -159,4 +159,8 @@ export const routes = {
     route: "/admin/alert/send",
     navigate: () => "/admin/alert/send",
   },
+  addBrand: {
+    route: "/admin/brand/add",
+    navigate: () => "/admin/brand/add",
+  },
 };

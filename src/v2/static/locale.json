@@ -1166,5 +1166,9 @@
     "officeReceivedOrders": {
         "en": "Office's received orders",
         "ar": "طلبات المكتب المستلمة"
+    },
+    "name": {
+        "en": "Name",
+        "ar": "الإسم"
     }
 }

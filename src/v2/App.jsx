@@ -46,6 +46,7 @@ import AdminBrands from "v2/pages/admin/AdminBrands";
 import SearchUsers from "v2/pages/admin/SearchUsers";
 import SearchOffices from "v2/pages/admin/SearchOffices";
 import SendAlert from "v2/pages/admin/SendAlert";
+import AddBrand from "v2/pages/admin/AddBrand";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -105,6 +106,7 @@ const App = () => {
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
+            <Route path={routes.addBrand.route} element={<AddBrand />} />
             <Route path={routes.sendAlert.route} element={<SendAlert />} />
             <Route
               path={routes.searchOffices.route}
