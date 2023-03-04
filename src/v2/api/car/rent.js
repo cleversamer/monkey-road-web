@@ -73,6 +73,16 @@ const getNotAcceptedRentCars = async (page = 1, limit = 3) => {
   );
 };
 
+const acceptRentCar = async (rentCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/cars/rent/${rentCarId}/accept`, {}, config);
+};
+
+const rejectRentCar = async (rentCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/cars/rent/${rentCarId}/reject`, {}, config);
+};
+
 export default {
   common: {
     getAllRentCars,
@@ -85,5 +95,7 @@ export default {
   },
   admin: {
     getNotAcceptedRentCars,
+    acceptRentCar,
+    rejectRentCar,
   },
 };

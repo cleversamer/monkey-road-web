@@ -80,6 +80,19 @@ const MainScreen = () => {
     navigate(routes.allOfficesOrders.navigate());
   };
 
+  const handleAcceptCar = async (rentCarId) => {
+    try {
+      await rentApi.admin.acceptRentCar(rentCarId);
+      const newPendingRentalPosts = pendingRentalPosts.list.filter(
+        (rentCar) => rentCar._id !== rentCarId
+      );
+      setPendingRentalPosts({
+        ...pendingRentalPosts,
+        list: newPendingRentalPosts,
+      });
+    } catch (err) {}
+  };
+
   return (
     <Container lang={lang}>
       <AdminSidebar activeItem="home" />
@@ -147,7 +160,11 @@ const MainScreen = () => {
               <Loader />
             ) : (
               pendingRentalPosts.list.map((rentCar) => (
-                <PendingRentCar key={rentCar._id} data={rentCar} />
+                <PendingRentCar
+                  key={rentCar._id}
+                  data={rentCar}
+                  onAccept={() => handleAcceptCar(rentCar._id)}
+                />
               ))
             )}
           </ItemsSection>

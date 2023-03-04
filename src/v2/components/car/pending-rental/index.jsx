@@ -6,14 +6,10 @@ import useLocale from "v2/hooks/useLocale";
 import useAuth from "v2/auth/useAuth";
 import { routes } from "v2/client";
 
-const PendingRentCar = ({ data }) => {
+const PendingRentCar = ({ data, onAccept }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
-
-  const handleAccept = () => {
-    // TODO: call the backend
-  };
 
   const handleViewDetails = () => {
     navigate(routes.rentCarDetails.navigate(data._id));
@@ -33,7 +29,7 @@ const PendingRentCar = ({ data }) => {
           <CustomButton
             type="primary"
             title={i18n("accept")}
-            onClick={handleAccept}
+            onClick={onAccept}
           />
 
           <CustomButton
