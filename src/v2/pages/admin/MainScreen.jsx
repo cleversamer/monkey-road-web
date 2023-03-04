@@ -62,7 +62,7 @@ const MainScreen = () => {
       .catch(() => setOfficeOrders({ loading: false, list: [] }));
   }, []);
 
-  const handleAddBrand = () => {};
+  const handleAddBrand = () => navigate(routes.addBrand.navigate());
 
   const handleSeeMorePendingRentalPosts = () => {
     navigate(routes.pendingRentalPosts.navigate());
