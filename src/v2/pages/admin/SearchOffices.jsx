@@ -168,7 +168,7 @@ const SearchOffices = () => {
 
         {office && (
           <AdminSendAlert
-            title={i18n("sendAlertToUser")}
+            title={i18n("sendAlertToOffice")}
             onSendAlert={handleSendAlert}
           />
         )}

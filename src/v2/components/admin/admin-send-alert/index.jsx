@@ -16,6 +16,16 @@ const AdminSendAlert = ({ title, onSendAlert }) => {
   const handleKeyChange = (key) => (e) =>
     setAlert({ ...alert, [key]: e.target.value });
 
+  const handleSendAlert = () => {
+    onSendAlert(alert);
+    setAlert({
+      titleEN: "",
+      bodyEN: "",
+      titleAR: "",
+      bodyAR: "",
+    });
+  };
+
   return (
     <FormContainer>
       <Title lang={lang}>{title}</Title>
@@ -58,7 +68,7 @@ const AdminSendAlert = ({ title, onSendAlert }) => {
         <CustomButton
           type="primary"
           title={i18n("send")}
-          onClick={() => onSendAlert(alert)}
+          onClick={handleSendAlert}
         />
       )}
     </FormContainer>

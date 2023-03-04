@@ -155,4 +155,8 @@ export const routes = {
     route: "/admin/office/:emailOrPhone",
     navigate: (emailOrPhone = "*") => `/admin/office/${emailOrPhone}`,
   },
+  sendAlert: {
+    route: "/admin/alert/send",
+    navigate: () => "/admin/alert/send",
+  },
 };

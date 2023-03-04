@@ -1151,6 +1151,14 @@
         "en": "Send alert to user",
         "ar": "إرسال إشعار للمستخدم"
     },
+    "sendAlertToOffice": {
+        "en": "Send alert to user",
+        "ar": "إرسال إشعار للمستخدم"
+    },
+    "sendAlertToAllUsers": {
+        "en": "Send alert to all users",
+        "ar": "إرسال إشعار لكافة المستخدمين"
+    },
     "send": {
         "en": "Send",
         "ar": "أرسل"
