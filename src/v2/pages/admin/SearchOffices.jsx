@@ -59,7 +59,7 @@ const SearchUsers = () => {
           submitting: false,
         });
       });
-  }, [emailOrPhone, context, lang]);
+  }, [emailOrPhone]);
 
   const handleKeyChange = (key) => (e) => {
     let newChanges = [...context.changes];

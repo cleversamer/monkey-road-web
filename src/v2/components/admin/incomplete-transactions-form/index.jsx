@@ -21,7 +21,7 @@ const IncompleteTransactionForm = ({ userId }) => {
         setTransactions({ list: res.data.transactions, loading: false })
       )
       .catch(() => setTransactions({ list: [], loading: false }));
-  }, []);
+  }, [userId]);
 
   const handleExportToExcel = () => {
     setExcelFile({ loading: true, url: "" });
