@@ -43,6 +43,7 @@ import AdminRentCars from "v2/pages/admin/AdminRentCars";
 import AdminPurchaseCars from "v2/pages/admin/AdminPurchaseCars";
 import OfficesOrders from "v2/pages/admin/OfficesOrders";
 import AdminBrands from "v2/pages/admin/AdminBrands";
+import SearchUsers from "v2/pages/admin/SearchUsers";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -102,6 +103,7 @@ const App = () => {
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
+            <Route path={routes.searchUsers.route} element={<SearchUsers />} />
             <Route path={routes.allBrands.route} element={<AdminBrands />} />
             <Route
               path={routes.allOfficesOrders.route}

@@ -1,4 +1,6 @@
 export default function (strDate, lang) {
+  if (!strDate) return;
+
   const day = lang === "ar" ? "يوم" : "day";
   const days = lang === "ar" ? "أيام" : "days";
   const hour = lang === "ar" ? "ساعة" : "hour";

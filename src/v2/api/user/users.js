@@ -10,7 +10,6 @@ const isAuth = async () => {
 };
 
 const updateProfile = async (profileData) => {
-  console.log("profileData", profileData);
   const formData = new FormData();
   for (let key in profileData) {
     formData.append(key, profileData[key]);
@@ -106,6 +105,62 @@ const exportUsersToExcel = async () => {
   return await client.get("/users/export", config, cacheMins);
 };
 
+const findUserByEmailOrPhone = async (emailOrPhone) => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get(
+    `/users/admin/profile/find?emailOrPhone=${emailOrPhone}&role=user`,
+    config,
+    cacheMins
+  );
+};
+
+const updateUserProfile = async (profileData) => {
+  const formData = new FormData();
+  for (let key in profileData) {
+    formData.append(key, profileData[key]);
+  }
+
+  const config = {
+    headers: {
+      Authorization: authStorage.getToken(),
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  return await client.patch("/users/admin/profile/update", formData, config);
+};
+
+const verifyUser = async (emailOrPhone) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(
+    "/users/admin/profile/verify",
+    { emailOrPhone },
+    config
+  );
+};
+
+const updateUserRole = async (emailOrPhone, role) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(
+    "/users/admin/profile/update-role",
+    { emailOrPhone, role },
+    config
+  );
+};
+
+const sendNotificationToUsers = async (
+  userIds = [],
+  titleEN,
+  titleAR,
+  bodyEN,
+  bodyAR
+) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  const data = { userIds, titleEN, titleAR, bodyEN, bodyAR };
+  return await client.post("/users/admin/notification/send", data, config);
+};
+
 export default {
   common: {
     isAuth,
@@ -124,5 +179,10 @@ export default {
   admin: {
     getCarsStatus,
     exportUsersToExcel,
+    findUserByEmailOrPhone,
+    updateUserProfile,
+    verifyUser,
+    updateUserRole,
+    sendNotificationToUsers,
   },
 };

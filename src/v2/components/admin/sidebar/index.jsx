@@ -155,8 +155,14 @@ const AdminSidebar = ({ activeItem }) => {
           <NavItem
             title={i18n("users")}
             Icon={FiUsers}
+            onClick={() => navigate(routes.searchUsers.navigate())}
+            active={["search users"].includes(activeItem)}
             subItems={[
-              { title: i18n("searchUsers"), onClick: () => {} },
+              {
+                title: i18n("searchUsers"),
+                onClick: () => navigate(routes.searchUsers.navigate()),
+                active: activeItem === "search users",
+              },
               { title: i18n("searchOffices"), onClick: () => {} },
               {
                 title: i18n("exportToExcel"),

@@ -147,4 +147,8 @@ export const routes = {
     route: "/admin/brands/all",
     navigate: () => "/admin/brands/all",
   },
+  searchUsers: {
+    route: "/admin/user/:emailOrPhone",
+    navigate: (emailOrPhone = "*") => `/admin/user/${emailOrPhone}`,
+  },
 };

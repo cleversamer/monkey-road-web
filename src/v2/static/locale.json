@@ -143,6 +143,10 @@
         "en": "Email",
         "ar": "البريد الإلكتروني"
     },
+    "google": {
+        "en": "Google",
+        "ar": "حساب جوجل"
+    },
     "verified": {
         "en": "Verified",
         "ar": "مفعّل"
@@ -170,6 +174,10 @@
     "office": {
         "en": "Office",
         "ar": "مكتب تأجير"
+    },
+    "secretary": {
+        "en": "Secretary",
+        "ar": "سكرتير"
     },
     "admin": {
         "en": "Admin",
@@ -1090,5 +1098,49 @@
     "rejectPostSubtitle": {
         "en": "Do you really want to reject post?",
         "ar": "هل تريد حقًا رفض المنشور؟"
+    },
+    "searchUserPlaceholder": {
+        "en": "Find user by email or phone number",
+        "ar": "ابحث عن مستخدم بواسطة البريد أو رقم الهاتف"
+    },
+    "joinedBy": {
+        "en": "Joined by",
+        "ar": "منضم بواسطة"
+    },
+    "verifyUser": {
+        "en": "Verify user",
+        "ar": "تفعيل المستخدم"
+    },
+    "transformToOffice": {
+        "en": "Transform to office",
+        "ar": "تحويل إلى مكتب"
+    },
+    "transformToSecretary": {
+        "en": "Transform to secretary",
+        "ar": "تحويل إلى سكرتير"
+    },
+    "incompleteTransactions": {
+        "en": "Incomplete transactions",
+        "ar": "معاملات ماليّة غير مكتملة"
+    },
+    "transactionsNotFound": {
+        "en": "User has no incomplete transactions",
+        "ar": "المستخدم ليس لديه أيّ معاملات ماليّة غير مكتملة"
+    },
+    "alertTitle": {
+        "en": "Title of alert",
+        "ar": "عنوان الإشعار"
+    },
+    "alertBody": {
+        "en": "Body of alert",
+        "ar": "محتوى الإشعار"
+    },
+    "sendAlertToUser": {
+        "en": "Send alert to user",
+        "ar": "إرسال إشعار للمستخدم"
+    },
+    "send": {
+        "en": "Send",
+        "ar": "أرسل"
     }
 }
