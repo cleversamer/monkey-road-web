@@ -87,7 +87,10 @@ const Row = styled.div`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
 `;
 
-const Row1 = styled(Row)``;
+const Row1 = styled(Row)`
+  display: flex;
+  gap: 10px;
+`;
 
 const CarName = styled.h5`
   font-weight: 700;
@@ -106,6 +109,7 @@ const CarPriceContainer = styled.h5`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 6px;
+  min-width: max-content;
 
   &,
   * {
