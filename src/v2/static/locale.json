@@ -1082,5 +1082,13 @@
     "receiverOffice": {
         "en": "Receiver office",
         "ar": "المكتب المستلم"
+    },
+    "rejectPostTitle": {
+        "en": "Reject post",
+        "ar": "رفض المنشور"
+    },
+    "rejectPostSubtitle": {
+        "en": "Do you really want to reject post?",
+        "ar": "هل تريد حقًا رفض المنشور؟"
     }
 }

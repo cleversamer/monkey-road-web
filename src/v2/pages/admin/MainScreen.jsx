@@ -202,7 +202,7 @@ const MainScreen = () => {
           </ItemsSection>
         )}
 
-        {!!purchaseCars.list.length && (
+        {!!officeOrders.list.length && (
           <ItemsSection
             title={i18n("officesOrders")}
             type="section"

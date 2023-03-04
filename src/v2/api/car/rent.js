@@ -78,9 +78,13 @@ const acceptRentCar = async (rentCarId) => {
   return await client.patch(`/cars/rent/${rentCarId}/accept`, {}, config);
 };
 
-const rejectRentCar = async (rentCarId) => {
+const rejectRentCar = async (rentCarId, rejectionReason) => {
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.patch(`/cars/rent/${rentCarId}/reject`, {}, config);
+  return await client.patch(
+    `/cars/rent/${rentCarId}/reject`,
+    { rejectionReason },
+    config
+  );
 };
 
 export default {

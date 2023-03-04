@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import styled from "styled-components";
 import Gallery from "v2/components/car-details/Gallery";
@@ -10,13 +10,21 @@ import Details2 from "./details/Details2";
 import Details3 from "./details/Details3";
 import rentApi from "v2/api/car/rent";
 import useLocale from "v2/hooks/useLocale";
+import PopupConfirm from "v2/hoc/PopupConfirm";
+import { routes } from "v2/client";
 
 const RentCarDetails = () => {
+  const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [pages, setPages] = useState({ count: 3, current: 1 });
   const [similarCars, setSimilarCars] = useState([]);
+  const [popupWindow, setPopupWindow] = useState({
+    visible: false,
+    handler: null,
+    loading: false,
+  });
 
   useEffect(() => {
     // fetch car details
@@ -52,37 +60,72 @@ const RentCarDetails = () => {
   };
 
   const handleReject = () => {
-    // TODO
+    if (popupWindow.visible) return;
+
+    const rejectCar = (reason) => {
+      if (!reason) return;
+
+      setPopupWindow({ ...popupWindow, loading: true });
+
+      rentApi.admin
+        .rejectRentCar(car._id, reason)
+        .then(() => navigate(routes.adminMain.navigate()))
+        .catch(() =>
+          setPopupWindow({ handler: null, visible: false, loading: false })
+        );
+    };
+
+    setPopupWindow({ visible: true, handler: rejectCar });
   };
 
-  if (!car) return null;
+  if (!car) {
+    navigate(routes.home.navigate());
+    return null;
+  }
 
   return (
-    <Container>
-      <Content lang={lang}>
-        <Gallery images={car.photos} />
-        {pages.current == "1" ? (
-          <Details1
-            car={car}
-            onNext={handleNext}
-            onAccept={handleAccept}
-            onReject={handleReject}
-          />
-        ) : pages.current == "2" ? (
-          <Details2 car={car} onNext={handleNext} onPrev={handlePrev} />
-        ) : pages.current == "3" ? (
-          <Details3 car={car} onPrev={handlePrev} onComplete={handleRentCar} />
-        ) : null}
-      </Content>
-
-      {!!similarCars.length && (
-        <ItemsSection type="slider" title={i18n("similarProducts")}>
-          {similarCars.map((car) => (
-            <RentCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
+    <>
+      {popupWindow.visible && (
+        <PopupConfirm
+          title={i18n("rejectPostTitle")}
+          subtitle={i18n("rejectPostSubtitle")}
+          withValue
+          onHide={() => setPopupWindow({ handler: null, visible: false })}
+          onConfirm={popupWindow.handler}
+          loading={popupWindow.loading}
+        />
       )}
-    </Container>
+
+      <Container>
+        <Content lang={lang}>
+          <Gallery images={car.photos} />
+          {pages.current == "1" ? (
+            <Details1
+              car={car}
+              onNext={handleNext}
+              onAccept={handleAccept}
+              onReject={handleReject}
+            />
+          ) : pages.current == "2" ? (
+            <Details2 car={car} onNext={handleNext} onPrev={handlePrev} />
+          ) : pages.current == "3" ? (
+            <Details3
+              car={car}
+              onPrev={handlePrev}
+              onComplete={handleRentCar}
+            />
+          ) : null}
+        </Content>
+
+        {!!similarCars.length && (
+          <ItemsSection type="slider" title={i18n("similarProducts")}>
+            {similarCars.map((car) => (
+              <RentCar key={car._id} data={car} />
+            ))}
+          </ItemsSection>
+        )}
+      </Container>
+    </>
   );
 };
 
