@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
-const Card = ({ title, value, Icon }) => {
+const Card = ({ title, value, Icon, onClick }) => {
   const { lang } = useLocale();
 
   return (
-    <Container lang={lang}>
+    <Container lang={lang} onClick={onClick}>
       <CardTitle>{title}</CardTitle>
       <CardValue>{value}</CardValue>
       <Icon />

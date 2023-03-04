@@ -116,6 +116,7 @@ const MainScreen = () => {
               title={i18n("rentCars")}
               value={status?.value?.rent?.total?.toLocaleString() || 0}
               Icon={AiFillCar}
+              onClick={() => navigate(routes.allRentCars.navigate())}
             />
           )}
 
@@ -126,6 +127,7 @@ const MainScreen = () => {
               title={i18n("purchaseCars")}
               value={status?.value?.purchase?.total?.toLocaleString() || 0}
               Icon={AiFillCar}
+              onClick={() => navigate(routes.allPurchaseCars.navigate())}
             />
           )}
 
@@ -136,6 +138,7 @@ const MainScreen = () => {
               title={i18n("pendingRentalPosts")}
               value={status?.value?.rent?.inactive?.toLocaleString() || 0}
               Icon={GiSandsOfTime}
+              onClick={() => navigate(routes.pendingRentalPosts.navigate())}
             />
           )}
 
@@ -146,6 +149,7 @@ const MainScreen = () => {
               title={i18n("officesOrders")}
               value={status?.value?.order?.total?.toLocaleString() || 0}
               Icon={GiSandsOfTime}
+              onClick={() => navigate(routes.allOfficesOrders.navigate())}
             />
           )}
         </CardsContainer>
