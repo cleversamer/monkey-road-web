@@ -14,6 +14,7 @@ import PopupConfirm from "v2/hoc/PopupConfirm";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
 import { GiSandsOfTime } from "react-icons/gi";
+import usersApi from "v2/api/user/users";
 
 const Navbar = ({ onOpenMenu }) => {
   const { i18n, switchLang, lang } = useLocale();
@@ -42,8 +43,11 @@ const Navbar = ({ onOpenMenu }) => {
     scroll.scrollToTop();
   };
 
-  const handleSwitchLanguage = () => {
-    switchLang();
+  const handleSwitchLanguage = async () => {
+    try {
+      switchLang();
+      await usersApi.common.switchLanguage();
+    } catch (err) {}
   };
 
   const handleLogout = () => {

@@ -70,6 +70,13 @@ const AdminSidebar = ({ activeItem }) => {
     setPopupInput({ visible: true, handler, loading: false });
   };
 
+  const handleSwitchLanguage = async () => {
+    try {
+      switchLang();
+      await usersApi.common.switchLanguage();
+    } catch (err) {}
+  };
+
   return (
     <>
       {popupWindow.visible && (
@@ -219,7 +226,7 @@ const AdminSidebar = ({ activeItem }) => {
           <NavItem
             title={i18n("language")}
             Icon={GrLanguage}
-            onClick={switchLang}
+            onClick={handleSwitchLanguage}
           />
 
           <NavItem

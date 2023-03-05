@@ -63,6 +63,10 @@ const App = () => {
       .then((res) => {
         const user = res.data;
         setUser(user);
+        if (lang !== user.favLang) {
+          setLang(user.favLang);
+        }
+
         if (!user.verified.email) {
           navigate(routes.verify.navigate("email"));
         }

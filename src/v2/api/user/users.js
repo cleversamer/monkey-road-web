@@ -92,6 +92,11 @@ const seeNotifications = async () => {
   return await client.get("/users/notifications/see", config, cacheMins);
 };
 
+const switchLanguage = async () => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch("/users/language/switch", {}, config);
+};
+
 ////////////////////////////// Admin APIs //////////////////////////////
 const getCarsStatus = async () => {
   const cacheMins = 0;
@@ -184,6 +189,7 @@ export default {
     addToFavorites,
     deleteFromFavorites,
     seeNotifications,
+    switchLanguage,
   },
   office: {},
   admin: {
