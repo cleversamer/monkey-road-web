@@ -95,13 +95,28 @@ const MyReceivedOrders = () => {
     setOrders({ ...orders, selectedOrder: null });
   };
 
-  const handleApproveOrder = (order) => {
+  const handleApproveOrder = (orderId) => {
     if (popupConfirm.visible) return;
 
     handleHideOrderDetails();
 
     const approveOder = () => {
-      // TODO
+      rentOrdersApi.office
+        .approveOrder(orderId)
+        .then(() => {
+          let index = orders.all.findIndex((o) => o._id === orderId);
+          const newAllOrders = [...orders.all];
+          newAllOrders[index].status = "approved";
+
+          index = orders.view.findIndex((o) => o._id === orderId);
+          const newViewOrders = [...orders.view];
+          if (index >= 0) {
+            newViewOrders[index].status = "approved";
+          }
+
+          setOrders({ ...orders, all: newAllOrders, view: newViewOrders });
+        })
+        .catch(() => {});
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -109,20 +124,35 @@ const MyReceivedOrders = () => {
     setPopupConfirm({
       visible: true,
       onConfirm: approveOder,
-      title: "approve order",
-      subtitle: "Do you really want to approve order?",
-      hint: "You can only approve pending orders.",
+      title: i18n("approveOrderTitle"),
+      subtitle: i18n("approveOrderSubtitle"),
+      hint: i18n("approveOrderHint"),
       withValue: false,
     });
   };
 
-  const handleRejectOrder = (order) => {
+  const handleRejectOrder = (orderId) => {
     if (popupConfirm.visible) return;
 
     handleHideOrderDetails();
 
     const rejectOder = (rejectionReason) => {
-      // TODO
+      rentOrdersApi.office
+        .rejectOrder(orderId, rejectionReason)
+        .then(() => {
+          let index = orders.all.findIndex((o) => o._id === orderId);
+          const newAllOrders = [...orders.all];
+          newAllOrders[index].status = "rejected";
+
+          index = orders.view.findIndex((o) => o._id === orderId);
+          const newViewOrders = [...orders.view];
+          if (index >= 0) {
+            newViewOrders[index].status = "rejected";
+          }
+
+          setOrders({ ...orders, all: newAllOrders, view: newViewOrders });
+        })
+        .catch(() => {});
 
       setPopupConfirm({ visible: false, handler: null });
     };
@@ -130,20 +160,37 @@ const MyReceivedOrders = () => {
     setPopupConfirm({
       visible: true,
       onConfirm: rejectOder,
-      title: "reject order",
-      subtitle: "Do you really want to reject order?",
-      hint: "You can only reject pending orders.",
+      title: i18n("rejectOrderTitle"),
+      subtitle: i18n("rejectOrderSubtitle"),
+      hint: i18n("rejectOrderHint"),
       withValue: true,
     });
   };
 
-  const handleDeliverOrder = (order) => {
+  const handleDeliverOrder = (orderId) => {
     if (popupConfirm.visible) return;
 
     handleHideOrderDetails();
 
     const deliverOder = () => {
-      // TODO
+      rentOrdersApi.office
+        .deliverOrder(orderId)
+        .then(() => {
+          let index = orders.all.findIndex((o) => o._id === orderId);
+          const newAllOrders = [...orders.all];
+          newAllOrders[index].status = "delivered";
+
+          index = orders.view.findIndex((o) => o._id === orderId);
+          const newViewOrders = [...orders.view];
+          if (index >= 0) {
+            newViewOrders[index].status = "delivered";
+          }
+
+          setOrders({ ...orders, all: newAllOrders, view: newViewOrders });
+        })
+        .catch((err) => {
+          console.log("err", err.response.data.message.en);
+        });
 
       setPopupConfirm({ visible: false, handler: null });
     };

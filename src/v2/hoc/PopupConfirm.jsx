@@ -33,8 +33,8 @@ const PopupConfirm = ({
         {withValue && (
           <CustomInput
             type="description"
-            title="rejection reason"
-            placeholder="rejection reason"
+            title={i18n("rejectionReason")}
+            placeholder={i18n("rejectionReason")}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />

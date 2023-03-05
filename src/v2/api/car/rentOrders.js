@@ -40,6 +40,25 @@ const getMyReceivedOrders = async (page = 1, limit = 10) => {
   );
 };
 
+const approveOrder = async (orderId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/orders/rent/${orderId}/approve`, {}, config);
+};
+
+const rejectOrder = async (orderId, rejectionReason) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(
+    `/orders/rent/${orderId}/reject`,
+    { rejectionReason },
+    config
+  );
+};
+
+const deliverOrder = async (orderId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/orders/rent/${orderId}/deliver`, {}, config);
+};
+
 //////////////////// ADMIN ////////////////////
 const getAllOrders = async (page = 1, limit = 3) => {
   const cacheMins = 0;
@@ -70,6 +89,9 @@ export default {
   },
   office: {
     getMyReceivedOrders,
+    approveOrder,
+    rejectOrder,
+    deliverOrder,
   },
   admin: {
     getAllOrders,

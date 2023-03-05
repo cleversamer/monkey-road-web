@@ -1174,5 +1174,29 @@
     "noOfficesOrders": {
         "en": "There are no received orders for any office",
         "ar": "لا يوجد هناك أيّ طلبات مستلمة لأيّ مكتب"
+    },
+    "approveOrderTitle": {
+        "en": "Approve order",
+        "ar": "قبول الطلب"
+    },
+    "approveOrderSubtitle": {
+        "en": "Do you really want to approve order?",
+        "ar": "هل تريد حقًا قبول الطلب؟"
+    },
+    "approveOrderHint": {
+        "en": "You can only approve pending orders",
+        "ar": "يمكنك فقط قبول الطلبات قيد الإنتظار"
+    },
+    "rejectOrderTitle": {
+        "en": "Reject order",
+        "ar": "رفض الطلب"
+    },
+    "rejectOrderSubtitle": {
+        "en": "Do you really want to reject order?",
+        "ar": "هل تريد حقًا رفض الطلب؟"
+    },
+    "rejectOrderHint": {
+        "en": "You can only reject pending and approved orders",
+        "ar": "يمكنك فقط رفض الطلبات قيد الإنتظار والموافق عليها"
     }
 }

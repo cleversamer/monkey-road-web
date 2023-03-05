@@ -16,7 +16,10 @@ const AdminOfficeOrders = ({ officeId }) => {
     rentOrdersApi.admin
       .getOfficeReceivedOrders(officeId, 1, pageSize)
       .then((res) => setOrders({ loading: false, list: res.data.orders }))
-      .catch(() => setOrders({ loading: false, list: [] }));
+      .catch((err) => {
+        console.log("err", err);
+        setOrders({ loading: false, list: [] });
+      });
   }, [officeId]);
 
   const handleViewOfficeDetails = (office) => {

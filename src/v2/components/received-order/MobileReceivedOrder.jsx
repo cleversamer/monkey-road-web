@@ -34,11 +34,11 @@ const MobileReceivedOrder = ({ order, onApprove, onReject, onViewDetails }) => {
           <ButtonsContainer>
             {order.status === "pending" && (
               <>
-                <FilledButton onClick={() => onApprove(order)}>
+                <FilledButton onClick={() => onApprove(order._id)}>
                   approve
                 </FilledButton>
 
-                <OutlineButton onClick={() => onReject(order)}>
+                <OutlineButton onClick={() => onReject(order._id)}>
                   reject
                 </OutlineButton>
               </>
