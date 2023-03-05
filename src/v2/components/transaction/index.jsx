@@ -38,11 +38,17 @@ const Transaction = ({ transaction }) => {
 
         <TransactionInfo>
           <TransactionPrice>
-            {transaction.amount.toLocaleString()} {i18n("aed")}
+            {transaction.amount.toLocaleString()} AED
           </TransactionPrice>
 
-          <TransactionStatus status={transaction.status}>
-            <GiSandsOfTime /> {transaction.status}
+          <TransactionStatus status={transaction.status} lang={lang}>
+            <GiSandsOfTime />
+
+            <TransactionStatusTitle>
+              {transaction.status === "complete"
+                ? i18n("transactionComplete")
+                : i18n("transactionIncomplete")}
+            </TransactionStatusTitle>
           </TransactionStatus>
         </TransactionInfo>
       </Content>
@@ -112,11 +118,14 @@ const TransactionPrice = styled.div`
   padding: 3px 7px;
   border-radius: 6px;
   background-color: #fe7777;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
 const TransactionStatus = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 7px;
   text-transform: capitalize;
   color: #fff;
@@ -128,6 +137,12 @@ const TransactionStatus = styled.div`
   svg {
     fill: #fff;
   }
+`;
+
+const TransactionStatusTitle = styled.span`
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
 `;
 
 export default Transaction;

@@ -1202,5 +1202,13 @@
     "noPendingRentalPosts": {
         "en": "There are no pending rental posts",
         "ar": "لا يوجد منشورات سيّارات للإيجار معلقة"
+    },
+    "transactionComplete": {
+        "en": "Complete",
+        "ar": "مكتملة"
+    },
+    "transactionIncomplete": {
+        "en": "Incomplete",
+        "ar": "غير مكتملة"
     }
 }

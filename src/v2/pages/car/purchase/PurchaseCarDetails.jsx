@@ -3,25 +3,18 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Gallery from "v2/components/car-details/Gallery";
 import Details from "v2/components/car-details/purchase";
-import ItemsSection from "v2/components/common/items-section";
-import PurchaseCar from "v2/components/car/purchase";
 import purchaseApi from "v2/api/car/purchase";
 import useLocale from "v2/hooks/useLocale";
 
 const PurchaseCarDetails = () => {
-  const { i18n, lang } = useLocale();
+  const { lang } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
-  const [similarCars, setSimilarCars] = useState([]);
 
   useEffect(() => {
-    // fetch car details
     purchaseApi.common
       .getPurchaseCarDetails(carId)
       .then((res) => setCar(res.data));
-
-    // fetch similar products
-    // TODO
   }, []);
 
   if (!car) {
@@ -35,14 +28,6 @@ const PurchaseCarDetails = () => {
         <Gallery images={car.photos} />
         <Details car={car} />
       </Content>
-
-      {!!similarCars.length && (
-        <ItemsSection type="slider" title={i18n("similarProducts")}>
-          {similarCars.map((car) => (
-            <PurchaseCar key={car._id} data={car} />
-          ))}
-        </ItemsSection>
-      )}
     </Container>
   );
 };

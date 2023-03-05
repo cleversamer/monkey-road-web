@@ -23,9 +23,9 @@ const ReusableCar = ({
         <Row1 lang={lang}>
           <CarName>{name}</CarName>
           {!!price && (
-            <CarPriceContainer lang={lang}>
+            <CarPriceContainer>
               <CarPrice>{parseInt(price).toLocaleString()}</CarPrice>
-              <Currency>{i18n("aed")}</Currency>
+              <Currency>AED</Currency>
             </CarPriceContainer>
           )}
         </Row1>
@@ -106,7 +106,6 @@ const CarName = styled.h5`
 const CarPriceContainer = styled.h5`
   font-size: 15px;
   display: flex;
-  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 6px;
   min-width: max-content;

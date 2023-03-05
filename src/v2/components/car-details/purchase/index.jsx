@@ -44,9 +44,7 @@ const PurchaseCarDetails = ({ car }) => {
 
       <TitleContainer>
         <CarTitle>{car.name}</CarTitle>
-        <CarPrice>
-          {parseInt(car.price).toLocaleString()} {i18n("aed")}
-        </CarPrice>
+        <CarPrice>{parseInt(car.price).toLocaleString()} AED</CarPrice>
       </TitleContainer>
 
       {!!car.description && (
