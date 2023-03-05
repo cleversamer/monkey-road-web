@@ -44,20 +44,19 @@ const CTAContainer = styled.div`
 
 const Badge = styled.div`
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 7px;
+  right: 7px;
   color: #fff;
   font-size: 13px;
+  font-weight: 600;
   text-transform: capitalize;
   padding: 5px;
   border-radius: 6px;
   background-color: ${({ status }) =>
-    status === "pending"
-      ? "orange"
+    ["pending", "approved", "paid"].includes(status)
+      ? "#FFA500"
       : ["rejected", "closed"].includes(status)
-      ? "red"
-      : status === "approved"
-      ? "green"
+      ? "#f00"
       : "#000"};
 `;
 

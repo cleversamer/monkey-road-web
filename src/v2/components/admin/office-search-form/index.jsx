@@ -62,7 +62,7 @@ const OfficeSearchForm = ({
           title={i18n("email")}
           placeholder={i18n("email")}
           verified={user?.verified?.email}
-          profile
+          profile={!!user}
           value={context.email}
           onChange={onKeyChange("email")}
         />
@@ -72,7 +72,7 @@ const OfficeSearchForm = ({
           title={i18n("phoneNumber")}
           placeholder={i18n("phoneNumber")}
           verified={user?.verified?.phone}
-          profile
+          profile={!!user}
           icc={context.phoneICC}
           nsn={context.phoneNSN}
           onICCChange={onKeyChange("phoneICC")}

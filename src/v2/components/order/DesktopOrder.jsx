@@ -10,18 +10,18 @@ const DesktopOrder = ({
   onDelete,
   onViewDetails,
 }) => {
-  const { i18n } = useLocale();
-  const [time, setTime] = useState(parseDate(order.date));
+  const { lang, i18n } = useLocale();
+  const [time, setTime] = useState(parseDate(order.date, lang));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(parseDate(order.date));
+      setTime(parseDate(order.date, lang));
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [lang]);
 
   return (
     <Container>
@@ -45,7 +45,7 @@ const DesktopOrder = ({
         </ItemContainer>
 
         <ItemContainer>
-          {time} {i18n("ago")}
+          {lang === "ar" && i18n("ago")} {time} {lang === "en" && i18n("ago")}
         </ItemContainer>
 
         <ItemContainer>
@@ -108,12 +108,10 @@ const OrderStatus = styled.span`
   padding: 5px;
   border-radius: 6px;
   background-color: ${({ status }) =>
-    status === "pending"
-      ? "orange"
+    ["pending", "approved", "paid"].includes(status)
+      ? "#FFA500"
       : ["rejected", "closed"].includes(status)
-      ? "red"
-      : status === "approved"
-      ? "green"
+      ? "#f00"
       : "#000"};
 `;
 

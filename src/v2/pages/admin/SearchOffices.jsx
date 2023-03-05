@@ -29,6 +29,10 @@ const SearchOffices = () => {
   });
 
   useEffect(() => {
+    if (emailOrPhone === "*") {
+      return setContext({ ...context, searchTerm: "" });
+    }
+
     usersApi.admin
       .findOfficeByEmailOrPhone(emailOrPhone)
       .then((res) => {
@@ -200,7 +204,6 @@ const TopContainer = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
-  align-items: center;
   width: 100%;
 
   form {

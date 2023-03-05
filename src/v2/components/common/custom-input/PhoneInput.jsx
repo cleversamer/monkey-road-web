@@ -42,7 +42,7 @@ const Container = styled.div`
 const SelectMenu = styled.select`
   flex: 0.22;
   width: 22%;
-  background-color: #fff;
+  background-color: ${({ disabled }) => (disabled ? "lightgrey" : "#f4f4f4")};
   height: 35px;
   border: ${({ primary }) => (primary ? "1px solid #ababab" : "none")};
   outline: none;
@@ -62,7 +62,7 @@ const Input = styled.input`
   outline: none;
   border-radius: 6px;
   padding: 0 10px;
-  background-color: #fff;
+  background-color: ${({ disabled }) => (disabled ? "lightgrey" : "#f4f4f4")};
 `;
 
 export default PhoneInput;

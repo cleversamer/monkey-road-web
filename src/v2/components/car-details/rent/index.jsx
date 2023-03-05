@@ -56,7 +56,7 @@ const RentCarDetails = ({ car, onNext, onAccept, onReject }) => {
 
       {user && user.verified.email && (
         <RentButtonContainer>
-          {user.role !== "admin" && (
+          {user.role !== "admin" && car.office.ref !== user._id && (
             <CustomButton
               type="primary"
               title={i18n("rentNow")}

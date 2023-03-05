@@ -3,8 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { animateScroll as scroll } from "react-scroll";
 import styled from "styled-components";
 import Gallery from "v2/components/car-details/Gallery";
-import ItemsSection from "v2/components/common/items-section";
-import RentCar from "v2/components/car/rent";
 import Details1 from "./details/Details1";
 import Details2 from "./details/Details2";
 import Details3 from "./details/Details3";
@@ -13,38 +11,36 @@ import useLocale from "v2/hooks/useLocale";
 import PopupConfirm from "v2/hoc/PopupConfirm";
 import { routes } from "v2/client";
 
+const initialState = {
+  startDate: "",
+  endDate: "",
+  noOfDays: 0,
+  locationTitle: "",
+  longitude: 55.27159786283418,
+  latitude: 25.200711712376464,
+  fullName: "",
+  phoneICC: "",
+  phoneNSN: "",
+};
+
 const RentCarDetails = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { carId } = useParams();
   const [car, setCar] = useState(null);
   const [pages, setPages] = useState({ count: 3, current: 1 });
-  const [similarCars, setSimilarCars] = useState([]);
   const [popupWindow, setPopupWindow] = useState({
     visible: false,
     handler: null,
     loading: false,
   });
-  const [context, setContext] = useState({
-    startDate: "",
-    endDate: "",
-    noOfDays: 0,
-    locationTitle: "",
-    longitude: 55.27159786283418,
-    latitude: 25.200711712376464,
-    fullName: "",
-    phoneICC: "",
-    phoneNSN: "",
-  });
+  const [context, setContext] = useState(initialState);
 
   useEffect(() => {
-    // fetch car details
     rentApi.common
       .getRentCarDetails(carId)
       .then((res) => setCar(res.data))
       .catch(() => {});
-
-    // fetch similar products
   }, []);
 
   const handleRentCar = async () => {
@@ -54,11 +50,10 @@ const RentCarDetails = () => {
         noOfDays: calcNoOfDays(),
       };
 
-      const res = await rentApi.common.requestCarRental(carId, body);
-      console.log("res", res.data);
-    } catch (err) {
-      console.log("err", err.response.data.message);
-    }
+      await rentApi.common.requestCarRental(carId, body);
+      setContext(initialState);
+      setPages({ ...pages, current: 1 });
+    } catch (err) {}
   };
 
   const calcNoOfDays = () => {
@@ -157,14 +152,6 @@ const RentCarDetails = () => {
             />
           ) : null}
         </Content>
-
-        {!!similarCars.length && (
-          <ItemsSection type="slider" title={i18n("similarProducts")}>
-            {similarCars.map((car) => (
-              <RentCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
       </Container>
     </>
   );

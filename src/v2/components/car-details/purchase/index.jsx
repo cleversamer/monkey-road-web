@@ -34,12 +34,17 @@ const PurchaseCarDetails = ({ car }) => {
   return (
     <Container>
       <IconsContainer>
-        <CustomButton
-          type="like"
-          liked={checkIsLiked()}
-          onClick={handleLikeClick}
-        />
-        <CustomButton type="share" />
+        {(!user || (user && user.role !== "admin")) && (
+          <>
+            <CustomButton
+              type="like"
+              liked={checkIsLiked()}
+              onClick={handleLikeClick}
+            />
+
+            <CustomButton type="share" />
+          </>
+        )}
       </IconsContainer>
 
       <TitleContainer>
