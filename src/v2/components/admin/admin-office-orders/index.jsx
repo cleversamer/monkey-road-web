@@ -22,36 +22,26 @@ const AdminOfficeOrders = ({ officeId }) => {
       });
   }, [officeId]);
 
-  const handleViewOfficeDetails = (office) => {
-    // TODO
-  };
-
   return (
     <FormContainer>
       <Title lang={lang}>{i18n("officeReceivedOrders")}</Title>
 
       <BreakLine />
 
-      <OrdersContainer>
-        {orders.loading ? (
-          <Loader />
-        ) : !orders.list.length ? (
-          <EmptyList
-            imageURL="/assets/images/empty-1.svg"
-            title={i18n("ordersNotFound")}
-          />
-        ) : (
-          orders.list.map((order) => (
-            <OfficeOrder
-              key={order._id}
-              data={order}
-              onViewOfficeDetails={() =>
-                handleViewOfficeDetails(order.office[0])
-              }
-            />
-          ))
-        )}
-      </OrdersContainer>
+      {orders.loading ? (
+        <Loader />
+      ) : !orders.list.length ? (
+        <EmptyList
+          imageURL="/assets/images/empty-1.svg"
+          title={i18n("ordersNotFound")}
+        />
+      ) : (
+        <OrdersContainer>
+          {orders.list.map((order) => (
+            <OfficeOrder key={order._id} data={order} />
+          ))}
+        </OrdersContainer>
+      )}
     </FormContainer>
   );
 };
@@ -84,9 +74,9 @@ const BreakLine = styled.span`
 `;
 
 const OrdersContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
 `;
 
 export default AdminOfficeOrders;

@@ -21,7 +21,7 @@ const IncompleteTransactionForm = ({ userId }) => {
         const { transactions, totalPages } = res.data;
         setTransactions({ list: transactions, loading: false });
       })
-      .catch((err) => {
+      .catch(() => {
         setTransactions({ list: [], loading: false });
       });
   }, [userId]);
@@ -48,13 +48,13 @@ const IncompleteTransactionForm = ({ userId }) => {
 
         {excelFile.loading ? (
           <Loader />
-        ) : (
+        ) : !!transactions?.list?.length ? (
           <CustomButton
             type="primary"
             title={i18n("exportToExcel")}
             onClick={handleExportToExcel}
           />
-        )}
+        ) : null}
       </TitleContainer>
 
       <BreakLine />

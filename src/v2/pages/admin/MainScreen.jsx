@@ -18,6 +18,7 @@ import rentOrders from "v2/api/car/rentOrders";
 import purchaseApi from "v2/api/car/purchase";
 import OfficeOrder from "v2/components/admin/office-order";
 import { routes } from "v2/client";
+import PopupOffice from "v2/hoc/PopupOffice";
 
 const MainScreen = () => {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ const MainScreen = () => {
   const [rentCars, setRentCars] = useState({ list: [], loading: true });
   const [purchaseCars, setPurchaseCars] = useState({ list: [], loading: true });
   const [officeOrders, setOfficeOrders] = useState({ list: [], loading: true });
+  const [popupOffice, setPopupOffice] = useState({
+    office: null,
+    visible: false,
+  });
   const [pendingRentalPosts, setPendingRentalPosts] = useState({
     list: [],
     loading: true,
@@ -93,136 +98,160 @@ const MainScreen = () => {
     } catch (err) {}
   };
 
+  const handleViewOfficeDetails = (office) => {
+    setPopupOffice({ office, visible: true });
+  };
+
+  const handleViewOfficeInSearch = (office) => {
+    navigate(routes.searchOffices.navigate(office.email));
+  };
+
   return (
-    <Container lang={lang}>
-      <AdminSidebar activeItem="home" />
+    <>
+      {popupOffice.visible && (
+        <PopupOffice
+          office={popupOffice.office}
+          onHide={() => setPopupOffice({ office: null, visible: false })}
+          onViewInSearch={handleViewOfficeInSearch}
+        />
+      )}
 
-      <Content>
-        <TopContainer lang={lang}>
-          <PageTitle>{i18n("home")}</PageTitle>
+      <Container lang={lang}>
+        <AdminSidebar activeItem="home" />
 
-          <CustomButton
-            type="primary"
-            title={i18n("addBrandButton")}
-            onClick={handleAddBrand}
-          />
-        </TopContainer>
+        <Content>
+          <TopContainer lang={lang}>
+            <PageTitle>{i18n("home")}</PageTitle>
 
-        <CardsContainer lang={lang}>
-          {status.loading ? (
-            <Loader />
-          ) : (
-            <Card
-              title={i18n("rentCars")}
-              value={status?.value?.rent?.total?.toLocaleString() || 0}
-              Icon={AiFillCar}
-              onClick={() => navigate(routes.allRentCars.navigate())}
+            <CustomButton
+              type="primary"
+              title={i18n("addBrandButton")}
+              onClick={handleAddBrand}
             />
-          )}
+          </TopContainer>
 
-          {status.loading ? (
-            <Loader />
-          ) : (
-            <Card
-              title={i18n("purchaseCars")}
-              value={status?.value?.purchase?.total?.toLocaleString() || 0}
-              Icon={AiFillCar}
-              onClick={() => navigate(routes.allPurchaseCars.navigate())}
-            />
-          )}
+          <CardsContainer lang={lang}>
+            {status.loading ? (
+              <Loader />
+            ) : (
+              <Card
+                title={i18n("rentCars")}
+                value={status?.value?.rent?.total?.toLocaleString() || 0}
+                Icon={AiFillCar}
+                onClick={() => navigate(routes.allRentCars.navigate())}
+              />
+            )}
 
-          {status.loading ? (
-            <Loader />
-          ) : (
-            <Card
+            {status.loading ? (
+              <Loader />
+            ) : (
+              <Card
+                title={i18n("purchaseCars")}
+                value={status?.value?.purchase?.total?.toLocaleString() || 0}
+                Icon={AiFillCar}
+                onClick={() => navigate(routes.allPurchaseCars.navigate())}
+              />
+            )}
+
+            {status.loading ? (
+              <Loader />
+            ) : (
+              <Card
+                title={i18n("pendingRentalPosts")}
+                value={status?.value?.rent?.inactive?.toLocaleString() || 0}
+                Icon={GiSandsOfTime}
+                onClick={() => navigate(routes.pendingRentalPosts.navigate())}
+              />
+            )}
+
+            {status.loading ? (
+              <Loader />
+            ) : (
+              <Card
+                title={i18n("officesOrders")}
+                value={status?.value?.order?.total?.toLocaleString() || 0}
+                Icon={GiSandsOfTime}
+                onClick={() => navigate(routes.allOfficesOrders.navigate())}
+              />
+            )}
+          </CardsContainer>
+
+          {!!pendingRentalPosts.list.length && !pendingRentalPosts.loading && (
+            <ItemsSection
               title={i18n("pendingRentalPosts")}
-              value={status?.value?.rent?.inactive?.toLocaleString() || 0}
-              Icon={GiSandsOfTime}
-              onClick={() => navigate(routes.pendingRentalPosts.navigate())}
-            />
+              type="section"
+              onSeeMore={handleSeeMorePendingRentalPosts}
+            >
+              {pendingRentalPosts.loading ? (
+                <Loader />
+              ) : (
+                pendingRentalPosts.list.map((rentCar) => (
+                  <PendingRentCar
+                    key={rentCar._id}
+                    data={rentCar}
+                    onAccept={() => handleAcceptCar(rentCar._id)}
+                  />
+                ))
+              )}
+            </ItemsSection>
           )}
 
-          {status.loading ? (
-            <Loader />
-          ) : (
-            <Card
+          {!!rentCars.list.length && (
+            <ItemsSection
+              title={i18n("rentCars")}
+              type="section"
+              onSeeMore={handleSeeMoreRentCars}
+            >
+              {rentCars.loading ? (
+                <Loader />
+              ) : (
+                rentCars.list.map((rentCar) => (
+                  <AdminRentCar key={rentCar._id} data={rentCar} />
+                ))
+              )}
+            </ItemsSection>
+          )}
+
+          {!!purchaseCars.list.length && (
+            <ItemsSection
+              title={i18n("purchaseCars")}
+              type="section"
+              onSeeMore={handleSeeMorePurcahseCars}
+            >
+              {purchaseCars.loading ? (
+                <Loader />
+              ) : (
+                purchaseCars.list.map((purchaseCar) => (
+                  <PurchaseCar key={purchaseCar._id} data={purchaseCar} />
+                ))
+              )}
+            </ItemsSection>
+          )}
+
+          {!!officeOrders.list.length && (
+            <ItemsSection
               title={i18n("officesOrders")}
-              value={status?.value?.order?.total?.toLocaleString() || 0}
-              Icon={GiSandsOfTime}
-              onClick={() => navigate(routes.allOfficesOrders.navigate())}
-            />
+              type="section"
+              onSeeMore={handleSeeMoreOfficeOrders}
+            >
+              {purchaseCars.loading ? (
+                <Loader />
+              ) : (
+                officeOrders.list.map((order) => (
+                  <OfficeOrder
+                    key={order._id}
+                    data={order}
+                    onViewOfficeDetails={() =>
+                      handleViewOfficeDetails(order.office[0])
+                    }
+                  />
+                ))
+              )}
+            </ItemsSection>
           )}
-        </CardsContainer>
-
-        {!!pendingRentalPosts.list.length && !pendingRentalPosts.loading && (
-          <ItemsSection
-            title={i18n("pendingRentalPosts")}
-            type="section"
-            onSeeMore={handleSeeMorePendingRentalPosts}
-          >
-            {pendingRentalPosts.loading ? (
-              <Loader />
-            ) : (
-              pendingRentalPosts.list.map((rentCar) => (
-                <PendingRentCar
-                  key={rentCar._id}
-                  data={rentCar}
-                  onAccept={() => handleAcceptCar(rentCar._id)}
-                />
-              ))
-            )}
-          </ItemsSection>
-        )}
-
-        {!!rentCars.list.length && (
-          <ItemsSection
-            title={i18n("rentCars")}
-            type="section"
-            onSeeMore={handleSeeMoreRentCars}
-          >
-            {rentCars.loading ? (
-              <Loader />
-            ) : (
-              rentCars.list.map((rentCar) => (
-                <AdminRentCar key={rentCar._id} data={rentCar} />
-              ))
-            )}
-          </ItemsSection>
-        )}
-
-        {!!purchaseCars.list.length && (
-          <ItemsSection
-            title={i18n("purchaseCars")}
-            type="section"
-            onSeeMore={handleSeeMorePurcahseCars}
-          >
-            {purchaseCars.loading ? (
-              <Loader />
-            ) : (
-              purchaseCars.list.map((purchaseCar) => (
-                <PurchaseCar key={purchaseCar._id} data={purchaseCar} />
-              ))
-            )}
-          </ItemsSection>
-        )}
-
-        {!!officeOrders.list.length && (
-          <ItemsSection
-            title={i18n("officesOrders")}
-            type="section"
-            onSeeMore={handleSeeMoreOfficeOrders}
-          >
-            {purchaseCars.loading ? (
-              <Loader />
-            ) : (
-              officeOrders.list.map((purchaseCar) => (
-                <OfficeOrder key={purchaseCar._id} data={purchaseCar} />
-              ))
-            )}
-          </ItemsSection>
-        )}
-      </Content>
-    </Container>
+        </Content>
+      </Container>
+    </>
   );
 };
 
