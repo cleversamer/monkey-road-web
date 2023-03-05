@@ -13,7 +13,7 @@ import useAuth from "v2/auth/useAuth";
 
 const PhoneForm = () => {
   const { i18n, lang } = useLocale();
-  const { login } = useAuth();
+  const { login, socket } = useAuth();
   const navigate = useNavigate();
   const { joinBy } = useQueryParams();
   const [context, setContext] = useState({
@@ -52,6 +52,7 @@ const PhoneForm = () => {
       navigate(routes.home.navigate());
       const { user, token } = res.data;
       login(user, token);
+      socket.emit("join", user._id);
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {

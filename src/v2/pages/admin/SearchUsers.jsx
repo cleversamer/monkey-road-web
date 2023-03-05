@@ -9,8 +9,10 @@ import { routes } from "v2/client";
 import UserSearchForm from "v2/components/admin/user-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
+import useAuth from "v2/auth/useAuth";
 
 const SearchUsers = () => {
+  const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
@@ -144,13 +146,14 @@ const SearchUsers = () => {
       const { titleEN, bodyEN, titleAR, bodyAR } = alert;
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
-      await usersApi.admin.sendNotificationToUsers(
+      const res = await usersApi.admin.sendNotificationToUsers(
         [user._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
+      socket.emit("send notification to user", user._id, res.data);
     } catch (err) {}
   };
 

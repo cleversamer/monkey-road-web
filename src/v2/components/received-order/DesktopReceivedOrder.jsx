@@ -110,7 +110,7 @@ const OrderStatus = styled.span`
   background-color: ${({ status }) =>
     ["pending", "approved", "paid"].includes(status)
       ? "#FFA500"
-      : status === "deliverd"
+      : status === "delivered"
       ? "#1A8331"
       : "#f00"};
 `;

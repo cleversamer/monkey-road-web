@@ -18,7 +18,7 @@ const getUserTransactions = async (userId, page = 1, limit = 10) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
-    `/tranactions/${userId}?page=${page}&limit=${limit}`,
+    `/transactions/${userId}/get?page=${page}&limit=${limit}`,
     config,
     cacheMins
   );
@@ -27,7 +27,7 @@ const getUserTransactions = async (userId, page = 1, limit = 10) => {
 const exportUserTransactionsToExcel = async (userId) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
-  return await client.get(`/tranactions/${userId}/export`, config, cacheMins);
+  return await client.get(`/transactions/${userId}/export`, config, cacheMins);
 };
 
 export default {

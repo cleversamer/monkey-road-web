@@ -32,7 +32,7 @@ const AdminOfficeOrders = ({ officeId }) => {
 
       <BreakLine />
 
-      <TransactionsContainer>
+      <OrdersContainer>
         {orders.loading ? (
           <Loader />
         ) : !orders.list.length ? (
@@ -51,7 +51,7 @@ const AdminOfficeOrders = ({ officeId }) => {
             />
           ))
         )}
-      </TransactionsContainer>
+      </OrdersContainer>
     </FormContainer>
   );
 };
@@ -83,7 +83,7 @@ const BreakLine = styled.span`
   border: 1px solid #fe7777;
 `;
 
-const TransactionsContainer = styled.div`
+const OrdersContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;

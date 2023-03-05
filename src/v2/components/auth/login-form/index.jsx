@@ -11,7 +11,7 @@ import useLocale from "v2/hooks/useLocale";
 
 const LoginForm = () => {
   const { i18n, lang } = useLocale();
-  const { login } = useAuth();
+  const { socket, login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
     authType: "email",
@@ -40,13 +40,13 @@ const LoginForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      socket.emit("join", user._id);
 
       const nextPage = user.verified.email
         ? routes.home.navigate()
         : routes.verify.navigate();
       navigate(nextPage);
     } catch (err) {
-      console.log("err", err);
       navigate(routes.fastRegister.navigate("google"));
     } finally {
       setContext({ ...context, submitting: false, error });

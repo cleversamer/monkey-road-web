@@ -17,18 +17,26 @@ const IncompleteTransactionForm = ({ userId }) => {
   useEffect(() => {
     transactionsApi.admin
       .getUserTransactions(userId, 1, pageSize)
-      .then((res) =>
-        setTransactions({ list: res.data.transactions, loading: false })
-      )
-      .catch(() => setTransactions({ list: [], loading: false }));
+      .then((res) => {
+        const { transactions, totalPages } = res.data;
+        setTransactions({ list: transactions, loading: false });
+      })
+      .catch((err) => {
+        setTransactions({ list: [], loading: false });
+      });
   }, [userId]);
 
-  const handleExportToExcel = () => {
-    setExcelFile({ loading: true, url: "" });
-    transactionsApi.admin
-      .exportUserTransactionsToExcel(userId)
-      .then((res) => setExcelFile({ loading: false, url: res.data.path }))
-      .catch(() => setExcelFile({ loading: false, url: "" }));
+  const handleExportToExcel = async () => {
+    try {
+      setExcelFile({ loading: true, url: "" });
+      const res = await transactionsApi.admin.exportUserTransactionsToExcel(
+        userId
+      );
+      setExcelFile({ loading: false, url: res.data.path });
+    } catch (err) {
+      console.log("err", err.response.data.message);
+      setExcelFile({ loading: false, url: "" });
+    }
   };
 
   return (
@@ -38,7 +46,9 @@ const IncompleteTransactionForm = ({ userId }) => {
       <TitleContainer>
         <Title lang={lang}>{i18n("incompleteTransactions")}</Title>
 
-        {!transactions.loading && !!transactions.list.length && (
+        {excelFile.loading ? (
+          <Loader />
+        ) : (
           <CustomButton
             type="primary"
             title={i18n("exportToExcel")}
@@ -108,6 +118,7 @@ const BreakLine = styled.span`
 const TransactionsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
 `;
 

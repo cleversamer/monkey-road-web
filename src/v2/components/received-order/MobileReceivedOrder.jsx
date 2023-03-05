@@ -91,13 +91,11 @@ const Status = styled.h4`
   font-size: 16px;
   text-transform: capitalize;
   color: ${({ status }) =>
-    status === "pending"
-      ? "#fe7777"
-      : ["rejected", "closed"].includes(status)
-      ? "red"
-      : status === "approved"
-      ? "green"
-      : "#000"};
+    ["pending", "approved", "paid"].includes(status)
+      ? "#FFA500"
+      : status === "delivered"
+      ? "#1A8331"
+      : "#f00"};
 `;
 
 const Image = styled.img`

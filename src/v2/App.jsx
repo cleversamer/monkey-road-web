@@ -62,6 +62,9 @@ const App = () => {
       .isAuth()
       .then((res) => {
         const user = res.data;
+
+        socket.emit("join", user._id);
+
         setUser(user);
         if (lang !== user.favLang) {
           setLang(user.favLang);

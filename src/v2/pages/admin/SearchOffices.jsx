@@ -10,8 +10,10 @@ import OfficeSearchForm from "v2/components/admin/office-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import AdminOfficeOrders from "v2/components/admin/admin-office-orders";
+import useAuth from "v2/auth/useAuth";
 
 const SearchOffices = () => {
+  const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
@@ -132,13 +134,14 @@ const SearchOffices = () => {
       const { titleEN, bodyEN, titleAR, bodyAR } = alert;
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
-      await usersApi.admin.sendNotificationToUsers(
+      const res = await usersApi.admin.sendNotificationToUsers(
         [office._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
+      socket.emit("send notification to user", office._id, res.data);
     } catch (err) {}
   };
 

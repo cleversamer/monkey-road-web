@@ -114,7 +114,7 @@ const PersonalInfo = () => {
             </LastLoginItem>
           </LastLoginContainer>
 
-          <InputsContainer>
+          <InputsContainer lang={lang}>
             <CustomInput
               type="name"
               title={i18n("fullName")}
@@ -287,6 +287,7 @@ const InputsContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 15px;
+  text-align: left;
 
   @media screen and (max-width: 540px) {
     grid-template-columns: repeat(1, 1fr);
