@@ -27,10 +27,12 @@ const Navbar = ({ onOpenMenu }) => {
   useEffect(() => {
     if (user) {
       socket.on("notification received", (notification) => {
-        setUser({
-          ...user,
-          notifications: [notification, ...user.notifications],
-        });
+        if (!["admin", "secretary"].includes(user.role)) {
+          setUser({
+            ...user,
+            notifications: [notification, ...user.notifications],
+          });
+        }
       });
     }
   }, [user]);
