@@ -41,7 +41,7 @@ const PopupOffice = ({ office, onHide, onViewInSearch }) => {
           <CustomButton
             type="primary"
             title={i18n("viewInSearch")}
-            onClick={() => onViewInSearch(office._id)}
+            onClick={() => onViewInSearch(office)}
           />
         </CTAContainer>
       </Container>

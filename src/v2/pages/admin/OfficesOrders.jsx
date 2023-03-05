@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 import AdminSidebar from "v2/components/admin/sidebar";
@@ -9,10 +10,12 @@ import Pagination from "v2/components/pagination";
 import OfficeOrder from "v2/components/admin/office-order";
 import FiltersSection from "v2/components/orders-table/FiltersSection";
 import PopupOffice from "v2/hoc/PopupOffice";
+import { routes } from "v2/client";
 
 const pageSize = 9;
 
 const OfficesOrders = () => {
+  const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [popupOffice, setPopupOffice] = useState({
@@ -42,7 +45,6 @@ const OfficesOrders = () => {
         });
       })
       .catch((err) => {
-        console.log("err", err.response.data.message.en);
         setOrders({
           ...orders,
           all: [],
@@ -80,8 +82,8 @@ const OfficesOrders = () => {
     setPopupOffice({ office, visible: true });
   };
 
-  const handleViewOfficeInSearch = (officeId) => {
-    // TODO
+  const handleViewOfficeInSearch = (office) => {
+    navigate(routes.searchOffices.navigate(office.email));
   };
 
   return (
