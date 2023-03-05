@@ -156,6 +156,7 @@ const Content = styled.div`
 
 const FormContainer = styled.div`
   width: 100%;
+  height: fit-content;
   background-color: #fff;
   padding: 20px 40px;
   border-radius: 12px;
