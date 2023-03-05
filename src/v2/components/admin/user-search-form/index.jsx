@@ -6,7 +6,7 @@ import CustomInput from "v2/components/common/custom-input";
 import CustomButton from "v2/components/common/custom-button";
 import Loader from "v2/components/loader";
 
-const UserSearchForm = ({
+const AdminUserSearchForm = ({
   context,
   user,
   onKeyChange,
@@ -255,4 +255,4 @@ const ErrorText = styled.span`
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
-export default UserSearchForm;
+export default AdminUserSearchForm;

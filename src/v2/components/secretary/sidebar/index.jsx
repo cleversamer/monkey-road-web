@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { GrHomeRounded, GrAppsRounded, GrLanguage } from "react-icons/gr";
-import { FiUsers, FiFolder, FiDollarSign } from "react-icons/fi";
+import { FiUsers, FiFolder } from "react-icons/fi";
 import { HiOutlineKey, HiOutlineLogout } from "react-icons/hi";
 import useAuth from "v2/auth/useAuth";
 import useLocale from "v2/hooks/useLocale";
@@ -12,7 +12,7 @@ import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
 import PopupInput from "v2/hoc/PopupInput";
 
-const AdminSidebar = ({ activeItem }) => {
+const SecretarySidebar = ({ activeItem }) => {
   const navigate = useNavigate();
   const { switchLang, i18n, lang } = useLocale();
   const { user, logout } = useAuth();
@@ -52,22 +52,6 @@ const AdminSidebar = ({ activeItem }) => {
         setExcelUsers({ loading: false, url });
       })
       .catch(() => setExcelUsers({ loading: false, url: "" }));
-  };
-
-  const changeSalesPostPriceHandler = () => {
-    if (popupInput.visible) return;
-
-    const handler = (price) => {
-      // TODO: call the backend
-
-      setPopupInput({
-        visible: false,
-        handler: null,
-        loading: false,
-      });
-    };
-
-    setPopupInput({ visible: true, handler, loading: false });
   };
 
   const handleSwitchLanguage = async () => {
@@ -112,7 +96,7 @@ const AdminSidebar = ({ activeItem }) => {
           </AvatarContainer>
 
           <NameContainer>
-            <AdminTitle>{i18n("admin")}</AdminTitle>
+            <SecretaryTitle>{i18n("secretary")}</SecretaryTitle>
             <Name>{user.name}</Name>
           </NameContainer>
         </AccountInfo>
@@ -121,14 +105,16 @@ const AdminSidebar = ({ activeItem }) => {
           <NavItem
             title={i18n("home")}
             Icon={GrHomeRounded}
-            onClick={() => navigate(routes.adminMain.navigate())}
+            onClick={() => navigate(routes.secretaryMain.navigate())}
             active={activeItem === "home"}
           />
 
           <NavItem
             title={i18n("posts")}
             Icon={GrAppsRounded}
-            onClick={() => navigate(routes.adminPendingRentalPosts.navigate())}
+            onClick={() =>
+              navigate(routes.secretaryPendingRentalPosts.navigate())
+            }
             active={[
               "pending rental posts",
               "rent cars",
@@ -140,23 +126,24 @@ const AdminSidebar = ({ activeItem }) => {
                 title: i18n("pendingRentalPosts"),
                 active: activeItem === "pending rental posts",
                 onClick: () =>
-                  navigate(routes.adminPendingRentalPosts.navigate()),
+                  navigate(routes.secretaryPendingRentalPosts.navigate()),
               },
               {
                 title: i18n("rentCars"),
                 active: activeItem === "rent cars",
-                onClick: () => navigate(routes.adminAllRentCars.navigate()),
+                onClick: () => navigate(routes.secretaryAllRentCars.navigate()),
               },
               {
                 title: i18n("purchaseCars"),
                 active: activeItem === "purchase cars",
-                onClick: () => navigate(routes.adminAllPurchaseCars.navigate()),
+                onClick: () =>
+                  navigate(routes.secretaryAllPurchaseCars.navigate()),
               },
               {
                 title: i18n("officesOrders"),
                 active: activeItem === "offices orders",
                 onClick: () =>
-                  navigate(routes.adminAllOfficesOrders.navigate()),
+                  navigate(routes.secretaryAllOfficesOrders.navigate()),
               },
             ]}
           />
@@ -164,19 +151,20 @@ const AdminSidebar = ({ activeItem }) => {
           <NavItem
             title={i18n("users")}
             Icon={FiUsers}
-            onClick={() => navigate(routes.adminSearchUsers.navigate())}
+            onClick={() => navigate(routes.secretarySearchUsers.navigate())}
             active={["search users", "search offices", "alerts"].includes(
               activeItem
             )}
             subItems={[
               {
                 title: i18n("searchUsers"),
-                onClick: () => navigate(routes.adminSearchUsers.navigate()),
+                onClick: () => navigate(routes.secretarySearchUsers.navigate()),
                 active: activeItem === "search users",
               },
               {
                 title: i18n("searchOffices"),
-                onClick: () => navigate(routes.adminSearchOffices.navigate()),
+                onClick: () =>
+                  navigate(routes.secretarySearchOffices.navigate()),
                 active: activeItem === "search offices",
               },
               {
@@ -186,7 +174,7 @@ const AdminSidebar = ({ activeItem }) => {
               },
               {
                 title: i18n("alerts"),
-                onClick: () => navigate(routes.adminSendAlert.navigate()),
+                onClick: () => navigate(routes.secretarySendAlert.navigate()),
                 active: activeItem === "alerts",
               },
             ]}
@@ -196,26 +184,19 @@ const AdminSidebar = ({ activeItem }) => {
             title={i18n("brands")}
             Icon={FiFolder}
             active={["brands", "add brand"].includes(activeItem)}
-            onClick={() => navigate(routes.adminAllBrands.navigate())}
+            onClick={() => navigate(routes.secretaryAllBrands.navigate())}
             subItems={[
               {
                 title: i18n("viewBrands"),
                 active: activeItem === "brands",
-                onClick: () => navigate(routes.adminAllBrands.navigate()),
+                onClick: () => navigate(routes.secretaryAllBrands.navigate()),
               },
               {
                 title: i18n("addBrand"),
                 active: activeItem === "add brand",
-                onClick: () => navigate(routes.adminAddBrand.navigate()),
+                onClick: () => navigate(routes.secretaryAddBrand.navigate()),
               },
             ]}
-          />
-
-          <NavItem
-            title={i18n("salesPostPrice")}
-            Icon={FiDollarSign}
-            subItems={[]}
-            onClick={changeSalesPostPriceHandler}
           />
 
           <NavItem
@@ -285,7 +266,7 @@ const NameContainer = styled.div`
   gap: 4px;
 `;
 
-const AdminTitle = styled.h3`
+const SecretaryTitle = styled.h3`
   font-size: 13px;
 `;
 
@@ -305,4 +286,4 @@ const IFrameDownload = styled.iframe`
   opacity: none;
 `;
 
-export default AdminSidebar;
+export default SecretarySidebar;

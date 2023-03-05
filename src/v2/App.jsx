@@ -37,16 +37,28 @@ import { useEffect, useState } from "react";
 import Splash from "v2/pages/user/Splash";
 import socket from "v2/socket/client";
 import authStorage from "v2/auth/storage";
-import MainScreen from "v2/pages/admin/MainScreen";
-import PendingRentalPosts from "v2/pages/admin/PendingRentalPosts";
+
+import AdminHome from "v2/pages/admin/AdminHome";
+import AdminPendingRentalPosts from "v2/pages/admin/AdminPendingRentalPosts";
 import AdminRentCars from "v2/pages/admin/AdminRentCars";
 import AdminPurchaseCars from "v2/pages/admin/AdminPurchaseCars";
-import OfficesOrders from "v2/pages/admin/OfficesOrders";
+import AdminOfficesOrders from "v2/pages/admin/AdminOfficesOrders";
 import AdminBrands from "v2/pages/admin/AdminBrands";
-import SearchUsers from "v2/pages/admin/SearchUsers";
-import SearchOffices from "v2/pages/admin/SearchOffices";
-import SendAlert from "v2/pages/admin/SendAlert";
-import AddBrand from "v2/pages/admin/AddBrand";
+import AdminSearchUsers from "v2/pages/admin/AdminSearchUsers";
+import AdminSearchOffices from "v2/pages/admin/AdminSearchOffices";
+import AdminSendAlert from "v2/pages/admin/AdminSendAlert";
+import AdminAddBrand from "v2/pages/admin/AdminAddBrand";
+
+import SecretaryHome from "v2/pages/secretary/SecretaryHome";
+import SecretaryPendingRentalPosts from "v2/pages/secretary/SecretaryPendingRentalPosts";
+import SecretaryRentCars from "v2/pages/secretary/SecretaryRentCars";
+import SecretaryPurchaseCars from "v2/pages/secretary/SecretaryPurchaseCars";
+import SecretaryOfficesOrders from "v2/pages/secretary/SecretaryOfficesOrders";
+import SecretaryBrands from "v2/pages/secretary/SecretaryBrands";
+import SecretarySearchUsers from "v2/pages/secretary/SecretarySearchUsers";
+import SecretarySearchOffices from "v2/pages/secretary/SecretarySearchOffices";
+import SecretarySendAlert from "v2/pages/secretary/SecretarySendAlert";
+import SecretaryAddBrand from "v2/pages/secretary/SecretaryAddBrand";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -110,34 +122,119 @@ const App = () => {
           />
         </>
 
+        {/* secretary routes */}
+        {user && user.role === "secretary" && (
+          <>
+            <Route
+              path={routes.secretaryAddBrand.route}
+              element={<SecretaryAddBrand />}
+            />
+            <Route
+              path={routes.secretarySendAlert.route}
+              element={<SecretarySendAlert />}
+            />
+            <Route
+              path={routes.secretarySearchOffices.route}
+              element={<SecretarySearchOffices />}
+            />
+            <Route
+              path={routes.secretarySearchUsers.route}
+              element={<SecretarySearchUsers />}
+            />
+            <Route
+              path={routes.secretaryAllBrands.route}
+              element={<SecretaryBrands />}
+            />
+            <Route
+              path={routes.secretaryAllOfficesOrders.route}
+              element={<SecretaryOfficesOrders />}
+            />
+            <Route
+              path={routes.secretaryAllPurchaseCars.route}
+              element={<SecretaryPurchaseCars />}
+            />
+            <Route
+              path={routes.secretaryAllRentCars.route}
+              element={<SecretaryRentCars />}
+            />
+            <Route
+              path={routes.secretaryPendingRentalPosts.route}
+              element={<SecretaryPendingRentalPosts />}
+            />
+
+            <Route
+              path={routes.secretaryMain.route}
+              element={<SecretaryHome />}
+            />
+            <Route
+              path="/"
+              element={
+                <Navigate
+                  to={
+                    !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.secretaryMain.route
+                  }
+                  replace
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Navigate
+                  to={
+                    !user.verified.email
+                      ? routes.verify.navigate("email")
+                      : routes.secretaryMain.route
+                  }
+                  replace
+                />
+              }
+            />
+          </>
+        )}
+
         {/* admin routes */}
         {user && user.role === "admin" && (
           <>
-            <Route path={routes.addBrand.route} element={<AddBrand />} />
-            <Route path={routes.sendAlert.route} element={<SendAlert />} />
             <Route
-              path={routes.searchOffices.route}
-              element={<SearchOffices />}
-            />
-            <Route path={routes.searchUsers.route} element={<SearchUsers />} />
-            <Route path={routes.allBrands.route} element={<AdminBrands />} />
-            <Route
-              path={routes.allOfficesOrders.route}
-              element={<OfficesOrders />}
+              path={routes.adminAddBrand.route}
+              element={<AdminAddBrand />}
             />
             <Route
-              path={routes.allPurchaseCars.route}
+              path={routes.adminSendAlert.route}
+              element={<AdminSendAlert />}
+            />
+            <Route
+              path={routes.adminSearchOffices.route}
+              element={<AdminSearchOffices />}
+            />
+            <Route
+              path={routes.adminSearchUsers.route}
+              element={<AdminSearchUsers />}
+            />
+            <Route
+              path={routes.adminAllBrands.route}
+              element={<AdminBrands />}
+            />
+            <Route
+              path={routes.adminAllOfficesOrders.route}
+              element={<AdminOfficesOrders />}
+            />
+            <Route
+              path={routes.adminAllPurchaseCars.route}
               element={<AdminPurchaseCars />}
             />
             <Route
-              path={routes.allRentCars.route}
+              path={routes.adminAllRentCars.route}
               element={<AdminRentCars />}
             />
             <Route
-              path={routes.pendingRentalPosts.route}
-              element={<PendingRentalPosts />}
+              path={routes.adminPendingRentalPosts.route}
+              element={<AdminPendingRentalPosts />}
             />
-            <Route path={routes.adminMain.route} element={<MainScreen />} />
+            <Route path={routes.adminMain.route} element={<AdminHome />} />
             <Route
               path="/"
               element={
@@ -188,7 +285,7 @@ const App = () => {
         )}
 
         {/* user routes */}
-        {user && user.role !== "admin" && (
+        {user && !["admin", "secretary"].includes(user.role) && (
           <>
             <Route
               path={routes.myTransactions.route}
@@ -198,25 +295,30 @@ const App = () => {
         )}
 
         {/* verified user routes */}
-        {user && user.role !== "admin" && user.verified.email && (
-          <>
-            <Route path={routes.salesPosts.route} element={<SalesPosts />} />
-            <Route
-              path={routes.completeOrder.route}
-              element={<CompleteOrder />}
-            />
-            <Route path={routes.myOrders.route} element={<MyOrders />} />
-            <Route path={routes.myFavorites.route} element={<MyFavorites />} />
-            <Route
-              path={routes.addPurchaseCar.route}
-              element={<AddPurchaseCar />}
-            />
-          </>
-        )}
+        {user &&
+          !["admin", "secretary"].includes(user.role) &&
+          user.verified.email && (
+            <>
+              <Route path={routes.salesPosts.route} element={<SalesPosts />} />
+              <Route
+                path={routes.completeOrder.route}
+                element={<CompleteOrder />}
+              />
+              <Route path={routes.myOrders.route} element={<MyOrders />} />
+              <Route
+                path={routes.myFavorites.route}
+                element={<MyFavorites />}
+              />
+              <Route
+                path={routes.addPurchaseCar.route}
+                element={<AddPurchaseCar />}
+              />
+            </>
+          )}
 
         {/* office routes */}
         {user &&
-          user.role !== "admin" &&
+          !["admin", "secretary"].includes(user.role) &&
           user.verified.email &&
           user.role === "office" && (
             <>
@@ -252,7 +354,7 @@ const App = () => {
           </>
         )}
 
-        {(!user || (user && user.role !== "admin")) && (
+        {(!user || (user && !["admin", "secretary"].includes(user.role))) && (
           <>
             <Route
               path={routes.resetPassword.route}
@@ -307,7 +409,9 @@ const App = () => {
         )}
       </Routes>
 
-      {(!user || (user && user.role !== "admin")) && <Footer />}
+      {(!user || (user && !["admin", "secretary"].includes(user.role))) && (
+        <Footer />
+      )}
     </AuthContext.Provider>
   );
 };

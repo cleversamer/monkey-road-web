@@ -14,7 +14,7 @@ import { routes } from "v2/client";
 
 const pageSize = 9;
 
-const OfficesOrders = () => {
+const AdminOfficesOrders = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
@@ -83,7 +83,7 @@ const OfficesOrders = () => {
   };
 
   const handleViewOfficeInSearch = (office) => {
-    navigate(routes.searchOffices.navigate(office.email));
+    navigate(routes.adminSearchOffices.navigate(office.email));
   };
 
   return (
@@ -176,4 +176,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default OfficesOrders;
+export default AdminOfficesOrders;

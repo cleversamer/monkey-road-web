@@ -10,7 +10,7 @@ import Pagination from "v2/components/pagination";
 
 const pageSize = 9;
 
-const PendingRentalPosts = () => {
+const AdminPendingRentalPosts = () => {
   const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState({
@@ -117,4 +117,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default PendingRentalPosts;
+export default AdminPendingRentalPosts;

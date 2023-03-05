@@ -20,7 +20,7 @@ import OfficeOrder from "v2/components/admin/office-order";
 import { routes } from "v2/client";
 import PopupOffice from "v2/hoc/PopupOffice";
 
-const MainScreen = () => {
+const AdminHome = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const [status, setStatus] = useState({ loading: true, value: {} });
@@ -67,22 +67,22 @@ const MainScreen = () => {
       .catch(() => setOfficeOrders({ loading: false, list: [] }));
   }, []);
 
-  const handleAddBrand = () => navigate(routes.addBrand.navigate());
+  const handleAddBrand = () => navigate(routes.adminAddBrand.navigate());
 
   const handleSeeMorePendingRentalPosts = () => {
-    navigate(routes.pendingRentalPosts.navigate());
+    navigate(routes.adminPendingRentalPosts.navigate());
   };
 
   const handleSeeMoreRentCars = () => {
-    navigate(routes.allRentCars.navigate());
+    navigate(routes.adminAllRentCars.navigate());
   };
 
   const handleSeeMorePurcahseCars = () => {
-    navigate(routes.allPurchaseCars.navigate());
+    navigate(routes.adminAllPurchaseCars.navigate());
   };
 
   const handleSeeMoreOfficeOrders = () => {
-    navigate(routes.allOfficesOrders.navigate());
+    navigate(routes.adminAllOfficesOrders.navigate());
   };
 
   const handleAcceptCar = async (rentCarId) => {
@@ -103,7 +103,7 @@ const MainScreen = () => {
   };
 
   const handleViewOfficeInSearch = (office) => {
-    navigate(routes.searchOffices.navigate(office.email));
+    navigate(routes.adminSearchOffices.navigate(office.email));
   };
 
   return (
@@ -138,7 +138,7 @@ const MainScreen = () => {
                 title={i18n("rentCars")}
                 value={status?.value?.rent?.total?.toLocaleString() || 0}
                 Icon={AiFillCar}
-                onClick={() => navigate(routes.allRentCars.navigate())}
+                onClick={() => navigate(routes.adminAllRentCars.navigate())}
               />
             )}
 
@@ -149,7 +149,7 @@ const MainScreen = () => {
                 title={i18n("purchaseCars")}
                 value={status?.value?.purchase?.total?.toLocaleString() || 0}
                 Icon={AiFillCar}
-                onClick={() => navigate(routes.allPurchaseCars.navigate())}
+                onClick={() => navigate(routes.adminAllPurchaseCars.navigate())}
               />
             )}
 
@@ -160,7 +160,9 @@ const MainScreen = () => {
                 title={i18n("pendingRentalPosts")}
                 value={status?.value?.rent?.inactive?.toLocaleString() || 0}
                 Icon={GiSandsOfTime}
-                onClick={() => navigate(routes.pendingRentalPosts.navigate())}
+                onClick={() =>
+                  navigate(routes.adminPendingRentalPosts.navigate())
+                }
               />
             )}
 
@@ -171,7 +173,9 @@ const MainScreen = () => {
                 title={i18n("officesOrders")}
                 value={status?.value?.order?.total?.toLocaleString() || 0}
                 Icon={GiSandsOfTime}
-                onClick={() => navigate(routes.allOfficesOrders.navigate())}
+                onClick={() =>
+                  navigate(routes.adminAllOfficesOrders.navigate())
+                }
               />
             )}
           </CardsContainer>
@@ -301,4 +305,4 @@ const CardsContainer = styled.div`
   gap: 20px;
 `;
 
-export default MainScreen;
+export default AdminHome;

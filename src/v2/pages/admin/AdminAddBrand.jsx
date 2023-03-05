@@ -7,7 +7,7 @@ import CustomButton from "v2/components/common/custom-button";
 import brandsApi from "v2/api/car/brands";
 import Loader from "v2/components/loader";
 
-const AddBrand = () => {
+const AdminAddBrand = () => {
   const { i18n, lang } = useLocale();
   const [context, setContext] = useState({
     nameEN: "",
@@ -169,4 +169,4 @@ const Image = styled.img`
   border: 1px solid #ababab;
 `;
 
-export default AddBrand;
+export default AdminAddBrand;

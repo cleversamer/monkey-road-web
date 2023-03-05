@@ -56,15 +56,16 @@ const RentCarDetails = ({ car, onNext, onAccept, onReject }) => {
 
       {user && user.verified.email && (
         <RentButtonContainer>
-          {user.role !== "admin" && car.office.ref !== user._id && (
-            <CustomButton
-              type="primary"
-              title={i18n("rentNow")}
-              onClick={onNext}
-            />
-          )}
+          {!["admin", "secretary"].includes(user.role) &&
+            car.office.ref !== user._id && (
+              <CustomButton
+                type="primary"
+                title={i18n("rentNow")}
+                onClick={onNext}
+              />
+            )}
 
-          {user.role === "admin" && !car.accepted && (
+          {["admin", "secretary"].includes(user.role) && !car.accepted && (
             <>
               <CustomButton
                 type="primary"

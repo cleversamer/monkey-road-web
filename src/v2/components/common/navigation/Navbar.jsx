@@ -88,7 +88,7 @@ const Navbar = ({ onOpenMenu }) => {
             <FaBars />
           </MobileIcon>
 
-          {(!user || (user && user.role !== "admin")) && (
+          {(!user || (user && !["admin", "secretary"].includes(user.role))) && (
             <NavMenu lang={lang}>
               <NavItem>
                 <NavLink
@@ -160,7 +160,7 @@ const Navbar = ({ onOpenMenu }) => {
           )}
 
           <DesktopNavButtons>
-            {user && user.role !== "admin" && (
+            {user && !["admin", "secretary"].includes(user.role) && (
               <NavButton
                 title={i18n("post")}
                 iconPath="/assets/icons/post.svg"
@@ -214,7 +214,7 @@ const Navbar = ({ onOpenMenu }) => {
               </ButtonRouteContainer>
             )}
 
-            {user && user.role !== "admin" && (
+            {user && !["admin", "secretary"].includes(user.role) && (
               <ButtonRouteContainer
                 to={routes.myOrders.navigate()}
                 mobile="true"
@@ -227,7 +227,7 @@ const Navbar = ({ onOpenMenu }) => {
               </ButtonRouteContainer>
             )}
 
-            {user && user.role !== "admin" && (
+            {user && !["admin", "secretary"].includes(user.role) && (
               <ButtonRouteContainer
                 to={routes.myFavorites.navigate()}
                 desktop="true"
@@ -287,7 +287,7 @@ const Navbar = ({ onOpenMenu }) => {
                   </NavRoute>
                 </NavItem>
 
-                {user.role !== "admin" && (
+                {!["admin", "secretary"].includes(user.role) && (
                   <NavItem>
                     <NavRoute
                       lang={lang}
@@ -323,7 +323,7 @@ const Navbar = ({ onOpenMenu }) => {
                   </NavItem>
                 )}
 
-                {user && user.role !== "admin" && (
+                {user && !["admin", "secretary"].includes(user.role) && (
                   <NavItem>
                     <NavRoute
                       lang={lang}

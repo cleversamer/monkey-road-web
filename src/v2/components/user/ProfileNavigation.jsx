@@ -108,7 +108,7 @@ const ProfileNavigation = ({ activeItem }) => {
             </NavRoute>
           </NavItem>
 
-          {user.role !== "admin" && (
+          {!["admin", "secretary"].includes(user.role) && (
             <NavItem active={activeItem === "sales posts"}>
               <NavRoute to={routes.salesPosts.navigate()} lang={lang}>
                 <FaCarAlt />
@@ -126,7 +126,7 @@ const ProfileNavigation = ({ activeItem }) => {
             </NavItem>
           )}
 
-          {user.role !== "admin" && (
+          {!["admin", "secretary"].includes(user.role) && (
             <NavItem active={activeItem === "transactions"}>
               <NavRoute to={routes.myTransactions.navigate()} lang={lang}>
                 <AiOutlineDollar size={20} />

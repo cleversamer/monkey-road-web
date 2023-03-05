@@ -34,7 +34,7 @@ const PurchaseCarDetails = ({ car }) => {
   return (
     <Container>
       <IconsContainer>
-        {(!user || (user && user.role !== "admin")) && (
+        {(!user || (user && !["admin", "secretary"].includes(user.role))) && (
           <>
             <CustomButton
               type="like"
@@ -127,7 +127,7 @@ const PurchaseCarDetails = ({ car }) => {
         </ItemContainer>
       </ItemOverview>
 
-      {!car.sold && user?.role !== "admin" && (
+      {!car.sold && !["admin", "secretary"].includes(user?.role) && (
         <ButtonsContainer>
           <CustomButton
             type="primary"

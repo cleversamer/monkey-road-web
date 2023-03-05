@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import AdminSidebar from "v2/components/admin/sidebar";
+import SecretarySidebar from "v2/components/secretary/sidebar";
 import useLocale from "v2/hooks/useLocale";
 import SearchBox from "v2/components/common/search-box";
 import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
-import OfficeSearchForm from "v2/components/admin/office-search-form";
-import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
+import SecretaryOfficeSearchForm from "v2/components/secretary/office-search-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import AdminOfficeOrders from "v2/components/admin/admin-office-orders";
 import useAuth from "v2/auth/useAuth";
 
-const SearchOffices = () => {
+const SecretarySearchOffices = () => {
   const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
@@ -104,7 +103,7 @@ const SearchOffices = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!context.searchTerm) return;
-    navigate(routes.searchOffices.navigate(context.searchTerm));
+    navigate(routes.secretarySearchOffices.navigate(context.searchTerm));
   };
 
   const handleVerifyUser = async () => {
@@ -147,7 +146,7 @@ const SearchOffices = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar activeItem="search offices" />
+      <SecretarySidebar activeItem="search offices" />
 
       <Content>
         <TopContainer lang={lang}>
@@ -161,15 +160,13 @@ const SearchOffices = () => {
           />
         </TopContainer>
 
-        <OfficeSearchForm
+        <SecretaryOfficeSearchForm
           context={context}
           user={office}
           onKeyChange={handleKeyChange}
           onVerifyUser={handleVerifyUser}
           onEditProfile={handleEditProfile}
         />
-
-        {office && <IncompleteTransactionForm userId={office._id} />}
 
         {office && <AdminOfficeOrders officeId={office._id} />}
 
@@ -221,4 +218,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default SearchOffices;
+export default SecretarySearchOffices;

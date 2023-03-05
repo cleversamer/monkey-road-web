@@ -122,44 +122,85 @@ export const routes = {
     route: "/transactions/my",
     navigate: () => "/transactions/my",
   },
+  // SECRETARY PAGES
+  secretaryMain: {
+    route: "/secretary/main",
+    navigate: () => "/secretary/main",
+  },
+  secretaryPendingRentalPosts: {
+    route: "/secretary/cars/rent/pending",
+    navigate: () => "/secretary/cars/rent/pending",
+  },
+  secretaryAllRentCars: {
+    route: "/secretary/cars/rent/all",
+    navigate: () => "/secretary/cars/rent/all",
+  },
+  secretaryAllPurchaseCars: {
+    route: "/secretary/cars/purchase/all",
+    navigate: () => "/secretary/cars/purchase/all",
+  },
+  secretaryAllOfficesOrders: {
+    route: "/secretary/orders/all",
+    navigate: () => "/secretary/orders/all",
+  },
+  secretaryAllBrands: {
+    route: "/secretary/brands/all",
+    navigate: () => "/secretary/brands/all",
+  },
+  secretarySearchUsers: {
+    route: "/secretary/user/:emailOrPhone",
+    navigate: (emailOrPhone = "*") => `/secretary/user/${emailOrPhone}`,
+  },
+  secretarySearchOffices: {
+    route: "/secretary/office/:emailOrPhone",
+    navigate: (emailOrPhone = "*") => `/secretary/office/${emailOrPhone}`,
+  },
+  secretarySendAlert: {
+    route: "/secretary/alert/send",
+    navigate: () => "/secretary/alert/send",
+  },
+  secretaryAddBrand: {
+    route: "/secretary/brand/add",
+    navigate: () => "/secretary/brand/add",
+  },
   // ADMIN PAGES
   adminMain: {
     route: "/admin/main",
     navigate: () => "/admin/main",
   },
-  pendingRentalPosts: {
+  adminPendingRentalPosts: {
     route: "/admin/cars/rent/pending",
     navigate: () => "/admin/cars/rent/pending",
   },
-  allRentCars: {
+  adminAllRentCars: {
     route: "/admin/cars/rent/all",
     navigate: () => "/admin/cars/rent/all",
   },
-  allPurchaseCars: {
+  adminAllPurchaseCars: {
     route: "/admin/cars/purchase/all",
     navigate: () => "/admin/cars/purchase/all",
   },
-  allOfficesOrders: {
+  adminAllOfficesOrders: {
     route: "/admin/orders/all",
     navigate: () => "/admin/orders/all",
   },
-  allBrands: {
+  adminAllBrands: {
     route: "/admin/brands/all",
     navigate: () => "/admin/brands/all",
   },
-  searchUsers: {
+  adminSearchUsers: {
     route: "/admin/user/:emailOrPhone",
     navigate: (emailOrPhone = "*") => `/admin/user/${emailOrPhone}`,
   },
-  searchOffices: {
+  adminSearchOffices: {
     route: "/admin/office/:emailOrPhone",
     navigate: (emailOrPhone = "*") => `/admin/office/${emailOrPhone}`,
   },
-  sendAlert: {
+  adminSendAlert: {
     route: "/admin/alert/send",
     navigate: () => "/admin/alert/send",
   },
-  addBrand: {
+  adminAddBrand: {
     route: "/admin/brand/add",
     navigate: () => "/admin/brand/add",
   },

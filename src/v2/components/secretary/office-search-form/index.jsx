@@ -6,11 +6,10 @@ import CustomInput from "v2/components/common/custom-input";
 import CustomButton from "v2/components/common/custom-button";
 import Loader from "v2/components/loader";
 
-const AdminOfficeSearchForm = ({
+const SecretaryOfficeSearchForm = ({
   context,
   user,
   onKeyChange,
-  onVerifyUser,
   onEditProfile,
 }) => {
   const { i18n, lang } = useLocale();
@@ -125,23 +124,12 @@ const AdminOfficeSearchForm = ({
         {context.submitting ? (
           <Loader />
         ) : (
-          <>
-            <CustomButton
-              type="primary"
-              title={context.changes.length ? i18n("save") : i18n("edit")}
-              disabled={!context.changes.length}
-              onClick={onEditProfile}
-            />
-
-            {(!user?.verified?.email || !user?.verified?.phone) && (
-              <CustomButton
-                type="primary"
-                title={i18n("verifyOffice")}
-                disabled={user?.verified?.email && user?.verified?.phone}
-                onClick={onVerifyUser}
-              />
-            )}
-          </>
+          <CustomButton
+            type="primary"
+            title={context.changes.length ? i18n("save") : i18n("edit")}
+            disabled={!context.changes.length}
+            onClick={onEditProfile}
+          />
         )}
       </SubmitContainer>
     </FormContainer>
@@ -236,4 +224,4 @@ const ErrorText = styled.span`
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
-export default AdminOfficeSearchForm;
+export default SecretaryOfficeSearchForm;

@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import AdminSidebar from "v2/components/admin/sidebar";
+import SecretarySidebar from "v2/components/secretary/sidebar";
 import useLocale from "v2/hooks/useLocale";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import usersApi from "v2/api/user/users";
 import useAuth from "v2/auth/useAuth";
 
-const SendAlert = () => {
+const SecretarySendAlert = () => {
   const { i18n, lang } = useLocale();
   const { socket } = useAuth();
 
@@ -27,7 +27,7 @@ const SendAlert = () => {
 
   return (
     <Container lang={lang}>
-      <AdminSidebar activeItem="alerts" />
+      <SecretarySidebar activeItem="alerts" />
 
       <Content>
         <PageTitle>{i18n("alerts")}</PageTitle>
@@ -67,4 +67,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default SendAlert;
+export default SecretarySendAlert;

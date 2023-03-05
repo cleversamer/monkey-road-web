@@ -6,12 +6,12 @@ import useLocale from "v2/hooks/useLocale";
 import SearchBox from "v2/components/common/search-box";
 import usersApi from "v2/api/user/users";
 import { routes } from "v2/client";
-import UserSearchForm from "v2/components/admin/user-search-form";
+import AdminUserSearchForm from "v2/components/admin/user-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import useAuth from "v2/auth/useAuth";
 
-const SearchUsers = () => {
+const AdminSearchUsers = () => {
   const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
@@ -103,7 +103,7 @@ const SearchUsers = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!context.searchTerm) return;
-    navigate(routes.searchUsers.navigate(context.searchTerm));
+    navigate(routes.adminSearchUsers.navigate(context.searchTerm));
   };
 
   const handleVerifyUser = async () => {
@@ -173,7 +173,7 @@ const SearchUsers = () => {
           />
         </TopContainer>
 
-        <UserSearchForm
+        <AdminUserSearchForm
           context={context}
           user={user}
           onKeyChange={handleKeyChange}
@@ -232,4 +232,4 @@ const PageTitle = styled.h1`
   color: #fe7777;
 `;
 
-export default SearchUsers;
+export default AdminSearchUsers;
