@@ -96,6 +96,8 @@ const Content = styled.div`
 
 const OfficeImage = styled.img`
   width: 50%;
+  height: 120px;
+  object-fit: contain;
   border-radius: 8px;
 `;
 

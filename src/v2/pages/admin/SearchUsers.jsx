@@ -9,12 +9,14 @@ import { routes } from "v2/client";
 import UserSearchForm from "v2/components/admin/user-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
+import Loader from "v2/components/loader";
 
 const SearchUsers = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(emailOrPhone !== "*");
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -28,6 +30,10 @@ const SearchUsers = () => {
   });
 
   useEffect(() => {
+    if (emailOrPhone === "*") {
+      return setContext({ ...context, searchTerm: "" });
+    }
+
     usersApi.admin
       .findUserByEmailOrPhone(emailOrPhone)
       .then((res) => {
@@ -43,6 +49,7 @@ const SearchUsers = () => {
           error: "",
           submitting: false,
         });
+        setLoading(false);
       })
       .catch(() => {
         setUser(null);
@@ -57,6 +64,7 @@ const SearchUsers = () => {
           error: "",
           submitting: false,
         });
+        setLoading(false);
       });
   }, [emailOrPhone]);
 
@@ -166,18 +174,22 @@ const SearchUsers = () => {
           />
         </TopContainer>
 
-        <UserSearchForm
-          context={context}
-          user={user}
-          onKeyChange={handleKeyChange}
-          onUpdateUserRole={handleUpdateUserRole}
-          onVerifyUser={handleVerifyUser}
-          onEditProfile={handleEditProfile}
-        />
+        {loading && <Loader />}
 
-        {user && <IncompleteTransactionForm userId={user._id} />}
+        {!!user & !loading && (
+          <UserSearchForm
+            context={context}
+            user={user}
+            onKeyChange={handleKeyChange}
+            onUpdateUserRole={handleUpdateUserRole}
+            onVerifyUser={handleVerifyUser}
+            onEditProfile={handleEditProfile}
+          />
+        )}
 
-        {user && (
+        {user && !loading && <IncompleteTransactionForm userId={user._id} />}
+
+        {user && !loading && (
           <AdminSendAlert
             title={i18n("sendAlertToUser")}
             onSendAlert={handleSendAlert}
@@ -211,7 +223,6 @@ const TopContainer = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   justify-content: space-between;
-  align-items: center;
   width: 100%;
 
   form {

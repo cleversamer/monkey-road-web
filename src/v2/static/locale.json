@@ -796,8 +796,8 @@
         "ar": "هل تريد حقًا تسليم الطلب؟"
     },
     "deliverOrderHint": {
-        "en": "You can only cancel your order while it is pending",
-        "ar": "يمكنك فقط إغلاق الطلبات التي هي قيد الإنتظار"
+        "en": "You can deliver only paid orders",
+        "ar": "يمكنك فقط تسليم الطلبات التي تم دفعها"
     },
     "cancelOrderTitle": {
         "en": "Cancel order",
