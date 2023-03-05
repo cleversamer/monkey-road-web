@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
-import ItemsSection from "v2/components/common/items-section";
-import RentCar from "v2/components/car/rent";
-import PurchaseCar from "v2/components/car/purchase";
 import EmptyList from "v2/components/common/empty-list";
 import { routes } from "v2/client";
 import OrdersTable from "v2/components/orders-table";
@@ -40,7 +37,6 @@ const MyOrders = () => {
     loading: true,
     totalPages: 0,
   });
-  const [latestCars, setLatestCars] = useState({ forRent: [], forSale: [] });
 
   useEffect(() => {
     rentOrdersApi.common
@@ -90,24 +86,22 @@ const MyOrders = () => {
     const cancelOrder = () => {
       rentOrdersApi.common
         .cancelOrder(orderId)
-        .then((res) => {
-          const { orders: newOrders } = res.data;
+        .then(() => {
+          let index = orders.all.findIndex((o) => o._id === orderId);
+          const newAllOrders = [...orders.all];
+          newAllOrders[index].status = "closed";
 
-          setOrders({
-            ...orders,
-            all: newOrders,
-            view: newOrders,
-            selectedStatus: "all",
-            loading: false,
-          });
+          index = orders.view.findIndex((o) => o._id === orderId);
+          const newViewOrders = [...orders.view];
+          if (index >= 0) {
+            newViewOrders[index].status = "closed";
+          }
+
+          setOrders({ ...orders, all: newAllOrders, view: newViewOrders });
         })
-        .catch(() => {
-          // TODO
-        })
-        .finally(() => {
-          setPopupConfirm({ visible: false, handler: null });
-          handleHideOrderDetails();
-        });
+        .catch(() => {});
+
+      setPopupConfirm({ visible: false, handler: null });
     };
 
     setPopupConfirm({
@@ -127,23 +121,19 @@ const MyOrders = () => {
     const deleteOrder = () => {
       rentOrdersApi.common
         .deleteOrder(orderId)
-        .then((res) => {
-          const { orders: newOrders } = res.data;
-
+        .then(() => {
+          const newAllOrders = orders.all.filter((o) => o._id !== orderId);
+          const newViewOrders = orders.view.filter((o) => o._id !== orderId);
           setOrders({
             ...orders,
-            all: newOrders,
-            view: newOrders,
+            all: newAllOrders,
+            view: newViewOrders,
             selectedStatus: "all",
           });
         })
-        .catch((err) => {
-          //
-        })
-        .finally(() => {
-          setPopupConfirm({ visible: false, handler: null });
-          handleHideOrderDetails();
-        });
+        .catch(() => {});
+
+      setPopupConfirm({ visible: false, handler: null });
     };
 
     setPopupConfirm({
@@ -262,24 +252,6 @@ const MyOrders = () => {
           </PaginationContainer>
         )}
       </OrdersContainer>
-
-      <LatestCarsContainer>
-        {!!latestCars.forRent.length && (
-          <ItemsSection type="slider" title={i18n("latestRentalCars")}>
-            {latestCars.forRent.map((car) => (
-              <RentCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
-
-        {!!latestCars.forSale.length && (
-          <ItemsSection type="slider" title={i18n("latestPurchaseCars")}>
-            {latestCars.forSale.map((car) => (
-              <PurchaseCar key={car._id} data={car} />
-            ))}
-          </ItemsSection>
-        )}
-      </LatestCarsContainer>
     </Container>
   );
 };

@@ -188,9 +188,7 @@ const MyReceivedOrders = () => {
 
           setOrders({ ...orders, all: newAllOrders, view: newViewOrders });
         })
-        .catch((err) => {
-          console.log("err", err.response.data.message.en);
-        });
+        .catch(() => {});
 
       setPopupConfirm({ visible: false, handler: null });
     };

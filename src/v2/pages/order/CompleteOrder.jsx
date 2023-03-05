@@ -15,6 +15,12 @@ const CompleteOrder = () => {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showPopup, setShowPopup] = useState(false);
+  const [levels, setLevels] = useState([
+    { title: "carInfo", active: true },
+    { title: "enterPrice", active: false },
+    { title: "uploadsImages", active: false },
+    { title: "payment", active: false },
+  ]);
   const [context, setContext] = useState({
     order: null,
     paymentMethod: "debit",
@@ -89,7 +95,10 @@ const CompleteOrder = () => {
         </PopupMessage>
       )}
 
-      <AddCar pageTitles={["home", ">", "orders", ">", "complete order"]}>
+      <AddCar
+        levels={levels}
+        pageTitles={["home", ">", "orders", ">", "complete order"]}
+      >
         <Container>
           <ShippingAddress>
             <ShippingTitle>shipping address</ShippingTitle>
