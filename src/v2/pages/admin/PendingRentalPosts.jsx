@@ -56,7 +56,10 @@ const PendingRentalPosts = () => {
           {posts.loading ? (
             <Loader />
           ) : !posts.list.length ? (
-            <EmptyList />
+            <EmptyList
+              imageURL="/assets/images/empty-1.svg"
+              title={i18n("noPendingRentalPosts")}
+            />
           ) : (
             posts.list.map((rentCar) => (
               <PendingRentCar key={rentCar._id} data={rentCar} />
@@ -64,13 +67,15 @@ const PendingRentalPosts = () => {
           )}
         </PostsContainer>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={posts.totalPages}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onSelectPage={handleSelectPage}
-        />
+        {!!posts.list.length && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={posts.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        )}
       </Content>
     </Container>
   );

@@ -1198,5 +1198,9 @@
     "rejectOrderHint": {
         "en": "You can only reject pending and approved orders",
         "ar": "يمكنك فقط رفض الطلبات قيد الإنتظار والموافق عليها"
+    },
+    "noPendingRentalPosts": {
+        "en": "There are no pending rental posts",
+        "ar": "لا يوجد منشورات سيّارات للإيجار معلقة"
     }
 }
