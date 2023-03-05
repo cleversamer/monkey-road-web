@@ -11,7 +11,7 @@ import AdminRentCar from "v2/components/admin-rent-car";
 const pageSize = 9;
 
 const AdminRentCars = () => {
-  const { lang } = useLocale();
+  const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState({
     list: [],
@@ -50,6 +50,8 @@ const AdminRentCars = () => {
       <AdminSidebar activeItem="rent cars" />
 
       <Content>
+        <PageTitle>{i18n("rentCars")}</PageTitle>
+
         <RentCarsContainer>
           {posts.loading ? (
             <Loader />
@@ -101,6 +103,13 @@ const RentCarsContainer = styled.ul`
   @media screen and (max-width: 680px) {
     display: ${({ visible }) => (visible ? "grid" : "none")};
   }
+`;
+
+const PageTitle = styled.h1`
+  text-transform: capitalize;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fe7777;
 `;
 
 export default AdminRentCars;

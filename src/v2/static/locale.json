@@ -1170,5 +1170,9 @@
     "name": {
         "en": "Name",
         "ar": "الإسم"
+    },
+    "noOfficesOrders": {
+        "en": "There are no received orders for any office",
+        "ar": "لا يوجد هناك أيّ طلبات مستلمة لأيّ مكتب"
     }
 }

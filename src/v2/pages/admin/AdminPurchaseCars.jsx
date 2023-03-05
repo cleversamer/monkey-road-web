@@ -11,7 +11,7 @@ import PurchaseCar from "v2/components/admin/purchase-car";
 const pageSize = 9;
 
 const AdminPurchaseCars = () => {
-  const { lang } = useLocale();
+  const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [posts, setPosts] = useState({
     list: [],
@@ -48,6 +48,8 @@ const AdminPurchaseCars = () => {
       <AdminSidebar activeItem="purchase cars" />
 
       <Content>
+        <PageTitle>{i18n("purchaseCars")}</PageTitle>
+
         <RentCarsContainer>
           {posts.loading ? (
             <Loader />
@@ -99,6 +101,13 @@ const RentCarsContainer = styled.ul`
   @media screen and (max-width: 680px) {
     display: ${({ visible }) => (visible ? "grid" : "none")};
   }
+`;
+
+const PageTitle = styled.h1`
+  text-transform: capitalize;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fe7777;
 `;
 
 export default AdminPurchaseCars;

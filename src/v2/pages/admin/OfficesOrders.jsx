@@ -13,7 +13,7 @@ import PopupOffice from "v2/hoc/PopupOffice";
 const pageSize = 9;
 
 const OfficesOrders = () => {
-  const { lang } = useLocale();
+  const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [popupOffice, setPopupOffice] = useState({
     office: null,
@@ -41,15 +41,16 @@ const OfficesOrders = () => {
           totalPages,
         });
       })
-      .catch(() =>
+      .catch((err) => {
+        console.log("err", err.response.data.message.en);
         setOrders({
           ...orders,
           all: [],
           view: [],
           loading: false,
           totalPages: 0,
-        })
-      );
+        });
+      });
   }, [currentPage]);
 
   const handleFilterItems = (title) => {
@@ -97,12 +98,18 @@ const OfficesOrders = () => {
         <AdminSidebar activeItem="offices orders" />
 
         <Content>
+          <PageTitle>{i18n("officesOrders")}</PageTitle>
+
           <FiltersSection orders={orders} onSelectItem={handleFilterItems} />
+
           <RentCarsContainer>
             {orders.loading ? (
               <Loader />
             ) : !orders.all.length ? (
-              <EmptyList />
+              <EmptyList
+                imageURL="/assets/images/empty-1.svg"
+                title={i18n("noOfficesOrders")}
+              />
             ) : (
               orders.view.map((order) => (
                 <OfficeOrder
@@ -116,13 +123,15 @@ const OfficesOrders = () => {
             )}
           </RentCarsContainer>
 
-          <Pagination
-            currentPage={currentPage}
-            totalPages={orders.totalPages}
-            onNext={handleNextPage}
-            onPrev={handlePrevPage}
-            onSelectPage={handleSelectPage}
-          />
+          {!!orders.all.length && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={orders.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          )}
         </Content>
       </Container>
     </>
@@ -156,6 +165,13 @@ const RentCarsContainer = styled.ul`
   @media screen and (max-width: 680px) {
     display: ${({ visible }) => (visible ? "grid" : "none")};
   }
+`;
+
+const PageTitle = styled.h1`
+  text-transform: capitalize;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fe7777;
 `;
 
 export default OfficesOrders;
