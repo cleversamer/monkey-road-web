@@ -4,7 +4,7 @@ import authStorage from "v2/auth/storage";
 
 ////////////////////////////// Common APIs //////////////////////////////
 const getAllRentCars = async (page = 1, limit = 10) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/rent/get?page=${page}&limit=${limit}`,
     {},
@@ -22,7 +22,7 @@ const searchRentCars = async (
   colors,
   years
 ) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/rent/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}&minPrice=${minPrice}&maxPrice=${maxPrice}&brands=${brands}&colors=${colors}&years=${years}`,
     {},
@@ -31,7 +31,7 @@ const searchRentCars = async (
 };
 
 const getRentCarDetails = async (carId) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(`/cars/rent/details/${carId}`, {}, cacheMins);
 };
 
@@ -58,7 +58,7 @@ const postRentCar = async (profileData) => {
 };
 
 const getMyRentCars = async (page = 1, limit = 9) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/cars/rent/my?page=${page}&limit=${limit}`,
@@ -69,7 +69,7 @@ const getMyRentCars = async (page = 1, limit = 9) => {
 
 ////////////////////////////// Admin APIs //////////////////////////////
 const getNotAcceptedRentCars = async (page = 1, limit = 3) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/cars/rent/not-accepted?page=${page}&limit=${limit}`,

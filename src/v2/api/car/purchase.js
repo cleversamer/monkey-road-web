@@ -3,7 +3,7 @@ import client from "../client";
 import authStorage from "v2/auth/storage";
 
 const getRecentlyArrivedPurchaseCars = async (page = 1, limit = 4) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/purchase/recently-arrived?page=${page}&limit=${limit}`,
     {},
@@ -12,7 +12,7 @@ const getRecentlyArrivedPurchaseCars = async (page = 1, limit = 4) => {
 };
 
 const getLatestModelsPurchaseCars = async (page = 1, limit = 4) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/purchase/latest-models?page=${page}&limit=${limit}`,
     {},
@@ -21,7 +21,7 @@ const getLatestModelsPurchaseCars = async (page = 1, limit = 4) => {
 };
 
 const getBestSellerPurchaseCars = async (page = 1, limit = 4) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/purchase/best-seller?page=${page}&limit=${limit}`,
     {},
@@ -39,7 +39,7 @@ const searchPurchaseCars = async (
   colors,
   years
 ) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/cars/purchase/search?searchTerm=${searchTerm}&page=${page}&limit=${limit}&minPrice=${minPrice}&maxPrice=${maxPrice}&brands=${brands}&colors=${colors}&years=${years}`,
     {},
@@ -48,7 +48,7 @@ const searchPurchaseCars = async (
 };
 
 const getPurchaseCarDetails = async (carId) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(`/cars/purchase/details/${carId}`, {}, cacheMins);
 };
 
@@ -69,7 +69,7 @@ const postPurchaseCar = async (profileData) => {
 };
 
 const getMyPurchaseCars = async (page = 1, limit = 9) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/cars/purchase/my?page=${page}&limit=${limit}`,

@@ -5,7 +5,7 @@ import authStorage from "v2/auth/storage";
 ////////////////////////////// Common APIs //////////////////////////////
 const isAuth = async () => {
   const config = { headers: { Authorization: authStorage.getToken() } };
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get("/users/isauth", config, cacheMins);
 };
 
@@ -26,7 +26,7 @@ const updateProfile = async (profileData) => {
 };
 
 const getForgotPasswordCode = async (lang, sendTo, emailOrPhone) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   return await client.get(
     `/users/password/forgot?emailOrPhone=${emailOrPhone}&lang=${lang}&sendTo=${sendTo}`,
     {},
@@ -54,7 +54,7 @@ const verify = async (subject, code) => {
 };
 
 const resendVerificationCode = async (subject, lang) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/users/verify/${subject}?lang=${lang}`,
@@ -99,19 +99,19 @@ const switchLanguage = async () => {
 
 ////////////////////////////// Admin APIs //////////////////////////////
 const getCarsStatus = async () => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get("/users/admin/cars/status", config, cacheMins);
 };
 
 const exportUsersToExcel = async () => {
-  const cacheMins = 0;
+  const cacheMins = 10;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get("/users/export", config, cacheMins);
 };
 
 const findUserByEmailOrPhone = async (emailOrPhone) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/users/admin/profile/find?emailOrPhone=${emailOrPhone}&role=user`,
@@ -121,7 +121,7 @@ const findUserByEmailOrPhone = async (emailOrPhone) => {
 };
 
 const findOfficeByEmailOrPhone = async (emailOrPhone) => {
-  const cacheMins = 0;
+  const cacheMins = 1;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/users/admin/profile/find?emailOrPhone=${emailOrPhone}&role=office`,
