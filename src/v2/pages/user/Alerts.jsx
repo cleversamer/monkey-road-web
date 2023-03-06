@@ -12,9 +12,12 @@ const Alerts = () => {
   const { user, setUser } = useAuth();
 
   useEffect(() => {
-    usersApi.common.seeNotifications().then((res) => {
-      setUser({ ...user, notifications: res.data.notifications });
-    });
+    usersApi.common
+      .seeNotifications()
+      .then((res) =>
+        setUser({ ...user, notifications: res.data.notifications })
+      )
+      .catch(() => {});
   }, []);
 
   return (
