@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import parseDate from "v2/utils/parseDate";
 import useLocale from "v2/hooks/useLocale";
+import { routes } from "v2/client";
+import screens from "v2/static/screens.json";
+import useAuth from "v2/auth/useAuth";
 
 const Alert = ({ alert }) => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { i18n, lang } = useLocale();
   const [time, setTime] = useState(parseDate(alert.date, lang));
 
@@ -15,10 +21,18 @@ const Alert = ({ alert }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [lang]);
+  }, [lang, alert.date]);
+
+  const handleClick = () => {
+    try {
+      const { screen, id } = alert.data;
+      const screenKey = screens[screen][user.role];
+      navigate(routes[screenKey].navigate(id));
+    } catch (err) {}
+  };
 
   return (
-    <Container lang={lang} seen={alert.seen}>
+    <Container lang={lang} seen={alert.seen} onClick={handleClick}>
       {!alert.seen && <NewAlertBadge lang={lang} />}
 
       <AlertImage
@@ -51,6 +65,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 15px;
+  cursor: pointer;
 `;
 
 const AlertImage = styled.img`

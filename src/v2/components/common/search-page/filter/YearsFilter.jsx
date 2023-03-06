@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
 import CustomInput from "v2/components/common/custom-input";
-import ViewMore from "./ViewMore";
 import carsData from "v2/static/carsData";
 
 const YearsFilter = ({ selectedYears, onChange }) => {
@@ -17,8 +16,6 @@ const YearsFilter = ({ selectedYears, onChange }) => {
     const selectedColors = years.filter((item) => item.selected);
     onChange(selectedColors);
   };
-
-  const handleViewMore = () => {};
 
   const checkYearSelected = (year) => {
     const index = selectedYears.findIndex((y) => y.value === year.value);
@@ -37,8 +34,6 @@ const YearsFilter = ({ selectedYears, onChange }) => {
           onChange={() => handleChange(index)}
         />
       ))}
-
-      <ViewMore onClick={handleViewMore} />
     </Container>
   );
 };

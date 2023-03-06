@@ -1,0 +1,39 @@
+{
+    "popularBrands": {
+        "user": "popularBrands",
+        "office": "popularBrands",
+        "secretary": "secretaryAllBrands",
+        "admin": "adminAllBrands"
+    },
+    "purchaseCarDetails": {
+        "user": "purchaseCarDetails",
+        "office": "purchaseCarDetails",
+        "secretary": "purchaseCarDetails",
+        "admin": "purchaseCarDetails"
+    },
+    "rentCarDetails": {
+        "user": "rentCarDetails",
+        "office": "rentCarDetails",
+        "secretary": "rentCarDetails",
+        "admin": "rentCarDetails"
+    },
+    "officesOrders": {
+        "secretary": "secretaryAllOfficesOrders",
+        "admin": "adminAllOfficesOrders"
+    },
+    "myReceivedOrders": {
+        "office": "myReceivedOrders"
+    },
+    "myOrders": {
+        "user": "myOrders",
+        "office": "myOrders"
+    },
+    "myTransactions": {
+        "user": "myTransactions",
+        "office": "myTransactions"    
+    },
+    "searchOffices": {
+        "secretary": "secretarySearchOffices",
+        "admin": "adminSearchOffices"
+    }
+}

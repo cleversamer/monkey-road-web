@@ -18,7 +18,7 @@ const IncompleteTransactionForm = ({ userId }) => {
     transactionsApi.admin
       .getUserTransactions(userId, 1, pageSize)
       .then((res) => {
-        const { transactions, totalPages } = res.data;
+        const { transactions } = res.data;
         setTransactions({ list: transactions, loading: false });
       })
       .catch(() => {
@@ -34,7 +34,6 @@ const IncompleteTransactionForm = ({ userId }) => {
       );
       setExcelFile({ loading: false, url: res.data.path });
     } catch (err) {
-      console.log("err", err.response.data.message);
       setExcelFile({ loading: false, url: "" });
     }
   };

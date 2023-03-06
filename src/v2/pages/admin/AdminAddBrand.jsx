@@ -14,10 +14,11 @@ const AdminAddBrand = () => {
     nameAR: "",
     image: { value: null, url: "" },
     submitting: false,
+    error: "",
   });
 
   const handleKeyChange = (key) => (e) =>
-    setContext({ ...context, [key]: e.target.value });
+    setContext({ ...context, [key]: e.target.value, error: "" });
 
   const handleImageChange = async (e) => {
     const image = e.target.files[0];
@@ -50,8 +51,17 @@ const AdminAddBrand = () => {
         nameAR: "",
         image: { value: null, url: "" },
         submitting: false,
+        error: "",
       });
-    } catch (err) {}
+    } catch (err) {
+      setContext({
+        nameEN: "",
+        nameAR: "",
+        image: { value: null, url: "" },
+        submitting: false,
+        error: err?.response?.data?.message[lang] || i18n("networkError"),
+      });
+    }
   };
 
   return (
@@ -90,6 +100,8 @@ const AdminAddBrand = () => {
               value={context.nameAR}
               onChange={handleKeyChange("nameAR")}
             />
+
+            {!!context.error && <ErrorText>{context.error}</ErrorText>}
 
             {context.submitting ? (
               <Loader />
@@ -167,6 +179,12 @@ const Image = styled.img`
   object-fit: contain;
   cursor: pointer;
   border: 1px solid #ababab;
+`;
+
+const ErrorText = styled.span`
+  font-size: 13px;
+  font-weight: 600;
+  color: #f00;
 `;
 
 export default AdminAddBrand;

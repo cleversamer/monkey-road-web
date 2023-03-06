@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import ViewMore from "./ViewMore";
 import carsData from "v2/static/carsData";
 import useLocale from "v2/hooks/useLocale";
 
@@ -9,8 +8,6 @@ const ColorsFilter = ({ selectedColors, onChange }) => {
   const [colors, setColors] = useState(
     carsData.colors.map((item) => ({ ...item, selected: false }))
   );
-
-  const handleViewMore = () => {};
 
   const handleSelect = (colorIndex) => {
     const colorsList = [...colors];
@@ -42,8 +39,6 @@ const ColorsFilter = ({ selectedColors, onChange }) => {
           </Color>
         ))}
       </List>
-
-      <ViewMore onClick={handleViewMore} />
     </Container>
   );
 };
