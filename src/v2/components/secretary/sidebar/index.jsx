@@ -88,7 +88,9 @@ const SecretarySidebar = ({ activeItem }) => {
         {!!excelUsers.url && <IFrameDownload src={excelUsers.url} />}
 
         <AccountInfo lang={lang}>
-          <AvatarContainer>
+          <AvatarContainer
+            onClick={() => navigate(routes.personalInfo.navigate())}
+          >
             <Avatar
               src={user.avatarURL || "/assets/images/default_avatar.svg"}
               alt={user.name}
