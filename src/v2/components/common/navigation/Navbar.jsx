@@ -36,11 +36,20 @@ const Navbar = ({ onOpenMenu }) => {
         }
       });
     }
+    // eslint-disable-next-line
   }, [user]);
 
   const navigateAndScrollToTop = (route) => {
     navigate(route);
     scroll.scrollToTop();
+  };
+
+  const getUserHomePage = () => {
+    return user.role === "admin"
+      ? routes.adminMain.navigate()
+      : user.role === "secretary"
+      ? routes.secretaryMain.navigate()
+      : routes.home.navigate();
   };
 
   const handleSwitchLanguage = async () => {
@@ -82,7 +91,7 @@ const Navbar = ({ onOpenMenu }) => {
 
       <Nav>
         <NavbarContainer>
-          <NavLogo onClick={() => navigateAndScrollToTop(routes.home.route)} />
+          <NavLogo onClick={() => navigateAndScrollToTop(getUserHomePage())} />
 
           <MobileIcon onClick={onOpenMenu}>
             <FaBars />
