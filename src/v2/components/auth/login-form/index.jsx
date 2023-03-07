@@ -66,6 +66,7 @@ const LoginForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      socket.emit("join", user._id);
 
       const nextPage = user.verified.email
         ? routes.home.navigate()

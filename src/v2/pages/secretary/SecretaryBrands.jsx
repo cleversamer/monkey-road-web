@@ -11,7 +11,7 @@ import Brand from "v2/components/home/popular-brands/Brand";
 const pageSize = 20;
 
 const SecretaryBrands = () => {
-  const { lang } = useLocale();
+  const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
   const [brands, setBrands] = useState({
     list: [],
@@ -52,7 +52,10 @@ const SecretaryBrands = () => {
           {brands.loading ? (
             <Loader />
           ) : !brands.list.length ? (
-            <EmptyList />
+            <EmptyList
+              imageURL="/assets/images/empty-1.svg"
+              title={i18n("noBrands")}
+            />
           ) : (
             brands.list.map((brand) => (
               <Brand
@@ -64,13 +67,15 @@ const SecretaryBrands = () => {
           )}
         </RentCarsContainer>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={brands.totalPages}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onSelectPage={handleSelectPage}
-        />
+        {!!brands.list.length && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={brands.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        )}
       </Content>
     </Container>
   );

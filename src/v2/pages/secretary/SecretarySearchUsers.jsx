@@ -9,13 +9,14 @@ import { routes } from "v2/client";
 import SecretaryUserSearchForm from "v2/components/secretary/user-search-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import useAuth from "v2/auth/useAuth";
+import Loader from "v2/components/loader";
 
 const SecretarySearchUsers = () => {
   const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ data: null, loading: true });
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -30,14 +31,18 @@ const SecretarySearchUsers = () => {
 
   useEffect(() => {
     if (emailOrPhone === "*") {
-      return setContext({ ...context, searchTerm: "" });
+      setContext({ ...context, searchTerm: "" });
+      setUser({ data: null, loading: false });
+      return;
     }
+
+    setUser({ data: null, loading: true });
 
     usersApi.admin
       .findUserByEmailOrPhone(emailOrPhone)
       .then((res) => {
         const user = res.data;
-        setUser(user);
+        setUser({ data: user, loading: false });
         setContext({
           ...context,
           name: user.name,
@@ -50,7 +55,7 @@ const SecretarySearchUsers = () => {
         });
       })
       .catch(() => {
-        setUser(null);
+        setUser({ data: null, loading: false });
         setContext({
           ...context,
           lang: lang,
@@ -111,7 +116,7 @@ const SecretarySearchUsers = () => {
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.verifyUser(emailOrPhone);
       const verifiedUser = res.data;
-      setUser(verifiedUser);
+      setUser({ data: verifiedUser, loading: false });
       setContext({
         ...context,
         name: verifiedUser.name,
@@ -133,7 +138,7 @@ const SecretarySearchUsers = () => {
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.updateUserRole(emailOrPhone, role);
       const verifiedUser = res.data;
-      setUser(verifiedUser);
+      setUser({ data: verifiedUser, loading: false });
       setContext({ ...context, submitting: false });
     } catch (err) {
       setContext({ ...context, submitting: false });
@@ -146,13 +151,13 @@ const SecretarySearchUsers = () => {
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
       const res = await usersApi.admin.sendNotificationToUsers(
-        [user._id],
+        [user.data._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
-      socket.emit("send notification to user", user._id, res.data);
+      socket.emit("send notification to user", user.data._id, res.data);
     } catch (err) {}
   };
 
@@ -164,24 +169,28 @@ const SecretarySearchUsers = () => {
         <TopContainer lang={lang}>
           <PageTitle>{i18n("searchUsers")}</PageTitle>
 
-          <SearchBox
-            searchTerm={context.searchTerm}
-            onSearchChange={handleKeyChange("searchTerm")}
-            placeholder={i18n("searchUserPlaceholder")}
-            onSubmit={handleSearch}
-          />
+          {user.loading ? (
+            <Loader />
+          ) : (
+            <SearchBox
+              searchTerm={context.searchTerm}
+              onSearchChange={handleKeyChange("searchTerm")}
+              placeholder={i18n("searchUserPlaceholder")}
+              onSubmit={handleSearch}
+            />
+          )}
         </TopContainer>
 
         <SecretaryUserSearchForm
           context={context}
-          user={user}
+          user={user.data}
           onKeyChange={handleKeyChange}
           onUpdateUserRole={handleUpdateUserRole}
           onVerifyUser={handleVerifyUser}
           onEditProfile={handleEditProfile}
         />
 
-        {user && (
+        {user.data && (
           <AdminSendAlert
             title={i18n("sendAlertToUser")}
             onSendAlert={handleSendAlert}

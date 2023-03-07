@@ -45,11 +45,15 @@ const Navbar = ({ onOpenMenu }) => {
   };
 
   const getUserHomePage = () => {
-    return user.role === "admin"
-      ? routes.adminMain.navigate()
-      : user.role === "secretary"
-      ? routes.secretaryMain.navigate()
-      : routes.home.navigate();
+    try {
+      return user?.role === "admin"
+        ? routes.adminMain.navigate()
+        : user?.role === "secretary"
+        ? routes.secretaryMain.navigate()
+        : routes.home.navigate();
+    } catch (error) {
+      return routes.home.navigate();
+    }
   };
 
   const handleSwitchLanguage = async () => {
@@ -372,34 +376,6 @@ const Navbar = ({ onOpenMenu }) => {
       </Nav>
 
       <MobileNavButtons user={user}>
-        {user && (
-          <NavButton
-            title={i18n("post")}
-            iconPath="/assets/icons/post.svg"
-            laptop
-          >
-            {user.role === "office" && (
-              <NavItem>
-                <NavRoute
-                  onClick={() => scroll.scrollToTop()}
-                  to={routes.addRentCar.navigate()}
-                >
-                  {i18n("forRent")}
-                </NavRoute>
-              </NavItem>
-            )}
-
-            <NavItem>
-              <NavRoute
-                onClick={() => scroll.scrollToTop()}
-                to={routes.addPurchaseCar.navigate()}
-              >
-                {i18n("forSale")}
-              </NavRoute>
-            </NavItem>
-          </NavButton>
-        )}
-
         {user && user.role === "office" && (
           <ButtonRouteContainer
             to={routes.addRentCar.navigate()}
@@ -413,7 +389,7 @@ const Navbar = ({ onOpenMenu }) => {
           </ButtonRouteContainer>
         )}
 
-        {user && (
+        {user && !["admin", "secretary"].includes(user.role) && (
           <ButtonRouteContainer
             to={routes.addPurchaseCar.navigate()}
             mobile="true"
@@ -426,7 +402,7 @@ const Navbar = ({ onOpenMenu }) => {
           </ButtonRouteContainer>
         )}
 
-        {user && (
+        {user && !["admin", "secretary"].includes(user.role) && (
           <ButtonRouteContainer
             to={routes.myOrders.navigate()}
             mobile="true"
@@ -439,7 +415,7 @@ const Navbar = ({ onOpenMenu }) => {
           </ButtonRouteContainer>
         )}
 
-        {user && (
+        {user && !["admin", "secretary"].includes(user.role) && (
           <ButtonRouteContainer
             to={routes.myFavorites.navigate()}
             desktop="true"

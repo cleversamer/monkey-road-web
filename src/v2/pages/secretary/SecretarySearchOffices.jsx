@@ -16,7 +16,7 @@ const SecretarySearchOffices = () => {
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
-  const [office, setOffice] = useState(null);
+  const [office, setOffice] = useState({ data: null, loading: false });
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -31,14 +31,16 @@ const SecretarySearchOffices = () => {
 
   useEffect(() => {
     if (emailOrPhone === "*") {
-      return setContext({ ...context, searchTerm: "" });
+      setContext({ ...context, searchTerm: "" });
+      setOffice({ data: null, loading: false });
+      return;
     }
 
     usersApi.admin
       .findOfficeByEmailOrPhone(emailOrPhone)
       .then((res) => {
         const office = res.data;
-        setOffice(office);
+        setOffice({ data: office, loading: false });
         setContext({
           ...context,
           name: office.name,
@@ -51,7 +53,7 @@ const SecretarySearchOffices = () => {
         });
       })
       .catch(() => {
-        setOffice(null);
+        setOffice({ data: null, loading: false });
         setContext({
           ...context,
           lang: lang,
@@ -112,7 +114,7 @@ const SecretarySearchOffices = () => {
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.verifyUser(emailOrPhone);
       const verifiedUser = res.data;
-      setOffice(verifiedUser);
+      setOffice({ data: verifiedUser, loading: false });
       setContext({
         ...context,
         name: verifiedUser.name,
@@ -134,13 +136,13 @@ const SecretarySearchOffices = () => {
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
       const res = await usersApi.admin.sendNotificationToUsers(
-        [office._id],
+        [office.data._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
-      socket.emit("send notification to user", office._id, res.data);
+      socket.emit("send notification to user", office.data._id, res.data);
     } catch (err) {}
   };
 
@@ -162,15 +164,15 @@ const SecretarySearchOffices = () => {
 
         <SecretaryOfficeSearchForm
           context={context}
-          user={office}
+          user={office.data}
           onKeyChange={handleKeyChange}
           onVerifyUser={handleVerifyUser}
           onEditProfile={handleEditProfile}
         />
 
-        {office && <AdminOfficeOrders officeId={office._id} />}
+        {office.data && <AdminOfficeOrders officeId={office.data._id} />}
 
-        {office && (
+        {office.data && (
           <AdminSendAlert
             title={i18n("sendAlertToOffice")}
             onSendAlert={handleSendAlert}

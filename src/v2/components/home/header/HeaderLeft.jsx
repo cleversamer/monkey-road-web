@@ -46,6 +46,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-left: 20px;
 
   @media screen and (max-width: 820px) {
     width: 100%;

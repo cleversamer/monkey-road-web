@@ -66,17 +66,31 @@ const Container = styled.div`
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   gap: 15px;
   cursor: pointer;
+
+  @media screen and (max-width: 540px) {
+    padding: 10px;
+  }
 `;
 
 const AlertImage = styled.img`
   width: 100px;
+  height: 100px;
   object-fit: contain;
+
+  @media screen and (max-width: 540px) {
+    width: 80px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 70px;
+  }
 `;
 
 const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
   gap: 12px;
   text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
@@ -87,16 +101,36 @@ const AlertTitle = styled.h5`
   font-weight: 600;
   width: calc(100% - 10px);
   color: ${({ primary }) => (primary ? "#fe7777" : "#000")};
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 540px) {
+    font-size: 14px;
+  }
 `;
 
 const AlertBody = styled.p`
   font-size: 14px;
   font-weight: ${({ bold }) => (bold ? "500" : "400")};
+
+  @media screen and (max-width: 768px) {
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: 540px) {
+    font-size: 12px;
+  }
 `;
 
 const AlertDate = styled.div`
   font-size: 13px;
   font-weight: ${({ bold }) => (bold ? "500" : "400")};
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const NewAlertBadge = styled.span`

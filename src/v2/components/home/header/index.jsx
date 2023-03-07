@@ -126,7 +126,7 @@ const Car = styled.img`
   display: block;
   margin: 0 auto;
   width: 90vw;
-  max-width: 650px;
+  max-width: 600px;
 
   @media screen and (max-width: 480px) {
     bottom: -100px;

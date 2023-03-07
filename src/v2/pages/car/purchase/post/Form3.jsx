@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CustomInput from "v2/components/common/custom-input";
 import useLocale from "v2/hooks/useLocale";
+import { IoClose } from "react-icons/io5";
 
 const Form3 = ({ context, onImagesChange, onDeleteImage }) => {
   const { lang, i18n } = useLocale();
@@ -20,12 +21,10 @@ const Form3 = ({ context, onImagesChange, onDeleteImage }) => {
 
           <SelectedImages>
             {context.images.map((image, index) => (
-              <Image
-                key={index}
-                src={image.url}
-                alt={`car ${index + 1}`}
-                onClick={() => onDeleteImage(index)}
-              />
+              <ImageContainer>
+                <Image key={index} src={image.url} alt={`car ${index + 1}`} />
+                <DeleteImageIcon onClick={() => onDeleteImage(index)} />
+              </ImageContainer>
             ))}
           </SelectedImages>
         </InputsRow>
@@ -105,16 +104,34 @@ const SelectedImages = styled.ul`
     width: 100%;
   }
 `;
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #fe7777;
+`;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
-  cursor: pointer;
-  border: 1px solid #fe7777;
 
   @media screen and (max-width: 560px) {
     flex-direction: column;
   }
 `;
+
+const DeleteImageIcon = styled(IoClose)`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  fill: #fff;
+  font-size: 20px;
+  background-color: #fe7777;
+  box-sizing: content-box;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+`;
+
 export default Form3;

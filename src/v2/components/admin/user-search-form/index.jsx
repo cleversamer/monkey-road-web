@@ -134,7 +134,7 @@ const AdminUserSearchForm = ({
               onClick={onEditProfile}
             />
 
-            {(!user?.verified?.email || !user?.verified?.phone) && (
+            {user && (!user?.verified?.email || !user?.verified?.phone) && (
               <CustomButton
                 type="primary"
                 title={i18n("verifyUser")}

@@ -10,13 +10,14 @@ import AdminUserSearchForm from "v2/components/admin/user-search-form";
 import IncompleteTransactionForm from "v2/components/admin/incomplete-transactions-form";
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import useAuth from "v2/auth/useAuth";
+import Loader from "v2/components/loader";
 
 const AdminSearchUsers = () => {
   const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ data: null, loading: true });
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -31,14 +32,18 @@ const AdminSearchUsers = () => {
 
   useEffect(() => {
     if (emailOrPhone === "*") {
-      return setContext({ ...context, searchTerm: "" });
+      setContext({ ...context, searchTerm: "" });
+      setUser({ data: null, loading: false });
+      return;
     }
+
+    setUser({ data: null, loading: true });
 
     usersApi.admin
       .findUserByEmailOrPhone(emailOrPhone)
       .then((res) => {
         const user = res.data;
-        setUser(user);
+        setUser({ data: user, loading: false });
         setContext({
           ...context,
           name: user.name,
@@ -51,7 +56,7 @@ const AdminSearchUsers = () => {
         });
       })
       .catch(() => {
-        setUser(null);
+        setUser({ data: null, loading: false });
         setContext({
           ...context,
           lang: lang,
@@ -112,7 +117,7 @@ const AdminSearchUsers = () => {
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.verifyUser(emailOrPhone);
       const verifiedUser = res.data;
-      setUser(verifiedUser);
+      setUser({ data: verifiedUser, loading: false });
       setContext({
         ...context,
         name: verifiedUser.name,
@@ -134,7 +139,7 @@ const AdminSearchUsers = () => {
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.updateUserRole(emailOrPhone, role);
       const verifiedUser = res.data;
-      setUser(verifiedUser);
+      setUser({ data: verifiedUser, loading: false });
       setContext({ ...context, submitting: false });
     } catch (err) {
       setContext({ ...context, submitting: false });
@@ -147,13 +152,13 @@ const AdminSearchUsers = () => {
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
       const res = await usersApi.admin.sendNotificationToUsers(
-        [user._id],
+        [user.data._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
-      socket.emit("send notification to user", user._id, res.data);
+      socket.emit("send notification to user", user.data._id, res.data);
     } catch (err) {}
   };
 
@@ -173,18 +178,22 @@ const AdminSearchUsers = () => {
           />
         </TopContainer>
 
-        <AdminUserSearchForm
-          context={context}
-          user={user}
-          onKeyChange={handleKeyChange}
-          onUpdateUserRole={handleUpdateUserRole}
-          onVerifyUser={handleVerifyUser}
-          onEditProfile={handleEditProfile}
-        />
+        {user.loading ? (
+          <Loader />
+        ) : (
+          <AdminUserSearchForm
+            context={context}
+            user={user.data}
+            onKeyChange={handleKeyChange}
+            onUpdateUserRole={handleUpdateUserRole}
+            onVerifyUser={handleVerifyUser}
+            onEditProfile={handleEditProfile}
+          />
+        )}
 
-        {user && <IncompleteTransactionForm userId={user._id} />}
+        {user.data && <IncompleteTransactionForm userId={user.data._id} />}
 
-        {user && (
+        {user.data && (
           <AdminSendAlert
             title={i18n("sendAlertToUser")}
             onSendAlert={handleSendAlert}

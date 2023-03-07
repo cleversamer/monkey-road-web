@@ -11,13 +11,14 @@ import IncompleteTransactionForm from "v2/components/admin/incomplete-transactio
 import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import AdminOfficeOrders from "v2/components/admin/admin-office-orders";
 import useAuth from "v2/auth/useAuth";
+import Loader from "v2/components/loader";
 
 const AdminSearchOffices = () => {
   const { socket } = useAuth();
   const navigate = useNavigate();
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
-  const [office, setOffice] = useState(null);
+  const [office, setOffice] = useState({ data: null, loading: true });
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -32,14 +33,18 @@ const AdminSearchOffices = () => {
 
   useEffect(() => {
     if (emailOrPhone === "*") {
-      return setContext({ ...context, searchTerm: "" });
+      setContext({ ...context, searchTerm: "" });
+      setOffice({ data: null, loading: false });
+      return;
     }
+
+    setOffice({ data: null, loading: true });
 
     usersApi.admin
       .findOfficeByEmailOrPhone(emailOrPhone)
       .then((res) => {
         const office = res.data;
-        setOffice(office);
+        setOffice({ data: office, loading: false });
         setContext({
           ...context,
           name: office.name,
@@ -52,7 +57,7 @@ const AdminSearchOffices = () => {
         });
       })
       .catch(() => {
-        setOffice(null);
+        setOffice({ data: null, loading: false });
         setContext({
           ...context,
           lang: lang,
@@ -109,11 +114,11 @@ const AdminSearchOffices = () => {
 
   const handleVerifyUser = async () => {
     try {
-      if (!office) return;
+      if (!office.data) return;
       setContext({ ...context, submitting: true });
       const res = await usersApi.admin.verifyUser(emailOrPhone);
       const verifiedUser = res.data;
-      setOffice(verifiedUser);
+      setOffice({ data: verifiedUser, loading: false });
       setContext({
         ...context,
         name: verifiedUser.name,
@@ -135,13 +140,13 @@ const AdminSearchOffices = () => {
       if (!titleEN && !bodyEN && !titleAR && !bodyAR) return;
 
       const res = await usersApi.admin.sendNotificationToUsers(
-        [office._id],
+        [office.data._id],
         titleEN,
         titleAR,
         bodyEN,
         bodyAR
       );
-      socket.emit("send notification to user", office._id, res.data);
+      socket.emit("send notification to user", office.data._id, res.data);
     } catch (err) {}
   };
 
@@ -161,19 +166,23 @@ const AdminSearchOffices = () => {
           />
         </TopContainer>
 
-        <AdminOfficeSearchForm
-          context={context}
-          user={office}
-          onKeyChange={handleKeyChange}
-          onVerifyUser={handleVerifyUser}
-          onEditProfile={handleEditProfile}
-        />
+        {office.loading ? (
+          <Loader />
+        ) : (
+          <AdminOfficeSearchForm
+            context={context}
+            user={office.data}
+            onKeyChange={handleKeyChange}
+            onVerifyUser={handleVerifyUser}
+            onEditProfile={handleEditProfile}
+          />
+        )}
 
-        {office && <IncompleteTransactionForm userId={office._id} />}
+        {office.data && <IncompleteTransactionForm userId={office.data._id} />}
 
-        {office && <AdminOfficeOrders officeId={office._id} />}
+        {office.data && <AdminOfficeOrders officeId={office.data._id} />}
 
-        {office && (
+        {office.data && (
           <AdminSendAlert
             title={i18n("sendAlertToOffice")}
             onSendAlert={handleSendAlert}

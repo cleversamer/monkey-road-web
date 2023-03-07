@@ -14,7 +14,7 @@ import useLocale from "v2/hooks/useLocale";
 const ResetPasswordForm = () => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, socket } = useAuth();
   const { emailOrPhone } = useQueryParams();
   const [context, setContext] = useState({
     code: "",
@@ -61,6 +61,7 @@ const ResetPasswordForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      socket.emit("join", user._id);
 
       navigate(routes.home.navigate());
     } catch (err) {
