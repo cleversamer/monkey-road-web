@@ -4,7 +4,7 @@ import authStorage from "v2/auth/storage";
 
 //////////////////// COMMON ////////////////////
 const getMyOrders = async (page = 1, limit = 10) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/orders/rent/my?page=${page}&limit=${limit}`,
@@ -14,7 +14,7 @@ const getMyOrders = async (page = 1, limit = 10) => {
 };
 
 const getOrderDetails = async (orderId) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(`/orders/rent/${orderId}/details`, config, cacheMins);
 };
@@ -31,7 +31,7 @@ const deleteOrder = async (orderId) => {
 
 //////////////////// OFFICE ////////////////////
 const getMyReceivedOrders = async (page = 1, limit = 10) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/orders/rent/my-received?page=${page}&limit=${limit}`,
@@ -61,7 +61,7 @@ const deliverOrder = async (orderId) => {
 
 //////////////////// ADMIN ////////////////////
 const getAllOrders = async (page = 1, limit = 3) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/orders/rent/admin/all?page=${page}&limit=${limit}`,
@@ -71,7 +71,7 @@ const getAllOrders = async (page = 1, limit = 3) => {
 };
 
 const getOfficeReceivedOrders = async (officeId, page = 1, limit = 3) => {
-  const cacheMins = 1;
+  const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.get(
     `/orders/rent/admin/${officeId}/received?page=${page}&limit=${limit}`,

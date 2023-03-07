@@ -4,7 +4,7 @@ import authStorage from "v2/auth/storage";
 
 //////////////////// COMMON ////////////////////
 const getPopularBrands = async (page = 1, limit = 10) => {
-  const cacheMins = 10;
+  const cacheMins = 0;
   return await client.get(
     `/brands/popular?page=${page}&limit=${limit}`,
     {},
