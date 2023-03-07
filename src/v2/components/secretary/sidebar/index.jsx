@@ -90,7 +90,7 @@ const SecretarySidebar = ({ activeItem }) => {
         <AccountInfo lang={lang}>
           <AvatarContainer>
             <Avatar
-              src="https://avatars.githubusercontent.com/u/73291969?v=4"
+              src={user.avatarURL || "/assets/images/default_avatar.svg"}
               alt={user.name}
             />
           </AvatarContainer>
@@ -241,13 +241,17 @@ const AccountInfo = styled.div`
   gap: 7px;
 `;
 
-const AvatarContainer = styled.div``;
-
-const Avatar = styled.img`
+const AvatarContainer = styled.div`
   width: 40px;
   height: 40px;
-  object-fit: contain;
   border-radius: 4px;
+`;
+
+const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
   transition-duration: 176ms;
   cursor: pointer;
 
