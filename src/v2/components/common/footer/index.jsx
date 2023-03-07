@@ -12,7 +12,7 @@ const Footer = () => {
 };
 
 const Container = styled.footer`
-  background-color: #333;
+  background-color: #222;
   width: 100vw;
   max-width: 1366px;
   margin: 0 auto;
