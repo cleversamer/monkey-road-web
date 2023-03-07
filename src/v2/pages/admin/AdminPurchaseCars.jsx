@@ -54,7 +54,10 @@ const AdminPurchaseCars = () => {
           {posts.loading ? (
             <Loader />
           ) : !posts.list.length ? (
-            <EmptyList />
+            <EmptyList
+              imageURL="/assets/images/empty-1.svg"
+              title={i18n("noPurchaseCars")}
+            />
           ) : (
             posts.list.map((rentCar) => (
               <PurchaseCar key={rentCar._id} data={rentCar} />
@@ -62,13 +65,15 @@ const AdminPurchaseCars = () => {
           )}
         </RentCarsContainer>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={posts.totalPages}
-          onNext={handleNextPage}
-          onPrev={handlePrevPage}
-          onSelectPage={handleSelectPage}
-        />
+        {!!posts.list.length && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={posts.totalPages}
+            onNext={handleNextPage}
+            onPrev={handlePrevPage}
+            onSelectPage={handleSelectPage}
+          />
+        )}
       </Content>
     </Container>
   );

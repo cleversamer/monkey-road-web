@@ -1210,5 +1210,13 @@
     "transactionIncomplete": {
         "en": "Incomplete",
         "ar": "غير مكتملة"
+    },
+    "noRentCars": {
+        "en": "No rent cars have been added",
+        "ar": "لا يوجد سيّارات مضافة للإيجار"
+    },
+    "noPurchaseCars": {
+        "en": "No cars for sale have been added",
+        "ar": "لا يوجد سيّارات مضافة للبيع"
     }
 }

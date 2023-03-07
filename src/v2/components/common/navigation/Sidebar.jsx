@@ -77,7 +77,7 @@ const Container = styled.aside`
   z-index: 9999999999;
   width: 100%;
   height: 100%;
-  background-color: #f9f9f9;
+  background-color: #fff;
   display: grid;
   align-items: center;
   top: ${({ isOpen }) => (isOpen ? "0" : "-100%")};

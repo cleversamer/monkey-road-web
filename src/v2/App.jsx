@@ -93,7 +93,7 @@ const App = () => {
 
         timeoutId = setTimeout(() => {
           setLoading(false);
-        }, 2500 - timeElapsed);
+        }, 3000 - timeElapsed);
       });
 
     return () => {

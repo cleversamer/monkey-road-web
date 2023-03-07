@@ -515,7 +515,9 @@ const Nav = styled.nav`
   top: 0;
   z-index: 999999;
   background-color: #fff;
-  box-shadow: 0px 1px 3px 1px rgba(51, 51, 51, 0.3);
+  box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
+  -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
 
   @media screen and (max-width: 960px) {
     transition: 0.8s all ease;
@@ -686,9 +688,10 @@ const MobileNavButtons = styled.ul`
   left: 0;
   right: 0;
   padding: 10px 20px;
+  padding-top: 15px;
   width: 100vw;
   z-index: 999999;
-  background: #fafafa;
+  background: #fff;
   box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -webkit-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
   -moz-box-shadow: 0px 0px 10px 3px rgba(254, 119, 119, 0.29);
@@ -696,22 +699,6 @@ const MobileNavButtons = styled.ul`
 
   @media screen and (max-width: 1080px) {
     display: flex;
-  }
-
-  @media screen and (max-width: 460px) {
-    ${({ user }) => (user ? "padding-left: 70px;" : "")}
-  }
-
-  @media screen and (max-width: 380px) {
-    padding-left: 100px;
-  }
-
-  @media screen and (max-width: 360px) {
-    padding-left: 130px;
-  }
-
-  @media screen and (max-width: 340px) {
-    padding-left: 150px;
   }
 `;
 
