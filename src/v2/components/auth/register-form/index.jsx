@@ -10,7 +10,7 @@ import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 
 const RegisterForm = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n, lang, switchLang } = useLocale();
   const { socket, login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
@@ -52,6 +52,7 @@ const RegisterForm = () => {
       navigate(routes.verify.navigate("email"));
       const { user, token } = res.data;
       login(user, token);
+      if (lang !== user.favLang) switchLang();
       socket.emit("join", user._id);
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");

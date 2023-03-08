@@ -12,7 +12,7 @@ import Loader from "v2/components/loader";
 import useAuth from "v2/auth/useAuth";
 
 const PhoneForm = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n, lang, switchLang } = useLocale();
   const { login, socket } = useAuth();
   const navigate = useNavigate();
   const { joinBy } = useQueryParams();
@@ -27,7 +27,8 @@ const PhoneForm = () => {
     if (joinBy !== "google") {
       navigate(routes.fastRegister.navigate("google"));
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [joinBy]);
 
   const handleKeyChange = (key) => (e) =>
     setContext({ ...context, [key]: e.target.value, error: "" });
@@ -52,6 +53,7 @@ const PhoneForm = () => {
       navigate(routes.home.navigate());
       const { user, token } = res.data;
       login(user, token);
+      if (lang !== user.favLang) switchLang();
       socket.emit("join", user._id);
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");

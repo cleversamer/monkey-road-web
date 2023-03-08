@@ -12,7 +12,7 @@ import { routes } from "v2/client";
 import useLocale from "v2/hooks/useLocale";
 
 const ResetPasswordForm = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n, lang, switchLang } = useLocale();
   const navigate = useNavigate();
   const { login, socket } = useAuth();
   const { emailOrPhone } = useQueryParams();
@@ -61,6 +61,7 @@ const ResetPasswordForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      if (lang !== user.favLang) switchLang();
       socket.emit("join", user._id);
 
       navigate(routes.home.navigate());

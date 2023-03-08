@@ -10,7 +10,7 @@ import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 
 const LoginForm = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n, lang, switchLang } = useLocale();
   const { socket, login } = useAuth();
   const navigate = useNavigate();
   const [context, setContext] = useState({
@@ -40,6 +40,7 @@ const LoginForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      if (lang !== user.favLang) switchLang();
       socket.emit("join", user._id);
 
       const nextPage = user.verified.email
@@ -66,6 +67,7 @@ const LoginForm = () => {
 
       const { user, token } = res.data;
       login(user, token);
+      if (lang !== user.favLang) switchLang();
       socket.emit("join", user._id);
 
       const nextPage = user.verified.email

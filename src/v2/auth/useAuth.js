@@ -2,7 +2,7 @@ import { useContext } from "react";
 import AuthContext from "./context";
 import authStorage from "./storage";
 
-const useAuth = (props) => {
+const useAuth = () => {
   const { user, setUser, socket } = useContext(AuthContext);
 
   const logout = () => {
