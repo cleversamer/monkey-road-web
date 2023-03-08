@@ -3,6 +3,7 @@ import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
 import useLocale from "v2/hooks/useLocale";
+import GoogleMap from "v2/components/google-map";
 
 const OrderDetails = ({ order, onHide, children }) => {
   const { i18n } = useLocale();
@@ -24,6 +25,14 @@ const OrderDetails = ({ order, onHide, children }) => {
         </TopRow>
 
         <ReceptionLocation>
+          <Title>{i18n("location")}</Title>
+
+          <GoogleMap
+            longitude={parseFloat(order.receptionLocation.longitude)}
+            latitude={parseFloat(order.receptionLocation.latitude)}
+            onCoordinatesChange={() => {}}
+          />
+
           <Title>{i18n("recipientAddress")}</Title>
 
           <ReceptionLocationName>
@@ -91,6 +100,11 @@ const ReceptionLocation = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
+
+  > div {
+    max-height: 300px !important;
+    margin-bottom: 10px;
+  }
 `;
 
 const ReceptionLocationName = styled.p`
