@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
-import parseDate from "v2/utils/parseDate";
 import CustomInput from "v2/components/common/custom-input";
 import CustomButton from "v2/components/common/custom-button";
 import Loader from "v2/components/loader";
+import useDateTimer from "v2/hooks/useDateTimer";
 
 const AdminUserSearchForm = ({
   context,
@@ -15,19 +14,7 @@ const AdminUserSearchForm = ({
   onEditProfile,
 }) => {
   const { i18n, lang } = useLocale();
-  const [lastLogin, setLastLogin] = useState(parseDate(user?.lastLogin, lang));
-
-  useEffect(() => {
-    if (!user) return;
-
-    const intervalId = setInterval(() => {
-      setLastLogin(parseDate(user.lastLogin, lang));
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [lang, user]);
+  const { value: lastLogin } = useDateTimer(user?.favLang, [user]);
 
   return (
     <FormContainer>
@@ -42,6 +29,7 @@ const AdminUserSearchForm = ({
             {i18n("lastLogin")}
             {lang === "en" && ":"}
           </LastLoginItem>
+
           <LastLoginItem>
             {lang === "ar" && i18n("ago")} {lastLogin}{" "}
             {lang === "en" && i18n("ago")}

@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import useLocale from "v2/hooks/useLocale";
 
 const FiltersSection = ({ salesPosts, onSelectItem }) => {
+  const { i18n } = useLocale();
+
   const salesPostsCount = salesPosts.list.length;
   const soldCarsCount = salesPosts.list.filter((p) => p.sold).length;
   const notSoldCarsCount = salesPostsCount - soldCarsCount;
@@ -16,21 +19,21 @@ const FiltersSection = ({ salesPosts, onSelectItem }) => {
           active={checkItemSelected("all")}
           onClick={() => onSelectItem("all")}
         >
-          all ({salesPostsCount})
+          {i18n("all")} ({salesPostsCount})
         </Item>
 
         <Item
           active={checkItemSelected("sold")}
           onClick={() => onSelectItem("sold")}
         >
-          sold ({soldCarsCount})
+          {i18n("sold")} ({soldCarsCount})
         </Item>
 
         <Item
           active={checkItemSelected("not sold")}
           onClick={() => onSelectItem("not sold")}
         >
-          not sold ({notSoldCarsCount})
+          {i18n("notSold")} ({notSoldCarsCount})
         </Item>
       </StatusFilters>
     </Container>

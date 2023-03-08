@@ -15,11 +15,13 @@ const AddCar = ({
   return (
     <Container>
       <Location pageTitles={pageTitles} />
+
       <LevelsTracker
         onSelectLevel={onSelectLevel}
         levels={levels}
         activeLevel={activeLevel}
       />
+
       <FormContainer lang={lang}>{children}</FormContainer>
     </Container>
   );

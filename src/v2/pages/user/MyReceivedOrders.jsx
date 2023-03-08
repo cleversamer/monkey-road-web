@@ -87,13 +87,11 @@ const MyReceivedOrders = () => {
     setOrders({ ...orders, selectedStatus: title, view: viewList });
   };
 
-  const handleViewOrderDetails = (order) => {
+  const handleViewOrderDetails = (order) =>
     setOrders({ ...orders, selectedOrder: order });
-  };
 
-  const handleHideOrderDetails = () => {
+  const handleHideOrderDetails = () =>
     setOrders({ ...orders, selectedOrder: null });
-  };
 
   const handleApproveOrder = (orderId) => {
     if (popupConfirm.visible) return;
@@ -212,9 +210,7 @@ const MyReceivedOrders = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Container>

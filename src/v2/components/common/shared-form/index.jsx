@@ -7,7 +7,7 @@ const SharedForm = ({ title, subtitle, imageURL, onSubmit, children }) => {
   return (
     <Container onSubmit={onSubmit}>
       <Content lang={lang}>
-        <Image src={imageURL} alt="" />
+        <Image src={imageURL} alt={title} />
         <Title>{title}</Title>
         <Subtitle>{subtitle}</Subtitle>
         <Children>{children}</Children>

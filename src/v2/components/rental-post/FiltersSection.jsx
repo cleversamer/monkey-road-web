@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import useLocale from "v2/hooks/useLocale";
 
 const FiltersSection = ({ rentalPosts, onSelectItem }) => {
+  const { i18n, lang } = useLocale();
+
   const rentalPostsCount = rentalPosts.list.length;
   const activeCarsCount = rentalPosts.list.filter(
     (c) => c.accepted && !c.archived
@@ -14,33 +17,33 @@ const FiltersSection = ({ rentalPosts, onSelectItem }) => {
 
   return (
     <Container>
-      <StatusFilters>
+      <StatusFilters lang={lang}>
         <Item
           active={checkItemSelected("all")}
           onClick={() => onSelectItem("all")}
         >
-          all ({rentalPostsCount})
+          {i18n("all")} ({rentalPostsCount})
         </Item>
 
         <Item
           active={checkItemSelected("active")}
           onClick={() => onSelectItem("active")}
         >
-          active ({activeCarsCount})
+          {i18n("active")} ({activeCarsCount})
         </Item>
 
         <Item
           active={checkItemSelected("pending")}
           onClick={() => onSelectItem("pending")}
         >
-          pending ({pendingCarsCount})
+          {i18n("pending")} ({pendingCarsCount})
         </Item>
 
         <Item
           active={checkItemSelected("archived")}
           onClick={() => onSelectItem("archived")}
         >
-          archived ({archivedCarsCount})
+          {i18n("archived")} ({archivedCarsCount})
         </Item>
       </StatusFilters>
     </Container>
@@ -48,16 +51,19 @@ const FiltersSection = ({ rentalPosts, onSelectItem }) => {
 };
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
+  margin: 15px 0;
   overflow-x: auto;
 `;
 
 const StatusFilters = styled.ul`
+  width: 100%;
   list-style: none;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
   gap: 30px;
   min-width: max-content;

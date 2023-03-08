@@ -82,7 +82,7 @@ const ProfileNavigation = ({ activeItem }) => {
         <BreakLine />
 
         <NavItems lang={lang}>
-          <AvatarContainer onClick={() => imageInputRef.current.click()}>
+          <AvatarContainer>
             <Avatar
               src={
                 avatar.url ||
@@ -91,7 +91,9 @@ const ProfileNavigation = ({ activeItem }) => {
               }
               alt={user.name}
             />
-            <AvatarIcon />
+
+            <AvatarIcon onClick={() => imageInputRef.current.click()} />
+
             <AvatarInput
               ref={imageInputRef}
               type="file"
@@ -273,7 +275,6 @@ const AvatarContainer = styled.div`
   border-radius: 50%;
   width: 90px;
   height: 90px;
-  cursor: pointer;
   margin: 15px 0;
 `;
 
@@ -288,7 +289,21 @@ const AvatarIcon = styled(AiOutlinePlusCircle)`
   position: absolute;
   top: 5px;
   right: 2px;
-  font-size: 20px;
+  font-size: 22px;
+  fill: #fff;
+  background-color: #fe7777;
+  border-radius: 50%;
+  padding: 1px;
+  transition-duration: 176ms;
+  cursor: pointer;
+
+  :hover {
+    transform: scale(1.1);
+  }
+
+  :active {
+    transform: scale(0.95);
+  }
 `;
 
 const AvatarInput = styled.input`

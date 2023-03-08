@@ -10,8 +10,10 @@ import PopupMessage from "v2/hoc/PopupMessage";
 import rentOrdersApi from "v2/api/car/rentOrders";
 import Loader from "v2/components/loader";
 import { routes } from "v2/client";
+import useLocale from "v2/hooks/useLocale";
 
-const CompleteOrder = () => {
+const PayOrder = () => {
+  const { i18n } = useLocale();
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showPopup, setShowPopup] = useState(false);
@@ -62,13 +64,9 @@ const CompleteOrder = () => {
     } catch (err) {}
   };
 
-  const handleComplete = () => {
-    setShowPopup(true);
-  };
+  const handleComplete = () => setShowPopup(true);
 
-  const handleBackToHome = () => {
-    navigate(routes.home.navigate());
-  };
+  const handleBackToHome = () => navigate(routes.home.navigate());
 
   if (!context.order && context.loading) {
     return <Loader />;
@@ -83,13 +81,13 @@ const CompleteOrder = () => {
       {showPopup && (
         <PopupMessage
           imageURL="/assets/images/arrow-right.svg"
-          title="Send order"
-          subtitle="operation accomplished successfully"
+          title={i18n("orderPaidTitle")}
+          subtitle={i18n("orderPaidSubtitle")}
           onHide={() => setShowPopup(false)}
         >
           <CustomButton
             type="primary"
-            title="Back to home"
+            title={i18n("BackToHome")}
             onClick={handleBackToHome}
           />
         </PopupMessage>
@@ -97,15 +95,23 @@ const CompleteOrder = () => {
 
       <AddCar
         levels={levels}
-        pageTitles={["home", ">", "orders", ">", "complete order"]}
+        pageTitles={[
+          i18n("home"),
+          i18n("arrow"),
+          i18n("orders"),
+          i18n("arrow"),
+          i18n("completeOrder"),
+        ]}
       >
         <Container>
           <ShippingAddress>
-            <ShippingTitle>shipping address</ShippingTitle>
+            <RecipientAddress>{i18n("recipientAddress")}</RecipientAddress>
 
             <ShippingItems>
               <ShippingItem>{context.order.fullName}</ShippingItem>
+
               <ShippingItem>{context.order.phoneNumber.full}</ShippingItem>
+
               <ShippingItem>
                 {context.order.receptionLocation.title}
               </ShippingItem>
@@ -169,7 +175,7 @@ const ShippingAddress = styled.div`
   margin-bottom: 10px;
 `;
 
-const ShippingTitle = styled.h4`
+const RecipientAddress = styled.h4`
   text-transform: capitalize;
 `;
 
@@ -186,4 +192,4 @@ const ShippingItem = styled.li`
   color: #747474;
 `;
 
-export default CompleteOrder;
+export default PayOrder;

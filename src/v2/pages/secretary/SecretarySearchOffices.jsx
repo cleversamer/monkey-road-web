@@ -142,6 +142,7 @@ const SecretarySearchOffices = () => {
         bodyEN,
         bodyAR
       );
+
       socket.emit("send notification to user", office.data._id, res.data);
     } catch (err) {}
   };

@@ -71,9 +71,7 @@ const MyFavorites = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Container>

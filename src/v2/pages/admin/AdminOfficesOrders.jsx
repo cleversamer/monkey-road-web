@@ -74,17 +74,13 @@ const AdminOfficesOrders = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleViewOfficeDetails = (office) => {
+  const handleViewOfficeDetails = (office) =>
     setPopupOffice({ office, visible: true });
-  };
 
-  const handleViewOfficeInSearch = (office) => {
+  const handleViewOfficeInSearch = (office) =>
     navigate(routes.adminSearchOffices.navigate(office.email));
-  };
 
   return (
     <>

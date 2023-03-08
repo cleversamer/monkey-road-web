@@ -1,22 +1,11 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 import { GiSandsOfTime } from "react-icons/gi";
-import parseDate from "v2/utils/parseDate";
+import useDateTimer from "v2/hooks/useDateTimer";
 
 const Transaction = ({ transaction }) => {
   const { i18n, lang } = useLocale();
-  const [time, setTime] = useState(parseDate(transaction.date, lang));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(parseDate(transaction.date, lang));
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [lang]);
+  const { value: time } = useDateTimer(transaction?.date);
 
   return (
     <Container lang={lang}>

@@ -21,7 +21,7 @@ import Brands from "v2/pages/brand/Brands";
 import AddRentCar from "v2/pages/car/rent/AddRentCar";
 import MyFavorites from "v2/pages/user/MyFavorites";
 import MyOrders from "v2/pages/order/MyOrders";
-import CompleteOrder from "v2/pages/order/CompleteOrder";
+import PayOrder from "v2/pages/order/PayOrder";
 import PersonalInfo from "v2/pages/user/PersonalInfo";
 import SalesPosts from "v2/pages/user/SalesPosts";
 import RentalPosts from "v2/pages/user/RentalPosts";
@@ -99,6 +99,8 @@ const App = () => {
     return () => {
       clearTimeout(timeoutId);
     };
+
+    // eslint-disable-next-line
   }, []);
 
   if (loading) {
@@ -300,10 +302,7 @@ const App = () => {
           user.verified.email && (
             <>
               <Route path={routes.salesPosts.route} element={<SalesPosts />} />
-              <Route
-                path={routes.completeOrder.route}
-                element={<CompleteOrder />}
-              />
+              <Route path={routes.completeOrder.route} element={<PayOrder />} />
               <Route path={routes.myOrders.route} element={<MyOrders />} />
               <Route
                 path={routes.myFavorites.route}

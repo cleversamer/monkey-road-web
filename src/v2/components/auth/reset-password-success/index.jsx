@@ -9,7 +9,6 @@ const ResetPasswordSuccess = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     navigate(routes.home.route);
   };
 

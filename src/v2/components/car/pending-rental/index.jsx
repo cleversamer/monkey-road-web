@@ -11,9 +11,8 @@ const PendingRentCar = ({ data, onAccept }) => {
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
 
-  const handleViewDetails = () => {
+  const handleViewDetails = () =>
     navigate(routes.rentCarDetails.navigate(data._id));
-  };
 
   return (
     <ReusableCar

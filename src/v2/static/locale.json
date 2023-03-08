@@ -1218,5 +1218,21 @@
     "noPurchaseCars": {
         "en": "No cars for sale have been added",
         "ar": "لا يوجد سيّارات مضافة للبيع"
+    },
+    "active": {
+        "en": "Active",
+        "ar": "نشطة"
+    },
+    "archived": {
+        "en": "Archived",
+        "ar": "مؤرشفة"
+    },
+    "orderPaidTitle": {
+        "en": "Order payment",
+        "ar": "دفع الطلب"
+    },
+    "orderPaidSubtitle": {
+        "en": "Order paid successfully",
+        "ar": "تم دفع الطلب بنجاح"
     }
 }

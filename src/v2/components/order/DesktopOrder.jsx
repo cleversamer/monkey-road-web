@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
-import parseDate from "v2/utils/parseDate";
 import useLocale from "v2/hooks/useLocale";
+import useDateTimer from "v2/hooks/useDateTimer";
 
 const DesktopOrder = ({
   order,
@@ -11,17 +10,7 @@ const DesktopOrder = ({
   onViewDetails,
 }) => {
   const { lang, i18n } = useLocale();
-  const [time, setTime] = useState(parseDate(order.date, lang));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(parseDate(order.date, lang));
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [lang]);
+  const { value: time } = useDateTimer(order.date);
 
   return (
     <Container>

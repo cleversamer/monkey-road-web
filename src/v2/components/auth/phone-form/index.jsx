@@ -27,6 +27,7 @@ const PhoneForm = () => {
     if (joinBy !== "google") {
       navigate(routes.fastRegister.navigate("google"));
     }
+
     // eslint-disable-next-line
   }, [joinBy]);
 

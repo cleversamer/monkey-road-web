@@ -14,10 +14,6 @@ const PurchaseCar = ({ data }) => {
   const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleMakeCall = () => {};
-
-  const handleWhatsAppCall = () => {};
-
   const navigateToDetails = () =>
     navigate(routes.purchaseCarDetails.navigate(data._id));
 
@@ -53,7 +49,6 @@ const PurchaseCar = ({ data }) => {
       <CTAContainer>
         <CustomButton
           type="primary"
-          onClick={handleMakeCall}
           title={
             <a href={`tel:${data.phoneNumber}`}>
               <CallContainer lang={lang}>
@@ -73,7 +68,6 @@ const PurchaseCar = ({ data }) => {
               </CallContainer>
             </a>
           }
-          onClick={handleWhatsAppCall}
         />
       </CTAContainer>
 

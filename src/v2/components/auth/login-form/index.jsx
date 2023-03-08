@@ -143,6 +143,7 @@ const LoginForm = () => {
 
         <RegisterContainer lang={lang}>
           <RegisterPhrase>{i18n("dontHaveAcc")}</RegisterPhrase>
+
           <RegisterRoute to={routes.register.navigate()}>
             {i18n("register")}
           </RegisterRoute>

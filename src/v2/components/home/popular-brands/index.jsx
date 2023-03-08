@@ -8,7 +8,7 @@ import useLocale from "v2/hooks/useLocale";
 import EmptyList from "v2/components/common/empty-list";
 
 const PopularBrands = () => {
-  const { i18n, lang } = useLocale();
+  const { i18n } = useLocale();
   const [context, setContext] = useState({
     brands: [],
     loading: true,
@@ -16,9 +16,9 @@ const PopularBrands = () => {
 
   useEffect(() => {
     brandsApi.common
-      .getPopularBrands(1, 7)
+      .getPopularBrands(1, 8)
       .then((res) => setContext({ brands: res.data.brands, loading: false }))
-      .catch((err) => setContext({ brands: [], loading: false }));
+      .catch(() => setContext({ brands: [], loading: false }));
   }, []);
 
   return (
@@ -32,7 +32,7 @@ const PopularBrands = () => {
           context.brands.map((brand) => (
             <Brand
               key={brand._id}
-              title={brand.name[lang]}
+              title={brand.name}
               imageURL={brand.photoURL}
             />
           ))

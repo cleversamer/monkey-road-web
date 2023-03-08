@@ -60,6 +60,7 @@ const PostRentCarForm = ({
           : typeof context[key] === "number"
           ? parseInt(value)
           : value;
+
       setContext({ ...context, [key]: newValue, error: "" });
     } catch (err) {}
   };

@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import parseDate from "v2/utils/parseDate";
 import useLocale from "v2/hooks/useLocale";
 import { routes } from "v2/client";
 import screens from "v2/static/screens.json";
 import useAuth from "v2/auth/useAuth";
+import useDateTimer from "v2/hooks/useDateTimer";
 
 const Alert = ({ alert }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { i18n, lang } = useLocale();
-  const [time, setTime] = useState(parseDate(alert.date, lang));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(parseDate(alert.date, lang));
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [lang, alert.date]);
+  const { value: time } = useDateTimer(alert?.date, [alert.date]);
 
   const handleClick = () => {
     try {

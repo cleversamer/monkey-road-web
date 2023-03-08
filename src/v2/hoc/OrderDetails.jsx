@@ -1,20 +1,11 @@
 import styled from "styled-components";
 import PopupContainer from "./PopupContainer";
 import { IoClose } from "react-icons/io5";
-import { useEffect } from "react";
 import useLocale from "v2/hooks/useLocale";
 import GoogleMap from "v2/components/google-map";
 
 const OrderDetails = ({ order, onHide, children }) => {
   const { i18n } = useLocale();
-
-  useEffect(() => {
-    window.onkeydown = function (event) {
-      if (event.keyCode == 27) {
-        onHide();
-      }
-    };
-  }, []);
 
   return (
     <PopupContainer onHide={onHide}>

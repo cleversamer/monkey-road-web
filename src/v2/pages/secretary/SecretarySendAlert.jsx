@@ -21,6 +21,7 @@ const SecretarySendAlert = () => {
         bodyEN,
         bodyAR
       );
+
       socket.emit("send notification", res.data);
     } catch (err) {}
   };

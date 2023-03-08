@@ -49,9 +49,8 @@ const RentalPosts = () => {
       );
   }, []);
 
-  const handleViewDetails = (carId) => {
+  const handleViewDetails = (carId) =>
     navigate(routes.rentCarDetails.navigate(carId));
-  };
 
   const handleFilterItems = (title) => {
     const viewList =
@@ -76,9 +75,7 @@ const RentalPosts = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Container>

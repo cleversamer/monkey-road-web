@@ -69,21 +69,17 @@ const AdminHome = () => {
 
   const handleAddBrand = () => navigate(routes.adminAddBrand.navigate());
 
-  const handleSeeMorePendingRentalPosts = () => {
+  const handleSeeMorePendingRentalPosts = () =>
     navigate(routes.adminPendingRentalPosts.navigate());
-  };
 
-  const handleSeeMoreRentCars = () => {
+  const handleSeeMoreRentCars = () =>
     navigate(routes.adminAllRentCars.navigate());
-  };
 
-  const handleSeeMorePurcahseCars = () => {
+  const handleSeeMorePurcahseCars = () =>
     navigate(routes.adminAllPurchaseCars.navigate());
-  };
 
-  const handleSeeMoreOfficeOrders = () => {
+  const handleSeeMoreOfficeOrders = () =>
     navigate(routes.adminAllOfficesOrders.navigate());
-  };
 
   const handleAcceptCar = async (rentCarId) => {
     try {
@@ -91,6 +87,7 @@ const AdminHome = () => {
       const newPendingRentalPosts = pendingRentalPosts.list.filter(
         (rentCar) => rentCar._id !== rentCarId
       );
+
       setPendingRentalPosts({
         ...pendingRentalPosts,
         list: newPendingRentalPosts,
@@ -98,13 +95,11 @@ const AdminHome = () => {
     } catch (err) {}
   };
 
-  const handleViewOfficeDetails = (office) => {
+  const handleViewOfficeDetails = (office) =>
     setPopupOffice({ office, visible: true });
-  };
 
-  const handleViewOfficeInSearch = (office) => {
+  const handleViewOfficeInSearch = (office) =>
     navigate(routes.adminSearchOffices.navigate(office.email));
-  };
 
   return (
     <>

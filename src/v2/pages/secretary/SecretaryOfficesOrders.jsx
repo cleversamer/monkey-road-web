@@ -44,7 +44,7 @@ const SecretaryOfficesOrders = () => {
           totalPages,
         });
       })
-      .catch((err) => {
+      .catch(() => {
         setOrders({
           ...orders,
           all: [],
@@ -74,17 +74,13 @@ const SecretaryOfficesOrders = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleViewOfficeDetails = (office) => {
+  const handleViewOfficeDetails = (office) =>
     setPopupOffice({ office, visible: true });
-  };
 
-  const handleViewOfficeInSearch = (office) => {
+  const handleViewOfficeInSearch = (office) =>
     navigate(routes.secretarySearchOffices.navigate(office.email));
-  };
 
   return (
     <>

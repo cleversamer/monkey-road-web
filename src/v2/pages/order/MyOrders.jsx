@@ -66,17 +66,14 @@ const MyOrders = () => {
     setOrders({ ...orders, selectedStatus: title, view: viewList });
   };
 
-  const handleViewOrderDetails = (order) => {
+  const handleViewOrderDetails = (order) =>
     setOrders({ ...orders, selectedOrder: order });
-  };
 
-  const handleHideOrderDetails = () => {
+  const handleHideOrderDetails = () =>
     setOrders({ ...orders, selectedOrder: null });
-  };
 
-  const handleCompleteOrder = (orderId) => {
+  const handleCompleteOrder = (orderId) =>
     navigate(routes.completeOrder.navigate(orderId));
-  };
 
   const handleCancelOrder = (orderId) => {
     if (popupConfirm.visible) return;
@@ -184,9 +181,7 @@ const MyOrders = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleSelectPage = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Container>
@@ -277,12 +272,6 @@ const OrdersContainer = styled.div`
 const PaginationContainer = styled.div`
   width: fit-content;
   margin: 0 auto;
-`;
-
-const LatestCarsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
 `;
 
 export default MyOrders;

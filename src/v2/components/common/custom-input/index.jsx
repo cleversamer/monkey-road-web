@@ -13,8 +13,6 @@ import SelectInput from "./SelectInput";
 import DescriptionInput from "./DescriptionInput";
 import ImageInput from "./ImageInput";
 import CardExpiryYear from "./CardExpiryYear";
-import DateInput from "./DateInput";
-import TimeInput from "./TimeInput";
 import useLocale from "v2/hooks/useLocale";
 import PriceInput from "./PriceInput";
 import CardExpiryMonth from "./CardExpiryMonth";
@@ -145,10 +143,6 @@ const CustomInput = ({
           onMonthChange={onMonthChange}
           {...props}
         />
-      ) : type === "date" ? (
-        <DateInput onChange={onChange} />
-      ) : type === "time" ? (
-        <TimeInput onChange={onChange} />
       ) : type === "datetime" ? (
         <DateTimeInput onChange={onChange} value={value} />
       ) : type === "price" ? (

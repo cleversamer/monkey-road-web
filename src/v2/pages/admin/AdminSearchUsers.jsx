@@ -158,6 +158,7 @@ const AdminSearchUsers = () => {
         bodyEN,
         bodyAR
       );
+
       socket.emit("send notification to user", user.data._id, res.data);
     } catch (err) {}
   };

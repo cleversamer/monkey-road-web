@@ -36,7 +36,9 @@ const PhoneForm = () => {
     if (user.verified.phone) {
       navigate(routes.verify.navigate("email"));
     }
-  }, []);
+
+    // eslint-disable-next-line
+  }, [subject]);
 
   const handleCodeChange = (e) => {
     const { value } = e.target;

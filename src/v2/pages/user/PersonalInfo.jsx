@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
@@ -11,12 +11,13 @@ import useAuth from "v2/auth/useAuth";
 import parseDate from "v2/utils/parseDate";
 import usersApi from "v2/api/user/users";
 import useLocale from "v2/hooks/useLocale";
+import useDateTimer from "v2/hooks/useDateTimer";
 
 const PersonalInfo = () => {
   const { i18n, lang } = useLocale();
-  const { user, login, setUser } = useAuth();
+  const { user, login } = useAuth();
   const navigate = useNavigate();
-  const [lastLogin, setLastLogin] = useState(parseDate(user.lastLogin, lang));
+  const { value: lastLogin } = useDateTimer(user.lastLogin);
   const [context, setContext] = useState({
     lang: lang,
     name: user.name,
@@ -27,16 +28,6 @@ const PersonalInfo = () => {
     error: "",
     submitting: false,
   });
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setLastLogin(parseDate(user.lastLogin, lang));
-    }, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [lang]);
 
   const handleKeyChange = (key) => (e) => {
     let newChanges = [...context.changes];
@@ -74,13 +65,9 @@ const PersonalInfo = () => {
     }
   };
 
-  const handleVerifyEmail = () => {
-    navigate(routes.verify.navigate("email"));
-  };
+  const handleVerifyEmail = () => navigate(routes.verify.navigate("email"));
 
-  const handleVerifyPhone = () => {
-    navigate(routes.verify.navigate("phone"));
-  };
+  const handleVerifyPhone = () => navigate(routes.verify.navigate("phone"));
 
   return (
     <Container>
@@ -108,6 +95,7 @@ const PersonalInfo = () => {
               {i18n("lastLogin")}
               {lang === "en" && ":"}
             </LastLoginItem>
+
             <LastLoginItem>
               {lang === "ar" && i18n("ago")} {lastLogin}{" "}
               {lang === "en" && i18n("ago")}

@@ -69,21 +69,17 @@ const SecretaryHome = () => {
 
   const handleAddBrand = () => navigate(routes.secretaryAddBrand.navigate());
 
-  const handleSeeMorePendingRentalPosts = () => {
+  const handleSeeMorePendingRentalPosts = () =>
     navigate(routes.secretaryPendingRentalPosts.navigate());
-  };
 
-  const handleSeeMoreRentCars = () => {
+  const handleSeeMoreRentCars = () =>
     navigate(routes.secretaryAllRentCars.navigate());
-  };
 
-  const handleSeeMorePurcahseCars = () => {
+  const handleSeeMorePurcahseCars = () =>
     navigate(routes.secretaryAllPurchaseCars.navigate());
-  };
 
-  const handleSeeMoreOfficeOrders = () => {
+  const handleSeeMoreOfficeOrders = () =>
     navigate(routes.secretaryAllOfficesOrders.navigate());
-  };
 
   const handleAcceptCar = async (rentCarId) => {
     try {
@@ -91,6 +87,7 @@ const SecretaryHome = () => {
       const newPendingRentalPosts = pendingRentalPosts.list.filter(
         (rentCar) => rentCar._id !== rentCarId
       );
+
       setPendingRentalPosts({
         ...pendingRentalPosts,
         list: newPendingRentalPosts,
@@ -98,13 +95,11 @@ const SecretaryHome = () => {
     } catch (err) {}
   };
 
-  const handleViewOfficeDetails = (office) => {
+  const handleViewOfficeDetails = (office) =>
     setPopupOffice({ office, visible: true });
-  };
 
-  const handleViewOfficeInSearch = (office) => {
+  const handleViewOfficeInSearch = (office) =>
     navigate(routes.secretarySearchOffices.navigate(office.email));
-  };
 
   return (
     <>

@@ -54,13 +54,9 @@ const AddRentCar = () => {
     return index + 1;
   };
 
-  const handleViewPopup = () => {
-    setShowPopup(true);
-  };
+  const handleViewPopup = () => setShowPopup(true);
 
-  const handleBackToHome = () => {
-    navigate(routes.home.navigate());
-  };
+  const handleBackToHome = () => navigate(routes.home.navigate());
 
   return (
     <>

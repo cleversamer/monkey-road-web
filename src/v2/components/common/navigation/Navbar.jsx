@@ -36,6 +36,7 @@ const Navbar = ({ onOpenMenu }) => {
         }
       });
     }
+
     // eslint-disable-next-line
   }, [user]);
 

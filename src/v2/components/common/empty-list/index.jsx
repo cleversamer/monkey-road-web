@@ -5,7 +5,9 @@ const EmptyList = ({ title, imageURL, buttonTitle, onClick }) => {
   return (
     <Container>
       <Image src={imageURL} alt="Not found image" />
+
       <Title>{title}</Title>
+
       {!!buttonTitle && (
         <CustomButton type="primary" title={buttonTitle} onClick={onClick} />
       )}

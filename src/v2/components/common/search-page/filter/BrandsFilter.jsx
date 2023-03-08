@@ -63,7 +63,7 @@ const BrandsFilter = ({ selectedBrands, onChange }) => {
         ))
       )}
 
-      {!brands.end && <ViewMore onClick={handleViewMore} />}
+      {(!brands.end || !brands.list) && <ViewMore onClick={handleViewMore} />}
     </Container>
   );
 };

@@ -50,7 +50,7 @@ const PurchaseCars = () => {
         const { purchaseCars } = res.data;
         setLatestModelsCars({ list: purchaseCars, loading: false });
       })
-      .catch((err) => setLatestModelsCars({ list: [], loading: false }));
+      .catch(() => setLatestModelsCars({ list: [], loading: false }));
 
     // fetch bestSellerCars
     purchaseApi.common
@@ -59,7 +59,7 @@ const PurchaseCars = () => {
         const { purchaseCars } = res.data;
         setBestSellerCars({ list: purchaseCars, loading: false });
       })
-      .catch((err) => setBestSellerCars({ list: [], loading: false }));
+      .catch(() => setBestSellerCars({ list: [], loading: false }));
   }, []);
 
   return (

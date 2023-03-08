@@ -55,13 +55,9 @@ const AddPurchaseCar = () => {
     return index + 1;
   };
 
-  const handleBackToHome = () => {
-    navigate(routes.home.navigate());
-  };
+  const handleBackToHome = () => navigate(routes.home.navigate());
 
-  const handleViewPopup = () => {
-    setShowPopup(true);
-  };
+  const handleViewPopup = () => setShowPopup(true);
 
   return (
     <>
