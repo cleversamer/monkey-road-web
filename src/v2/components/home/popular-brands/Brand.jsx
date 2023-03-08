@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import useLocale from "v2/hooks/useLocale";
 
 const Brand = ({ title = "", imageURL = "" }) => {
+  const { lang } = useLocale();
+
   return (
     <Container>
       <Image url={imageURL} />
-      <Title>{title}</Title>
+      <Title>{title[lang]}</Title>
     </Container>
   );
 };
@@ -17,6 +20,7 @@ const Container = styled.span`
   max-width: 150px;
   height: 120px;
   height: 100%;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;

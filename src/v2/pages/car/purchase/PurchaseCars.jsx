@@ -97,7 +97,7 @@ const PurchaseCars = () => {
             popularBrands.list.map((brand) => (
               <Brand
                 key={brand._id}
-                title={brand.name.en}
+                title={brand.name}
                 imageURL={brand.photoURL}
               />
             ))
