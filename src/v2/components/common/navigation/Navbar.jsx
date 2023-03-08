@@ -375,7 +375,7 @@ const Navbar = ({ onOpenMenu }) => {
         </NavbarContainer>
       </Nav>
 
-      <MobileNavButtons user={user}>
+      <MobileNavButtons user={user} lang={lang}>
         {user && user.role === "office" && (
           <ButtonRouteContainer
             to={routes.addRentCar.navigate()}
@@ -665,6 +665,7 @@ const MobileNavButtons = styled.ul`
   right: 0;
   padding: 10px 20px;
   padding-top: 15px;
+  padding-left: ${({ lang }) => (lang === "en" ? "80px" : "50px")};
   width: 100vw;
   z-index: 999999;
   background: #fff;
