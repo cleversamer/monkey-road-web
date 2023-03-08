@@ -48,6 +48,8 @@ const SecretaryBrands = () => {
       <SecretarySidebar activeItem="brands" />
 
       <Content>
+        <PageTitle>{i18n("brands")}</PageTitle>
+
         <RentCarsContainer>
           {brands.loading ? (
             <Loader />
@@ -98,6 +100,13 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+`;
+
+const PageTitle = styled.h1`
+  text-transform: capitalize;
+  font-size: 26px;
+  font-weight: 600;
+  color: #fe7777;
 `;
 
 const RentCarsContainer = styled.ul`
