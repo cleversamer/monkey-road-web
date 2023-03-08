@@ -14,7 +14,7 @@ const AdminUserSearchForm = ({
   onEditProfile,
 }) => {
   const { i18n, lang } = useLocale();
-  const { value: lastLogin } = useDateTimer(user?.favLang, [user]);
+  const { value: lastLogin } = useDateTimer(user?.lastLogin, [user]);
 
   return (
     <FormContainer>

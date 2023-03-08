@@ -36,7 +36,7 @@ const PurchaseCars = () => {
 
     // fetch popularBrands
     brandsApi.common
-      .getPopularBrands(1, 7)
+      .getPopularBrands(1, 8)
       .then((res) => {
         const { brands } = res.data;
         setPopularBrands({ list: brands, loading: false });

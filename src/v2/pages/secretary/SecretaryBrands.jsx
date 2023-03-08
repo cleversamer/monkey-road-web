@@ -60,7 +60,7 @@ const SecretaryBrands = () => {
             brands.list.map((brand) => (
               <Brand
                 key={brand._id}
-                title={brand.name[lang]}
+                title={brand.name}
                 imageURL={brand.photoURL}
               />
             ))

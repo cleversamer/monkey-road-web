@@ -13,7 +13,7 @@ const AdminOfficeSearchForm = ({
   onEditProfile,
 }) => {
   const { i18n, lang } = useLocale();
-  const { value: lastLogin } = useDateTimer(user?.favLang, [user]);
+  const { value: lastLogin } = useDateTimer(user?.lastLogin, [user]);
 
   return (
     <FormContainer>
@@ -121,7 +121,7 @@ const AdminOfficeSearchForm = ({
               onClick={onEditProfile}
             />
 
-            {(!user?.verified?.email || !user?.verified?.phone) && (
+            {(!user?.verified?.email || !user?.verified?.phone) && user && (
               <CustomButton
                 type="primary"
                 title={i18n("verifyOffice")}

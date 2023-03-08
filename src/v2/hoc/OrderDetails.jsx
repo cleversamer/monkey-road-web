@@ -5,7 +5,7 @@ import useLocale from "v2/hooks/useLocale";
 import GoogleMap from "v2/components/google-map";
 
 const OrderDetails = ({ order, onHide, children }) => {
-  const { i18n } = useLocale();
+  const { i18n, lang } = useLocale();
 
   return (
     <PopupContainer onHide={onHide}>
@@ -16,7 +16,7 @@ const OrderDetails = ({ order, onHide, children }) => {
         </TopRow>
 
         <ReceptionLocation>
-          <Title>{i18n("location")}</Title>
+          <Title lang={lang}>{i18n("location")}</Title>
 
           <GoogleMap
             longitude={parseFloat(order.receptionLocation.longitude)}
@@ -24,18 +24,18 @@ const OrderDetails = ({ order, onHide, children }) => {
             onCoordinatesChange={() => {}}
           />
 
-          <Title>{i18n("recipientAddress")}</Title>
+          <Title lang={lang}>{i18n("recipientAddress")}</Title>
 
-          <ReceptionLocationName>
+          <ReceptionLocationName lang={lang}>
             {order.receptionLocation.title}
           </ReceptionLocationName>
         </ReceptionLocation>
 
         {!!order.reasonFor.rejection && (
           <ReceptionLocation>
-            <Title>{i18n("rejectionReason")}</Title>
+            <Title lang={lang}>{i18n("rejectionReason")}</Title>
 
-            <ReceptionLocationName>
+            <ReceptionLocationName lang={lang}>
               {order.reasonFor.rejection}
             </ReceptionLocationName>
           </ReceptionLocation>
@@ -84,6 +84,7 @@ const TopRow = styled.div`
 const Title = styled.h5`
   text-transform: capitalize;
   font-size: 16px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const ReceptionLocation = styled.div`
@@ -100,6 +101,7 @@ const ReceptionLocation = styled.div`
 
 const ReceptionLocationName = styled.p`
   font-size: 13px;
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
 `;
 
 const CTAContainer = styled.div`
