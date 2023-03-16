@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import PaymentMethods from "v2/components/common/payment-form/PaymentMethods";
-import StripeForm from "v2/components/common/payment-form/StripeForm";
-import PaypalForm from "v2/components/common/payment-form/PaypalForm";
 import useLocale from "v2/hooks/useLocale";
 import Invoice from "v2/components/common/payment-form/Invoice";
 
@@ -30,12 +28,6 @@ const Form4 = ({ context, onKeyChange }) => {
 
           <Invoice items={invoiceItems} {...paymentData} />
         </InputsRow>
-
-        {context.paymentMethod === "debit" ? (
-          <StripeForm onKeyChange={onKeyChange} context={context} />
-        ) : (
-          <PaypalForm />
-        )}
       </InputsContainer>
     </>
   );

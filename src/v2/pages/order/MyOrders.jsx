@@ -73,7 +73,7 @@ const MyOrders = () => {
     setOrders({ ...orders, selectedOrder: null });
 
   const handleCompleteOrder = (orderId) =>
-    navigate(routes.completeOrder.navigate(orderId));
+    navigate(routes.payOrder.navigate(orderId));
 
   const handleCancelOrder = (orderId) => {
     if (popupConfirm.visible) return;

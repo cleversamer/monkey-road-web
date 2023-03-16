@@ -90,9 +90,9 @@ export const routes = {
     route: "/orders/my",
     navigate: () => "/orders/my",
   },
-  completeOrder: {
-    route: "/orders/:orderId/complete",
-    navigate: (orderId = "1") => `/orders/${orderId}/complete`,
+  payOrder: {
+    route: "/orders/:orderId/pay",
+    navigate: (orderId = "1") => `/orders/${orderId}/pay`,
   },
   personalInfo: {
     route: "/profile/info",

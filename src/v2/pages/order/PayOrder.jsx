@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import AddCar from "v2/components/common/add-car";
 import PaymentMethods from "v2/components/common/payment-form/PaymentMethods";
-import StripeForm from "v2/components/common/payment-form/StripeForm";
-import PaypalForm from "v2/components/common/payment-form/PaypalForm";
 import CustomButton from "v2/components/common/custom-button";
 import PopupMessage from "v2/hoc/PopupMessage";
 import rentOrdersApi from "v2/api/car/rentOrders";
@@ -122,16 +120,6 @@ const PayOrder = () => {
             paymentMethod={context.paymentMethod}
             onChange={handleKeyChange("paymentMethod")}
           />
-
-          {context.paymentMethod === "debit" ? (
-            <StripeForm
-              items={invoiceItems}
-              onKeyChange={handleKeyChange}
-              context={context}
-            />
-          ) : (
-            <PaypalForm items={invoiceItems} />
-          )}
 
           <CustomButton
             type="primary"

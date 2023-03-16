@@ -302,7 +302,7 @@ const App = () => {
           user.verified.email && (
             <>
               <Route path={routes.salesPosts.route} element={<SalesPosts />} />
-              <Route path={routes.completeOrder.route} element={<PayOrder />} />
+              <Route path={routes.payOrder.route} element={<PayOrder />} />
               <Route path={routes.myOrders.route} element={<MyOrders />} />
               <Route
                 path={routes.myFavorites.route}
