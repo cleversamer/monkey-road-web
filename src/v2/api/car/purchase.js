@@ -68,6 +68,15 @@ const postPurchaseCar = async (profileData) => {
   return await client.post("/cars/purchase/add", formData, config);
 };
 
+const payPurchaseCarPost = async (purchaseCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.post(
+    `/cars/purchase/${purchaseCarId}/pay-cost`,
+    {},
+    config
+  );
+};
+
 const getMyPurchaseCars = async (page = 1, limit = 9) => {
   const cacheMins = 0;
   const config = { headers: { Authorization: authStorage.getToken() } };
@@ -95,6 +104,7 @@ export default {
     searchPurchaseCars,
     getPurchaseCarDetails,
     postPurchaseCar,
+    payPurchaseCarPost,
     getMyPurchaseCars,
     markPurchaseCarAsSold,
   },

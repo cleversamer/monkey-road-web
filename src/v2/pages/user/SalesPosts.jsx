@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Location from "v2/components/common/search-page/Location";
 import ProfileNavigation from "v2/components/user/ProfileNavigation";
-import { routes } from "v2/client";
 import purchaseApi from "v2/api/car/purchase";
 import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
@@ -52,6 +50,8 @@ const SalesPosts = () => {
     const viewList =
       title === "all"
         ? [...salesPosts.list]
+        : title === "unpaid"
+        ? salesPosts.list.filter((i) => !i.paid)
         : title === "sold"
         ? salesPosts.list.filter((i) => i.sold)
         : salesPosts.list.filter((i) => !i.sold);

@@ -5,8 +5,11 @@ const FiltersSection = ({ salesPosts, onSelectItem }) => {
   const { i18n } = useLocale();
 
   const salesPostsCount = salesPosts.list.length;
-  const soldCarsCount = salesPosts.list.filter((p) => p.sold).length;
-  const notSoldCarsCount = salesPostsCount - soldCarsCount;
+  const soldCarsCount = salesPosts.list.filter((p) => p.sold && p.paid).length;
+  const notSoldCarsCount = salesPosts.list.filter(
+    (p) => !p.sold && p.paid
+  ).length;
+  const unpaidCarsCount = salesPosts.list.filter((p) => !p.paid).length;
 
   function checkItemSelected(status) {
     return salesPosts.selectedStatus === status;
@@ -34,6 +37,13 @@ const FiltersSection = ({ salesPosts, onSelectItem }) => {
           onClick={() => onSelectItem("not sold")}
         >
           {i18n("notSold")} ({notSoldCarsCount})
+        </Item>
+
+        <Item
+          active={checkItemSelected("unpaid")}
+          onClick={() => onSelectItem("unpaid")}
+        >
+          {i18n("unpaid")} ({unpaidCarsCount})
         </Item>
       </StatusFilters>
     </Container>

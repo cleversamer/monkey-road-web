@@ -14,8 +14,11 @@ const PaymentMethods = ({ onChange, paymentMethod }) => {
       <MethodsList>
         <MethodItem lang={lang} onClick={() => debitRef.current.click()}>
           <ImageContainer lang={lang}>
-            <MethodImage src="/assets/icons/payment/visa.svg" alt="visa card" />
-            <MethodTitle>{i18n("debitOrCredit")}</MethodTitle>
+            <MethodImage
+              src="/assets/icons/payment/fatora.svg"
+              alt="fatora payment gateway"
+            />
+            <MethodTitle>{i18n("fatora")}</MethodTitle>
           </ImageContainer>
 
           <MethodInput
@@ -30,10 +33,7 @@ const PaymentMethods = ({ onChange, paymentMethod }) => {
 
         <MethodItem lang={lang} onClick={() => paypalRef.current.click()}>
           <ImageContainer lang={lang}>
-            <MethodImage
-              src="/assets/icons/payment/paypal.svg"
-              alt="paypal logo"
-            />
+            <MethodImage src="/assets/icons/payment/paypal.svg" alt="paypal" />
             <MethodTitle>{i18n("paypal")}</MethodTitle>
           </ImageContainer>
 

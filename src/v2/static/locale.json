@@ -611,6 +611,10 @@
         "en": "Complete",
         "ar": "إكمال العمليّة"
     },
+    "confirmPayment": {
+        "en": "Confirm payment",
+        "ar": "تأكيد الدفع"
+    },
     "day": {
         "en": "Day",
         "ar": "يوم"
@@ -731,9 +735,9 @@
         "en": "Payment methods",
         "ar": "طرق الدفع"
     },
-    "debitOrCredit": {
-        "en": "Debit/credit card",
-        "ar": "بطاقة الخصم أو الإئتمان"
+    "fatora": {
+        "en": "Fatora",
+        "ar": "فاتورة"
     },
     "paypal": {
         "en": "Paypal",
@@ -1234,5 +1238,9 @@
     "orderPaidSubtitle": {
         "en": "Order paid successfully",
         "ar": "تم دفع الطلب بنجاح"
+    },
+    "unpaid": {
+        "en": "Unpaid",
+        "ar": "غير مدفوع"
     }
 }

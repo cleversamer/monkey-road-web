@@ -57,6 +57,8 @@ const PostPurchaseCarForm = ({
     year: "",
     error: "",
     submitting: false,
+    paymentRequested: false,
+    carId: "",
   });
 
   useEffect(() => {
@@ -121,11 +123,38 @@ const PostPurchaseCarForm = ({
   const seatsNumberPaeser = (seatNumber) => seatNumber;
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (context.paymentRequested) {
+      await handleConfirmPayment();
+    } else {
+      await handleAddCar();
+    }
+  };
+
+  const handleConfirmPayment = async () => {
     let error = "";
 
     try {
-      e.preventDefault();
+      if (context.submitting) return;
 
+      setContext({ ...context, submitting: true });
+
+      await purchaseApi.common.payPurchaseCarPost(context.carId);
+
+      onViewPopup();
+    } catch (err) {
+      error = err?.response?.data?.message[lang] || i18n("networkError");
+    } finally {
+      setContext({ ...context, submitting: false, error });
+    }
+  };
+
+  const handleAddCar = async () => {
+    let error = "";
+    let carId = "";
+
+    try {
       if (context.submitting) return;
 
       setContext({ ...context, submitting: true });
@@ -174,12 +203,21 @@ const PostPurchaseCarForm = ({
         body["photo" + i] = images[i - 1].value;
       }
 
-      await purchaseApi.common.postPurchaseCar(body);
-      onViewPopup();
+      const res = await purchaseApi.common.postPurchaseCar(body);
+
+      carId = res.data.carId;
+
+      window.open(res.data.path, "payment", "width=500,height=500");
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
-      setContext({ ...context, submitting: false, error });
+      setContext({
+        ...context,
+        submitting: false,
+        error,
+        paymentRequested: true,
+        carId,
+      });
     }
   };
 
@@ -224,11 +262,19 @@ const PostPurchaseCarForm = ({
             />
           )}
 
-          <CustomButton
-            type="primary"
-            title={activeLevel === noOfLevels ? i18n("complete") : i18n("next")}
-            onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
-          />
+          {
+            <CustomButton
+              type="primary"
+              title={
+                activeLevel === noOfLevels
+                  ? context.paymentRequested
+                    ? i18n("confirmPayment")
+                    : i18n("complete")
+                  : i18n("next")
+              }
+              onClick={activeLevel === noOfLevels ? handleSubmit : onNext}
+            />
+          }
         </ButtonsContainer>
       )}
     </Container>
