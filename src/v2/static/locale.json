@@ -1250,5 +1250,9 @@
     "payOrder": {
         "en": "Pay order",
         "ar": "دفع الطلب"
+    },
+    "renterPhone": {
+        "en": "Renter phone",
+        "ar": "رقم هاتف المستأجر"
     }
 }

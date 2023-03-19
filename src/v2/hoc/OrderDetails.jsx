@@ -31,6 +31,16 @@ const OrderDetails = ({ order, onHide, children }) => {
           </ReceptionLocationName>
         </ReceptionLocation>
 
+        {["paid", "delivered"].includes(order.status) && (
+          <ReceptionLocation>
+            <Title lang={lang}>{i18n("renterPhone")}</Title>
+
+            <ReceptionLocationName lang={lang}>
+              {order.phoneNumber.full}
+            </ReceptionLocationName>
+          </ReceptionLocation>
+        )}
+
         {!!order.reasonFor.rejection && (
           <ReceptionLocation>
             <Title lang={lang}>{i18n("rejectionReason")}</Title>
