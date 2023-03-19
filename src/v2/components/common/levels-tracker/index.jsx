@@ -5,6 +5,10 @@ import useLocale from "v2/hooks/useLocale";
 const LevelsTracker = ({ levels, onSelectLevel, activeLevel }) => {
   const { i18n, lang } = useLocale();
 
+  if (!levels || !Array.isArray(levels)) {
+    return null;
+  }
+
   return (
     <Container lang={lang}>
       {levels.map((level, index) => (

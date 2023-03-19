@@ -1,8 +1,8 @@
 import axios from "axios";
 import cache from "v2/utils/cache";
 
-export const serverURL = "https://monkeyroadcar.app";
-// export const serverURL = "http://localhost:4000";
+// export const serverURL = "https://monkeyroadcar.app";
+export const serverURL = "http://localhost:4000";
 
 const api = axios.create({
   baseURL: serverURL + "/api",

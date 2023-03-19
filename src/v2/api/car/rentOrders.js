@@ -29,6 +29,24 @@ const deleteOrder = async (orderId) => {
   return await client.delete(`/orders/rent/${orderId}/delete`, config);
 };
 
+const requestPayment = async (orderId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.post(
+    `/orders/rent/${orderId}/request-payment`,
+    {},
+    config
+  );
+};
+
+const confirmPayment = async (orderId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.post(
+    `/orders/rent/${orderId}/confirm-payment`,
+    {},
+    config
+  );
+};
+
 //////////////////// OFFICE ////////////////////
 const getMyReceivedOrders = async (page = 1, limit = 10) => {
   const cacheMins = 0;
@@ -86,6 +104,8 @@ export default {
     getOrderDetails,
     cancelOrder,
     deleteOrder,
+    requestPayment,
+    confirmPayment,
   },
   office: {
     getMyReceivedOrders,

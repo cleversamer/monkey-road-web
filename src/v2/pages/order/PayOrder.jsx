@@ -9,28 +9,20 @@ import rentOrdersApi from "v2/api/car/rentOrders";
 import Loader from "v2/components/loader";
 import { routes } from "v2/client";
 import useLocale from "v2/hooks/useLocale";
+import PopupError from "v2/hoc/PopupError";
 
 const PayOrder = () => {
-  const { i18n } = useLocale();
+  const { lang, i18n } = useLocale();
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showPopup, setShowPopup] = useState(false);
-  const [levels, setLevels] = useState([
-    { title: "carInfo", active: true },
-    { title: "enterPrice", active: false },
-    { title: "uploadsImages", active: false },
-    { title: "payment", active: false },
-  ]);
   const [context, setContext] = useState({
     order: null,
     paymentMethod: "debit",
-    nameOnCard: "",
-    cardNumber: "",
-    cvv: "",
-    postalCode: "",
-    month: "",
-    year: "",
+    paymentRequested: false,
+    orderId: "",
     loading: true,
+    error: "",
   });
 
   useEffect(() => {
@@ -41,10 +33,6 @@ const PayOrder = () => {
       )
       .catch(() => setContext({ ...context, loading: false, order: null }));
   }, []);
-
-  const invoiceItems = [
-    { title: "car rental", cost: context?.order?.totalPrice },
-  ];
 
   const handleKeyChange = (key) => (e) => {
     try {
@@ -62,7 +50,51 @@ const PayOrder = () => {
     } catch (err) {}
   };
 
-  const handleComplete = () => setShowPopup(true);
+  const handleRequestPayment = async () => {
+    let error = "";
+
+    try {
+      if (context.loading) return;
+
+      setContext({ ...context, loading: true });
+
+      const res = await rentOrdersApi.common.requestPayment(context.order._id);
+
+      window.open(res.data.path, "payment", "width=500,height=500");
+    } catch (err) {
+      error = err?.response?.data?.message[lang] || i18n("networkError");
+    } finally {
+      setContext({
+        ...context,
+        loading: false,
+        error,
+        paymentRequested: true,
+      });
+    }
+  };
+
+  const handleConfirmPayment = async () => {
+    let error = "";
+
+    try {
+      if (context.loading) return;
+
+      setContext({ ...context, loading: true });
+
+      await rentOrdersApi.common.confirmPayment(orderId);
+
+      navigate(routes.myOrders.navigate());
+    } catch (err) {
+      error = err?.response?.data?.message[lang] || i18n("networkError");
+    } finally {
+      setContext({
+        ...context,
+        loading: false,
+        error,
+        paymentRequested: false,
+      });
+    }
+  };
 
   const handleBackToHome = () => navigate(routes.home.navigate());
 
@@ -91,14 +123,20 @@ const PayOrder = () => {
         </PopupMessage>
       )}
 
+      {!!context.error && (
+        <PopupError
+          message={context.error}
+          onHide={() => setContext({ ...context, error: "" })}
+        />
+      )}
+
       <AddCar
-        levels={levels}
         pageTitles={[
           i18n("home"),
           i18n("arrow"),
           i18n("orders"),
           i18n("arrow"),
-          i18n("completeOrder"),
+          i18n("payOrder"),
         ]}
       >
         <Container>
@@ -121,11 +159,21 @@ const PayOrder = () => {
             onChange={handleKeyChange("paymentMethod")}
           />
 
-          <CustomButton
-            type="primary"
-            title="check out"
-            onClick={handleComplete}
-          />
+          {context.loading ? (
+            <Loader />
+          ) : context.paymentRequested ? (
+            <CustomButton
+              type="primary"
+              title={i18n("confirmPayment")}
+              onClick={handleConfirmPayment}
+            />
+          ) : (
+            <CustomButton
+              type="primary"
+              title={i18n("payOrder")}
+              onClick={handleRequestPayment}
+            />
+          )}
         </Container>
       </AddCar>
     </>
@@ -138,7 +186,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: -70px;
 
   button {
     width: 200px;
@@ -161,6 +208,7 @@ const ShippingAddress = styled.div`
   justify-content: center;
   gap: 20px;
   margin-bottom: 10px;
+  box-shadow: 0px 1px 3px 2px rgba(51, 51, 51, 0.2);
 `;
 
 const RecipientAddress = styled.h4`

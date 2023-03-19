@@ -146,7 +146,12 @@ const PostPurchaseCarForm = ({
     } catch (err) {
       error = err?.response?.data?.message[lang] || i18n("networkError");
     } finally {
-      setContext({ ...context, submitting: false, error });
+      setContext({
+        ...context,
+        submitting: false,
+        error,
+        paymentRequested: false,
+      });
     }
   };
 

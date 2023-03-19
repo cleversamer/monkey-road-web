@@ -9,6 +9,7 @@ import Details3 from "./details/Details3";
 import rentApi from "v2/api/car/rent";
 import useLocale from "v2/hooks/useLocale";
 import PopupConfirm from "v2/hoc/PopupConfirm";
+import PopupError from "v2/hoc/PopupError";
 import { routes } from "v2/client";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   fullName: "",
   phoneICC: "",
   phoneNSN: "",
+  error: "",
 };
 
 const RentCarDetails = () => {
@@ -51,9 +53,11 @@ const RentCarDetails = () => {
       };
 
       await rentApi.common.requestCarRental(carId, body);
-      setContext(initialState);
-      setPages({ ...pages, current: 1 });
-    } catch (err) {}
+      navigate(routes.myOrders.navigate());
+    } catch (err) {
+      const error = err?.response?.data?.message[lang] || i18n("networkError");
+      setContext({ ...context, error });
+    }
   };
 
   const calcNoOfDays = () => {
@@ -120,6 +124,13 @@ const RentCarDetails = () => {
           onHide={() => setPopupWindow({ handler: null, visible: false })}
           onConfirm={popupWindow.handler}
           loading={popupWindow.loading}
+        />
+      )}
+
+      {!!context.error && (
+        <PopupError
+          message={context.error}
+          onHide={() => setContext({ ...context, error: "" })}
         />
       )}
 
