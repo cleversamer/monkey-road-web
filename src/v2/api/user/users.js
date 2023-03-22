@@ -176,30 +176,41 @@ const sendNotificationToUsers = async (
   return await client.post("/users/admin/notification/send", data, config);
 };
 
+const deliverPaymentToOffice = async (officeId, amount) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  const data = { amount };
+  return await client.post(
+    `/users/admin/office/${officeId}/deliver-payment`,
+    data,
+    config
+  );
+};
+
 export default {
   common: {
     isAuth,
-    updateProfile,
+    resendVerificationCode,
+    verify,
     getForgotPasswordCode,
     resetPassword,
     changePassword,
-    verify,
-    resendVerificationCode,
-    getMyFavorites,
-    addToFavorites,
-    deleteFromFavorites,
-    seeNotifications,
+    updateProfile,
     switchLanguage,
+    seeNotifications,
+    // TODO: clear notifications
+    addToFavorites,
+    getMyFavorites,
+    deleteFromFavorites,
   },
-  office: {},
   admin: {
-    getCarsStatus,
-    exportUsersToExcel,
+    updateUserProfile,
+    updateUserRole,
     findUserByEmailOrPhone,
     findOfficeByEmailOrPhone,
-    updateUserProfile,
     verifyUser,
-    updateUserRole,
     sendNotificationToUsers,
+    getCarsStatus,
+    exportUsersToExcel,
+    deliverPaymentToOffice,
   },
 };

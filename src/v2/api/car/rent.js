@@ -95,13 +95,17 @@ const rejectRentCar = async (rentCarId, rejectionReason) => {
 export default {
   common: {
     getAllRentCars,
-    searchRentCars,
     getRentCarDetails,
+    // TODO: get similar rent cars
+    searchRentCars,
     requestCarRental,
   },
   office: {
-    postRentCar,
     getMyRentCars,
+    postRentCar,
+    // TODO: archive rent car
+    // TODO: restore rent car
+    // TODO: delete rent car
   },
   admin: {
     getNotAcceptedRentCars,

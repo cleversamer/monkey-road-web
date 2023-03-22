@@ -1254,5 +1254,17 @@
     "renterPhone": {
         "en": "Renter phone",
         "ar": "رقم هاتف المستأجر"
+    },
+    "deliverPayment": {
+        "en": "Deliver payment",
+        "ar": "تسليم دفعة"
+    },
+    "deliverPaymentTitle": {
+        "en": "Deliver payment to office",
+        "ar": "تسليم دفعة مالية"
+    },
+    "deliveryAmount": {
+        "en": "Delivery amount",
+        "ar": "مبلغ التسليم"
     }
 }

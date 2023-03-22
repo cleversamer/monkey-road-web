@@ -6,7 +6,14 @@ import useLocale from "v2/hooks/useLocale";
 import Loader from "v2/components/loader";
 import CustomInput from "v2/components/common/custom-input";
 
-const PopupInput = ({ onHide, onSave, title, loading }) => {
+const PopupInput = ({
+  onHide,
+  onSave,
+  title,
+  inputTitle,
+  inputPlaceholder,
+  loading,
+}) => {
   const { i18n } = useLocale();
   const [value, setValue] = useState("");
 
@@ -20,8 +27,8 @@ const PopupInput = ({ onHide, onSave, title, loading }) => {
 
         <CustomInput
           type="text"
-          title={i18n("postPrice")}
-          placeholder={i18n("postPrice")}
+          title={inputTitle || i18n("postPrice")}
+          placeholder={inputPlaceholder || i18n("postPrice")}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />

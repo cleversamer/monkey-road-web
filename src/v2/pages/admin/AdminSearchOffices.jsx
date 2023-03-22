@@ -12,6 +12,8 @@ import AdminSendAlert from "v2/components/admin/admin-send-alert";
 import AdminOfficeOrders from "v2/components/admin/admin-office-orders";
 import useAuth from "v2/auth/useAuth";
 import Loader from "v2/components/loader";
+import PopupError from "v2/hoc/PopupError";
+import PopupInput from "v2/hoc/PopupInput";
 
 const AdminSearchOffices = () => {
   const { socket } = useAuth();
@@ -19,6 +21,12 @@ const AdminSearchOffices = () => {
   const { i18n, lang } = useLocale();
   const { emailOrPhone } = useParams();
   const [office, setOffice] = useState({ data: null, loading: true });
+  const [showPopupError, setShowPopupError] = useState(false);
+  const [popupDeliverPayment, setPopupDeliverPayment] = useState({
+    visible: false,
+    handler: null,
+    loading: false,
+  });
   const [context, setContext] = useState({
     lang: lang,
     searchTerm: emailOrPhone,
@@ -151,46 +159,106 @@ const AdminSearchOffices = () => {
     } catch (err) {}
   };
 
+  const handleDeliverPayment = async () => {
+    try {
+      if (popupDeliverPayment.visible) return;
+
+      const handler = async (amount) => {
+        try {
+          setPopupDeliverPayment({ ...popupDeliverPayment, loading: true });
+
+          await usersApi.admin.deliverPaymentToOffice(office.data._id, amount);
+
+          const newOffice = { ...office.data };
+          newOffice.balance = newOffice.balance - parseFloat(amount);
+          setOffice({ loading: false, data: newOffice });
+        } catch (err) {
+          const error =
+            err?.response?.data?.message[lang] || i18n("networkError");
+          setContext({ ...context, error });
+          setShowPopupError(true);
+        } finally {
+          setPopupDeliverPayment({
+            visible: false,
+            handler: null,
+            loading: false,
+          });
+        }
+      };
+
+      setPopupDeliverPayment({ visible: true, handler });
+    } catch (err) {}
+  };
+
   return (
-    <Container lang={lang}>
-      <AdminSidebar activeItem="search offices" />
+    <>
+      {showPopupError && (
+        <PopupError
+          message={context.error}
+          onHide={() => setShowPopupError(false)}
+        />
+      )}
 
-      <Content>
-        <TopContainer lang={lang}>
-          <PageTitle>{i18n("searchOffices")}</PageTitle>
+      {popupDeliverPayment.visible && (
+        <PopupInput
+          loading={popupDeliverPayment.loading}
+          onSave={popupDeliverPayment.handler}
+          onHide={() =>
+            setPopupDeliverPayment({
+              visible: false,
+              handler: null,
+              loading: false,
+            })
+          }
+          title={i18n("deliverPayment")}
+          inputTitle={i18n("deliveryAmount")}
+          inputPlaceholder={i18n("deliveryAmount")}
+        />
+      )}
 
-          <SearchBox
-            searchTerm={context.searchTerm}
-            onSearchChange={handleKeyChange("searchTerm")}
-            placeholder={i18n("searchOfficePlaceholder")}
-            onSubmit={handleSearch}
-          />
-        </TopContainer>
+      <Container lang={lang}>
+        <AdminSidebar activeItem="search offices" />
 
-        {office.loading ? (
-          <Loader />
-        ) : (
-          <AdminOfficeSearchForm
-            context={context}
-            user={office.data}
-            onKeyChange={handleKeyChange}
-            onVerifyUser={handleVerifyUser}
-            onEditProfile={handleEditProfile}
-          />
-        )}
+        <Content>
+          <TopContainer lang={lang}>
+            <PageTitle>{i18n("searchOffices")}</PageTitle>
 
-        {office.data && <IncompleteTransactionForm userId={office.data._id} />}
+            <SearchBox
+              searchTerm={context.searchTerm}
+              onSearchChange={handleKeyChange("searchTerm")}
+              placeholder={i18n("searchOfficePlaceholder")}
+              onSubmit={handleSearch}
+            />
+          </TopContainer>
 
-        {office.data && <AdminOfficeOrders officeId={office.data._id} />}
+          {office.loading ? (
+            <Loader />
+          ) : (
+            <AdminOfficeSearchForm
+              context={context}
+              user={office.data}
+              onKeyChange={handleKeyChange}
+              onVerifyUser={handleVerifyUser}
+              onEditProfile={handleEditProfile}
+              onDeliverPayment={handleDeliverPayment}
+            />
+          )}
 
-        {office.data && (
-          <AdminSendAlert
-            title={i18n("sendAlertToOffice")}
-            onSendAlert={handleSendAlert}
-          />
-        )}
-      </Content>
-    </Container>
+          {office.data && (
+            <IncompleteTransactionForm userId={office.data._id} />
+          )}
+
+          {office.data && <AdminOfficeOrders officeId={office.data._id} />}
+
+          {office.data && (
+            <AdminSendAlert
+              title={i18n("sendAlertToOffice")}
+              onSendAlert={handleSendAlert}
+            />
+          )}
+        </Content>
+      </Container>
+    </>
   );
 };
 

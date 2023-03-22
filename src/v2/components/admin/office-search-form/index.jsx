@@ -11,6 +11,7 @@ const AdminOfficeSearchForm = ({
   onKeyChange,
   onVerifyUser,
   onEditProfile,
+  onDeliverPayment,
 }) => {
   const { i18n, lang } = useLocale();
   const { value: lastLogin } = useDateTimer(user?.lastLogin, [user]);
@@ -114,6 +115,13 @@ const AdminOfficeSearchForm = ({
           <Loader />
         ) : (
           <>
+            <CustomButton
+              type="primary"
+              title={i18n("deliverPayment")}
+              disabled={!user}
+              onClick={onDeliverPayment}
+            />
+
             <CustomButton
               type="primary"
               title={context.changes.length ? i18n("save") : i18n("edit")}

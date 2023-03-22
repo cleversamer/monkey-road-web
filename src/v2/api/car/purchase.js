@@ -98,15 +98,14 @@ const markPurchaseCarAsSold = async (purchaseCarId) => {
 
 export default {
   common: {
+    getPurchaseCarDetails,
     getRecentlyArrivedPurchaseCars,
     getLatestModelsPurchaseCars,
     getBestSellerPurchaseCars,
     searchPurchaseCars,
-    getPurchaseCarDetails,
+    getMyPurchaseCars,
     postPurchaseCar,
     payPurchaseCarPost,
-    getMyPurchaseCars,
     markPurchaseCarAsSold,
   },
-  admin: {},
 };
