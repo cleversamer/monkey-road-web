@@ -1282,5 +1282,9 @@
     "clearNotificationsHint": {
         "en": "Once you clear notifications you can't retrieve them",
         "ar": "بمجرد حذفك للإشعارات لا يمكنك استردادها"
+    },
+    "payCost": {
+        "en": "Pay fees",
+        "ar": "دفع الرسوم"
     }
 }

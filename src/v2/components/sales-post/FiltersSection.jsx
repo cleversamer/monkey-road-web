@@ -2,7 +2,7 @@ import styled from "styled-components";
 import useLocale from "v2/hooks/useLocale";
 
 const FiltersSection = ({ salesPosts, onSelectItem }) => {
-  const { i18n } = useLocale();
+  const { i18n, lang } = useLocale();
 
   const salesPostsCount = salesPosts.list.length;
   const soldCarsCount = salesPosts.list.filter((p) => p.sold && p.paid).length;
@@ -17,7 +17,7 @@ const FiltersSection = ({ salesPosts, onSelectItem }) => {
 
   return (
     <Container>
-      <StatusFilters>
+      <StatusFilters lang={lang}>
         <Item
           active={checkItemSelected("all")}
           onClick={() => onSelectItem("all")}
@@ -59,11 +59,14 @@ const Container = styled.div`
 `;
 
 const StatusFilters = styled.ul`
+  width: 100%;
   list-style: none;
   display: flex;
+  flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   min-width: max-content;
+  margin-bottom: 10px;
 `;
 
 const Item = styled.li`

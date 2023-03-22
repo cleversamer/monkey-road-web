@@ -1,16 +1,45 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "v2/components/car";
 import { routes } from "v2/client";
 import useLocale from "v2/hooks/useLocale";
+import purchaseApi from "v2/api/car/purchase";
+import Loader from "../loader";
 
-const SalesPost = ({ data, onMarkCarAsSold }) => {
+const SalesPost = ({ data, onMarkCarAsSold, onShowError }) => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
+  const [paymentRequested, setPaymentRequested] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigateToDetails = () =>
     navigate(routes.purchaseCarDetails.navigate(data._id));
+
+  const handlePayCost = () => {
+    setPaymentRequested(true);
+    window.open(data.invoiceURL, "payment", "width=500,height=500");
+  };
+
+  const handleConfirmPayment = () => {
+    if (loading) return;
+
+    setLoading(true);
+
+    purchaseApi.common
+      .payPurchaseCarPost(data._id)
+      .then(() => setPaymentRequested(true))
+      .catch((err) => {
+        const error =
+          err?.response?.data?.message[lang] || i18n("networkError");
+        onShowError(error);
+        setPaymentRequested(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <ReusableCar
@@ -23,24 +52,50 @@ const SalesPost = ({ data, onMarkCarAsSold }) => {
       year={data.year}
     >
       <>
-        <CTAContainer>
-          {!data.sold && (
-            <CustomButton
-              type="primary"
-              onClick={onMarkCarAsSold}
-              title={i18n("markAsSold")}
-            />
-          )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <CTAContainer>
+            {data.paid && !data.sold && (
+              <CustomButton
+                type="primary"
+                onClick={onMarkCarAsSold}
+                title={i18n("markAsSold")}
+              />
+            )}
 
-          <CustomButton
-            type="primary"
-            onClick={navigateToDetails}
-            title={i18n("viewDetails")}
-          />
-        </CTAContainer>
+            {data.paid && (
+              <CustomButton
+                type="primary"
+                onClick={navigateToDetails}
+                title={i18n("viewDetails")}
+              />
+            )}
 
-        <Badge sold={data.sold}>
-          {data.sold ? i18n("sold") : i18n("notSold")}
+            {!data.paid && !paymentRequested && (
+              <CustomButton
+                type="primary"
+                onClick={handlePayCost}
+                title={i18n("payCost")}
+              />
+            )}
+
+            {!data.paid && paymentRequested && (
+              <CustomButton
+                type="primary"
+                onClick={handleConfirmPayment}
+                title={i18n("confirmPayment")}
+              />
+            )}
+          </CTAContainer>
+        )}
+
+        <Badge sold={data.sold} paid={data.paid}>
+          {!data.paid
+            ? i18n("unpaid")
+            : data.sold
+            ? i18n("sold")
+            : i18n("notSold")}
         </Badge>
       </>
     </ReusableCar>
@@ -66,7 +121,8 @@ const Badge = styled.div`
   top: 5px;
   right: 5px;
   color: #fff;
-  background-color: ${({ sold }) => (sold ? "#1A8331" : "#FFA500")};
+  background-color: ${({ paid, sold }) =>
+    !paid ? "#f00" : sold ? "#1A8331" : "#FFA500"};
   padding: 3px 15px;
   border-radius: 6px;
   font-size: 14px;

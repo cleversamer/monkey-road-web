@@ -8,12 +8,14 @@ import useLocale from "v2/hooks/useLocale";
 import Pagination from "v2/components/pagination";
 import FiltersSection from "v2/components/sales-post/FiltersSection";
 import SalesPost from "v2/components/sales-post";
+import PopupError from "v2/hoc/PopupError";
 
 const pageSize = 9;
 
 const SalesPosts = () => {
   const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
+  const [popupError, setPopupError] = useState({ visible: false, mssg: "" });
   const [salesPosts, setSalesPosts] = useState({
     loading: true,
     list: [],
@@ -53,8 +55,8 @@ const SalesPosts = () => {
         : title === "unpaid"
         ? salesPosts.list.filter((i) => !i.paid)
         : title === "sold"
-        ? salesPosts.list.filter((i) => i.sold)
-        : salesPosts.list.filter((i) => !i.sold);
+        ? salesPosts.list.filter((i) => i.paid && i.sold)
+        : salesPosts.list.filter((i) => i.paid && !i.sold);
 
     setSalesPosts({ ...salesPosts, selectedStatus: title, view: viewList });
   };
@@ -89,61 +91,74 @@ const SalesPosts = () => {
 
   const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleShowError = (errorMssg) =>
+    setPopupError({ visible: true, mssg: errorMssg });
+
   return (
-    <Container>
-      <Location
-        pageTitles={[
-          i18n("home"),
-          i18n("arrow"),
-          i18n("profile"),
-          i18n("arrow"),
-          i18n("salesPosts"),
-        ]}
-      />
-
-      <Content lang={lang}>
-        <ProfileNavigation activeItem="sales posts" />
-
-        {!!salesPosts.list.length ? (
-          <PostsContainer>
-            <FiltersSection
-              salesPosts={salesPosts}
-              onSelectItem={handleFilterItems}
-            />
-
-            <PostsList>
-              {salesPosts.view.map((postCar) => (
-                <SalesPost
-                  key={postCar._id}
-                  data={postCar}
-                  onMarkCarAsSold={() => handleMarkCarAsSold(postCar._id)}
-                />
-              ))}
-            </PostsList>
-          </PostsContainer>
-        ) : salesPosts.loading ? (
-          <Loader />
-        ) : (
-          <EmptyPosts>
-            <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
-            <EmptyPostsTitle>{i18n("empty")}</EmptyPostsTitle>
-            <EmptyPostsSubtitle>{i18n("noPosts")}</EmptyPostsSubtitle>
-          </EmptyPosts>
-        )}
-      </Content>
-
-      {!!salesPosts.totalPages && (
-        <PaginationContainer>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={salesPosts.totalPages}
-            onNext={handleNextPage}
-            onPrev={handlePrevPage}
-            onSelectPage={handleSelectPage}
-          />
-        </PaginationContainer>
+    <>
+      {popupError.visible && (
+        <PopupError
+          message={popupError.mssg}
+          onHide={() => setPopupError({ mssg: "", visible: false })}
+        />
       )}
-    </Container>
+
+      <Container>
+        <Location
+          pageTitles={[
+            i18n("home"),
+            i18n("arrow"),
+            i18n("profile"),
+            i18n("arrow"),
+            i18n("salesPosts"),
+          ]}
+        />
+
+        <Content lang={lang}>
+          <ProfileNavigation activeItem="sales posts" />
+
+          {!!salesPosts.list.length ? (
+            <PostsContainer>
+              <FiltersSection
+                salesPosts={salesPosts}
+                onSelectItem={handleFilterItems}
+              />
+
+              <PostsList>
+                {salesPosts.view.map((postCar) => (
+                  <SalesPost
+                    key={postCar._id}
+                    data={postCar}
+                    onMarkCarAsSold={() => handleMarkCarAsSold(postCar._id)}
+                    onShowError={handleShowError}
+                  />
+                ))}
+              </PostsList>
+            </PostsContainer>
+          ) : salesPosts.loading ? (
+            <Loader />
+          ) : (
+            <EmptyPosts>
+              <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
+              <EmptyPostsTitle>{i18n("empty")}</EmptyPostsTitle>
+              <EmptyPostsSubtitle>{i18n("noPosts")}</EmptyPostsSubtitle>
+            </EmptyPosts>
+          )}
+        </Content>
+
+        {!!salesPosts.totalPages && (
+          <PaginationContainer>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={salesPosts.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          </PaginationContainer>
+        )}
+      </Container>
+    </>
   );
 };
 
