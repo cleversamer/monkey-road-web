@@ -1266,5 +1266,21 @@
     "deliveryAmount": {
         "en": "Delivery amount",
         "ar": "مبلغ التسليم"
+    },
+    "clearNotifications": {
+        "en": "Clear notifications",
+        "ar": "حذف الإشعارات"
+    },
+    "clearNotificationsTitle": {
+        "en": "Clear notifications",
+        "ar": "حذف الإشعارات"
+    },
+    "clearNotificationsSubtitle": {
+        "en": "Are you sure you want to clear all notifications?",
+        "ar": "هل أنت متأكد من حذف جميع الإشعارات؟"
+    },
+    "clearNotificationsHint": {
+        "en": "Once you clear notifications you can't retrieve them",
+        "ar": "بمجرد حذفك للإشعارات لا يمكنك استردادها"
     }
 }

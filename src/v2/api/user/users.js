@@ -92,6 +92,11 @@ const seeNotifications = async () => {
   return await client.get("/users/notifications/see", config, cacheMins);
 };
 
+const clearNotifications = async () => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.delete("/users/notifications/clear", config);
+};
+
 const switchLanguage = async () => {
   const config = { headers: { Authorization: authStorage.getToken() } };
   return await client.patch("/users/language/switch", {}, config);
@@ -197,7 +202,7 @@ export default {
     updateProfile,
     switchLanguage,
     seeNotifications,
-    // TODO: clear notifications
+    clearNotifications,
     addToFavorites,
     getMyFavorites,
     deleteFromFavorites,
