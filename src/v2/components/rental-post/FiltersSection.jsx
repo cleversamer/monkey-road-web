@@ -65,8 +65,9 @@ const StatusFilters = styled.ul`
   display: flex;
   flex-direction: ${({ lang }) => (lang === "en" ? "row" : "row-reverse")};
   align-items: center;
-  gap: 30px;
+  gap: 20px;
   min-width: max-content;
+  margin-bottom: 10px;
 `;
 
 const Item = styled.li`

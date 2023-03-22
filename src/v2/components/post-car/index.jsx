@@ -3,7 +3,7 @@ import CustomButton from "v2/components/common/custom-button";
 import ReusableCar from "../car";
 import useLocale from "v2/hooks/useLocale";
 
-const PostCar = ({ data, onDelete, onViewDetails }) => {
+const PostCar = ({ data, onDelete, onArchive, onRestore, onViewDetails }) => {
   const { i18n, lang } = useLocale();
 
   return (
@@ -16,17 +16,43 @@ const PostCar = ({ data, onDelete, onViewDetails }) => {
       year={data.year}
     >
       <CTAContainer>
-        {data.accepted && (
+        {!data.accepted && (
           <CustomButton
             type="primary"
-            onClick={onViewDetails}
-            title={i18n("viewDetails")}
+            onClick={onDelete}
+            title={i18n("deletePost")}
           />
         )}
+
+        {data.accepted && !data.archived && (
+          <CustomButton
+            type="primary"
+            onClick={onArchive}
+            title={i18n("archivePost")}
+          />
+        )}
+
+        {data.accepted && data.archived && (
+          <CustomButton
+            type="primary"
+            onClick={onRestore}
+            title={i18n("restorePost")}
+          />
+        )}
+
+        <CustomButton
+          type="primary"
+          onClick={onViewDetails}
+          title={i18n("viewDetails")}
+        />
       </CTAContainer>
 
-      <PostStatus accepted={data.accepted}>
-        {data.accepted ? "accepted" : "pending"}
+      <PostStatus accepted={data.accepted} archived={data.archived}>
+        {data.archived
+          ? i18n("archived")
+          : data.accepted
+          ? i18n("active")
+          : i18n("pending")}
       </PostStatus>
     </ReusableCar>
   );
@@ -50,10 +76,11 @@ const PostStatus = styled.div`
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: ${({ accepted }) => (accepted ? "#3E6F36" : "#f00")};
+  background-color: ${({ archived, accepted }) =>
+    archived ? "#f00" : accepted ? "#1A8331" : "#FFA500"};
   color: #fff;
   font-size: 13px;
-  padding: 3px;
+  padding: 3px 7px;
   font-weight: 600;
   border-radius: 6px;
   text-transform: capitalize;

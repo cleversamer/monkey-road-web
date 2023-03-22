@@ -67,6 +67,21 @@ const getMyRentCars = async (page = 1, limit = 9) => {
   );
 };
 
+const archiveRentCar = async (rentCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/cars/rent/${rentCarId}/archive`, {}, config);
+};
+
+const restoreRentCar = async (rentCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.patch(`/cars/rent/${rentCarId}/restore`, {}, config);
+};
+
+const deleteRentCar = async (rentCarId) => {
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.delete(`/cars/rent/${rentCarId}/delete`, config);
+};
+
 ////////////////////////////// Admin APIs //////////////////////////////
 const getNotAcceptedRentCars = async (page = 1, limit = 3) => {
   const cacheMins = 0;
@@ -103,9 +118,9 @@ export default {
   office: {
     getMyRentCars,
     postRentCar,
-    // TODO: archive rent car
-    // TODO: restore rent car
-    // TODO: delete rent car
+    archiveRentCar,
+    restoreRentCar,
+    deleteRentCar,
   },
   admin: {
     getNotAcceptedRentCars,

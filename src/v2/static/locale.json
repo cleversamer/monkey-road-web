@@ -899,6 +899,14 @@
         "en": "Delete post",
         "ar": "حذف المنشور"
     },
+    "archivePost": {
+        "en": "Archive post",
+        "ar": "أرشفة المنشور"
+    },
+    "restorePost": {
+        "en": "Restore post",
+        "ar": "استعادة المنشور"
+    },
     "location": {
         "en": "Location",
         "ar": "الموقع"
@@ -1286,5 +1294,41 @@
     "payCost": {
         "en": "Pay fees",
         "ar": "دفع الرسوم"
+    },
+    "deletePostTitle": {
+        "en": "Delete post",
+        "ar": "حذف المنشور"
+    },
+    "deletePostSubtitle": {
+        "en": "Are you sure want to delete post?",
+        "ar": "هل أنت متأكد من حذف المنشور؟"
+    },
+    "deletePostHint": {
+        "en": "Once you delete post you can't restore it",
+        "ar": "بمجرد حذف المنشور لا يمكنك استعادته"
+    },
+    "archivePostTitle": {
+        "en": "Archive post",
+        "ar": "أرشفة المنشور"
+    },
+    "archivePostSubtitle": {
+        "en": "Are you sure want to archive post?",
+        "ar": "هل أنت متأكد من أرشفة المنشور؟"
+    },
+    "archivePostHint": {
+        "en": "Once you archive post it will not be visible to public",
+        "ar": "بمجرد أرشفة المنشور لن يظهر للعامّة"
+    },
+    "restorePostTitle": {
+        "en": "Restore post",
+        "ar": "استعادة المنشور"
+    },
+    "restorePostSubtitle": {
+        "en": "Are you sure want to restore post?",
+        "ar": "هل أنت متأكد من استعادة المنشور؟"
+    },
+    "restorePostHint": {
+        "en": "Once you archive post it will be visible to public",
+        "ar": "بمجرد استعادة المنشور سيظهر مجددًا للعامّة"
     }
 }

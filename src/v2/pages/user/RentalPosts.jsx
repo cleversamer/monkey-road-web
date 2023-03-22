@@ -10,6 +10,8 @@ import Loader from "v2/components/loader";
 import useLocale from "v2/hooks/useLocale";
 import Pagination from "v2/components/pagination";
 import FiltersSection from "v2/components/rental-post/FiltersSection";
+import PopupConfirm from "v2/hoc/PopupConfirm";
+import PopupError from "v2/hoc/PopupError";
 
 const pageSize = 9;
 
@@ -17,6 +19,14 @@ const RentalPosts = () => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
+  const [popupError, setPopupError] = useState({ visible: false, message: "" });
+  const [popupConfirm, setPopupConfirm] = useState({
+    handler: null,
+    visible: false,
+    title: "",
+    subtitle: "",
+    hint: "",
+  });
   const [rentalPosts, setRentalPosts] = useState({
     loading: true,
     list: [],
@@ -56,11 +66,11 @@ const RentalPosts = () => {
     const viewList =
       title === "all"
         ? [...rentalPosts.list]
+        : title === "archived"
+        ? rentalPosts.list.filter((i) => i.archived)
         : title === "active"
-        ? rentalPosts.list.filter((i) => i.accepted)
-        : title === "pending"
-        ? rentalPosts.list.filter((i) => !i.accepted)
-        : rentalPosts.list.filter((i) => i.archived);
+        ? rentalPosts.list.filter((i) => i.accepted && !i.archived)
+        : rentalPosts.list.filter((i) => !i.accepted && !i.archived);
 
     setRentalPosts({ ...rentalPosts, selectedStatus: title, view: viewList });
   };
@@ -77,61 +87,241 @@ const RentalPosts = () => {
 
   const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleDeletePost = (rentCarId) => {
+    if (popupConfirm.visible) return;
+
+    const handler = async () => {
+      try {
+        setRentalPosts({ ...rentalPosts, loading: true });
+
+        await rentApi.office.deleteRentCar(rentCarId);
+
+        const newRentalPosts = rentalPosts.list.filter(
+          (post) => post._id !== rentCarId
+        );
+        setRentalPosts({
+          ...rentalPosts,
+          list: newRentalPosts,
+          view: newRentalPosts,
+          selectedStatus: "all",
+          loading: false,
+        });
+      } catch (err) {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+
+        const error =
+          err?.response?.data?.message[lang] || i18n("networkError");
+
+        setPopupError({ visible: true, message: error });
+      } finally {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+      }
+    };
+
+    setPopupConfirm({
+      handler,
+      visible: true,
+      title: i18n("deletePostTitle"),
+      subtitle: i18n("deletePostSubtitle"),
+      hint: i18n("deletePostHint"),
+    });
+  };
+
+  const handleArchivePost = (rentCarId) => {
+    if (popupConfirm.visible) return;
+
+    const handler = async () => {
+      try {
+        setRentalPosts({ ...rentalPosts, loading: true });
+
+        await rentApi.office.archiveRentCar(rentCarId);
+
+        const index = rentalPosts.list.findIndex((p) => p._id === rentCarId);
+        const newRentalPosts = [...rentalPosts.list];
+        newRentalPosts[index].archived = true;
+
+        setRentalPosts({
+          ...rentalPosts,
+          list: newRentalPosts,
+          view: newRentalPosts,
+          selectedStatus: "all",
+          loading: false,
+        });
+      } catch (err) {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+
+        const error =
+          err?.response?.data?.message[lang] || i18n("networkError");
+
+        setPopupError({ visible: true, message: error });
+      } finally {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+      }
+    };
+
+    setPopupConfirm({
+      handler,
+      visible: true,
+      title: i18n("archivePostTitle"),
+      subtitle: i18n("archivePostSubtitle"),
+      hint: i18n("archivePostHint"),
+    });
+  };
+
+  const handleRestorePost = (rentCarId) => {
+    if (popupConfirm.visible) return;
+
+    const handler = async () => {
+      try {
+        setRentalPosts({ ...rentalPosts, loading: true });
+
+        await rentApi.office.restoreRentCar(rentCarId);
+
+        const index = rentalPosts.list.findIndex((p) => p._id === rentCarId);
+        const newRentalPosts = [...rentalPosts.list];
+        newRentalPosts[index].archived = false;
+
+        setRentalPosts({
+          ...rentalPosts,
+          list: newRentalPosts,
+          view: newRentalPosts,
+          selectedStatus: "all",
+          loading: false,
+        });
+      } catch (err) {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+
+        const error =
+          err?.response?.data?.message[lang] || i18n("networkError");
+
+        setPopupError({ visible: true, message: error });
+      } finally {
+        setPopupConfirm({
+          handler: null,
+          visible: false,
+          title: "",
+          subtitle: "",
+          hint: "",
+        });
+      }
+    };
+
+    setPopupConfirm({
+      handler,
+      visible: true,
+      title: i18n("restorePostTitle"),
+      subtitle: i18n("restorePostSubtitle"),
+      hint: i18n("restorePostHint"),
+    });
+  };
+
   return (
-    <Container>
-      <Location
-        pageTitles={[
-          i18n("home"),
-          i18n("arrow"),
-          i18n("profile"),
-          i18n("arrow"),
-          i18n("rentalPosts"),
-        ]}
-      />
-
-      <Content lang={lang}>
-        <ProfileNavigation activeItem="rental posts" />
-
-        {!!rentalPosts.list.length ? (
-          <PostsContainer>
-            <FiltersSection
-              rentalPosts={rentalPosts}
-              onSelectItem={handleFilterItems}
-            />
-
-            <PostsList>
-              {rentalPosts.list.map((postCar) => (
-                <PostCar
-                  key={postCar._id}
-                  data={postCar}
-                  onViewDetails={() => handleViewDetails(postCar._id)}
-                />
-              ))}
-            </PostsList>
-          </PostsContainer>
-        ) : rentalPosts.loading ? (
-          <Loader />
-        ) : (
-          <EmptyPosts>
-            <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
-            <EmptyPostsTitle>{i18n("empty")}</EmptyPostsTitle>
-            <EmptyPostsSubtitle>{i18n("noPosts")}</EmptyPostsSubtitle>
-          </EmptyPosts>
-        )}
-      </Content>
-
-      {!!rentalPosts.totalPages && (
-        <PaginationContainer>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={rentalPosts.totalPages}
-            onNext={handleNextPage}
-            onPrev={handlePrevPage}
-            onSelectPage={handleSelectPage}
-          />
-        </PaginationContainer>
+    <>
+      {popupConfirm.visible && (
+        <PopupConfirm
+          title={popupConfirm.title}
+          subtitle={popupConfirm.subtitle}
+          hint={popupConfirm.hint}
+          onConfirm={popupConfirm.handler}
+          onHide={() => setPopupConfirm({ ...popupConfirm, visible: false })}
+        />
       )}
-    </Container>
+
+      {popupError.visible && (
+        <PopupError
+          message={popupError.message}
+          onHide={() => setPopupError({ visible: false, message: "" })}
+        />
+      )}
+
+      <Container>
+        <Location
+          pageTitles={[
+            i18n("home"),
+            i18n("arrow"),
+            i18n("profile"),
+            i18n("arrow"),
+            i18n("rentalPosts"),
+          ]}
+        />
+
+        <Content lang={lang}>
+          <ProfileNavigation activeItem="rental posts" />
+
+          {!!rentalPosts.list.length ? (
+            <PostsContainer>
+              <FiltersSection
+                rentalPosts={rentalPosts}
+                onSelectItem={handleFilterItems}
+              />
+
+              <PostsList>
+                {rentalPosts.view.map((postCar) => (
+                  <PostCar
+                    key={postCar._id}
+                    data={postCar}
+                    onViewDetails={() => handleViewDetails(postCar._id)}
+                    onDelete={() => handleDeletePost(postCar._id)}
+                    onArchive={() => handleArchivePost(postCar._id)}
+                    onRestore={() => handleRestorePost(postCar._id)}
+                  />
+                ))}
+              </PostsList>
+            </PostsContainer>
+          ) : rentalPosts.loading ? (
+            <Loader />
+          ) : (
+            <EmptyPosts>
+              <EmptyPostsImage src="/assets/images/empty-3.svg" alt="" />
+              <EmptyPostsTitle>{i18n("empty")}</EmptyPostsTitle>
+              <EmptyPostsSubtitle>{i18n("noPosts")}</EmptyPostsSubtitle>
+            </EmptyPosts>
+          )}
+        </Content>
+
+        {!!rentalPosts.totalPages && (
+          <PaginationContainer>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={rentalPosts.totalPages}
+              onNext={handleNextPage}
+              onPrev={handlePrevPage}
+              onSelectPage={handleSelectPage}
+            />
+          </PaginationContainer>
+        )}
+      </Container>
+    </>
   );
 };
 
