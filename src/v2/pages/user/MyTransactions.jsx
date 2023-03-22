@@ -13,6 +13,7 @@ const pageSize = 10;
 const MyTransactions = () => {
   const { i18n, lang } = useLocale();
   const [currentPage, setCurrentPage] = useState(1);
+  const [excelFile, setExcelFile] = useState({ loading: false, url: "" });
   const [transactions, setTransactions] = useState({
     list: [],
     loading: true,
@@ -43,8 +44,22 @@ const MyTransactions = () => {
 
   const handleSelectPage = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleExportToExcel = () => {
+    setExcelFile({ url: "", loading: true });
+
+    transactionsApi.common
+      .exportMyTransactionsToExcel()
+      .then((res) => {
+        const url = res.data.path;
+        setExcelFile({ loading: false, url });
+      })
+      .catch(() => setExcelFile({ loading: false, url: "" }));
+  };
+
   return (
     <Container>
+      {!!excelFile.url && <IFrameDownload src={excelFile.url} />}
+
       <Location
         pageTitles={[i18n("home"), i18n("arrow"), i18n("transactions")]}
       />
@@ -56,9 +71,19 @@ const MyTransactions = () => {
           <Loader />
         ) : transactions.list.length ? (
           <TransactionsContainer lang={lang}>
-            {transactions.list.map((transaction, index) => (
-              <Transaction key={index} transaction={transaction} />
-            ))}
+            {excelFile.loading ? (
+              <Loader />
+            ) : (
+              <ExportToExcel lang={lang} onClick={handleExportToExcel}>
+                {i18n("exportToExcel")}
+              </ExportToExcel>
+            )}
+
+            <TransactionsList lang={lang}>
+              {transactions.list.map((transaction, index) => (
+                <Transaction key={index} transaction={transaction} />
+              ))}
+            </TransactionsList>
           </TransactionsContainer>
         ) : (
           <EmptyAlerts>
@@ -132,6 +157,31 @@ const EmptyAlertsSubtitle = styled.h5`
 
 const TransactionsContainer = styled.div`
   width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
+  text-align: ${({ lang }) => (lang === "en" ? "left" : "right")};
+`;
+
+const ExportToExcel = styled.div`
+  position: absolute;
+  top: -55px;
+  ${({ lang }) => (lang === "en" ? "left: 0;" : "right: 0;")}
+  background-color: #fe7777;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-transform: capitalize;
+  transition-duration: 176ms;
+  cursor: pointer;
+  width: fit-content;
+`;
+
+const TransactionsList = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: ${({ lang }) => (lang === "en" ? "flex-start" : "flex-end")};
@@ -141,6 +191,11 @@ const TransactionsContainer = styled.div`
 const PaginationContainer = styled.div`
   width: fit-content;
   margin: 0 auto;
+`;
+
+const IFrameDownload = styled.iframe`
+  display: none;
+  opacity: none;
 `;
 
 export default MyTransactions;

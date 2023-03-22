@@ -13,6 +13,12 @@ const getMyTransactions = async (page = 1, limit = 10) => {
   );
 };
 
+const exportMyTransactionsToExcel = async () => {
+  const cacheMins = 0;
+  const config = { headers: { Authorization: authStorage.getToken() } };
+  return await client.get("/transactions/my/export", config, cacheMins);
+};
+
 ////////////////////////////// Admin APIs //////////////////////////////
 const getUserTransactions = async (userId, page = 1, limit = 10) => {
   const cacheMins = 0;
@@ -33,7 +39,7 @@ const exportUserTransactionsToExcel = async (userId) => {
 export default {
   common: {
     getMyTransactions,
-    // TODO: export my transactions
+    exportMyTransactionsToExcel,
   },
   admin: {
     getUserTransactions,
