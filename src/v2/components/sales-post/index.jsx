@@ -8,7 +8,7 @@ import useLocale from "v2/hooks/useLocale";
 import purchaseApi from "v2/api/car/purchase";
 import Loader from "../loader";
 
-const SalesPost = ({ data, onMarkCarAsSold, onShowError }) => {
+const SalesPost = ({ data, onMarkCarAsSold, onShowError, onMarkAsPaid }) => {
   const { i18n, lang } = useLocale();
   const navigate = useNavigate();
   const [paymentRequested, setPaymentRequested] = useState(false);
@@ -29,7 +29,9 @@ const SalesPost = ({ data, onMarkCarAsSold, onShowError }) => {
 
     purchaseApi.common
       .payPurchaseCarPost(data._id)
-      .then(() => setPaymentRequested(true))
+      .then(() => {
+        onMarkAsPaid();
+      })
       .catch((err) => {
         const error =
           err?.response?.data?.message[lang] || i18n("networkError");

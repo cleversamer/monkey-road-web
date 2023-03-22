@@ -94,6 +94,19 @@ const SalesPosts = () => {
   const handleShowError = (errorMssg) =>
     setPopupError({ visible: true, mssg: errorMssg });
 
+  const handleMarkPostAsPaid = (postId) => {
+    const index = salesPosts.list.findIndex((p) => p._id === postId);
+    const newSalesPosts = [...salesPosts.list];
+    newSalesPosts[index].paid = true;
+    setSalesPosts({
+      ...salesPosts,
+      list: newSalesPosts,
+      view: newSalesPosts,
+      loading: false,
+      selectedStatus: "all",
+    });
+  };
+
   return (
     <>
       {popupError.visible && (
@@ -131,6 +144,7 @@ const SalesPosts = () => {
                     data={postCar}
                     onMarkCarAsSold={() => handleMarkCarAsSold(postCar._id)}
                     onShowError={handleShowError}
+                    onMarkAsPaid={() => handleMarkPostAsPaid(postCar._id)}
                   />
                 ))}
               </PostsList>
