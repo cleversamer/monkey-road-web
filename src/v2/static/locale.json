@@ -1330,5 +1330,13 @@
     "restorePostHint": {
         "en": "Once you archive post it will be visible to public",
         "ar": "بمجرد استعادة المنشور سيظهر مجددًا للعامّة"
+    },
+    "viewMyCars": {
+        "en": "View my cars",
+        "ar": "عرض سيّاراتي"
+    },
+    "viewMyOrders": {
+        "en": "View my orders",
+        "ar": "عرض طلباتي"
     }
 }

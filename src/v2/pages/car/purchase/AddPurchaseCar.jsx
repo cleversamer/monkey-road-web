@@ -55,7 +55,7 @@ const AddPurchaseCar = () => {
     return index + 1;
   };
 
-  const handleBackToHome = () => navigate(routes.home.navigate());
+  const handleViewMyCars = () => navigate(routes.salesPosts.navigate());
 
   const handleViewPopup = () => setShowPopup(true);
 
@@ -70,8 +70,8 @@ const AddPurchaseCar = () => {
         >
           <CustomButton
             type="primary"
-            title={i18n("backToHome")}
-            onClick={handleBackToHome}
+            title={i18n("viewMyCars")}
+            onClick={handleViewMyCars}
           />
         </PopupMessage>
       )}

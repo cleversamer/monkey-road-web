@@ -56,7 +56,7 @@ const AddRentCar = () => {
 
   const handleViewPopup = () => setShowPopup(true);
 
-  const handleBackToHome = () => navigate(routes.home.navigate());
+  const handleViewMyCars = () => navigate(routes.rentalPosts.navigate());
 
   return (
     <>
@@ -69,8 +69,8 @@ const AddRentCar = () => {
         >
           <CustomButton
             type="primary"
-            title={i18n("backToHome")}
-            onClick={handleBackToHome}
+            title={i18n("viewMyCars")}
+            onClick={handleViewMyCars}
           />
         </PopupMessage>
       )}

@@ -96,7 +96,7 @@ const PayOrder = () => {
     }
   };
 
-  const handleBackToHome = () => navigate(routes.home.navigate());
+  const handleViewMyOrders = () => navigate(routes.myOrders.navigate());
 
   if (!context.order && context.loading) {
     return <Loader />;
@@ -117,8 +117,8 @@ const PayOrder = () => {
         >
           <CustomButton
             type="primary"
-            title={i18n("BackToHome")}
-            onClick={handleBackToHome}
+            title={i18n("viewMyOrders")}
+            onClick={handleViewMyOrders}
           />
         </PopupMessage>
       )}
