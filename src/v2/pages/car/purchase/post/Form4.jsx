@@ -3,8 +3,8 @@ import PaymentMethods from "v2/components/common/payment-form/PaymentMethods";
 import useLocale from "v2/hooks/useLocale";
 import Invoice from "v2/components/common/payment-form/Invoice";
 
-const paypal = { fixedFee: 0.49, percentageFee: 0.0349 };
-const visa = { fixedFee: 0.29, percentageFee: 0.0229 };
+const paypal = { fixedFee: 0.0, percentageFee: 0.025 };
+const visa = { fixedFee: 0.0, percentageFee: 0.025 };
 
 const Form4 = ({ context, onKeyChange }) => {
   const { i18n } = useLocale();
