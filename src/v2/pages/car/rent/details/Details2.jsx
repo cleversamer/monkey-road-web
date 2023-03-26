@@ -12,7 +12,7 @@ const Details2 = ({ car, onPrev, onNext, context, onKeyChange }) => {
     const pricePerDay =
       noOfDays < 7 ? daily : noOfDays < 30 ? weekly / 7 : monthly / 30;
 
-    return Math.ceil(noOfDays * pricePerDay + deposit);
+    return Math.ceil((noOfDays * pricePerDay + deposit) * 1.025);
   };
 
   const calcNoOfDays = () => {
