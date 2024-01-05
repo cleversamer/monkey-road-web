@@ -2,7 +2,7 @@ repo_name: cleversamerr/monkey-road-web
 report_id: 64d8101609d54a4ef29fec7173724ea3
 version: 0.1
 repo_type: Public
-timestamp: '2023-12-24T12:42:25+00:00'
+timestamp: '2024-01-05T08:16:09+00:00'
 requested_by: cleversamerr
 provider: github
 branch: main
@@ -16,6 +16,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/6727/css.png
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web
   detection_source: Repo Metadata
 - name: JavaScript
   description: Lightweight, interpreted, object-oriented language with first-class
@@ -26,6 +27,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web
   detection_source: Repo Metadata
 - name: React
   description: A JavaScript library for building user interfaces
@@ -78,6 +80,7 @@ tools:
   category: Application Hosting
   sub_category: Realtime Backend / API
   image_url: https://img.stackshare.io/service/116/cZLxNFZS.jpg
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web/blob/main/package.json
   detection_source: package.json
   last_updated_by: cleversamerr
   last_updated_on: 2023-02-11 12:28:33.000000000 Z
@@ -89,6 +92,7 @@ tools:
   category: Application Hosting
   sub_category: Realtime Backend / API
   image_url: https://img.stackshare.io/service/1161/vI0ZZlhZ_400x400.png
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web/blob/main/package.json
   detection_source: package.json
   last_updated_by: cleversamerr
   last_updated_on: 2023-02-09 15:42:33.000000000 Z
@@ -100,6 +104,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web
   detection_source: Repo Metadata
 - name: npm
   description: The package manager for JavaScript.
@@ -109,6 +114,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/cleversamerr/monkey-road-web/blob/main/package.json
   detection_source: package.json
   last_updated_by: cleversamerr
   last_updated_on: 2022-12-30 16:51:53.000000000 Z
